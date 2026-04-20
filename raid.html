@@ -109,6 +109,9 @@ h1{font-size:20px;color:#aaa;margin-bottom:16px}
 .boss-btn{padding:8px 20px;border-radius:8px;border:1px solid #444;background:#2a2a3e;color:#aaa;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.15s}
 .boss-btn:hover{border-color:#555;color:#eee}
 .boss-btn.active{background:#4a90d9;color:#fff;border-color:#4a90d9}
+#boss-select-section{max-width:480px;position:relative;overflow:hidden;transition:background-image 0.3s}
+#boss-select-bg{position:absolute;right:0;top:0;width:50%;height:100%;background-size:contain;background-repeat:no-repeat;background-position:right center;opacity:0.25;pointer-events:none;transition:background-image 0.3s}
+#boss-select-content{position:relative;z-index:1}
 
 
 #section-daily{display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:16px}
@@ -146,11 +149,14 @@ h1{font-size:20px;color:#aaa;margin-bottom:16px}
 <h1>아르하 입구</h1>
 
 <!-- 보스 선택 -->
-<div class="section">
-  <div class="section-title">보스 선택</div>
-  <div style="display:flex;gap:8px">
-    <button class="boss-btn active" id="boss-btn-dimension" onclick="selectBoss('dimension')">디멘션</button>
-    <button class="boss-btn" id="boss-btn-deathlock" onclick="selectBoss('deathlock')">데스락</button>
+<div class="section" id="boss-select-section">
+  <div id="boss-select-bg" style="background-image:url('https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/boss/6.png')"></div>
+  <div id="boss-select-content">
+    <div class="section-title">보스 선택</div>
+    <div style="display:flex;gap:8px">
+      <button class="boss-btn active" id="boss-btn-dimension" onclick="selectBoss('dimension')">디멘션</button>
+      <button class="boss-btn" id="boss-btn-deathlock" onclick="selectBoss('deathlock')">데스락</button>
+    </div>
   </div>
 </div>
 
@@ -1135,6 +1141,8 @@ function selectBoss(boss) {
   document.getElementById('boss-btn-' + boss).classList.add('active');
   document.querySelectorAll('.boss-dimension').forEach(el => el.style.display = boss==='dimension' ? '' : 'none');
   document.querySelectorAll('.boss-deathlock').forEach(el => el.style.display = boss==='deathlock' ? '' : 'none');
+  const imgMap = {dimension:'https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/boss/6.png', deathlock:'https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/boss/7.png'};
+  document.getElementById('boss-select-bg').style.backgroundImage = `url('${imgMap[boss]}')`;
 }
 
 // 패턴 정의 (레거시)
