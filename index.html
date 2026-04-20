@@ -8,6 +8,14 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Malgun Gothic',sans-serif;background:#1a1a2e;color:#eee;min-height:100vh;padding:24px}
 
+
+.contact-bar{display:flex;gap:12px;justify-content:center;margin-bottom:32px}
+.contact-btn{display:flex;align-items:center;gap:8px;padding:8px 16px;border-radius:20px;border:1px solid #333;background:#1e1e30;text-decoration:none;color:#aaa;font-size:12px;transition:all 0.15s}
+.contact-btn:hover{border-color:#5dcff5;color:#eee;background:#252540}
+.contact-icon{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
+.contact-kakao .contact-icon{background:#FEE500;color:#3C1E1E}
+.contact-discord .contact-icon{background:#5865F2;color:#fff}
+
 /* 공통 카드 */
 .card{background:#1e1e30;border:1px solid #333;border-radius:12px;padding:24px;cursor:pointer;text-decoration:none;display:block;transition:border-color 0.15s,background 0.15s;position:relative}
 .card:hover{border-color:#5dcff5;background:#252540}
@@ -56,6 +64,14 @@ body{font-family:'Malgun Gothic',sans-serif;background:#1a1a2e;color:#eee;min-he
 <div class="mobile-layout">
   <h1>초등표 made by 닉스</h1>
   <p class="subtitle">원하는 메뉴를 선택하세요</p>
+  <div class="contact-bar">
+    <a href="https://open.kakao.com/o/sgNwijri" target="_blank" class="contact-btn contact-kakao">
+      <span class="contact-icon">K</span>카카오톡
+    </a>
+    <a href="https://discord.com/users/629966669875511296" target="_blank" class="contact-btn contact-discord">
+      <span class="contact-icon">D</span>디스코드
+    </a>
+  </div>
   <div class="mobile-grid">
     <a href="./tier.html" class="card">
       <span class="card-badge">정보</span>
@@ -90,6 +106,14 @@ body{font-family:'Malgun Gothic',sans-serif;background:#1a1a2e;color:#eee;min-he
   <div class="pc-header">
     <h1>초등표 made by 닉스</h1>
     <p class="subtitle">원하는 메뉴를 선택하세요</p>
+    <div class="contact-bar" style="margin-top:16px;margin-bottom:0">
+      <a href="https://open.kakao.com/o/sgNwijri" target="_blank" class="contact-btn contact-kakao">
+        <span class="contact-icon">K</span>카카오톡
+      </a>
+      <a href="https://discord.com/users/629966669875511296" target="_blank" class="contact-btn contact-discord">
+        <span class="contact-icon">D</span>디스코드
+      </a>
+    </div>
   </div>
   <div class="pc-body">
     <!-- 왼쪽 탭 -->
