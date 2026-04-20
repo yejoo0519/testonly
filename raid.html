@@ -139,7 +139,6 @@ h1{font-size:20px;color:#aaa;margin-bottom:16px}
   <a href="./dex.html" class="tab-btn">드래곤 도감</a>
   <a href="./sss.html" class="tab-btn">SSS 랭킹</a>
   <a href="./raid.html" class="tab-btn">아르하 입구</a>
-  <a href="./raid_info.html" class="tab-btn">레이드 정보</a>
 </div>
 
 <div style="display:flex;gap:0;border-bottom:1px solid #333;margin-bottom:16px">
@@ -1199,13 +1198,16 @@ function handleBulkInput(e, playerIdx) {
   if(!val) return;
   if(val.includes(',')) {
     const names = val.split(',').map(n=>n.trim()).filter(n=>n);
-    names.forEach(name => {
-      const d = transcendDragons.find(x => x.n === name);
-      if(d) addDragon(playerIdx, name);
+    names.forEach(query => {
+      const d = transcendDragons.find(x => x.n === query) || transcendDragons.find(x => x.n.includes(query));
+      if(d) addDragon(playerIdx, d.n);
     });
-    document.getElementById('search-'+playerIdx).value = '';
-    hideAC(playerIdx);
+  } else {
+    const d = transcendDragons.find(x => x.n === val) || transcendDragons.find(x => x.n.includes(val));
+    if(d) addDragon(playerIdx, d.n);
   }
+  document.getElementById('search-'+playerIdx).value = '';
+  hideAC(playerIdx);
 }
 
 function showAC(playerIdx, query) {
@@ -1245,18 +1247,14 @@ function renderList(playerIdx) {
   const el = document.getElementById('list-'+playerIdx);
   const list = playerDragons[playerIdx];
   if(!list.length) { el.innerHTML = '<div style="font-size:11px;color:#555;padding:4px">드래곤을 추가하세요</div>'; return; }
-  el.innerHTML = list.map(d => {
-    const stage = d.ad ? '<span class="dragon-tag-stage stage-ad">강림</span>'
-                 : d.tr ? '<span class="dragon-tag-stage stage-tr">초월</span>'
-                 : '<span class="dragon-tag-stage stage-none">성체</span>';
+  el.innerHTML = list.map((d,idx) => {
     return `<div class="dragon-tag">
       <div class="dragon-tag-info">
         <span class="dragon-tag-elem e-${d.e}">${d.e}</span>
         <span class="dragon-tag-name">${d.n}</span>
         <span class="dragon-tag-type">${d.t}</span>
-        ${stage}
       </div>
-      <button class="dragon-tag-remove" onclick="removeDragon(${playerIdx},'${d.n.replace(/'/g,"\'")}')">×</button>
+      <button class="dragon-tag-remove" onclick="playerDragons[${playerIdx}].splice(${idx},1);renderList(${playerIdx})">×</button>
     </div>`;
   }).join('');
 }
