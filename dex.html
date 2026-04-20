@@ -125,6 +125,22 @@ h1{font-size:24px;margin-bottom:12px;color:#aaa}
 
 /* 테이블 */
 .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+/* 모바일 두줄 레이아웃 */
+.td-pc{display:table-cell}
+.td-mobile{display:none}
+@media(max-width:600px){
+  .tbl-wrap table{min-width:0!important}
+  .tbl-wrap thead{display:none}
+  .tbl-wrap tbody tr{display:block;padding:8px;border-bottom:1px solid #2a2a3e}
+  .td-pc{display:none!important}
+  .td-mobile{display:flex!important}
+  .row1{align-items:center;gap:8px;margin-bottom:6px}
+  .row2{gap:0;justify-content:space-around;background:#252538;border-radius:6px;padding:5px 0}
+  .row2-cell{text-align:center;flex:1}
+  .row2-cell .r2-label{font-size:10px;color:#888;display:block}
+  .row2-cell .r2-val{font-size:11px;display:block}
+}
+
 .tbl-wrap table{width:100%;border-collapse:collapse;font-size:12px;background:transparent;min-width:520px}
 .tbl-wrap thead tr{background:#252538}
 .tbl-wrap th{padding:7px 8px;text-align:center;font-weight:500;color:#aaa;border-bottom:1px solid #333;white-space:nowrap;font-size:11px}
@@ -1053,17 +1069,32 @@ function render(){
     const iconCell=dexIconUrl?`<img src="${dexIconUrl}" class="dex-elem-icon" alt="${d.e}">`:`<div class="dex-elem-icon-placeholder"></div>`;
 
     tr.innerHTML=`
-      <td style="color:#666;font-size:11px">${i+1}</td>
-      <td class="center">${imgCell}</td>
-      <td class="left" style="font-size:12px;font-weight:500">${d.n}</td>
-      <td>${iconCell}</td>
-      <td><span class="badge-type">${d.t_kr}</span></td>
-      <td class="${d.aw?"chk-y":"chk-n"}">${d.aw?"√":"X"}</td>
-      <td class="${d.ad?"chk-y":"chk-n"}">${d.ad?"√":"X"}</td>
-      <td class="${d.tr?"chk-y":"chk-n"}">${d.tr?"√":"X"}</td>
-      <td class="${d.lv?"chk-y":"chk-n"}">${d.lv?"√":"X"}</td>
-      <td class="${cdCls}">${d.cd}</td>
-      <td><button class="detail-btn" onclick="openModal('${d.n.replace(/'/g,"\\'")}')">상세</button></td>`;
+      <td class="td-mobile row1">
+        <span style="color:#666;font-size:11px;min-width:20px;text-align:center">${i+1}</span>
+        ${iconCell}
+        <div class="img-placeholder" style="flex-shrink:0"></div>
+        <span style="font-size:12px;font-weight:500;flex:1">${d.n}</span>
+        <span class="badge-type">${d.t_kr}</span>
+      </td>
+      <td class="td-mobile row2">
+        <div class="row2-cell"><span class="r2-label">각성</span><span class="r2-val ${d.aw?"chk-y":"chk-n"}">${d.aw?"√":"X"}</span></div>
+        <div class="row2-cell"><span class="r2-label">강림</span><span class="r2-val ${d.ad?"chk-y":"chk-n"}">${d.ad?"√":"X"}</span></div>
+        <div class="row2-cell"><span class="r2-label">초월</span><span class="r2-val ${d.tr?"chk-y":"chk-n"}">${d.tr?"√":"X"}</span></div>
+        <div class="row2-cell"><span class="r2-label">레벨업</span><span class="r2-val ${d.lv?"chk-y":"chk-n"}">${d.lv?"√":"X"}</span></div>
+        <div class="row2-cell"><span class="r2-label">코드화</span><span class="r2-val ${cdCls}">${d.cd}</span></div>
+        <div class="row2-cell"><button class="detail-btn" onclick="openModal('${d.n.replace(/'/g,"\\'")}')">상세</button></div>
+      </td>
+      <td class="td-pc" style="color:#666;font-size:11px">${i+1}</td>
+      <td class="td-pc center">${imgCell}</td>
+      <td class="td-pc left" style="font-size:12px;font-weight:500">${d.n}</td>
+      <td class="td-pc">${iconCell}</td>
+      <td class="td-pc"><span class="badge-type">${d.t_kr}</span></td>
+      <td class="td-pc ${d.aw?"chk-y":"chk-n"}">${d.aw?"√":"X"}</td>
+      <td class="td-pc ${d.ad?"chk-y":"chk-n"}">${d.ad?"√":"X"}</td>
+      <td class="td-pc ${d.tr?"chk-y":"chk-n"}">${d.tr?"√":"X"}</td>
+      <td class="td-pc ${d.lv?"chk-y":"chk-n"}">${d.lv?"√":"X"}</td>
+      <td class="td-pc ${cdCls}">${d.cd}</td>
+      <td class="td-pc"><button class="detail-btn" onclick="openModal('${d.n.replace(/'/g,"\\'")}')">상세</button></td>`;
     tbody.appendChild(tr);
   });
 }
