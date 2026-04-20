@@ -31,6 +31,10 @@ h1{font-size:20px;color:#aaa;margin-bottom:16px}
 #boss-detail .section{position:relative;overflow:hidden}
 #boss-detail-bg{position:absolute;inset:0;background-size:cover;background-position:center;background-repeat:no-repeat;opacity:0.12;pointer-events:none;transition:background-image 0.3s}
 #boss-detail-content{position:relative;z-index:1}
+.tip-item{padding:7px 10px;border-left:2px solid #5dcff5;background:rgba(93,207,245,0.05);border-radius:0 6px 6px 0;margin-bottom:6px;font-size:12px;color:#ddd;line-height:1.5}
+.tip-item:last-child{margin-bottom:0}
+#boss-detail-content .boss-name{font-size:15px;font-weight:700;color:#eee;margin-bottom:10px}
+
 
 </style>
 </head>
@@ -42,7 +46,6 @@ h1{font-size:20px;color:#aaa;margin-bottom:16px}
   <a href="./dex.html" class="tab-btn">드래곤 도감</a>
   <a href="./sss.html" class="tab-btn">SSS 랭킹</a>
   <a href="./raid.html" class="tab-btn">아르하 입구</a>
-  <a href="./raid_info.html" class="tab-btn">레이드 정보</a>
 </div>
 
 <h1>레이드 정보</h1>
@@ -51,7 +54,7 @@ h1{font-size:20px;color:#aaa;margin-bottom:16px}
 <div style="display:flex;gap:0;border-bottom:1px solid #333;margin-bottom:16px">
   <button class="sub-tab active" id="sub-tab-arha" onclick="switchSubTab('arha')">아르하필드</button>
   <button class="sub-tab" id="sub-tab-normal" onclick="switchSubTab('normal')">일반 레이드</button>
-  <button class="sub-tab" id="sub-tab-lemuria" onclick="switchSubTab('lemuria')">레무리아</button>
+  <button class="sub-tab" id="sub-tab-lemuria" onclick="switchSubTab('lemuria')">길드 레이드</button>
 </div>
 
 <!-- 아르하필드 (8~13) -->
@@ -85,6 +88,39 @@ h1{font-size:20px;color:#aaa;margin-bottom:16px}
 </div>
 
 <script>
+const bossNames = {
+  8: "블리자드",
+  9: "이그나",
+  10: "다크나이트",
+  11: "스트라",
+  12: "말덱",
+  13: "헤네스",
+  14: "포포모",
+  15: "테디",
+  16: "움브라",
+  17: "엘리고스",
+  18: "로키",
+  19: "리치몬드",
+  20: "레굴루스",
+  21: "벨레드",
+  22: "블루썬더",
+  23: "베테라",
+  24: "불나래",
+  25: "옥타",
+  26: "프로텍트",
+  27: "리티오",
+  28: "스카투스",
+  29: "아카이아",
+  30: "루루",
+  31: "펜리르",
+  32: "지바타르",
+  33: "카모플라쥬",
+  34: "파프니르",
+  40: "엔젤주니어",
+  41: "템페스트",
+  42: "선셋",
+  43: "알레샤"
+};
 const bossData = {};
 
 function switchSubTab(tab) {
@@ -100,8 +136,8 @@ function showBossInfo(num, el) {
   el.classList.add('active');
   const data = bossData[num];
   const content = data
-    ? `<div style="font-size:15px;font-weight:700;color:#eee;margin-bottom:8px">${data.name}</div><div style="color:#aaa;font-size:13px">${data.desc}</div>`
-    : `<div style="font-size:15px;font-weight:700;color:#eee;margin-bottom:8px">보스 #${num}</div><div style="color:#666;font-size:13px">데이터 준비 중입니다.</div>`;
+    ? `<div class="boss-name">${data.name}</div>${data.desc}`
+    : `<div class="boss-name">${bossNames[num] || '보스 #'+num}</div><div style="color:#666;font-size:13px">데이터 준비 중입니다.</div>`;
   document.getElementById('boss-detail-content').innerHTML = content;
   document.getElementById('boss-detail-bg').style.backgroundImage = `url('https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/boss/${num}-1.png')`;
   document.getElementById('boss-detail').style.display = '';
