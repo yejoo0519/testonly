@@ -127,6 +127,7 @@ h1{font-size:20px;color:#aaa;margin-bottom:16px}
   .boss-portrait{width:48px;height:48px}
 }
 
+
 .fail-msg{background:rgba(239,83,80,0.1);border:1px solid rgba(239,83,80,0.3);border-radius:8px;padding:12px;font-size:12px;color:#ef5350;margin-top:8px}
 </style>
 </head>
@@ -138,7 +139,6 @@ h1{font-size:20px;color:#aaa;margin-bottom:16px}
   <a href="./dex.html" class="tab-btn">드래곤 도감</a>
   <a href="./sss.html" class="tab-btn">SSS 랭킹</a>
   <a href="./raid.html" class="tab-btn">아르하 입구</a>
-  <a href="./raid_info.html" class="tab-btn">레이드 정보</a>
 </div>
 
 <div style="display:flex;gap:0;border-bottom:1px solid #333;margin-bottom:16px">
@@ -406,6 +406,7 @@ h1{font-size:20px;color:#aaa;margin-bottom:16px}
 </div>
 
 </div><!-- /section-daily -->
+
 
 <script>
 const allDragons=[
@@ -1113,9 +1114,9 @@ const allDragons=[
 function switchMainTab(tab) {
   document.getElementById('section-raid').style.display = tab==='raid' ? '' : 'none';
   document.getElementById('section-daily').style.display = tab==='daily' ? '' : 'none';
-  document.getElementById('main-tab-raid').classList.toggle('active', tab==='raid');
-  document.getElementById('main-tab-daily').classList.toggle('active', tab==='daily');
-  if(tab==='daily') document.getElementById('result').style.display='none';
+  document.querySelectorAll('.main-tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('main-tab-'+tab).classList.add('active');
+  if(tab!=='raid') document.getElementById('result').style.display='none';
 }
 
 const BOSS_PATTERNS = {
@@ -1170,10 +1171,11 @@ function init() {
         <span>${i+1}번 플레이어</span>
       </div>
       <div class="dragon-search">
-        <input type="text" placeholder="드래곤 이름 검색..." 
+        <input type="text" placeholder="이름 검색 또는 쉼표로 여러 마리 입력" 
           oninput="showAC(${i}, this.value)"
           onfocus="showAC(${i}, this.value)"
           onblur="setTimeout(()=>hideAC(${i}),150)"
+          onkeydown="handleBulkInput(event, ${i})"
           id="search-${i}">
         <div class="autocomplete" id="ac-${i}"></div>
       </div>
@@ -1188,6 +1190,22 @@ function init() {
 
 // 자동완성
 const transcendDragons = allDragons.filter(d => d.tr);
+
+
+function handleBulkInput(e, playerIdx) {
+  if(e.key !== 'Enter') return;
+  const val = document.getElementById('search-'+playerIdx).value.trim();
+  if(!val) return;
+  if(val.includes(',')) {
+    const names = val.split(',').map(n=>n.trim()).filter(n=>n);
+    names.forEach(name => {
+      const d = transcendDragons.find(x => x.n === name);
+      if(d) addDragon(playerIdx, name);
+    });
+    document.getElementById('search-'+playerIdx).value = '';
+    hideAC(playerIdx);
+  }
+}
 
 function showAC(playerIdx, query) {
   const ac = document.getElementById('ac-'+playerIdx);
@@ -1358,6 +1376,7 @@ function showResult(result, conditions) {
 }
 
 init();
+
 </script>
 </body>
 </html>
