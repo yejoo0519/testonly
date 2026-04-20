@@ -10,7 +10,11 @@ body{font-family:'Malgun Gothic',sans-serif;background:#1a1a2e;color:#eee;paddin
 
 /* 네비 */
 #tab-bar{display:flex;gap:0;margin-bottom:16px;border-bottom:2px solid #333;align-items:flex-end}
-#site-title{font-size:22px;color:#aaa;padding:0 16px 12px 0;white-space:nowrap;cursor:pointer;text-decoration:none}
+#site-title{display:flex;flex-direction:column;align-items:center;justify-content:center;text-decoration:none;margin-right:16px;margin-bottom:6px;border:1.5px solid #444;border-radius:20px;padding:10px 18px;transition:border-color 0.15s;flex-shrink:0}
+#site-title:hover{border-color:#5dcff5}
+#site-title .title-main{font-size:16px;font-weight:700;color:#aaa;line-height:1.4}
+#site-title .title-sub{font-size:12px;color:#666;line-height:1.4}
+
 .tab-btn{padding:10px 20px;font-size:13px;font-weight:500;background:none;border:none;color:#888;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;text-decoration:none;display:inline-block}
 .tab-btn:hover{color:#ccc}
 .tab-btn.active{color:#5dcff5;border-bottom:2px solid #5dcff5}
@@ -141,12 +145,14 @@ h1{font-size:20px;color:#aaa;margin-bottom:16px}
 <body>
 
 <div id="tab-bar">
-  <a href="./index.html" id="site-title">초등표 made by 닉스</a>
+  <a href="./index.html" id="site-title">
+  <span class="title-main">메인화면 이동</span>
+  <span class="title-sub">made by 닉스</span>
+</a>
   <a href="./tier.html" class="tab-btn">초월 등급표</a>
   <a href="./dex.html" class="tab-btn">드래곤 도감</a>
   <a href="./sss.html" class="tab-btn">SSS 랭킹</a>
   <a href="./raid.html" class="tab-btn">아르하 입구</a>
-  <a href="./raid_info.html" class="tab-btn">레이드 정보</a>
 </div>
 
 <div style="display:flex;gap:0;border-bottom:1px solid #333;margin-bottom:16px">
