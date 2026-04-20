@@ -116,6 +116,10 @@ h1{font-size:20px;color:#aaa;margin-bottom:16px}
 #section-daily .section:last-child{grid-column:1/-1}
 .boss-section{position:relative;overflow:hidden}
 .boss-section .boss-bg{position:absolute;right:8px;bottom:0;height:85%;width:35%;background-size:contain;background-repeat:no-repeat;background-position:right bottom;opacity:0.7;pointer-events:none}
+@media(max-width:600px){
+  #section-daily{grid-template-columns:1fr!important}
+  #section-daily .section:last-child{grid-column:auto}
+}
 
 .fail-msg{background:rgba(239,83,80,0.1);border:1px solid rgba(239,83,80,0.3);border-radius:8px;padding:12px;font-size:12px;color:#ef5350;margin-top:8px}
 </style>
