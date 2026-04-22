@@ -66,14 +66,6 @@ h1{font-size:20px;color:#aaa;margin-bottom:16px}
 <body>
 
 <div id="tab-bar">
-  <a href="./index.html" id="site-title">
-  <span class="title-main">메인화면 이동</span>
-  <span class="title-sub">made by 닉스</span>
-</a>
-  <a href="./tier.html" class="tab-btn">초월 등급표</a>
-  <a href="./dex.html" class="tab-btn">드래곤 도감</a>
-  <a href="./sss.html" class="tab-btn">SSS 랭킹</a>
-  <a href="./raid.html" class="tab-btn">아르하 입구</a>
   <a href="./raid_info.html" class="tab-btn">레이드 정보</a>
 </div>
 
@@ -1082,7 +1074,7 @@ function showBossInfo(num, el) {
   document.getElementById('boss-detail-content').innerHTML = content;
 
 const altBosses = new Set([19,20,21,22,23,24,25,26,27,28,29,30,43]);
-const chance = 0.01
+const chance = 0
 const isAlt = altBosses.has(num) && Math.random() < chance;
 const imgVersion = isAlt ? "-2" : "-1";
 document.getElementById('boss-detail-bg').style.backgroundImage =
