@@ -1107,7 +1107,7 @@ function showBossInfo(num, el) {
   document.getElementById('boss-detail-content').innerHTML = content;
 
 const altBosses = new Set([19,20,21,22,23,24,25,26,27,28,29,30,43]);
-const chance = 0.05
+const chance = 0.1
 const isAlt = altBosses.has(num) && Math.random() < chance;
 const imgVersion = isAlt ? "-2" : "-1";
 document.getElementById('boss-detail-bg').style.backgroundImage =
