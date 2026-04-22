@@ -1106,7 +1106,7 @@ function showBossInfo(num, el) {
     : `<div class="boss-name">${bossNames[num] || '보스 #'+num}</div><div style="color:#666;font-size:13px">데이터 준비 중입니다.</div>`;
   document.getElementById('boss-detail-content').innerHTML = content;
 
-const altBosses = new Set([19,21,22,24,25,27,28,29]);
+const altBosses = new Set([19,21,24,25,27,28,29]);
 const chance = 0.1
 const isAlt = altBosses.has(num) && Math.random() < chance;
 const imgVersion = isAlt ? "-2" : "-1";
