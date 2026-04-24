@@ -1,6 +1,6 @@
 const guideList = [
   { id: 1,  title: "드래곤빌리지 용어정리", date: "2024.02.07", tags: ["기타", "기초"] },
-  { id: 2,  title: "증명의 탑 공략",  date: "2026.04.23", tags: [] },
+  { id: 2,  title: "증명의 탑 공략",  date: "2026.04.23", tags: ["시나리오", "기초"] },
   { id: 3,  title: "제목3",  date: "2026.04.22", tags: [] },
   { id: 4,  title: "제목4",  date: "2026.04.21", tags: [] },
   { id: 5,  title: "제목5",  date: "2026.04.20", tags: [] },
