@@ -1,5 +1,5 @@
 const guideList = [
-  { id: 10, title: "제목10", date: "2026.04.24" },
+  { id: 10, title: "드래곤빌리지 용어정리", date: "2026.04.24" },
   { id: 9,  title: "제목9",  date: "2026.04.23" },
   { id: 8,  title: "제목8",  date: "2026.04.22" },
   { id: 7,  title: "제목7",  date: "2026.04.21" },
