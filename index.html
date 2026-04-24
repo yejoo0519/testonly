@@ -124,19 +124,18 @@ body{font-family:'Malgun Gothic',sans-serif;background:#1a1a2e;color:#eee;min-he
   <div class="pc-header">
     <h1>종합 정보사이트 made by 닉스</h1>
     <p class="subtitle">원하는 메뉴를 선택하세요</p>
-    <div style="display:flex;justify-content:center;align-items:center;gap:10px;margin-top:12px;margin-bottom:8px">
-      <button class="patch-note-btn" onclick="openPatchModal()">
-        <span class="patch-note-icon">📋</span> 패치노트
-      </button>
-      <button class="day-icon-btn" onclick="openItemModal()">
-        <img src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/Day.png" alt="일일 보상">
-      </button>
-    </div>
-    <div class="contact-bar" style="margin-top:8px;margin-bottom:0">
-      <a href="https://open.kakao.com/o/sgNwijri" target="_blank" class="contact-btn contact-kakao"><span class="contact-icon">K</span>카카오톡</a>
-      <a href="https://discord.com/users/629966669875511296" target="_blank" class="contact-btn contact-discord"><span class="contact-icon">D</span>디스코드</a>
-    </div>
-  </div>
+<div style="display:flex;justify-content:center;margin-top:12px;margin-bottom:8px">
+  <button class="patch-note-btn" onclick="openPatchModal()">
+    <span class="patch-note-icon">📋</span> 패치노트
+  </button>
+</div>
+<div class="contact-bar" style="margin-top:8px;margin-bottom:0">
+  <a href="https://open.kakao.com/o/sgNwijri" target="_blank" class="contact-btn contact-kakao"><span class="contact-icon">K</span>카카오톡</a>
+  <a href="https://discord.com/users/629966669875511296" target="_blank" class="contact-btn contact-discord"><span class="contact-icon">D</span>디스코드</a>
+  <button class="day-icon-btn" onclick="openItemModal()">
+    <img src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/Day.png" alt="일일 보상">
+  </button>
+</div>
   <div class="pc-body">
     <div class="pc-tabs">
       <button class="pc-tab active" onclick="switchPCTab('info')">정보</button>
