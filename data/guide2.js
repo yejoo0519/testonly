@@ -1,8 +1,8 @@
 const guideContent = {
   id: 2,
-  title: "(스토리)증명의 탑 공략",
-  created: "2025.02.23",
-  updated: "2025.02.23",
+  title: "증명의 탑 공략",
+  created: "2026.04.24",
+  updated: "2026.04.24",
   body: `
     <div class="section-title">증명의 탑이란?</div>
     <p>스토리 진행중 반드시 클리어 해야 하는 컨텐츠이며, 정수와 강림의 돌 수급을 위해 자주 사용할 컨텐츠입니다.</p>
@@ -101,27 +101,5 @@ const guideContent = {
 
     <hr>
 
-    <div class="section-title">하드 증탑 — 준비물</div>
-    <p><img src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/18.png" style="width:18px;height:18px;vertical-align:middle;margin-right:4px">부활회복제 60개</p>
-    <p>
-      <img src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/16.png" style="width:18px;height:18px;vertical-align:middle;margin-right:4px">공격젬 10~20개 /
-      <img src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/19.png" style="width:18px;height:18px;vertical-align:middle;margin-right:4px">크리젬 30~40개
-    </p>
-    <div class="quote">
-      딜러진 공젬 2개 크젬 3개 사용시 → 공젬 20개, 크젬 30개 파밍<br>
-      딜러진 공젬 1개 크젬 4개 사용시 → 공젬 10개, 크젬 40개 파밍
-    </div>
-    <p><img src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/17.png" style="width:18px;height:18px;vertical-align:middle;margin-right:4px">방어젬 10~20개</p>
-    <p><img src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/15.png" style="width:18px;height:18px;vertical-align:middle;margin-right:4px">체력젬 40~50개</p>
-    <p><img src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/20.png" style="width:18px;height:18px;vertical-align:middle;margin-right:2px">어둠의 뿔 (회피/체력 or 방어)에 방첸 + 체첸 총 합 10개 ( 50, 51층 탱커 장신구 )</p>
-    <p><img src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/21.png" style="width:18px;height:18px;vertical-align:middle;margin-right:2px">빛의 뿔 공첸 10개 — 옵션 상관없이 인첸트는 공격 인첸트 고정 ( 50, 51층 딜러 장신구 )</p>
-    <p>
-      <img src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/23.png" style="width:18px;height:18px;vertical-align:middle;margin-right:2px">크물 7단계,
-      <img src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/22.png" style="width:18px;height:18px;vertical-align:middle;margin-right:2px">회물 7단계 넉넉하게 100개 이상
-    </p>
-    <p>
-      <img src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/24.png" style="width:18px;height:18px;vertical-align:middle;margin-right:2px">크물 8단계,
-      <img src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/25.png" style="width:18px;height:18px;vertical-align:middle;margin-right:2px">회물 8단계 넉넉히 20개 이상 ( 50, 51층에서 사용 )
-    </p>
-
-    <hr>
+  `
+};
