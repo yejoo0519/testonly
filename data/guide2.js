@@ -75,28 +75,6 @@ const guideContent = {
 
     <hr>
 
-    <div class="section-title">헬카, 드슬 셋팅 — 앞라인 (탱커)</div>
-    <p>체력, 방어, 체방형을 추천합니다.</p>
-    <p>방어 350을 넘길 정도로만 방어에 투자 후 체력으로 몰빵합니다.</p>
-    <p>장신구는 <img src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/20.png" style="width:18px;height:18px;vertical-align:middle;margin-right:2px">어둠의 뿔 체력 또는 방어 인첸트를 사용합니다.</p>
-    <p>강림이나 스텟이 좋은 드래곤의 경우 중앙 배치</p>
-    <p>물약의 경우 <img src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/22.png" style="width:18px;height:18px;vertical-align:middle;margin-right:2px">회피 물약 고정으로 사용합니다.</p>
-
-    <div class="section-title">헬카, 드슬 셋팅 — 뒷라인 (딜러)</div>
-    <p>공격, 체공, 공방형을 추천합니다.</p>
-    <p><img src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/16.png" style="width:18px;height:18px;vertical-align:middle;margin-right:2px">공젬 3개, <img src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/19.png" style="width:18px;height:18px;vertical-align:middle;margin-right:2px">크젬 2개 사용합니다. 공격 각성의 경우 공젬2개, 크젬3개를 사용해도 됩니다.</p>
-    <p>장신구는 <img src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/21.png" style="width:18px;height:18px;vertical-align:middle;margin-right:2px">빛의 뿔 공격 인첸트 사용합니다.</p>
-    <p>공격력이 특별히 높은 드래곤의 경우 구석에 배치</p>
-    <p>물약의 경우 <img src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/23.png" style="width:18px;height:18px;vertical-align:middle;margin-right:2px">크물을 고정으로 사용합니다.</p>
-
-    <div class="section-title">엔더 셋팅</div>
-    <p>헬카, 드슬 셋팅과 동일하나, 바람속성 탱커를 앞라인으로 세워야 클리어 확률이 눈에띄게 증가합니다.</p>
-    <p>탱커의 방어력도 370~400대로 맞춰주시면 좋습니다.</p>
-
-    <div class="section-title">딜러가 없어요 / 탱커가 부족해요</div>
-    <p>어둠 교배용 — 딜러로 채용 가능 ( 공격력 274 )</p>
-    <p>빛 교배용 — 탱커로 채용 가능 ( 방어력이 높습니다 )</p>
-
     <div class="quote">해당 공략은 다른 유저분들의 글을 참고하며, 글쓴이의 주관이 꽤 많이 담긴편입니다. 수정해야할 부분이 있다면 지적해주세요.</div>
 
     <hr>
