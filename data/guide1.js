@@ -1,8 +1,8 @@
 const guideContent = {
   id: 1,
   title: "드래곤빌리지 용어정리",
-  created: "2024.02.07",
-  updated: "2024.02.07",
+  created: "2026.04.24",
+  updated: "2026.04.24",
   body: `
     <div class="section-title">게시판</div>
     <p>1. 자게 - 자유게시판</p>
