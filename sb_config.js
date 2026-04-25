@@ -9,6 +9,7 @@ async function supabase(method, table, data = null, params = '') {
     'Content-Type': 'application/json',
     'Prefer': method === 'POST' ? 'return=representation' : ''
   };
+  if(method === 'PATCH') headers['Prefer'] = 'return=representation';
   const res = await fetch(url, {
     method,
     headers,
@@ -28,7 +29,7 @@ function getUser() {
 function setUser(user) { localStorage.setItem('community_user', JSON.stringify(user)); }
 function logout() { localStorage.removeItem('community_user'); location.href = './community.html'; }
 
-// 비밀번호 단순 해시 (실제 서비스엔 bcrypt 권장)
+// 비밀번호 SHA-256 해시
 async function hashPassword(pw) {
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pw));
   return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
