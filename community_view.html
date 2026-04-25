@@ -12,13 +12,15 @@ body{font-family:'Malgun Gothic',sans-serif;background:#1a1a2e;color:#eee;paddin
 .post-box{background:#1e1e30;border:1px solid #333;border-radius:10px;padding:20px;margin-bottom:16px;max-width:780px}
 .post-title{font-size:18px;font-weight:700;color:#eee;margin-bottom:8px}
 .post-meta{font-size:12px;color:#666;margin-bottom:16px;display:flex;gap:12px;align-items:center}
+.post-author{color:#5dcff5;font-weight:700}
 .post-content{font-size:14px;color:#ccc;line-height:1.9;white-space:pre-wrap;word-break:break-all}
-.post-actions{display:flex;justify-content:flex-end;margin-top:12px}
+.post-actions{display:flex;justify-content:space-between;align-items:center;margin-top:16px}
 .btn{padding:6px 12px;border-radius:6px;border:none;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit}
 .btn-danger{background:rgba(239,83,80,0.1);color:#ef5350;border:1px solid rgba(239,83,80,0.2)}
 .btn-danger:hover{background:rgba(239,83,80,0.2)}
-
-/* 댓글 */
+.btn-like{display:flex;align-items:center;gap:5px;padding:7px 16px;border-radius:20px;border:1px solid #444;background:#252538;color:#aaa;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.15s}
+.btn-like:hover{border-color:#f5c842;color:#f5c842}
+.btn-like.liked{border-color:#f5c842;color:#f5c842;background:rgba(245,200,66,0.1)}
 .comments-title{font-size:14px;font-weight:700;color:#5dcff5;margin-bottom:12px;max-width:780px}
 .comment-box{background:#1e1e30;border:1px solid #333;border-radius:10px;padding:16px;margin-bottom:16px;max-width:780px}
 .comment-item{padding:10px 0;border-bottom:1px solid #2a2a3e}
@@ -28,7 +30,6 @@ body{font-family:'Malgun Gothic',sans-serif;background:#1a1a2e;color:#eee;paddin
 .comment-content{font-size:13px;color:#ccc;line-height:1.7;white-space:pre-wrap;word-break:break-all}
 .comment-del{margin-left:auto;font-size:11px;color:#ef5350;cursor:pointer;border:none;background:none;font-family:inherit}
 .comment-del:hover{text-decoration:underline}
-
 .write-comment{background:#1e1e30;border:1px solid #333;border-radius:10px;padding:14px;max-width:780px}
 .write-comment textarea{width:100%;padding:9px 12px;background:#252538;border:1px solid #444;border-radius:8px;color:#eee;font-size:13px;font-family:inherit;min-height:70px;resize:vertical;margin-bottom:8px}
 .write-comment textarea:focus{outline:none;border-color:#5dcff5}
@@ -42,9 +43,7 @@ body{font-family:'Malgun Gothic',sans-serif;background:#1a1a2e;color:#eee;paddin
 <body>
 
 <a href="./community.html" class="back-btn">← 목록으로</a>
-
 <div class="post-box" id="post-box">로딩 중...</div>
-
 <div id="comments-section"></div>
 
 <script src="./sb_config.js"></script>
@@ -52,6 +51,7 @@ body{font-family:'Malgun Gothic',sans-serif;background:#1a1a2e;color:#eee;paddin
 const user = getUser();
 const params = new URLSearchParams(location.search);
 const postId = params.get('id');
+let isLiked = false;
 
 async function loadPost() {
   try {
@@ -59,17 +59,48 @@ async function loadPost() {
     if(!rows || rows.length === 0) { document.getElementById('post-box').innerHTML = '<div style="color:#666;text-align:center;padding:40px">글을 찾을 수 없습니다.</div>'; return; }
     const p = rows[0];
     document.title = p.title + ' - 묻고답하기';
+
+    // 추천 여부 확인
+    if(user) {
+      const likeRows = await supabase('GET', 'post_likes', null, `?post_id=eq.${postId}&user_id=eq.${user.id}`);
+      isLiked = likeRows && likeRows.length > 0;
+    }
+
     const canDelete = user && (user.id === p.user_id || user.is_admin);
     document.getElementById('post-box').innerHTML = `
       <div class="post-title">${p.title}</div>
       <div class="post-meta">
-        <span class="comment-author">${p.username}</span>
+        <span class="post-author">${p.nickname || p.username}</span>
         <span>${p.created_at.slice(0,10).replace(/-/g,'.')}</span>
       </div>
       <div class="post-content">${p.content}</div>
-      ${canDelete ? `<div class="post-actions"><button class="btn btn-danger" onclick="deletePost(${p.id})">삭제</button></div>` : ''}
+      <div class="post-actions">
+        <button class="btn-like ${isLiked ? 'liked' : ''}" id="like-btn" onclick="toggleLike()">
+          ❤ 추천 <span id="like-count">${p.likes || 0}</span>
+        </button>
+        ${canDelete ? `<button class="btn btn-danger" onclick="deletePost(${p.id})">삭제</button>` : '<span></span>'}
+      </div>
     `;
   } catch(e) { document.getElementById('post-box').innerHTML = '오류: ' + e.message; }
+}
+
+async function toggleLike() {
+  if(!user) { alert('로그인 후 추천할 수 있어요.'); return; }
+  try {
+    if(isLiked) {
+      await supabase('DELETE', 'post_likes', null, `?post_id=eq.${postId}&user_id=eq.${user.id}`);
+      await supabase('PATCH', 'posts', { likes: parseInt(document.getElementById('like-count').textContent) - 1 }, `?id=eq.${postId}`);
+      isLiked = false;
+    } else {
+      await supabase('POST', 'post_likes', { post_id: parseInt(postId), user_id: user.id });
+      await supabase('PATCH', 'posts', { likes: parseInt(document.getElementById('like-count').textContent) + 1 }, `?id=eq.${postId}`);
+      isLiked = true;
+    }
+    const btn = document.getElementById('like-btn');
+    const rows = await supabase('GET', 'posts', null, `?id=eq.${postId}&select=likes`);
+    document.getElementById('like-count').textContent = rows[0].likes;
+    btn.className = `btn-like ${isLiked ? 'liked' : ''}`;
+  } catch(e) { alert('오류: ' + e.message); }
 }
 
 async function deletePost(id) {
@@ -83,14 +114,13 @@ async function loadComments() {
     const comments = await supabase('GET', 'comments', null, `?post_id=eq.${postId}&order=created_at.asc`);
     const section = document.getElementById('comments-section');
     let html = `<div class="comments-title">댓글 ${comments ? comments.length : 0}개</div>`;
-
     if(comments && comments.length > 0) {
       html += `<div class="comment-box">` + comments.map(c => {
         const canDel = user && (user.id === c.user_id || user.is_admin);
         return `
           <div class="comment-item">
             <div class="comment-meta">
-              <span class="comment-author">${c.username}</span>
+              <span class="comment-author">${c.nickname || c.username}</span>
               <span>${c.created_at.slice(0,10).replace(/-/g,'.')}</span>
               ${canDel ? `<button class="comment-del" onclick="deleteComment(${c.id})">삭제</button>` : ''}
             </div>
@@ -99,7 +129,6 @@ async function loadComments() {
         `;
       }).join('') + `</div>`;
     }
-
     if(user) {
       html += `
         <div class="write-comment">
@@ -120,7 +149,13 @@ async function submitComment() {
   const content = document.getElementById('comment-content').value.trim();
   if(!content) { alert('내용을 입력해주세요.'); return; }
   try {
-    await supabase('POST', 'comments', { post_id: parseInt(postId), user_id: user.id, username: user.username, content });
+    await supabase('POST', 'comments', {
+      post_id: parseInt(postId),
+      user_id: user.id,
+      username: user.username,
+      nickname: user.nickname || user.username,
+      content
+    });
     loadComments();
   } catch(e) { alert('오류: ' + e.message); }
 }
