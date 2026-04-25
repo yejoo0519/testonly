@@ -24,7 +24,7 @@ const params = new URLSearchParams(location.search);
 const id = params.get('id');
 if(id) {
   const script = document.createElement('script');
-  script.src = `./data/guild${id}.js`;
+  script.src = `./data2/guild${id}.js`;
   script.onload = () => {
     document.title = guildContent.title + ' - 길드';
     document.getElementById('guild-body').innerHTML = guildContent.body;
