@@ -15,19 +15,24 @@ h2{font-size:15px;color:#aaa;margin-bottom:12px;margin-top:24px}
 .table th{background:#252538;padding:10px 14px;font-size:12px;font-weight:700;color:#5dcff5;text-align:left;border-bottom:1px solid #333}
 .table td{padding:10px 14px;font-size:13px;border-bottom:1px solid #2a2a3e;color:#ddd}
 .table tr:last-child td{border-bottom:none}
-.btn{padding:5px 10px;border-radius:6px;border:none;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit}
+.btn{padding:5px 10px;border-radius:6px;border:none;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;margin-right:4px}
 .btn-danger{background:rgba(239,83,80,0.15);color:#ef5350;border:1px solid rgba(239,83,80,0.3)}
 .btn-danger:hover{background:rgba(239,83,80,0.3)}
 .btn-warn{background:rgba(245,200,66,0.15);color:#f5c842;border:1px solid rgba(245,200,66,0.3)}
 .btn-warn:hover{background:rgba(245,200,66,0.3)}
 .btn-ok{background:rgba(102,187,106,0.15);color:#66bb6a;border:1px solid rgba(102,187,106,0.3)}
 .btn-ok:hover{background:rgba(102,187,106,0.3)}
+.btn-pin{background:rgba(255,167,38,0.15);color:#ffb74d;border:1px solid rgba(255,167,38,0.3)}
+.btn-pin:hover{background:rgba(255,167,38,0.3)}
+.btn-unpin{background:rgba(255,255,255,0.05);color:#888;border:1px solid #444}
+.btn-unpin:hover{background:rgba(255,255,255,0.1)}
 .badge-banned{color:#ef5350;font-size:11px}
 .badge-ok{color:#66bb6a;font-size:11px}
 .board-badge{font-size:10px;padding:2px 6px;border-radius:4px;margin-left:4px}
 .board-qna{background:rgba(93,207,245,0.15);color:#5dcff5}
 .board-guide{background:rgba(245,200,66,0.15);color:#f5c842}
 .board-guild{background:rgba(102,187,106,0.15);color:#66bb6a}
+.pin-badge{font-size:10px;color:#ffb74d;margin-right:4px}
 </style>
 </head>
 <body>
@@ -94,20 +99,34 @@ async function toggleBan(id, ban) {
 }
 
 async function loadPosts() {
-  const rows = await supabase('GET', 'posts', null, '?order=created_at.desc');
+  const rows = await supabase('GET', 'posts', null, '?order=is_pinned.desc,created_at.desc');
   document.getElementById('post-list').innerHTML = rows.map(p => {
     const boardName = boardNames[p.board] || p.board || '-';
     const boardClass = `board-${p.board || 'qna'}`;
     return `
       <tr>
-        <td>${p.title}</td>
+        <td>
+          ${p.is_pinned ? '<span class="pin-badge">📌</span>' : ''}
+          ${p.title}
+        </td>
         <td>${p.nickname || p.username}</td>
         <td><span class="board-badge ${boardClass}">${boardName}</span></td>
         <td>${p.created_at.slice(0,10).replace(/-/g,'.')}</td>
-        <td><button class="btn btn-danger" onclick="deletePost(${p.id})">삭제</button></td>
+        <td>
+          ${p.is_pinned
+            ? `<button class="btn btn-unpin" onclick="togglePin(${p.id}, false)">핀 해제</button>`
+            : `<button class="btn btn-pin" onclick="togglePin(${p.id}, true)">📌 핀</button>`
+          }
+          <button class="btn btn-danger" onclick="deletePost(${p.id})">삭제</button>
+        </td>
       </tr>
     `;
   }).join('');
+}
+
+async function togglePin(id, pin) {
+  await supabase('PATCH', 'posts', { is_pinned: pin }, `?id=eq.${id}`);
+  loadPosts();
 }
 
 async function deletePost(id) {
