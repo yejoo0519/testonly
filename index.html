@@ -42,7 +42,7 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
 .item-modal-close:hover{color:var(--text)}
 .item-modal-title{font-size:14px;font-weight:700;color:var(--accent);margin-bottom:12px}
 .item-modal img{width:100%;border-radius:8px;display:block}
-.contact-bar{display:flex;gap:12px;justify-content:center;margin-bottom:32px}
+.contact-bar{display:flex;gap:12px;justify-content:center;margin-bottom:16px}
 .contact-btn{display:flex;align-items:center;gap:8px;padding:8px 16px;border-radius:20px;border:1px solid var(--border);background:var(--bg2);text-decoration:none;color:var(--text2);font-size:12px;transition:all 0.15s}
 .contact-btn:hover{border-color:var(--accent);color:var(--text)}
 .contact-icon{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
@@ -55,6 +55,12 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
 .card-badge{position:absolute;top:16px;right:16px;font-size:10px;padding:3px 8px;border-radius:10px;background:var(--accent-bg);color:var(--accent);border:1px solid var(--accent-border)}
 .card-badge-guide{background:rgba(245,200,66,0.15);color:#f5c842;border:1px solid rgba(245,200,66,0.3)}
 .card-badge-community{background:rgba(102,187,106,0.15);color:#66bb6a;border:1px solid rgba(102,187,106,0.3)}
+
+/* 방문자 카운터 */
+.stats-bar{display:flex;gap:16px;justify-content:center;margin-bottom:20px;flex-wrap:wrap}
+.stat-item{font-size:11px;color:var(--text4);display:flex;align-items:center;gap:4px}
+.stat-item span{color:var(--accent);font-weight:700}
+
 .mobile-layout{display:flex;flex-direction:column;align-items:center}
 .mobile-layout h1{font-size:28px;margin-bottom:8px;text-align:center}
 .mobile-layout .subtitle{font-size:13px;color:var(--text3);margin-bottom:20px;text-align:center}
@@ -86,10 +92,16 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
 <div class="mobile-layout">
   <h1>종합 정보사이트<br>made by 닉스</h1>
   <p class="subtitle">원하는 메뉴를 선택하세요</p>
-  <div style="display:flex;justify-content:center;margin-bottom:12px">
+  <div class="stats-bar" id="mobile-stats">
+    <div class="stat-item">오늘 방문자 <span id="m-today">-</span>명</div>
+    <div class="stat-item">누적 방문자 <span id="m-total">-</span>명</div>
+    <div class="stat-item">회원 <span id="m-members">-</span>명</div>
+  </div>
+  <div style="display:flex;justify-content:center;margin-bottom:12px;gap:8px">
     <button class="patch-note-btn" onclick="openPatchModal()">
       <span class="patch-note-icon">📋</span> 패치노트
     </button>
+    <button onclick="openThemeModal()" style="padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:var(--bg2);color:var(--text2);font-size:12px;cursor:pointer;font-family:inherit">🎨 테마</button>
   </div>
   <div class="contact-bar">
     <a href="https://open.kakao.com/o/sgNwijri" target="_blank" class="contact-btn contact-kakao">
@@ -132,10 +144,16 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
   <div class="pc-header">
     <h1>종합 정보사이트 made by 닉스</h1>
     <p class="subtitle"> </p>
-    <div style="display:flex;justify-content:center;margin-bottom:12px">
+    <div class="stats-bar" id="pc-stats">
+      <div class="stat-item">오늘 방문자 <span id="p-today">-</span>명</div>
+      <div class="stat-item">누적 방문자 <span id="p-total">-</span>명</div>
+      <div class="stat-item">회원 <span id="p-members">-</span>명</div>
+    </div>
+    <div style="display:flex;justify-content:center;margin-bottom:12px;gap:8px">
       <button class="patch-note-btn" onclick="openPatchModal()">
         <span class="patch-note-icon">📋</span> 패치노트
       </button>
+      <button onclick="openThemeModal()" style="padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:var(--bg2);color:var(--text2);font-size:12px;cursor:pointer;font-family:inherit">🎨 테마</button>
     </div>
     <div class="contact-bar">
       <a href="https://open.kakao.com/o/sgNwijri" target="_blank" class="contact-btn contact-kakao">
@@ -214,6 +232,7 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
   </div>
 </div>
 
+<script src="./sb_config.js"></script>
 <script>
 function openPatchModal(){document.getElementById('patch-modal-overlay').classList.add('open')}
 function closePatchModal(e){if(!e||e.target===document.getElementById('patch-modal-overlay'))document.getElementById('patch-modal-overlay').classList.remove('open')}
@@ -221,6 +240,40 @@ function openItemModal(){document.getElementById('item-modal-overlay').classList
 function closeItemModal(e){if(!e||e.target===document.getElementById('item-modal-overlay'))document.getElementById('item-modal-overlay').classList.remove('open')}
 function switchPCTab(tab){document.querySelectorAll('.pc-tab').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.pc-category').forEach(c=>c.classList.remove('active'));event.currentTarget.classList.add('active');document.getElementById('pc-'+tab).classList.add('active')}
 function switchMobileTab(tab,el){document.querySelectorAll('.mobile-tab').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.mobile-category').forEach(c=>c.classList.remove('active'));el.classList.add('active');document.getElementById('mobile-'+tab).classList.add('active')}
+
+// 방문자 카운터
+async function trackVisitor() {
+  try {
+    const today = new Date().toISOString().slice(0,10);
+    const lastVisit = localStorage.getItem('last_visit');
+
+    // 오늘 처음 방문이면 기록
+    if(lastVisit !== today) {
+      await supabase('POST', 'visitors', { visited_at: today });
+      localStorage.setItem('last_visit', today);
+    }
+
+    // 오늘 방문자
+    const todayRows = await supabase('GET', 'visitors', null, `?visited_at=eq.${today}&select=id`);
+    // 누적 방문자
+    const totalRows = await supabase('GET', 'visitors', null, '?select=id');
+    // 회원수
+    const memberRows = await supabase('GET', 'users', null, '?select=id');
+
+    const todayCount = todayRows ? todayRows.length : 0;
+    const totalCount = totalRows ? totalRows.length : 0;
+    const memberCount = memberRows ? memberRows.length : 0;
+
+    document.getElementById('m-today').textContent = todayCount.toLocaleString();
+    document.getElementById('m-total').textContent = totalCount.toLocaleString();
+    document.getElementById('m-members').textContent = memberCount.toLocaleString();
+    document.getElementById('p-today').textContent = todayCount.toLocaleString();
+    document.getElementById('p-total').textContent = totalCount.toLocaleString();
+    document.getElementById('p-members').textContent = memberCount.toLocaleString();
+  } catch(e) { console.error(e); }
+}
+
+trackVisitor();
 </script>
 </body>
 </html>
