@@ -28,7 +28,7 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
 .write-form-row{display:flex;gap:8px;margin-bottom:8px}
 .write-form-row select{margin-bottom:0;flex:1}
 .write-form-btns{display:flex;justify-content:flex-end;gap:8px}
-.filter-wrap{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.filter-wrap{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
 .filter-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
 .filter-label{font-size:11px;color:var(--text4);width:40px;flex-shrink:0}
 .filter-btn{padding:4px 12px;border-radius:20px;border:1px solid var(--border);background:none;color:var(--text3);font-size:11px;cursor:pointer;font-family:inherit;transition:all 0.15s}
@@ -42,6 +42,15 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
 .tag-기초{background:rgba(102,187,106,0.1);color:#81c784;border:1px solid rgba(102,187,106,0.2)}
 .tag-중급{background:rgba(255,167,38,0.1);color:#ffb74d;border:1px solid rgba(255,167,38,0.2)}
 .tag-심화{background:rgba(239,83,80,0.1);color:#ef9a9a;border:1px solid rgba(239,83,80,0.2)}
+
+/* 검색창 */
+.search-wrap{position:relative;margin-bottom:16px}
+.search-wrap input{width:100%;padding:9px 36px 9px 12px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;font-family:inherit}
+.search-wrap input:focus{outline:none;border-color:var(--accent)}
+.search-wrap input::placeholder{color:var(--text4)}
+.search-icon{position:absolute;right:10px;top:50%;transform:translateY(-50%);color:var(--text4);font-size:14px;pointer-events:none}
+.search-highlight{background:rgba(93,207,245,0.25);border-radius:2px;color:var(--accent)}
+
 .guide-table{width:100%;border-collapse:collapse;background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden}
 .guide-table th{background:var(--bg3);padding:10px 14px;font-size:12px;font-weight:700;color:var(--accent);text-align:left;border-bottom:1px solid var(--border)}
 .guide-table th.num{width:60px;text-align:center}
@@ -113,6 +122,11 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
   </div>
 </div>
 
+<div class="search-wrap">
+  <input id="search-input" type="text" placeholder="제목 검색..." oninput="renderList()">
+  <span class="search-icon">🔍</span>
+</div>
+
 <table class="guide-table">
   <thead>
     <tr>
@@ -134,7 +148,6 @@ let activeCategory = '';
 let activeLevel = '';
 let dbPosts = [];
 
-// 헤더
 if(user) {
   document.getElementById('user-info').textContent = user.nickname || user.username;
   document.getElementById('auth-btn').textContent = '로그아웃';
@@ -200,34 +213,40 @@ function setFilter(type, value, el) {
   renderList();
 }
 
+function highlight(text, query) {
+  if(!query) return text;
+  const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return text.replace(new RegExp(escaped, 'gi'), m => `<span class="search-highlight">${m}</span>`);
+}
+
 function renderList() {
   const tbody = document.getElementById('guide-list-body');
+  const searchQuery = document.getElementById('search-input').value.trim();
   tbody.innerHTML = '';
 
-  // 정적 글 목록
   const staticFiltered = guideList.filter(g => {
     const tags = g.tags || [];
     const categoryOk = !activeCategory || tags.includes(activeCategory);
     const levelOk = !activeLevel || tags.includes(activeLevel);
-    return categoryOk && levelOk;
+    const searchOk = !searchQuery || g.title.includes(searchQuery);
+    return categoryOk && levelOk && searchOk;
   });
 
-  // DB 글 목록
   const dbFiltered = dbPosts.filter(p => {
     try {
       const tags = JSON.parse(p.tags || '[]');
       const categoryOk = !activeCategory || tags.includes(activeCategory);
       const levelOk = !activeLevel || tags.includes(activeLevel);
-      return categoryOk && levelOk;
-    } catch { return !activeCategory && !activeLevel; }
+      const searchOk = !searchQuery || p.title.includes(searchQuery);
+      return categoryOk && levelOk && searchOk;
+    } catch { return !activeCategory && !activeLevel && (!searchQuery || p.title.includes(searchQuery)); }
   });
 
   if(staticFiltered.length === 0 && dbFiltered.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="5" class="no-result">해당하는 글이 없습니다.</td></tr>';
+    tbody.innerHTML = `<tr><td colspan="5" class="no-result">${searchQuery ? `"${searchQuery}" 검색 결과가 없습니다.` : '해당하는 글이 없습니다.'}</td></tr>`;
     return;
   }
 
-  // DB 글 먼저 표시
   dbFiltered.forEach(p => {
     let tags = [];
     try { tags = JSON.parse(p.tags || '[]'); } catch {}
@@ -236,7 +255,7 @@ function renderList() {
     tr.onclick = () => location.href = `./community_view.html?id=${p.id}&back=guide`;
     tr.innerHTML = `
       <td class="num">-</td>
-      <td><a class="guide-title-link" href="./community_view.html?id=${p.id}&back=guide">${p.title}</a> ${tagHtml}</td>
+      <td><a class="guide-title-link" href="./community_view.html?id=${p.id}&back=guide">${highlight(p.title, searchQuery)}</a> ${tagHtml}</td>
       <td class="author">${p.nickname || p.username}</td>
       <td class="likes">❤ ${p.likes || 0}</td>
       <td class="date">${p.created_at.slice(0,10).replace(/-/g,'.')}</td>
@@ -244,7 +263,6 @@ function renderList() {
     tbody.appendChild(tr);
   });
 
-  // 정적 글
   staticFiltered.forEach(g => {
     const tags = g.tags || [];
     const tagHtml = tags.map(t => `<span class="tag-badge tag-${t}">${t}</span>`).join('');
@@ -252,7 +270,7 @@ function renderList() {
     tr.onclick = () => location.href = `./guide_view.html?id=${g.id}`;
     tr.innerHTML = `
       <td class="num">${g.id}</td>
-      <td><a class="guide-title-link" href="./guide_view.html?id=${g.id}">${g.title}</a> ${tagHtml}</td>
+      <td><a class="guide-title-link" href="./guide_view.html?id=${g.id}">${highlight(g.title, searchQuery)}</a> ${tagHtml}</td>
       <td class="author">닉스</td>
       <td class="likes">-</td>
       <td class="date">${g.date}</td>
