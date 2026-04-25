@@ -26,6 +26,10 @@ h2{font-size:15px;color:#aaa;margin-bottom:12px;margin-top:24px}
 .btn-pin:hover{background:rgba(255,167,38,0.3)}
 .btn-unpin{background:rgba(255,255,255,0.05);color:#888;border:1px solid #444}
 .btn-unpin:hover{background:rgba(255,255,255,0.1)}
+.btn-verify{background:rgba(93,207,245,0.15);color:#5dcff5;border:1px solid rgba(93,207,245,0.3)}
+.btn-verify:hover{background:rgba(93,207,245,0.3)}
+.btn-unverify{background:rgba(255,255,255,0.05);color:#888;border:1px solid #444}
+.btn-unverify:hover{background:rgba(255,255,255,0.1)}
 .badge-banned{color:#ef5350;font-size:11px}
 .badge-ok{color:#66bb6a;font-size:11px}
 .board-badge{font-size:10px;padding:2px 6px;border-radius:4px;margin-left:4px}
@@ -33,6 +37,7 @@ h2{font-size:15px;color:#aaa;margin-bottom:12px;margin-top:24px}
 .board-guide{background:rgba(245,200,66,0.15);color:#f5c842}
 .board-guild{background:rgba(102,187,106,0.15);color:#66bb6a}
 .pin-badge{font-size:10px;color:#ffb74d;margin-right:4px}
+.verify-badge{font-size:10px;color:#5dcff5;margin-right:4px}
 </style>
 </head>
 <body>
@@ -107,6 +112,7 @@ async function loadPosts() {
       <tr>
         <td>
           ${p.is_pinned ? '<span class="pin-badge">📌</span>' : ''}
+          ${p.is_verified ? '<span class="verify-badge">✅</span>' : ''}
           ${p.title}
         </td>
         <td>${p.nickname || p.username}</td>
@@ -117,6 +123,10 @@ async function loadPosts() {
             ? `<button class="btn btn-unpin" onclick="togglePin(${p.id}, false)">핀 해제</button>`
             : `<button class="btn btn-pin" onclick="togglePin(${p.id}, true)">📌 핀</button>`
           }
+          ${p.board === 'guild' ? (p.is_verified
+            ? `<button class="btn btn-unverify" onclick="toggleVerify(${p.id}, false)">인증 해제</button>`
+            : `<button class="btn btn-verify" onclick="toggleVerify(${p.id}, true)">✅ 인증</button>`
+          ) : ''}
           <button class="btn btn-danger" onclick="deletePost(${p.id})">삭제</button>
         </td>
       </tr>
@@ -126,6 +136,11 @@ async function loadPosts() {
 
 async function togglePin(id, pin) {
   await supabase('PATCH', 'posts', { is_pinned: pin }, `?id=eq.${id}`);
+  loadPosts();
+}
+
+async function toggleVerify(id, verify) {
+  await supabase('PATCH', 'posts', { is_verified: verify }, `?id=eq.${id}`);
   loadPosts();
 }
 
