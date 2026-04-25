@@ -16,13 +16,29 @@ body{font-family:'Malgun Gothic',sans-serif;background:#1a1a2e;color:#eee;paddin
 .post-meta{font-size:12px;color:#666;margin-bottom:16px;display:flex;gap:12px;align-items:center}
 .post-author{color:#5dcff5;font-weight:700}
 .post-content{font-size:14px;color:#ccc;line-height:1.9;white-space:pre-wrap;word-break:break-all}
-.post-actions{display:flex;justify-content:space-between;align-items:center;margin-top:16px}
+.post-actions{display:flex;justify-content:space-between;align-items:center;margin-top:16px;flex-wrap:wrap;gap:8px}
+.post-actions-right{display:flex;gap:6px}
 .btn{padding:6px 12px;border-radius:6px;border:none;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit}
 .btn-danger{background:rgba(239,83,80,0.1);color:#ef5350;border:1px solid rgba(239,83,80,0.2)}
 .btn-danger:hover{background:rgba(239,83,80,0.2)}
+.btn-edit{background:rgba(93,207,245,0.1);color:#5dcff5;border:1px solid rgba(93,207,245,0.2)}
+.btn-edit:hover{background:rgba(93,207,245,0.2)}
+.btn-bump{background:rgba(102,187,106,0.1);color:#66bb6a;border:1px solid rgba(102,187,106,0.2)}
+.btn-bump:hover{background:rgba(102,187,106,0.2)}
 .btn-like{display:flex;align-items:center;gap:5px;padding:7px 16px;border-radius:20px;border:1px solid #444;background:#252538;color:#aaa;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.15s}
 .btn-like:hover{border-color:#f5c842;color:#f5c842}
 .btn-like.liked{border-color:#f5c842;color:#f5c842;background:rgba(245,200,66,0.1)}
+
+/* 수정 폼 */
+.edit-form{margin-top:16px;padding-top:16px;border-top:1px solid #333}
+.edit-form input,.edit-form textarea{width:100%;padding:9px 12px;background:#252538;border:1px solid #444;border-radius:8px;color:#eee;font-size:13px;font-family:inherit;margin-bottom:8px}
+.edit-form textarea{min-height:100px;resize:vertical}
+.edit-form input:focus,.edit-form textarea:focus{outline:none;border-color:#5dcff5}
+.edit-form-btns{display:flex;justify-content:flex-end;gap:8px}
+.btn-primary{background:rgba(93,207,245,0.15);color:#5dcff5;border:1px solid rgba(93,207,245,0.3);padding:6px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit}
+.btn-primary:hover{background:rgba(93,207,245,0.25)}
+.btn-gray{background:#252538;color:#aaa;border:1px solid #333;padding:6px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit}
+
 .comments-title{font-size:14px;font-weight:700;color:#5dcff5;margin-bottom:12px;max-width:780px}
 .comment-box{background:#1e1e30;border:1px solid #333;border-radius:10px;padding:16px;margin-bottom:16px;max-width:780px}
 .comment-item{padding:10px 0;border-bottom:1px solid #2a2a3e}
@@ -36,15 +52,13 @@ body{font-family:'Malgun Gothic',sans-serif;background:#1a1a2e;color:#eee;paddin
 .write-comment textarea{width:100%;padding:9px 12px;background:#252538;border:1px solid #444;border-radius:8px;color:#eee;font-size:13px;font-family:inherit;min-height:70px;resize:vertical;margin-bottom:8px}
 .write-comment textarea:focus{outline:none;border-color:#5dcff5}
 .write-comment-btns{display:flex;justify-content:flex-end}
-.btn-primary{background:rgba(93,207,245,0.15);color:#5dcff5;border:1px solid rgba(93,207,245,0.3);padding:7px 14px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit}
-.btn-primary:hover{background:rgba(93,207,245,0.25)}
 .login-notice{font-size:12px;color:#666;text-align:center;padding:12px}
 .login-notice a{color:#5dcff5;text-decoration:none}
 </style>
 </head>
 <body>
 
-<a href="./community.html" class="back-btn">← 목록으로</a>
+<a id="back-link" href="./community.html" class="back-btn">← 목록으로</a>
 <div class="post-box" id="post-box">로딩 중...</div>
 <div id="comments-section"></div>
 
@@ -53,14 +67,21 @@ body{font-family:'Malgun Gothic',sans-serif;background:#1a1a2e;color:#eee;paddin
 const user = getUser();
 const params = new URLSearchParams(location.search);
 const postId = params.get('id');
+const backBoard = params.get('back');
 let isLiked = false;
+let currentPost = null;
+let editMode = false;
+
+// 뒤로가기 링크 설정
+if(backBoard === 'guild') document.getElementById('back-link').href = './guild.html';
+else if(backBoard === 'guide') document.getElementById('back-link').href = './guide.html';
 
 async function loadPost() {
   try {
     const rows = await supabase('GET', 'posts', null, `?id=eq.${postId}`);
     if(!rows || rows.length === 0) { document.getElementById('post-box').innerHTML = '<div style="color:#666;text-align:center;padding:40px">글을 찾을 수 없습니다.</div>'; return; }
-    const p = rows[0];
-    document.title = p.title + ' - 묻고답하기';
+    currentPost = rows[0];
+    document.title = currentPost.title + ' - ' + (currentPost.board === 'guild' ? '길드' : '묻고답하기');
 
     if(user) {
       const likeRows = await supabase('GET', 'post_likes', null, `?post_id=eq.${postId}&user_id=eq.${user.id}`);
@@ -68,25 +89,70 @@ async function loadPost() {
     }
 
     const postBox = document.getElementById('post-box');
-    if(p.is_pinned) postBox.classList.add('pinned');
+    if(currentPost.is_pinned) postBox.classList.add('pinned');
 
-    const canDelete = user && (user.id === p.user_id || user.is_admin);
+    const isOwner = user && user.id === currentPost.user_id;
+    const canDelete = user && (isOwner || user.is_admin);
+    const isGuild = currentPost.board === 'guild';
+
     postBox.innerHTML = `
-      ${p.is_pinned ? '<div class="pin-label">📌 공지 / 고정글</div>' : ''}
-      <div class="post-title">${p.title}</div>
+      ${currentPost.is_pinned ? '<div class="pin-label">📌 공지 / 고정글</div>' : ''}
+      <div class="post-title" id="view-title">${currentPost.title}</div>
       <div class="post-meta">
-        <span class="post-author">${p.nickname || p.username}</span>
-        <span>${p.created_at.slice(0,10).replace(/-/g,'.')}</span>
+        <span class="post-author">${currentPost.nickname || currentPost.username}</span>
+        <span>${currentPost.created_at.slice(0,10).replace(/-/g,'.')}</span>
       </div>
-      <div class="post-content">${p.content}</div>
+      <div class="post-content" id="view-content">${currentPost.content}</div>
+
+      ${isGuild && isOwner ? `
+        <div class="edit-form" id="edit-form" style="display:none">
+          <input id="edit-title" type="text" value="${currentPost.title.replace(/"/g,'&quot;')}">
+          <textarea id="edit-content">${currentPost.content}</textarea>
+          <div class="edit-form-btns">
+            <button class="btn-gray" onclick="toggleEdit()">취소</button>
+            <button class="btn-primary" onclick="saveEdit()">저장</button>
+          </div>
+        </div>
+      ` : ''}
+
       <div class="post-actions">
         <button class="btn-like ${isLiked ? 'liked' : ''}" id="like-btn" onclick="toggleLike()">
-          ❤ 추천 <span id="like-count">${p.likes || 0}</span>
+          ❤ 추천 <span id="like-count">${currentPost.likes || 0}</span>
         </button>
-        ${canDelete ? `<button class="btn btn-danger" onclick="deletePost(${p.id})">삭제</button>` : '<span></span>'}
+        <div class="post-actions-right">
+          ${isGuild && isOwner ? `
+            <button class="btn btn-bump" onclick="bumpPost()">⬆ 끌어올리기</button>
+            <button class="btn btn-edit" onclick="toggleEdit()">수정</button>
+          ` : ''}
+          ${canDelete ? `<button class="btn btn-danger" onclick="deletePost(${currentPost.id})">삭제</button>` : ''}
+        </div>
       </div>
     `;
   } catch(e) { document.getElementById('post-box').innerHTML = '오류: ' + e.message; }
+}
+
+function toggleEdit() {
+  const form = document.getElementById('edit-form');
+  form.style.display = form.style.display === 'none' ? '' : 'none';
+}
+
+async function saveEdit() {
+  const title = document.getElementById('edit-title').value.trim();
+  const content = document.getElementById('edit-content').value.trim();
+  if(!title || !content) { alert('제목과 내용을 입력해주세요.'); return; }
+  try {
+    await supabase('PATCH', 'posts', { title, content, updated_at: new Date().toISOString() }, `?id=eq.${postId}`);
+    alert('수정됐어요!');
+    location.reload();
+  } catch(e) { alert('오류: ' + e.message); }
+}
+
+async function bumpPost() {
+  if(!confirm('글을 끌어올릴까요?')) return;
+  try {
+    await supabase('PATCH', 'posts', { updated_at: new Date().toISOString() }, `?id=eq.${postId}`);
+    alert('끌어올렸어요!');
+  } catch(e) { alert('오류: ' + e.message); }
 }
 
 async function toggleLike() {
@@ -101,17 +167,17 @@ async function toggleLike() {
       await supabase('PATCH', 'posts', { likes: parseInt(document.getElementById('like-count').textContent) + 1 }, `?id=eq.${postId}`);
       isLiked = true;
     }
-    const btn = document.getElementById('like-btn');
     const rows = await supabase('GET', 'posts', null, `?id=eq.${postId}&select=likes`);
     document.getElementById('like-count').textContent = rows[0].likes;
-    btn.className = `btn-like ${isLiked ? 'liked' : ''}`;
+    document.getElementById('like-btn').className = `btn-like ${isLiked ? 'liked' : ''}`;
   } catch(e) { alert('오류: ' + e.message); }
 }
 
 async function deletePost(id) {
   if(!confirm('글을 삭제할까요?')) return;
   await supabase('DELETE', 'posts', null, `?id=eq.${id}`);
-  location.href = './community.html';
+  const back = backBoard === 'guild' ? './guild.html' : backBoard === 'guide' ? './guide.html' : './community.html';
+  location.href = back;
 }
 
 async function loadComments() {
