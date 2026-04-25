@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>길드</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Malgun Gothic',sans-serif;background:#1a1a2e;color:#eee;padding:12px}
+.back-btn{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;border:1px solid #333;background:#1e1e30;color:#aaa;font-size:12px;text-decoration:none;margin-bottom:16px;transition:all 0.15s}
+.back-btn:hover{border-color:#5dcff5;color:#eee}
+h1{font-size:20px;color:#aaa;margin-bottom:16px}
+.guild-table{width:100%;border-collapse:collapse;background:#1e1e30;border:1px solid #333;border-radius:10px;overflow:hidden}
+.guild-table th{background:#252538;padding:10px 14px;font-size:12px;font-weight:700;color:#5dcff5;text-align:left;border-bottom:1px solid #333}
+.guild-table th.num{width:60px;text-align:center}
+.guild-table th.level{width:80px;text-align:center}
+.guild-table th.date{width:110px;text-align:center}
+.guild-table td{padding:12px 14px;font-size:13px;border-bottom:1px solid #2a2a3e;color:#ddd}
+.guild-table td.num{text-align:center;color:#666;font-size:12px}
+.guild-table td.level{text-align:center;color:#5dcff5;font-size:12px}
+.guild-table td.date{text-align:center;color:#666;font-size:12px}
+.guild-table tr:last-child td{border-bottom:none}
+.guild-table tr:hover td{background:#252538;cursor:pointer}
+.guild-title-link{color:#ddd;text-decoration:none;font-size:13px;display:flex;align-items:center;gap:8px}
+.guild-title-link:hover{color:#5dcff5}
+.guild-logo-small{width:28px;height:28px;border-radius:6px;object-fit:cover;border:1px solid #333;background:#252538;flex-shrink:0}
+</style>
+</head>
+<body>
+<a href="./index.html" class="back-btn">← 메인으로</a>
+<h1>길드</h1>
+<table class="guild-table">
+  <thead>
+    <tr>
+      <th class="num">번호</th>
+      <th>길드명</th>
+      <th class="level">레벨</th>
+      <th class="date">등록일</th>
+    </tr>
+  </thead>
+  <tbody id="guild-list-body"></tbody>
+</table>
+<script src="./data/guild_list.js"></script>
+<script>
+const tbody = document.getElementById('guild-list-body');
+guildList.forEach(g => {
+  const tr = document.createElement('tr');
+  tr.onclick = () => location.href = `./guild_view.html?id=${g.id}`;
+  tr.innerHTML = `
+    <td class="num">${g.id}</td>
+    <td>
+      <a class="guild-title-link" href="./guild_view.html?id=${g.id}">
+        <img class="guild-logo-small" src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/guild/${g.id}.png" alt="">
+        ${g.title}
+      </a>
+    </td>
+    <td class="level">${g.level}</td>
+    <td class="date">${g.date}</td>
+  `;
+  tbody.appendChild(tr);
+});
+</script>
+</body>
+</html>

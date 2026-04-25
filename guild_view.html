@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>길드 정보</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Malgun Gothic',sans-serif;background:#1a1a2e;color:#eee;padding:16px}
+.back-btn{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;border:1px solid #333;background:#1e1e30;color:#aaa;font-size:12px;text-decoration:none;margin-bottom:20px;transition:all 0.15s}
+.back-btn:hover{border-color:#5dcff5;color:#eee}
+.post-body{max-width:780px;font-size:14px;color:#ccc;line-height:1.9}
+.post-body .section-title{font-size:15px;font-weight:700;color:#5dcff5;margin:24px 0 10px;padding-bottom:6px;border-bottom:1px solid #2a2a3e}
+.post-body p{margin-bottom:8px;word-break:keep-all}
+.post-body hr{border:none;border-top:1px solid #2a2a3e;margin:20px 0}
+</style>
+</head>
+<body>
+<a href="./guild.html" class="back-btn">← 목록으로</a>
+<div class="post-body" id="guild-body">로딩 중...</div>
+
+<script>
+const params = new URLSearchParams(location.search);
+const id = params.get('id');
+if(id) {
+  const script = document.createElement('script');
+  script.src = `./data/guild${id}.js`;
+  script.onload = () => {
+    document.title = guildContent.title + ' - 길드';
+    document.getElementById('guild-body').innerHTML = guildContent.body;
+  };
+  script.onerror = () => {
+    document.getElementById('guild-body').innerHTML = '<div style="color:#666;padding:40px 0;text-align:center">길드 정보를 찾을 수 없습니다.</div>';
+  };
+  document.head.appendChild(script);
+}
+</script>
+</body>
+</html>
