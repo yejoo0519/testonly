@@ -37,11 +37,11 @@ body{font-family:'Malgun Gothic',sans-serif;background:#1a1a2e;color:#eee;paddin
 .guild-table td.date{text-align:center;color:#666;font-size:12px}
 .guild-table tr:last-child td{border-bottom:none}
 .guild-table tr:hover td{background:#252538;cursor:pointer}
-.guild-title-link{color:#ddd;text-decoration:none;font-size:13px;display:flex;align-items:center;gap:8px}
+.guild-title-link{color:#ddd;text-decoration:none;font-size:13px;display:flex;align-items:center;gap:6px}
 .guild-title-link:hover{color:#5dcff5}
 .guild-logo-small{width:28px;height:28px;border-radius:6px;object-fit:cover;border:1px solid #333;background:#252538;flex-shrink:0}
 .empty{text-align:center;color:#555;font-size:13px;padding:32px 0}
-.section-divider{font-size:12px;color:#666;padding:8px 14px;background:#252538;border-top:1px solid #333;border-bottom:1px solid #333}
+.verify-badge{font-size:12px}
 </style>
 </head>
 <body>
@@ -134,12 +134,19 @@ async function loadDbPosts() {
     tbody.innerHTML = '';
 
     if(dbPosts && dbPosts.length > 0) {
-      dbPosts.forEach((p, i) => {
+      const normalPosts = dbPosts.filter(p => !p.is_pinned);
+      dbPosts.forEach(p => {
+        const num = p.is_pinned ? '📌' : normalPosts.length - normalPosts.indexOf(p);
         const tr = document.createElement('tr');
         tr.onclick = () => location.href = `./community_view.html?id=${p.id}&back=guild`;
         tr.innerHTML = `
-          <td class="num">${p.is_pinned ? '📌' : dbPosts.filter(x=>!x.is_pinned).length - dbPosts.filter(x=>!x.is_pinned).indexOf(p)}</td>
-          <td><a class="guild-title-link" href="./community_view.html?id=${p.id}&back=guild">${p.title}</a></td>
+          <td class="num">${num}</td>
+          <td>
+            <a class="guild-title-link" href="./community_view.html?id=${p.id}&back=guild">
+              ${p.is_verified ? '<span class="verify-badge">✅</span>' : ''}
+              ${p.title}
+            </a>
+          </td>
           <td class="author">${p.nickname || p.username}</td>
           <td class="likes">❤ ${p.likes || 0}</td>
           <td class="date">${(p.updated_at || p.created_at).slice(0,10).replace(/-/g,'.')}</td>
@@ -149,9 +156,6 @@ async function loadDbPosts() {
     }
 
     if(guildList && guildList.length > 0) {
-      const divRow = document.createElement('tr');
-      divRow.innerHTML = '<td colspan="5" class="section-divider">공식 등록 길드</td>';
-      tbody.appendChild(divRow);
       guildList.forEach(g => {
         const tr = document.createElement('tr');
         tr.onclick = () => location.href = `./guild_view.html?id=${g.id}`;
@@ -160,6 +164,7 @@ async function loadDbPosts() {
           <td>
             <a class="guild-title-link" href="./guild_view.html?id=${g.id}">
               <img class="guild-logo-small" src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/guild/${g.id}.png" alt="">
+              <span class="verify-badge">✅</span>
               ${g.title}
             </a>
           </td>
