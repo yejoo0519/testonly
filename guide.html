@@ -6,6 +6,8 @@
 <title>공략 & 가이드</title>
 <link id="theme-css" rel="stylesheet" href="./theme-dark.css">
 <script src="./theme.js"></script>
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--text);padding:12px}
@@ -27,7 +29,7 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
 .write-form input:focus,.write-form textarea:focus,.write-form select:focus{outline:none;border-color:var(--accent)}
 .write-form-row{display:flex;gap:8px;margin-bottom:8px}
 .write-form-row select{margin-bottom:0;flex:1}
-.write-form-btns{display:flex;justify-content:flex-end;gap:8px}
+.write-form-btns{display:flex;justify-content:flex-end;gap:8px;margin-top:8px}
 .filter-wrap{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
 .filter-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
 .filter-label{font-size:11px;color:var(--text4);width:40px;flex-shrink:0}
@@ -67,6 +69,18 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
 .guide-title-link{color:var(--text);text-decoration:none;font-size:13px}
 .guide-title-link:hover{color:var(--accent)}
 .no-result{text-align:center;color:var(--text4);font-size:13px;padding:32px 0}
+
+/* Quill 에디터 스타일 */
+.ql-toolbar{background:var(--bg3);border:1px solid var(--border3)!important;border-radius:8px 8px 0 0}
+.ql-container{background:var(--bg3);border:1px solid var(--border3)!important;border-top:none!important;border-radius:0 0 8px 8px;min-height:100px;font-family:'Malgun Gothic',sans-serif;font-size:13px}
+.ql-editor{color:var(--text);min-height:100px}
+.ql-editor.ql-blank::before{color:var(--text4)}
+.ql-snow .ql-stroke{stroke:var(--text2)!important}
+.ql-snow .ql-fill{fill:var(--text2)!important}
+.ql-snow .ql-picker{color:var(--text2)!important}
+.ql-snow .ql-picker-options{background:var(--bg2)!important;border-color:var(--border)!important}
+.ql-snow.ql-toolbar button:hover .ql-stroke{stroke:var(--accent)!important}
+.ql-snow.ql-toolbar button.ql-active .ql-stroke{stroke:var(--accent)!important}
 </style>
 </head>
 <body>
@@ -97,7 +111,7 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
       <option value="심화">난이도: 심화</option>
     </select>
   </div>
-  <textarea id="post-content" placeholder="내용을 입력하세요"></textarea>
+  <div id="quill-editor"></div>
   <div class="write-form-btns">
     <button class="btn btn-gray" onclick="toggleForm()">취소</button>
     <button class="btn btn-primary" onclick="submitPost()">등록</button>
@@ -147,6 +161,7 @@ const user = getUser();
 let activeCategory = '';
 let activeLevel = '';
 let dbPosts = [];
+let quill;
 
 if(user) {
   document.getElementById('user-info').textContent = user.nickname || user.username;
@@ -167,7 +182,24 @@ if(user) {
 
 function toggleForm() {
   const f = document.getElementById('write-form');
-  f.style.display = f.style.display === 'none' ? '' : 'none';
+  const isHidden = f.style.display === 'none';
+  f.style.display = isHidden ? '' : 'none';
+  if(isHidden && !quill) {
+    quill = new Quill('#quill-editor', {
+      theme: 'snow',
+      placeholder: '내용을 입력하세요',
+      modules: {
+        toolbar: [
+          ['bold','italic','underline','strike'],
+          [{'color':[]},{'background':[]}],
+          [{'size':['small',false,'large','huge']}],
+          ['link','image'],
+          [{'list':'ordered'},{'list':'bullet'}],
+          ['clean']
+        ]
+      }
+    });
+  }
 }
 
 async function submitPost() {
