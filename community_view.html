@@ -10,7 +10,9 @@ body{font-family:'Malgun Gothic',sans-serif;background:#1a1a2e;color:#eee;paddin
 .back-btn{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;border:1px solid #333;background:#1e1e30;color:#aaa;font-size:12px;text-decoration:none;margin-bottom:16px;transition:all 0.15s}
 .back-btn:hover{border-color:#5dcff5;color:#eee}
 .post-box{background:#1e1e30;border:1px solid #333;border-radius:10px;padding:20px;margin-bottom:16px;max-width:780px}
+.post-box.pinned{border-color:rgba(255,167,38,0.4);background:rgba(255,167,38,0.03)}
 .post-title{font-size:18px;font-weight:700;color:#eee;margin-bottom:8px}
+.pin-label{font-size:11px;color:#ffb74d;margin-bottom:6px;display:flex;align-items:center;gap:4px}
 .post-meta{font-size:12px;color:#666;margin-bottom:16px;display:flex;gap:12px;align-items:center}
 .post-author{color:#5dcff5;font-weight:700}
 .post-content{font-size:14px;color:#ccc;line-height:1.9;white-space:pre-wrap;word-break:break-all}
@@ -60,14 +62,17 @@ async function loadPost() {
     const p = rows[0];
     document.title = p.title + ' - 묻고답하기';
 
-    // 추천 여부 확인
     if(user) {
       const likeRows = await supabase('GET', 'post_likes', null, `?post_id=eq.${postId}&user_id=eq.${user.id}`);
       isLiked = likeRows && likeRows.length > 0;
     }
 
+    const postBox = document.getElementById('post-box');
+    if(p.is_pinned) postBox.classList.add('pinned');
+
     const canDelete = user && (user.id === p.user_id || user.is_admin);
-    document.getElementById('post-box').innerHTML = `
+    postBox.innerHTML = `
+      ${p.is_pinned ? '<div class="pin-label">📌 공지 / 고정글</div>' : ''}
       <div class="post-title">${p.title}</div>
       <div class="post-meta">
         <span class="post-author">${p.nickname || p.username}</span>
