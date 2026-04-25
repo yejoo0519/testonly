@@ -116,7 +116,8 @@ async function submitPost() {
       nickname: user.nickname || user.username,
       board: 'guild',
       title,
-      content
+      content,
+      updated_at: new Date().toISOString()
     });
     document.getElementById('post-title').value = '';
     document.getElementById('post-content').value = '';
@@ -129,32 +130,28 @@ async function loadDbPosts() {
   const tbody = document.getElementById('guild-list-body');
   tbody.innerHTML = '<tr><td colspan="5" class="empty">로딩 중...</td></tr>';
   try {
-    const dbPosts = await supabase('GET', 'posts', null, '?board=eq.guild&order=created_at.desc');
-
+    const dbPosts = await supabase('GET', 'posts', null, '?board=eq.guild&order=is_pinned.desc,updated_at.desc');
     tbody.innerHTML = '';
 
-    // DB 글
     if(dbPosts && dbPosts.length > 0) {
       dbPosts.forEach((p, i) => {
         const tr = document.createElement('tr');
         tr.onclick = () => location.href = `./community_view.html?id=${p.id}&back=guild`;
         tr.innerHTML = `
-          <td class="num">${dbPosts.length - i}</td>
+          <td class="num">${p.is_pinned ? '📌' : dbPosts.filter(x=>!x.is_pinned).length - dbPosts.filter(x=>!x.is_pinned).indexOf(p)}</td>
           <td><a class="guild-title-link" href="./community_view.html?id=${p.id}&back=guild">${p.title}</a></td>
           <td class="author">${p.nickname || p.username}</td>
           <td class="likes">❤ ${p.likes || 0}</td>
-          <td class="date">${p.created_at.slice(0,10).replace(/-/g,'.')}</td>
+          <td class="date">${(p.updated_at || p.created_at).slice(0,10).replace(/-/g,'.')}</td>
         `;
         tbody.appendChild(tr);
       });
     }
 
-    // 정적 길드 목록
     if(guildList && guildList.length > 0) {
       const divRow = document.createElement('tr');
       divRow.innerHTML = '<td colspan="5" class="section-divider">공식 등록 길드</td>';
       tbody.appendChild(divRow);
-
       guildList.forEach(g => {
         const tr = document.createElement('tr');
         tr.onclick = () => location.href = `./guild_view.html?id=${g.id}`;
