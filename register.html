@@ -20,6 +20,7 @@ body{font-family:'Malgun Gothic',sans-serif;background:#1a1a2e;color:#eee;min-he
 .msg.success{color:#66bb6a}
 .link{text-align:center;margin-top:14px;font-size:12px;color:#666}
 .link a{color:#5dcff5;text-decoration:none}
+.field-hint{font-size:11px;color:#666;margin-top:3px}
 </style>
 </head>
 <body>
@@ -28,6 +29,11 @@ body{font-family:'Malgun Gothic',sans-serif;background:#1a1a2e;color:#eee;min-he
   <div class="field">
     <label>아이디</label>
     <input id="username" type="text" placeholder="아이디 입력">
+  </div>
+  <div class="field">
+    <label>닉네임</label>
+    <input id="nickname" type="text" placeholder="닉네임 입력">
+    <div class="field-hint">게시판에 표시되는 이름입니다.</div>
   </div>
   <div class="field">
     <label>비밀번호</label>
@@ -46,18 +52,21 @@ body{font-family:'Malgun Gothic',sans-serif;background:#1a1a2e;color:#eee;min-he
 <script>
 async function register() {
   const username = document.getElementById('username').value.trim();
+  const nickname = document.getElementById('nickname').value.trim();
   const password = document.getElementById('password').value;
   const password2 = document.getElementById('password2').value;
   const msg = document.getElementById('msg');
 
   if(!username || !password) { msg.className='msg error'; msg.textContent='아이디와 비밀번호를 입력해주세요.'; return; }
+  if(!nickname) { msg.className='msg error'; msg.textContent='닉네임을 입력해주세요.'; return; }
   if(username.length < 2) { msg.className='msg error'; msg.textContent='아이디는 2자 이상이어야 합니다.'; return; }
+  if(nickname.length < 2) { msg.className='msg error'; msg.textContent='닉네임은 2자 이상이어야 합니다.'; return; }
   if(password.length < 4) { msg.className='msg error'; msg.textContent='비밀번호는 4자 이상이어야 합니다.'; return; }
   if(password !== password2) { msg.className='msg error'; msg.textContent='비밀번호가 일치하지 않습니다.'; return; }
 
   try {
     const hashed = await hashPassword(password);
-    await supabase('POST', 'users', { username, password: hashed });
+    await supabase('POST', 'users', { username, nickname, password: hashed });
     msg.className='msg success'; msg.textContent='가입 완료! 로그인 페이지로 이동합니다.';
     setTimeout(() => location.href='./login.html', 1200);
   } catch(e) {
