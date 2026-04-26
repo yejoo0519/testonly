@@ -6,6 +6,8 @@
 <title>묻고답하기</title>
 <link id="theme-css" rel="stylesheet" href="./theme-dark.css">
 <script src="./theme.js"></script>
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--text);padding:12px}
@@ -35,10 +37,19 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
 .btn-like:hover{border-color:#f5c842;color:#f5c842}
 .btn-like.liked{border-color:#f5c842;color:#f5c842;background:rgba(245,200,66,0.1)}
 .edit-form{margin-top:16px;padding-top:16px;border-top:1px solid var(--border)}
-.edit-form input,.edit-form textarea{width:100%;padding:9px 12px;background:var(--bg3);border:1px solid var(--border3);border-radius:8px;color:var(--text);font-size:13px;font-family:inherit;margin-bottom:8px}
-.edit-form textarea{min-height:100px;resize:vertical}
-.edit-form input:focus,.edit-form textarea:focus{outline:none;border-color:var(--accent)}
-.edit-form-btns{display:flex;justify-content:flex-end;gap:8px}
+.edit-form input{width:100%;padding:9px 12px;background:var(--bg3);border:1px solid var(--border3);border-radius:8px;color:var(--text);font-size:13px;font-family:inherit;margin-bottom:8px}
+.edit-form input:focus{outline:none;border-color:var(--accent)}
+.edit-form-btns{display:flex;justify-content:flex-end;gap:8px;margin-top:8px}
+.ql-toolbar{background:var(--bg3);border:1px solid var(--border3)!important;border-radius:8px 8px 0 0}
+.ql-container{background:var(--bg3);border:1px solid var(--border3)!important;border-top:none!important;border-radius:0 0 8px 8px;font-family:'Malgun Gothic',sans-serif;font-size:13px}
+.ql-editor{color:var(--text);min-height:120px}
+.ql-editor.ql-blank::before{color:var(--text4)}
+.ql-snow .ql-stroke{stroke:var(--text2)!important}
+.ql-snow .ql-fill{fill:var(--text2)!important}
+.ql-snow .ql-picker{color:var(--text2)!important}
+.ql-snow .ql-picker-options{background:var(--bg2)!important;border-color:var(--border)!important}
+.ql-snow.ql-toolbar button:hover .ql-stroke{stroke:var(--accent)!important}
+.ql-snow.ql-toolbar button.ql-active .ql-stroke{stroke:var(--accent)!important}
 .btn-primary{background:var(--accent-bg);color:var(--accent);border:1px solid var(--accent-border);padding:6px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit}
 .btn-primary:hover{background:rgba(93,207,245,0.25)}
 .btn-gray{background:var(--bg3);color:var(--text2);border:1px solid var(--border);padding:6px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit}
@@ -148,7 +159,7 @@ async function loadPost() {
       ${isGuild && isOwner ? `
         <div class="edit-form" id="edit-form" style="display:none">
           <input id="edit-title" type="text" value="${currentPost.title.replace(/"/g,'&quot;')}">
-          <textarea id="edit-content">${currentPost.content}</textarea>
+          <div id="edit-quill"></div>
           <div class="edit-form-btns">
             <button class="btn-gray" onclick="toggleEdit()">취소</button>
             <button class="btn-primary" onclick="saveEdit()">저장</button>
@@ -177,15 +188,35 @@ async function loadPost() {
   } catch(e) { document.getElementById('post-box').innerHTML = '오류: ' + e.message; }
 }
 
+let editQuill = null;
+
 function toggleEdit() {
   const form = document.getElementById('edit-form');
-  form.style.display = form.style.display === 'none' ? '' : 'none';
+  const isHidden = form.style.display === 'none';
+  form.style.display = isHidden ? '' : 'none';
+  if(isHidden && !editQuill) {
+    editQuill = new Quill('#edit-quill', {
+      theme: 'snow',
+      modules: {
+        toolbar: [
+          ['bold','italic','underline','strike'],
+          [{'color':[]},{'background':[]}],
+          [{'size':['small',false,'large','huge']}],
+          ['link','image'],
+          [{'list':'ordered'},{'list':'bullet'}],
+          ['clean']
+        ]
+      }
+    });
+    editQuill.root.innerHTML = currentPost.content || '';
+  }
 }
 
 async function saveEdit() {
   const title = document.getElementById('edit-title').value.trim();
-  const content = document.getElementById('edit-content').value.trim();
-  if(!title || !content) { alert('제목과 내용을 입력해주세요.'); return; }
+  const content = editQuill ? editQuill.root.innerHTML : '';
+  const textOnly = editQuill ? editQuill.getText().trim() : '';
+  if(!title || !textOnly) { alert('제목과 내용을 입력해주세요.'); return; }
   try {
     await supabase('PATCH', 'posts', { title, content, updated_at: new Date().toISOString() }, `?id=eq.${postId}`);
     alert('수정됐어요!');
