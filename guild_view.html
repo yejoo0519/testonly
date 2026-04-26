@@ -45,10 +45,7 @@ if(id) {
     const logoUrl = guildContent.logo;
     headerWrap.innerHTML = `
       <div class="guild-header">
-        ${logoUrl
-          ? `<img class="guild-logo" src="${logoUrl}" alt="${guildContent.title}">`
-          : `<div class="guild-logo-placeholder">🐉</div>`
-        }
+        <img class="guild-logo" src="${logoUrl || 'https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/guild.png'}" alt="${guildContent.title}">
         <div class="guild-header-info">
           <div class="guild-title">${guildContent.title}</div>
           <div class="guild-level">${guildContent.level || ''} 길드</div>
