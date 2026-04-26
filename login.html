@@ -39,7 +39,6 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
   <div class="msg" id="msg"></div>
   <div class="link"><a href="./register.html">계정이 없어요 → 회원가입</a></div>
 </div>
-
 <script src="./sb_config.js"></script>
 <script>
 async function login() {
@@ -53,7 +52,13 @@ async function login() {
     if(!rows || rows.length === 0){ msg.className='msg error'; msg.textContent='아이디 또는 비밀번호가 틀렸습니다.'; return; }
     const user = rows[0];
     if(user.is_banned){ msg.className='msg error'; msg.textContent='이용이 제한된 계정입니다.'; return; }
-    setUser({ id: user.id, username: user.username, nickname: user.nickname || user.username, is_admin: user.is_admin });
+    setUser({
+      id: user.id,
+      username: user.username,
+      nickname: user.nickname || user.username,
+      friend_code: user.friend_code || '',
+      is_admin: user.is_admin
+    });
     msg.className='msg success'; msg.textContent='로그인 성공!';
     setTimeout(() => location.href='./community.html', 800);
   } catch(e) {
