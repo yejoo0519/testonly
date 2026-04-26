@@ -23,13 +23,6 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
 .btn-gray{background:var(--bg3);color:var(--text2);border:1px solid var(--border)}
 .btn-gray:hover{border-color:var(--accent);color:var(--text)}
 .btn-danger{background:rgba(239,83,80,0.1);color:#ef5350;border:1px solid rgba(239,83,80,0.2)}
-.write-form{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:16px}
-.write-form input,.write-form textarea,.write-form select{width:100%;padding:9px 12px;background:var(--bg3);border:1px solid var(--border3);border-radius:8px;color:var(--text);font-size:13px;font-family:inherit;margin-bottom:8px}
-.write-form textarea{min-height:80px;resize:vertical}
-.write-form input:focus,.write-form textarea:focus,.write-form select:focus{outline:none;border-color:var(--accent)}
-.write-form-row{display:flex;gap:8px;margin-bottom:8px}
-.write-form-row select{margin-bottom:0;flex:1}
-.write-form-btns{display:flex;justify-content:flex-end;gap:8px;margin-top:8px}
 .filter-wrap{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
 .filter-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
 .filter-label{font-size:11px;color:var(--text4);width:40px;flex-shrink:0}
@@ -44,15 +37,12 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
 .tag-기초{background:rgba(102,187,106,0.1);color:#81c784;border:1px solid rgba(102,187,106,0.2)}
 .tag-중급{background:rgba(255,167,38,0.1);color:#ffb74d;border:1px solid rgba(255,167,38,0.2)}
 .tag-심화{background:rgba(239,83,80,0.1);color:#ef9a9a;border:1px solid rgba(239,83,80,0.2)}
-
-/* 검색창 */
 .search-wrap{position:relative;margin-bottom:16px}
 .search-wrap input{width:100%;padding:9px 36px 9px 12px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;font-family:inherit}
 .search-wrap input:focus{outline:none;border-color:var(--accent)}
 .search-wrap input::placeholder{color:var(--text4)}
 .search-icon{position:absolute;right:10px;top:50%;transform:translateY(-50%);color:var(--text4);font-size:14px;pointer-events:none}
 .search-highlight{background:rgba(93,207,245,0.25);border-radius:2px;color:var(--accent)}
-
 .guide-table{width:100%;border-collapse:collapse;background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden}
 .guide-table th{background:var(--bg3);padding:10px 14px;font-size:12px;font-weight:700;color:var(--accent);text-align:left;border-bottom:1px solid var(--border)}
 .guide-table th.num{width:60px;text-align:center}
@@ -69,18 +59,10 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
 .guide-title-link{color:var(--text);text-decoration:none;font-size:13px}
 .guide-title-link:hover{color:var(--accent)}
 .no-result{text-align:center;color:var(--text4);font-size:13px;padding:32px 0}
-
-/* Quill 에디터 스타일 */
-.ql-toolbar{background:var(--bg3);border:1px solid var(--border3)!important;border-radius:8px 8px 0 0}
-.ql-container{background:var(--bg3);border:1px solid var(--border3)!important;border-top:none!important;border-radius:0 0 8px 8px;min-height:100px;font-family:'Malgun Gothic',sans-serif;font-size:13px}
-.ql-editor{color:var(--text);min-height:100px}
-.ql-editor.ql-blank::before{color:var(--text4)}
-.ql-snow .ql-stroke{stroke:var(--text2)!important}
-.ql-snow .ql-fill{fill:var(--text2)!important}
-.ql-snow .ql-picker{color:var(--text2)!important}
-.ql-snow .ql-picker-options{background:var(--bg2)!important;border-color:var(--border)!important}
-.ql-snow.ql-toolbar button:hover .ql-stroke{stroke:var(--accent)!important}
-.ql-snow.ql-toolbar button.ql-active .ql-stroke{stroke:var(--accent)!important}
+.block-btn{font-size:10px;padding:2px 6px;border-radius:4px;border:1px solid var(--border3);background:none;color:var(--text4);cursor:pointer;font-family:inherit;margin-left:4px}
+.block-btn:hover{border-color:#ef5350;color:#ef5350}
+.blocked-count{font-size:11px;color:var(--text4);text-align:right;margin-bottom:6px}
+.blocked-count a{color:var(--accent);cursor:pointer;text-decoration:none}
 </style>
 </head>
 <body>
@@ -92,31 +74,11 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
   <div class="header-right" id="header-right">
     <span class="user-info" id="user-info"></span>
     <button class="btn btn-gray" id="auth-btn"></button>
-    <button class="btn btn-primary" id="write-btn" style="display:none" onclick="location.href='./write.html?board=qna'">글쓰기</button>
+    <button class="btn btn-primary" id="write-btn" style="display:none" onclick="location.href='./write.html?board=guide'">글쓰기</button>
   </div>
 </div>
 
-<div class="write-form" id="write-form" style="display:none">
-  <input id="post-title" type="text" placeholder="제목">
-  <div class="write-form-row">
-    <select id="post-category">
-      <option value="기타">분류: 기타</option>
-      <option value="시나리오">분류: 시나리오</option>
-      <option value="육성">분류: 육성</option>
-      <option value="정령">분류: 정령</option>
-    </select>
-    <select id="post-level">
-      <option value="기초">난이도: 기초</option>
-      <option value="중급">난이도: 중급</option>
-      <option value="심화">난이도: 심화</option>
-    </select>
-  </div>
-  <div id="quill-editor"></div>
-  <div class="write-form-btns">
-    <button class="btn btn-gray" onclick="toggleForm()">취소</button>
-    <button class="btn btn-primary" onclick="submitPost()">등록</button>
-  </div>
-</div>
+<div id="blocked-info"></div>
 
 <div class="filter-wrap">
   <div class="filter-row">
@@ -161,7 +123,20 @@ const user = getUser();
 let activeCategory = '';
 let activeLevel = '';
 let dbPosts = [];
-let quill;
+
+function getBlockList() { try { return JSON.parse(localStorage.getItem('block_list') || '[]'); } catch { return []; } }
+function saveBlockList(list) { localStorage.setItem('block_list', JSON.stringify(list)); }
+function blockUser(userId, nickname) {
+  if(!confirm(`"${nickname}"님을 차단할까요?`)) return;
+  const list = getBlockList();
+  if(!list.includes(userId)) { list.push(userId); saveBlockList(list); }
+  renderList();
+}
+function showBlockList() {
+  const list = getBlockList();
+  if(list.length === 0) { alert('차단한 유저가 없어요.'); return; }
+  if(confirm(`차단된 유저 ${list.length}명\n\n전체 차단 해제할까요?`)) { saveBlockList([]); renderList(); }
+}
 
 if(user) {
   document.getElementById('user-info').textContent = user.nickname || user.username;
@@ -178,51 +153,6 @@ if(user) {
 } else {
   document.getElementById('auth-btn').textContent = '로그인';
   document.getElementById('auth-btn').onclick = () => location.href = './login.html';
-}
-
-function toggleForm() {
-  const f = document.getElementById('write-form');
-  const isHidden = f.style.display === 'none';
-  f.style.display = isHidden ? '' : 'none';
-  if(isHidden && !quill) {
-    quill = new Quill('#quill-editor', {
-      theme: 'snow',
-      placeholder: '내용을 입력하세요',
-      modules: {
-        toolbar: [
-          ['bold','italic','underline','strike'],
-          [{'color':[]},{'background':[]}],
-          [{'size':['small',false,'large','huge']}],
-          ['link','image'],
-          [{'list':'ordered'},{'list':'bullet'}],
-          ['clean']
-        ]
-      }
-    });
-  }
-}
-
-async function submitPost() {
-  const title = document.getElementById('post-title').value.trim();
-  const content = document.getElementById('post-content').value.trim();
-  const category = document.getElementById('post-category').value;
-  const level = document.getElementById('post-level').value;
-  if(!title || !content) { alert('제목과 내용을 입력해주세요.'); return; }
-  try {
-    await supabase('POST', 'posts', {
-      user_id: user.id,
-      username: user.username,
-      nickname: user.nickname || user.username,
-      board: 'guide',
-      title,
-      content,
-      tags: JSON.stringify([category, level])
-    });
-    document.getElementById('post-title').value = '';
-    document.getElementById('post-content').value = '';
-    toggleForm();
-    loadDbPosts();
-  } catch(e) { alert('오류: ' + e.message); }
 }
 
 async function loadDbPosts() {
@@ -254,23 +184,22 @@ function highlight(text, query) {
 function renderList() {
   const tbody = document.getElementById('guide-list-body');
   const searchQuery = document.getElementById('search-input').value.trim();
+  const blockList = getBlockList();
   tbody.innerHTML = '';
+
+  const blockedInfo = document.getElementById('blocked-info');
+  blockedInfo.innerHTML = blockList.length > 0 ? `<div class="blocked-count">차단된 유저 ${blockList.length}명 · <a onclick="showBlockList()">차단 관리</a></div>` : '';
 
   const staticFiltered = guideList.filter(g => {
     const tags = g.tags || [];
-    const categoryOk = !activeCategory || tags.includes(activeCategory);
-    const levelOk = !activeLevel || tags.includes(activeLevel);
-    const searchOk = !searchQuery || g.title.includes(searchQuery);
-    return categoryOk && levelOk && searchOk;
+    return (!activeCategory || tags.includes(activeCategory)) && (!activeLevel || tags.includes(activeLevel)) && (!searchQuery || g.title.includes(searchQuery));
   });
 
   const dbFiltered = dbPosts.filter(p => {
+    if(blockList.includes(p.user_id)) return false;
     try {
       const tags = JSON.parse(p.tags || '[]');
-      const categoryOk = !activeCategory || tags.includes(activeCategory);
-      const levelOk = !activeLevel || tags.includes(activeLevel);
-      const searchOk = !searchQuery || p.title.includes(searchQuery);
-      return categoryOk && levelOk && searchOk;
+      return (!activeCategory || tags.includes(activeCategory)) && (!activeLevel || tags.includes(activeLevel)) && (!searchQuery || p.title.includes(searchQuery));
     } catch { return !activeCategory && !activeLevel && (!searchQuery || p.title.includes(searchQuery)); }
   });
 
@@ -283,12 +212,14 @@ function renderList() {
     let tags = [];
     try { tags = JSON.parse(p.tags || '[]'); } catch {}
     const tagHtml = tags.map(t => `<span class="tag-badge tag-${t}">${t}</span>`).join('');
+    const isMe = user && user.id === p.user_id;
+    const blockBtn = user && !isMe ? `<button class="block-btn" onclick="event.stopPropagation();blockUser('${p.user_id}','${p.nickname||p.username}')">차단</button>` : '';
     const tr = document.createElement('tr');
     tr.onclick = () => location.href = `./community_view.html?id=${p.id}&back=guide`;
     tr.innerHTML = `
       <td class="num">-</td>
       <td><a class="guide-title-link" href="./community_view.html?id=${p.id}&back=guide">${highlight(p.title, searchQuery)}</a> ${tagHtml}</td>
-      <td class="author">${p.nickname || p.username}</td>
+      <td class="author">${p.nickname || p.username}${blockBtn}</td>
       <td class="likes">❤ ${p.likes || 0}</td>
       <td class="date">${p.created_at.slice(0,10).replace(/-/g,'.')}</td>
     `;
