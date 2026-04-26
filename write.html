@@ -74,13 +74,20 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
       </select>
     </div>
   </div>
-  <div class="field" id="friend-options" style="display:none">
-    <label>태그</label>
-    <select id="friend-tag">
-      <option value="정기친구">정기친구</option>
-      <option value="레이드프리미엄">레이드 프리미엄</option>
-      <option value="기타">기타</option>
-    </select>
+  <div id="friend-options" style="display:none">
+    <div class="field">
+      <label>내 친구코드</label>
+      <div style="padding:10px 14px;background:var(--bg3);border:1px solid var(--border3);border-radius:8px;font-size:14px;color:var(--accent);font-family:monospace;font-weight:700;letter-spacing:2px" id="friend-code-display">-</div>
+      <div style="font-size:11px;color:var(--text4);margin-top:4px">가입 시 등록한 친구코드가 자동으로 표시됩니다.</div>
+    </div>
+    <div class="field">
+      <label>태그</label>
+      <select id="friend-tag">
+        <option value="정기친구">정기친구</option>
+        <option value="레이드프리미엄">레이드 프리미엄</option>
+        <option value="기타">기타</option>
+      </select>
+    </div>
   </div>
   <div class="field">
     <label>내용</label>
@@ -111,7 +118,11 @@ const config = boardConfig[board] || boardConfig.qna;
 document.getElementById('board-label').textContent = config.name;
 document.getElementById('back-btn').href = config.back;
 if(board === 'guide') document.getElementById('guide-options').style.display = '';
-if(board === 'friend') document.getElementById('friend-options').style.display = '';
+if(board === 'friend') {
+  document.getElementById('friend-options').style.display = '';
+  const fc = user.friend_code || '미등록';
+  document.getElementById('friend-code-display').textContent = fc;
+}
 
 const quill = new Quill('#quill-editor', {
   theme: 'snow',
@@ -156,7 +167,9 @@ async function submitPost() {
   }
   if(board === 'friend') {
     const tag = document.getElementById('friend-tag').value;
+    const fc = user.friend_code || '';
     postData.tags = JSON.stringify([tag]);
+    postData.friend_code = fc;
   }
 
   try {
