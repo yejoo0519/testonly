@@ -59,6 +59,13 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
 .write-comment-btns{display:flex;justify-content:flex-end}
 .login-notice{font-size:12px;color:var(--text4);text-align:center;padding:12px}
 .login-notice a{color:var(--accent);text-decoration:none}
+.tag-badge{display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;margin-right:4px}
+.tag-길드전{background:rgba(93,207,245,0.15);color:var(--accent);border:1px solid var(--accent-border)}
+.tag-광산{background:rgba(102,187,106,0.15);color:#66bb6a;border:1px solid rgba(102,187,106,0.3)}
+.tag-길드레이드{background:rgba(245,200,66,0.15);color:#f5c842;border:1px solid rgba(245,200,66,0.3)}
+.tag-길드포인트{background:rgba(255,167,38,0.15);color:#ffb74d;border:1px solid rgba(255,167,38,0.3)}
+.tag-성인{background:rgba(239,83,80,0.1);color:#ef9a9a;border:1px solid rgba(239,83,80,0.2)}
+.tag-상관X{background:rgba(255,255,255,0.08);color:var(--text2);border:1px solid var(--border)}
 </style>
 </head>
 <body>
@@ -129,6 +136,7 @@ async function loadPost() {
         </div>
       ` : ''}
       <div class="post-title">${currentPost.title}</div>
+      ${(() => { let tags=[]; try{tags=JSON.parse(currentPost.tags||'[]')}catch{}; return tags.length ? `<div style="margin-bottom:8px">${tags.map(t=>`<span class="tag-badge tag-${t.replace(/\s/g,'')}">${t}</span>`).join('')}</div>` : ''; })()}
       <div class="post-meta">
         <span class="post-author">${currentPost.nickname || currentPost.username}</span>
         ${authorIsAdmin ? '<span class="admin-badge">관리자</span>' : ''}
