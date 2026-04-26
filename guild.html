@@ -23,10 +23,6 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
 .btn-gray{background:var(--bg3);color:var(--text2);border:1px solid var(--border)}
 .btn-gray:hover{border-color:var(--accent);color:var(--text)}
 .btn-danger{background:rgba(239,83,80,0.1);color:#ef5350;border:1px solid rgba(239,83,80,0.2)}
-.write-form{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:16px}
-.write-form input{width:100%;padding:9px 12px;background:var(--bg3);border:1px solid var(--border3);border-radius:8px;color:var(--text);font-size:13px;font-family:inherit;margin-bottom:8px}
-.write-form input:focus{outline:none;border-color:var(--accent)}
-.write-form-btns{display:flex;justify-content:flex-end;gap:8px;margin-top:8px}
 .guild-table{width:100%;border-collapse:collapse;background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden}
 .guild-table th{background:var(--bg3);padding:10px 14px;font-size:12px;font-weight:700;color:var(--accent);text-align:left;border-bottom:1px solid var(--border)}
 .guild-table th.num{width:60px;text-align:center}
@@ -45,8 +41,10 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
 .guild-logo-small{width:28px;height:28px;border-radius:6px;object-fit:cover;border:1px solid var(--border);background:var(--bg3);flex-shrink:0}
 .empty{text-align:center;color:var(--text4);font-size:13px;padding:32px 0}
 .verify-badge{font-size:12px}
-
-/* Quill 에디터 스타일 */
+.block-btn{font-size:10px;padding:2px 6px;border-radius:4px;border:1px solid var(--border3);background:none;color:var(--text4);cursor:pointer;font-family:inherit;margin-left:4px}
+.block-btn:hover{border-color:#ef5350;color:#ef5350}
+.blocked-count{font-size:11px;color:var(--text4);text-align:right;margin-bottom:6px}
+.blocked-count a{color:var(--accent);cursor:pointer;text-decoration:none}
 .ql-toolbar{background:var(--bg3);border:1px solid var(--border3)!important;border-radius:8px 8px 0 0}
 .ql-container{background:var(--bg3);border:1px solid var(--border3)!important;border-top:none!important;border-radius:0 0 8px 8px;min-height:120px;font-family:'Malgun Gothic',sans-serif;font-size:13px}
 .ql-editor{color:var(--text);min-height:120px}
@@ -67,18 +65,11 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
   <div class="header-right" id="header-right">
     <span class="user-info" id="user-info"></span>
     <button class="btn btn-gray" id="auth-btn"></button>
-    <button class="btn btn-primary" id="write-btn" style="display:none" onclick="location.href='./write.html?board=qna'">홍보 및 글쓰기</button>
+    <button class="btn btn-primary" id="write-btn" style="display:none" onclick="location.href='./write.html?board=guild'">홍보 글쓰기</button>
   </div>
 </div>
 
-<div class="write-form" id="write-form" style="display:none">
-  <input id="post-title" type="text" placeholder="길드명 및 제목">
-  <div id="quill-editor"></div>
-  <div class="write-form-btns">
-    <button class="btn btn-gray" onclick="toggleForm()">취소</button>
-    <button class="btn btn-primary" onclick="submitPost()">등록</button>
-  </div>
-</div>
+<div id="blocked-info"></div>
 
 <table class="guild-table">
   <thead>
@@ -97,7 +88,20 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
 <script src="./data2/guild_list.js"></script>
 <script>
 const user = getUser();
-let quill;
+
+function getBlockList() { try { return JSON.parse(localStorage.getItem('block_list') || '[]'); } catch { return []; } }
+function saveBlockList(list) { localStorage.setItem('block_list', JSON.stringify(list)); }
+function blockUser(userId, nickname) {
+  if(!confirm(`"${nickname}"님을 차단할까요?`)) return;
+  const list = getBlockList();
+  if(!list.includes(userId)) { list.push(userId); saveBlockList(list); }
+  loadDbPosts();
+}
+function showBlockList() {
+  const list = getBlockList();
+  if(list.length === 0) { alert('차단한 유저가 없어요.'); return; }
+  if(confirm(`차단된 유저 ${list.length}명\n\n전체 차단 해제할까요?`)) { saveBlockList([]); loadDbPosts(); }
+}
 
 if(user) {
   document.getElementById('user-info').textContent = user.nickname || user.username;
@@ -116,60 +120,25 @@ if(user) {
   document.getElementById('auth-btn').onclick = () => location.href = './login.html';
 }
 
-function toggleForm() {
-  const f = document.getElementById('write-form');
-  const isHidden = f.style.display === 'none';
-  f.style.display = isHidden ? '' : 'none';
-  if(isHidden && !quill) {
-    quill = new Quill('#quill-editor', {
-      theme: 'snow',
-      placeholder: '길드 소개, 모집 조건 등을 입력하세요',
-      modules: {
-        toolbar: [
-          ['bold','italic','underline','strike'],
-          [{'color':[]},{'background':[]}],
-          [{'size':['small',false,'large','huge']}],
-          ['link','image'],
-          [{'list':'ordered'},{'list':'bullet'}],
-          ['clean']
-        ]
-      }
-    });
-  }
-}
-
-async function submitPost() {
-  const title = document.getElementById('post-title').value.trim();
-  const content = quill ? quill.root.innerHTML : '';
-  const textOnly = quill ? quill.getText().trim() : '';
-  if(!title || !textOnly) { alert('제목과 내용을 입력해주세요.'); return; }
-  try {
-    await supabase('POST', 'posts', {
-      user_id: user.id,
-      username: user.username,
-      nickname: user.nickname || user.username,
-      board: 'guild',
-      title,
-      content,
-      updated_at: new Date().toISOString()
-    });
-    document.getElementById('post-title').value = '';
-    quill.setContents([]);
-    toggleForm();
-    loadDbPosts();
-  } catch(e) { alert('오류: ' + e.message); }
-}
-
 async function loadDbPosts() {
   const tbody = document.getElementById('guild-list-body');
   tbody.innerHTML = '<tr><td colspan="5" class="empty">로딩 중...</td></tr>';
+  const blockList = getBlockList();
+
+  const blockedInfo = document.getElementById('blocked-info');
+  blockedInfo.innerHTML = blockList.length > 0 ? `<div class="blocked-count">차단된 유저 ${blockList.length}명 · <a onclick="showBlockList()">차단 관리</a></div>` : '';
+
   try {
     const dbPosts = await supabase('GET', 'posts', null, '?board=eq.guild&order=is_pinned.desc,updated_at.desc');
     tbody.innerHTML = '';
-    if(dbPosts && dbPosts.length > 0) {
-      const normalPosts = dbPosts.filter(p => !p.is_pinned);
-      dbPosts.forEach(p => {
+
+    const filtered = (dbPosts || []).filter(p => !blockList.includes(p.user_id));
+    if(filtered.length > 0) {
+      const normalPosts = filtered.filter(p => !p.is_pinned);
+      filtered.forEach(p => {
         const num = p.is_pinned ? '📌' : normalPosts.length - normalPosts.indexOf(p);
+        const isMe = user && user.id === p.user_id;
+        const blockBtn = user && !isMe ? `<button class="block-btn" onclick="event.stopPropagation();blockUser('${p.user_id}','${p.nickname||p.username}')">차단</button>` : '';
         const tr = document.createElement('tr');
         tr.onclick = () => location.href = `./community_view.html?id=${p.id}&back=guild`;
         tr.innerHTML = `
@@ -180,13 +149,14 @@ async function loadDbPosts() {
               ${p.title}
             </a>
           </td>
-          <td class="author">${p.nickname || p.username}</td>
+          <td class="author">${p.nickname || p.username}${blockBtn}</td>
           <td class="likes">❤ ${p.likes || 0}</td>
           <td class="date">${(p.updated_at || p.created_at).slice(0,10).replace(/-/g,'.')}</td>
         `;
         tbody.appendChild(tr);
       });
     }
+
     if(guildList && guildList.length > 0) {
       guildList.forEach(g => {
         const tr = document.createElement('tr');
@@ -207,7 +177,8 @@ async function loadDbPosts() {
         tbody.appendChild(tr);
       });
     }
-    if((!dbPosts || dbPosts.length === 0) && (!guildList || guildList.length === 0)) {
+
+    if(filtered.length === 0 && (!guildList || guildList.length === 0)) {
       tbody.innerHTML = '<tr><td colspan="5" class="empty">등록된 길드가 없습니다.</td></tr>';
     }
   } catch(e) { tbody.innerHTML = `<tr><td colspan="5" class="empty">불러오기 실패: ${e.message}</td></tr>`; }
