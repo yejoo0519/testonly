@@ -280,9 +280,9 @@ async function loadComments() {
         `;
       }).join('') + `</div>`;
     }
-    if(user) {
+    if(user && currentPost.board !== 'guild') {
       html += `
-        <div class="write-comment">
+      <div class="write-comment">
           <textarea id="comment-content" placeholder="답변을 입력하세요"></textarea>
           <div class="write-comment-btns">
             <button class="btn-primary" onclick="submitComment()">답변 등록</button>
