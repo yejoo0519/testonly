@@ -4,55 +4,59 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>묻고답하기</title>
-<link id="theme-css" rel="stylesheet" href="./theme-dark.css">
-<script src="./theme.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--text);padding:12px}
-.back-btn{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:var(--bg2);color:var(--text2);font-size:12px;text-decoration:none;margin-bottom:16px;transition:all 0.15s}
-.back-btn:hover{border-color:var(--accent);color:var(--text)}
-.post-box{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:16px;max-width:780px}
+body{font-family:'Malgun Gothic',sans-serif;background:#1a1a2e;color:#eee;padding:12px}
+.back-btn{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;border:1px solid #333;background:#1e1e30;color:#aaa;font-size:12px;text-decoration:none;margin-bottom:16px;transition:all 0.15s}
+.back-btn:hover{border-color:#5dcff5;color:#eee}
+.post-box{background:#1e1e30;border:1px solid #333;border-radius:10px;padding:20px;margin-bottom:16px;max-width:780px}
 .post-box.pinned{border-color:rgba(255,167,38,0.4);background:rgba(255,167,38,0.03)}
-.post-title{font-size:18px;font-weight:700;color:var(--text);margin-bottom:8px}
+.post-title{font-size:18px;font-weight:700;color:#eee;margin-bottom:8px}
 .pin-label{font-size:11px;color:#ffb74d;margin-bottom:6px;display:flex;align-items:center;gap:4px}
-.post-meta{font-size:12px;color:var(--text4);margin-bottom:16px;display:flex;gap:12px;align-items:center}
-.post-author{color:var(--accent);font-weight:700}
-.post-content{font-size:14px;color:var(--text2);line-height:1.9;white-space:pre-wrap;word-break:break-all}
+.post-meta{font-size:12px;color:#666;margin-bottom:16px;display:flex;gap:12px;align-items:center}
+.post-author{color:#5dcff5;font-weight:700}
+.post-content{font-size:14px;color:#ccc;line-height:1.9;white-space:pre-wrap;word-break:break-all}
 .post-actions{display:flex;justify-content:space-between;align-items:center;margin-top:16px;flex-wrap:wrap;gap:8px}
 .post-actions-right{display:flex;gap:6px}
 .btn{padding:6px 12px;border-radius:6px;border:none;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit}
 .btn-danger{background:rgba(239,83,80,0.1);color:#ef5350;border:1px solid rgba(239,83,80,0.2)}
 .btn-danger:hover{background:rgba(239,83,80,0.2)}
-.btn-edit{background:var(--accent-bg);color:var(--accent);border:1px solid var(--accent-border)}
+.btn-edit{background:rgba(93,207,245,0.1);color:#5dcff5;border:1px solid rgba(93,207,245,0.2)}
 .btn-edit:hover{background:rgba(93,207,245,0.2)}
 .btn-bump{background:rgba(102,187,106,0.1);color:#66bb6a;border:1px solid rgba(102,187,106,0.2)}
 .btn-bump:hover{background:rgba(102,187,106,0.2)}
-.btn-like{display:flex;align-items:center;gap:5px;padding:7px 16px;border-radius:20px;border:1px solid var(--border3);background:var(--bg3);color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.15s}
+.btn-like{display:flex;align-items:center;gap:5px;padding:7px 16px;border-radius:20px;border:1px solid #444;background:#252538;color:#aaa;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.15s}
 .btn-like:hover{border-color:#f5c842;color:#f5c842}
 .btn-like.liked{border-color:#f5c842;color:#f5c842;background:rgba(245,200,66,0.1)}
-.edit-form{margin-top:16px;padding-top:16px;border-top:1px solid var(--border)}
-.edit-form input,.edit-form textarea{width:100%;padding:9px 12px;background:var(--bg3);border:1px solid var(--border3);border-radius:8px;color:var(--text);font-size:13px;font-family:inherit;margin-bottom:8px}
+
+/* 수정 폼 */
+.edit-form{margin-top:16px;padding-top:16px;border-top:1px solid #333}
+.edit-form input,.edit-form textarea{width:100%;padding:9px 12px;background:#252538;border:1px solid #444;border-radius:8px;color:#eee;font-size:13px;font-family:inherit;margin-bottom:8px}
 .edit-form textarea{min-height:100px;resize:vertical}
-.edit-form input:focus,.edit-form textarea:focus{outline:none;border-color:var(--accent)}
+.edit-form input:focus,.edit-form textarea:focus{outline:none;border-color:#5dcff5}
 .edit-form-btns{display:flex;justify-content:flex-end;gap:8px}
-.btn-primary{background:var(--accent-bg);color:var(--accent);border:1px solid var(--accent-border);padding:6px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit}
+.btn-primary{background:rgba(93,207,245,0.15);color:#5dcff5;border:1px solid rgba(93,207,245,0.3);padding:6px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit}
 .btn-primary:hover{background:rgba(93,207,245,0.25)}
-.btn-gray{background:var(--bg3);color:var(--text2);border:1px solid var(--border);padding:6px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit}
-.comments-title{font-size:14px;font-weight:700;color:var(--accent);margin-bottom:12px;max-width:780px}
-.comment-box{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:16px;max-width:780px}
-.comment-item{padding:10px 0;border-bottom:1px solid var(--border2)}
+.btn-gray{background:#252538;color:#aaa;border:1px solid #333;padding:6px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit}
+
+.comments-title{font-size:14px;font-weight:700;color:#5dcff5;margin-bottom:12px;max-width:780px}
+.comment-box{background:#1e1e30;border:1px solid #333;border-radius:10px;padding:16px;margin-bottom:16px;max-width:780px}
+.comment-item{padding:10px 0;border-bottom:1px solid #2a2a3e}
 .comment-item:last-child{border-bottom:none;padding-bottom:0}
-.comment-meta{font-size:11px;color:var(--text4);margin-bottom:4px;display:flex;gap:10px;align-items:center}
-.comment-author{color:var(--accent);font-weight:700}
-.comment-content{font-size:13px;color:var(--text2);line-height:1.7;white-space:pre-wrap;word-break:break-all}
+.comment-meta{font-size:11px;color:#666;margin-bottom:4px;display:flex;gap:10px;align-items:center}
+.comment-author{color:#5dcff5;font-weight:700}
+.comment-content{font-size:13px;color:#ccc;line-height:1.7;white-space:pre-wrap;word-break:break-all}
 .comment-del{margin-left:auto;font-size:11px;color:#ef5350;cursor:pointer;border:none;background:none;font-family:inherit}
 .comment-del:hover{text-decoration:underline}
-.write-comment{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px;max-width:780px}
-.write-comment textarea{width:100%;padding:9px 12px;background:var(--bg3);border:1px solid var(--border3);border-radius:8px;color:var(--text);font-size:13px;font-family:inherit;min-height:70px;resize:vertical;margin-bottom:8px}
-.write-comment textarea:focus{outline:none;border-color:var(--accent)}
+.write-comment{background:#1e1e30;border:1px solid #333;border-radius:10px;padding:14px;max-width:780px}
+.write-comment textarea{width:100%;padding:9px 12px;background:#252538;border:1px solid #444;border-radius:8px;color:#eee;font-size:13px;font-family:inherit;min-height:70px;resize:vertical;margin-bottom:8px}
+.write-comment textarea:focus{outline:none;border-color:#5dcff5}
 .write-comment-btns{display:flex;justify-content:flex-end}
-.login-notice{font-size:12px;color:var(--text4);text-align:center;padding:12px}
-.login-notice a{color:var(--accent);text-decoration:none}
+.login-notice{font-size:12px;color:#666;text-align:center;padding:12px}
+.login-notice a{color:#5dcff5;text-decoration:none}
+
+.block-btn{font-size:10px;padding:2px 6px;border-radius:4px;border:1px solid var(--border3);background:none;color:var(--text4);cursor:pointer;font-family:inherit;margin-left:4px}
+.block-btn:hover{border-color:#ef5350;color:#ef5350}
 </style>
 </head>
 <body>
@@ -68,6 +72,16 @@ const params = new URLSearchParams(location.search);
 const postId = params.get('id');
 const backBoard = params.get('back');
 let isLiked = false;
+
+function getBlockList() { try { return JSON.parse(localStorage.getItem('block_list') || '[]'); } catch { return []; } }
+function saveBlockList(list) { localStorage.setItem('block_list', JSON.stringify(list)); }
+function blockUser(userId, nickname) {
+  if(!confirm(\`"\${nickname}"님을 차단할까요? 목록에서 이 유저의 글이 숨겨집니다.\`)) return;
+  const list = getBlockList();
+  if(!list.includes(userId)) { list.push(userId); saveBlockList(list); }
+  alert('차단됐어요.');
+}
+
 let currentPost = null;
 let editMode = false;
 
@@ -192,6 +206,7 @@ async function loadComments() {
             <div class="comment-meta">
               <span class="comment-author">${c.nickname || c.username}</span>
               <span>${c.created_at.slice(0,10).replace(/-/g,'.')}</span>
+              ${user && user.id !== c.user_id ? `<button class="block-btn" onclick="blockUser('${c.user_id}','${c.nickname||c.username}')">차단</button>` : ''}
               ${canDel ? `<button class="comment-del" onclick="deleteComment(${c.id})">삭제</button>` : ''}
             </div>
             <div class="comment-content">${c.content}</div>
