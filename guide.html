@@ -156,7 +156,7 @@ if(user) {
   }
 } else {
   document.getElementById('auth-btn').textContent = '로그인';
-  document.getElementById('auth-btn').onclick = () => location.href = './login.html';
+  document.getElementById('auth-btn').onclick = () => location.href = './login.html?from=' + encodeURIComponent(location.href.split('/').pop());
 }
 
 async function loadDbPosts() {
