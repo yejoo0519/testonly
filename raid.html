@@ -4,53 +4,69 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>아르하 입구</title>
-<link id="theme-css" rel="stylesheet" href="./theme-dark.css">
-<script src="./theme.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--text);padding:12px}
-#tab-bar{display:flex;gap:0;margin-bottom:16px;border-bottom:2px solid var(--border);align-items:flex-end}
-#site-title{display:flex;flex-direction:column;align-items:center;justify-content:center;text-decoration:none;margin-right:16px;margin-bottom:6px;border:1.5px solid var(--border3);border-radius:20px;padding:10px 18px;transition:border-color 0.15s;flex-shrink:0}
-#site-title:hover{border-color:var(--accent)}
-#site-title .title-main{font-size:16px;font-weight:700;color:var(--text2);line-height:1.4}
-#site-title .title-sub{font-size:12px;color:var(--text4);line-height:1.4}
-.tab-btn{padding:10px 20px;font-size:13px;font-weight:500;background:none;border:none;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;text-decoration:none;display:inline-block}
-.tab-btn:hover{color:var(--text2)}
-.tab-btn.active{color:var(--accent);border-bottom:2px solid var(--accent)}
+body{font-family:'Malgun Gothic',sans-serif;background:#1a1a2e;color:#eee;padding:12px}
+
+/* 네비 */
+#tab-bar{display:flex;gap:0;margin-bottom:16px;border-bottom:2px solid #333;align-items:flex-end}
+#site-title{display:flex;flex-direction:column;align-items:center;justify-content:center;text-decoration:none;margin-right:16px;margin-bottom:6px;border:1.5px solid #444;border-radius:20px;padding:10px 18px;transition:border-color 0.15s;flex-shrink:0}
+#site-title:hover{border-color:#5dcff5}
+#site-title .title-main{font-size:16px;font-weight:700;color:#aaa;line-height:1.4}
+#site-title .title-sub{font-size:12px;color:#666;line-height:1.4}
+
+.tab-btn{padding:10px 20px;font-size:13px;font-weight:500;background:none;border:none;color:#888;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;text-decoration:none;display:inline-block}
+.tab-btn:hover{color:#ccc}
+.tab-btn.active{color:#5dcff5;border-bottom:2px solid #5dcff5}
 @media(max-width:600px){.tab-btn{display:none}}
-h1{font-size:20px;color:var(--text2);margin-bottom:16px}
-.section{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:16px}
-.section-title{font-size:13px;font-weight:700;color:var(--accent);margin-bottom:12px;letter-spacing:0.05em}
+
+h1{font-size:20px;color:#aaa;margin-bottom:16px}
+
+/* 패턴 선택 */
+.section{background:#1e1e30;border:1px solid #333;border-radius:10px;padding:16px;margin-bottom:16px}
+.section-title{font-size:13px;font-weight:700;color:#5dcff5;margin-bottom:12px;letter-spacing:0.05em}
+
 .pattern-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px}
-.pattern-item{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-radius:8px;border:1px solid var(--border);background:var(--bg3)}
-.pattern-item input[type=checkbox]{width:16px;height:16px;accent-color:var(--accent);flex-shrink:0;margin-top:2px}
-.pattern-desc{font-size:11px;color:var(--text3);margin-top:3px;line-height:1.5}
-.pattern-name{font-size:12px;font-weight:600;color:var(--text)}
+.pattern-item{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-radius:8px;border:1px solid #333;background:#252538}
+
+.pattern-item input[type=checkbox]{width:16px;height:16px;accent-color:#5dcff5;flex-shrink:0;margin-top:2px}
+.pattern-desc{font-size:11px;color:#888;margin-top:3px;line-height:1.5}
+.pattern-name{font-size:12px;font-weight:600;color:#eee}
 .pattern-cond{font-size:11px;color:#f5c842;margin-top:4px}
+
+
+
+/* 플레이어 섹션 */
 .players-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
-.player-card{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:14px}
-.player-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.player-card{background:#252538;border:1px solid #333;border-radius:10px;padding:14px}
+.player-title{font-size:13px;font-weight:700;color:#eee;margin-bottom:10px;display:flex;align-items:center;gap:6px}
 .player-num{width:22px;height:22px;border-radius:50%;background:#4a90d9;color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+/* 검색 입력 */
 .dragon-search{position:relative;margin-bottom:8px}
-.dragon-search input{width:100%;padding:7px 10px;background:var(--bg2);border:1px solid var(--border3);border-radius:6px;color:var(--text);font-size:12px;font-family:inherit}
-.dragon-search input::placeholder{color:var(--text4)}
-.autocomplete{position:absolute;top:100%;left:0;right:0;background:var(--bg2);border:1px solid var(--border3);border-radius:6px;max-height:160px;overflow-y:auto;z-index:100;display:none}
+.dragon-search input{width:100%;padding:7px 10px;background:#1e1e30;border:1px solid #444;border-radius:6px;color:#eee;font-size:12px;font-family:inherit}
+.dragon-search input::placeholder{color:#666}
+.autocomplete{position:absolute;top:100%;left:0;right:0;background:#1e1e30;border:1px solid #444;border-radius:6px;max-height:160px;overflow-y:auto;z-index:100;display:none}
 .autocomplete.open{display:block}
-.ac-item{padding:7px 10px;font-size:12px;cursor:pointer;border-bottom:0.5px solid var(--border2)}
-.ac-item:hover{background:var(--bg3)}
-.ac-item span{font-size:10px;color:var(--text3);margin-left:6px}
+.ac-item{padding:7px 10px;font-size:12px;cursor:pointer;border-bottom:0.5px solid #2a2a3e}
+.ac-item:hover{background:#252540}
+.ac-item span{font-size:10px;color:#888;margin-left:6px}
+
+/* 드래곤 리스트 */
 .dragon-list{display:flex;flex-direction:column;gap:4px;min-height:40px}
-.dragon-tag{display:flex;align-items:center;justify-content:space-between;padding:5px 8px;background:var(--bg2);border-radius:6px;border:1px solid var(--border);font-size:11px}
+.dragon-tag{display:flex;align-items:center;justify-content:space-between;padding:5px 8px;background:#1e1e30;border-radius:6px;border:1px solid #333;font-size:11px}
 .dragon-tag-info{display:flex;align-items:center;gap:6px}
-.dragon-tag-name{color:var(--text)}
+.dragon-tag-name{color:#ddd}
 .dragon-tag-elem{font-size:10px;padding:1px 5px;border-radius:4px;font-weight:500}
-.dragon-tag-type{font-size:10px;color:var(--text3)}
-.dragon-tag-remove{background:none;border:none;color:var(--text4);cursor:pointer;font-size:14px;line-height:1;padding:0 2px}
+.dragon-tag-type{font-size:10px;color:#888}
+.dragon-tag-remove{background:none;border:none;color:#555;cursor:pointer;font-size:14px;line-height:1;padding:0 2px}
 .dragon-tag-remove:hover{color:#ef5350}
 .dragon-tag-stage{font-size:9px;padding:1px 4px;border-radius:3px;margin-left:2px}
-.stage-tr{background:var(--accent-bg);color:var(--accent)}
+.stage-tr{background:rgba(93,207,245,0.15);color:#5dcff5}
 .stage-ad{background:rgba(245,200,66,0.15);color:#f5c842}
-.stage-none{background:rgba(255,255,255,0.05);color:var(--text4)}
+.stage-none{background:rgba(255,255,255,0.05);color:#666}
+
+/* 속성 색상 */
 .e-땅{background:#fff3e0;color:#e65100}
 .e-물{background:#e3f2fd;color:#1565c0}
 .e-불{background:#fce4ec;color:#b71c1c}
@@ -60,58 +76,69 @@ h1{font-size:20px;color:var(--text2);margin-bottom:16px}
 .e-황혼{background:#fdf2f8;color:#880e4f}
 .e-여명{background:#fff8e1;color:#6d4c41}
 .e-악몽{background:#f3e5f5;color:#6a1b9a}
+
+/* 조합 버튼 */
 #calc-btn{width:100%;padding:14px;background:linear-gradient(90deg,#4a90d9,#5dcff5);border:none;border-radius:8px;color:#fff;font-size:15px;font-weight:700;cursor:pointer;margin-top:4px;font-family:inherit}
 #calc-btn:hover{opacity:0.9}
-#calc-btn:disabled{background:var(--border);color:var(--text4);cursor:not-allowed}
+#calc-btn:disabled{background:#333;color:#666;cursor:not-allowed}
+
+/* 결과 */
 #result{display:none}
 .result-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
-.result-title{font-size:15px;font-weight:700;color:var(--text)}
+.result-title{font-size:15px;font-weight:700;color:#eee}
 .result-badge{font-size:11px;padding:3px 10px;border-radius:10px}
 .badge-ok{background:rgba(102,187,106,0.2);color:#66bb6a;border:1px solid rgba(102,187,106,0.3)}
 .badge-fail{background:rgba(239,83,80,0.2);color:#ef5350;border:1px solid rgba(239,83,80,0.3)}
+
 .result-players{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:16px}
-.result-player{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:14px}
-.reset-btn{margin-left:auto;padding:3px 8px;font-size:10px;border-radius:6px;border:1px solid var(--border3);background:none;color:var(--text3);cursor:pointer;font-family:inherit}
-.reset-btn:hover{border-color:#ef5350;color:#ef5350}
-.result-player-title{font-size:12px;font-weight:700;color:var(--text2);margin-bottom:10px}
-.result-dragon{display:flex;align-items:center;gap:8px;padding:6px 8px;background:var(--bg2);border-radius:6px;margin-bottom:4px;border-left:3px solid transparent}
-.result-dragon.highlight{border-left-color:var(--accent)}
-.result-dragon-name{font-size:12px;color:var(--text);font-weight:500}
+.result-player{background:#252538;border:1px solid #333;border-radius:10px;padding:14px}
+.result-player-title{font-size:12px;font-weight:700;color:#aaa;margin-bottom:10px}
+.result-dragon{display:flex;align-items:center;gap:8px;padding:6px 8px;background:#1e1e30;border-radius:6px;margin-bottom:4px;border-left:3px solid transparent}
+.result-dragon.highlight{border-left-color:#5dcff5}
+.result-dragon-name{font-size:12px;color:#eee;font-weight:500}
+
 .result-check{margin-top:8px}
-.check-item{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:0.5px solid var(--border2);font-size:12px}
+.check-item{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:0.5px solid #2a2a3e;font-size:12px}
 .check-item:last-child{border-bottom:none}
 .check-ok{color:#66bb6a;font-size:14px}
 .check-fail{color:#ef5350;font-size:14px}
 .check-warn{color:#f5c842;font-size:14px}
-.main-tab{padding:8px 20px;font-size:13px;font-weight:600;background:none;border:none;border-bottom:2px solid transparent;color:var(--text3);cursor:pointer;font-family:inherit;margin-bottom:-1px}
-.main-tab:hover{color:var(--text2)}
-.main-tab.active{color:var(--accent);border-bottom:2px solid var(--accent)}
-.boss-tab{padding:8px 20px;font-size:13px;font-weight:600;background:none;border:none;border-bottom:2px solid transparent;color:var(--text3);cursor:pointer;font-family:inherit;margin-bottom:-1px}
-.boss-tab:hover{color:var(--text2)}
-.boss-tab.active{color:var(--accent);border-bottom:2px solid var(--accent)}
-.boss-btn{padding:8px 20px;border-radius:8px;border:1px solid var(--border3);background:var(--bg3);color:var(--text2);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.15s}
-.boss-btn:hover{border-color:var(--border);color:var(--text)}
+
+
+
+.main-tab{padding:8px 20px;font-size:13px;font-weight:600;background:none;border:none;border-bottom:2px solid transparent;color:#888;cursor:pointer;font-family:inherit;margin-bottom:-1px}
+.main-tab:hover{color:#ccc}
+.main-tab.active{color:#5dcff5;border-bottom:2px solid #5dcff5}
+
+.boss-btn{padding:8px 20px;border-radius:8px;border:1px solid #444;background:#2a2a3e;color:#aaa;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.15s}
+.boss-btn:hover{border-color:#555;color:#eee}
 .boss-btn.active{background:#4a90d9;color:#fff;border-color:#4a90d9}
 #boss-select-section{max-width:480px;position:relative;overflow:hidden;transition:background-image 0.3s}
 #boss-select-bg{position:absolute;right:0;top:0;width:50%;height:100%;background-size:contain;background-repeat:no-repeat;background-position:right center;opacity:0.25;pointer-events:none;transition:background-image 0.3s}
 #boss-select-content{position:relative;z-index:1}
+
+
 #section-daily{display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:16px}
 #section-daily h1{grid-column:1/-1}
 #section-daily .section:last-child{grid-column:1/-1}
 .boss-section{position:relative}
 .boss-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-.boss-portrait{width:56px;height:56px;border-radius:10px;object-fit:contain;object-position:center;border:1px solid var(--border3);flex-shrink:0;background:var(--bg)}
+.boss-portrait{width:56px;height:56px;border-radius:10px;object-fit:contain;object-position:center;border:1px solid #444;flex-shrink:0;background:#1a1a2e}
 .boss-header-text .section-title{margin-bottom:2px}
 @media(max-width:600px){
   #section-daily{grid-template-columns:1fr!important}
   #section-daily .section:last-child{grid-column:auto}
   .boss-portrait{width:48px;height:48px}
 }
+
+
+
 .info-icon{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:#4a90d9;color:#fff;font-size:10px;font-weight:700;cursor:pointer;margin-left:6px;position:relative;flex-shrink:0;vertical-align:middle}
-.info-tooltip{display:none;position:absolute;left:50%;transform:translateX(-50%);bottom:calc(100% + 8px);background:var(--bg3);border:1px solid #4a90d9;border-radius:8px;padding:14px 16px;width:420px;font-size:12px;color:var(--text);line-height:2;z-index:200;white-space:normal;text-align:left;box-shadow:0 4px 20px rgba(0,0,0,0.5)}
+.info-tooltip{display:none;position:absolute;left:50%;transform:translateX(-50%);bottom:calc(100% + 8px);background:#252538;border:1px solid #4a90d9;border-radius:8px;padding:14px 16px;width:420px;font-size:12px;color:#ddd;line-height:2;z-index:200;white-space:normal;text-align:left;box-shadow:0 4px 20px rgba(0,0,0,0.5)}
 .info-tooltip::after{content:"";position:absolute;left:50%;transform:translateX(-50%);top:100%;border:6px solid transparent;border-top-color:#4a90d9}
-.info-icon:hover .info-tooltip,.info-icon.active .info-tooltip{display:block}
-.info-tooltip b{color:var(--accent)}
+.info-icon:hover .info-tooltip{display:block}
+.info-tooltip b{color:#5dcff5}
+
 .fail-msg{background:rgba(239,83,80,0.1);border:1px solid rgba(239,83,80,0.3);border-radius:8px;padding:12px;font-size:12px;color:#ef5350;margin-top:8px}
 </style>
 </head>
@@ -119,9 +146,9 @@ h1{font-size:20px;color:var(--text2);margin-bottom:16px}
 
 <div id="tab-bar">
   <a href="./index.html" id="site-title">
-    <span class="title-main">메인화면 이동</span>
-    <span class="title-sub">made by 닉스</span>
-  </a>
+  <span class="title-main">메인화면 이동</span>
+  <span class="title-sub">made by 닉스</span>
+</a>
   <a href="./tier.html" class="tab-btn">초월 등급표</a>
   <a href="./dex.html" class="tab-btn">드래곤 도감</a>
   <a href="./sss.html" class="tab-btn">SSS 랭킹</a>
@@ -135,33 +162,16 @@ h1{font-size:20px;color:var(--text2);margin-bottom:16px}
 </div>
 
 <div id="section-raid">
-<h1>아르하 입구
-  <span class="info-icon" onclick="toggleTooltip(this)">!
-    <div class="info-tooltip" style="left:0;transform:none;width:300px;bottom:auto;top:calc(100% + 8px)">
-      모스벨: 조합 (1) 파훼 권장<br>
-      잉카라: 조합 (1) 파훼 권장<br>
-      타우킹: 조합 (1), (2) 파훼 상관X<br>
-      (타우킹의 경우 강제종료로 파훼 권장)<br>
-      골락: 조합 (1) 파훼 권장<br>
-      카이저번: 조합 (1) 파훼 권장
-    </div>
-  </span>
-</h1>
+<h1>아르하 입구</h1>
 
 <!-- 보스 선택 -->
 <div class="section" id="boss-select-section">
   <div id="boss-select-bg" style="background-image:url('https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/boss/6.png')"></div>
   <div id="boss-select-content">
     <div class="section-title">보스 선택</div>
-    <div style="display:flex;gap:0;border-bottom:1px solid #333;margin-bottom:12px">
-      <button class="boss-tab active" id="boss-btn-dimension" onclick="selectBoss('dimension')">디멘션</button>
-      <button class="boss-tab" id="boss-btn-deathlock" onclick="selectBoss('deathlock')">데스락</button>
-    </div>
-    <div id="boss-desc-dimension" style="font-size:11px;color:#5dcff5;font-weight:400;line-height:1.7">
-      일요일 보스(설리반 등)를 클리어하거나, 일반 보스의 조합에서 한가지의 패턴만 파훼 후 승리시 디멘션 출현.
-    </div>
-    <div id="boss-desc-deathlock" style="display:none;font-size:11px;color:#5dcff5;font-weight:400;line-height:1.7">
-      황혼, 바람, 물 등 디멘션 조합에서 쓰이지 않는 조합으로 디멘션 전투 패배시 데스락 출현.
+    <div style="display:flex;gap:8px">
+      <button class="boss-btn active" id="boss-btn-dimension" onclick="selectBoss('dimension')">디멘션</button>
+      <button class="boss-btn" id="boss-btn-deathlock" onclick="selectBoss('deathlock')">데스락</button>
     </div>
   </div>
 </div>
@@ -206,7 +216,6 @@ h1{font-size:20px;color:var(--text2);margin-bottom:16px}
         <div class="pattern-cond">어둠속성 2마리 · 공격타입 2마리</div>
       </div>
     </div>
-    
     <!-- 데스락 패턴 -->
     <div class="pattern-item boss-deathlock" style="display:none">
       <div>
@@ -239,7 +248,7 @@ h1{font-size:20px;color:var(--text2);margin-bottom:16px}
     <div class="pattern-item boss-deathlock" style="display:none">
       <div>
         <div class="pattern-name">(5) 방어력 1.5배 버프</div>
-        <div class="pattern-desc">아군의 방어력 1.5배 상승</div>
+        <div class="pattern-desc">아군의 방어력 1.5배 상승 (★★☆)</div>
         <div class="pattern-cond">땅속성 2마리 · 방어타입 2마리</div>
       </div>
     </div>
@@ -279,13 +288,7 @@ h1{font-size:20px;color:var(--text2);margin-bottom:16px}
 
 </div><!-- /section-raid -->
 <div id="section-daily" style="display:none">
-<h1 style="margin-bottom:16px">일반 보스 패턴
-  <span style="display:block; font-size:13px; color:#888; font-weight:normal; margin-top:4px">
-    일요일 보스들의 경우, 크리티컬을 올려주는 장신구를 사용합니다.
-    <br>기본적으로 스텟은 체력, 공격, 방어 순서로 1200 @ 300 정도를 맞춥니다.
-    <br>수요일 - 타우킹의 경우, 모든 스텟을 공격력으로 몰아줍니다.
-  </span>
-</h1>
+<h1 style="margin-bottom:16px">일반 보스 패턴</h1>
 
 <!-- 월요일 -->
 <div class="section boss-section">
@@ -293,7 +296,6 @@ h1{font-size:20px;color:var(--text2);margin-bottom:16px}
     <img src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/boss/1.png" class="boss-portrait" alt="월요일 — 모스벨">
     <div class="boss-header-text">
       <div class="section-title">월요일 — 모스벨</div>
-      <div style="font-size:11px;color:#888">(체력 19.000, 공격 2.300, 방어 60)</div>
       <div style="font-size:11px;color:#888">드롭: 달의 정수 &nbsp;|&nbsp; 1인 최소 EVAL: 10000~11000</div>
     </div>
   </div>
@@ -321,7 +323,6 @@ h1{font-size:20px;color:var(--text2);margin-bottom:16px}
     <img src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/boss/2.png" class="boss-portrait" alt="화요일 — 잉카라">
     <div class="boss-header-text">
       <div class="section-title">화요일 — 잉카라</div>
-      <div style="font-size:11px;color:#888">(체력 9.000, 공격 3.000, 방어 100)</div>
       <div style="font-size:11px;color:#888">드롭: 불의 정수 &nbsp;|&nbsp; 1인 최소 EVAL: 10000~11000</div>
     </div>
   </div>
@@ -329,16 +330,14 @@ h1{font-size:20px;color:var(--text2);margin-bottom:16px}
     <div class="pattern-item">
       <div>
         <div class="pattern-name">(1) 광역 3배 피해</div>
-        <div class="pattern-desc">기본공격 시 랜덤 4마리에 3배 피해
-          <br>(단일 공격에는 적용되지 않음)</div>
+        <div class="pattern-desc">기본공격 시 랜덤 4마리에 3배 피해</div>
         <div class="pattern-cond">물속성 3마리 · 중립타입 3마리</div>
       </div>
     </div>
     <div class="pattern-item">
       <div>
         <div class="pattern-name">(2) 광역 2배 피해</div>
-        <div class="pattern-desc">기본공격 시 랜덤 3마리에 2배 피해
-          <br>(단일 공격에는 적용되지 않음)</div>
+        <div class="pattern-desc">기본공격 시 랜덤 3마리에 2배 피해</div>
         <div class="pattern-cond">땅속성 3마리 · 공격타입 3마리</div>
       </div>
     </div>
@@ -351,7 +350,6 @@ h1{font-size:20px;color:var(--text2);margin-bottom:16px}
     <img src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/boss/3.png" class="boss-portrait" alt="수요일 — 타우킹">
     <div class="boss-header-text">
       <div class="section-title">수요일 — 타우킹</div>
-      <div style="font-size:11px;color:#888">(체력 160.000, 공격 ???, 방어f ???)</div>
       <div style="font-size:11px;color:#888">드롭: 물의 정수 &nbsp;|&nbsp; 1인 최소 EVAL: 7000</div>
     </div>
   </div>
@@ -379,7 +377,6 @@ h1{font-size:20px;color:var(--text2);margin-bottom:16px}
     <img src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/boss/4.png" class="boss-portrait" alt="목요일 — 골락">
     <div class="boss-header-text">
       <div class="section-title">목요일 — 골락</div>
-      <div style="font-size:11px;color:#888">(체력 6.000, 공격 1.600, 방어 300)</div>
       <div style="font-size:11px;color:#888">드롭: 땅의 정수, 골락의 알 C~A &nbsp;|&nbsp; 1인 최소 EVAL: 11000~12000</div>
     </div>
   </div>
@@ -407,7 +404,6 @@ h1{font-size:20px;color:var(--text2);margin-bottom:16px}
     <img src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/boss/5.png" class="boss-portrait" alt="금요일 — 카이저 번">
     <div class="boss-header-text">
       <div class="section-title">금요일 — 카이저 번</div>
-      <div style="font-size:11px;color:#888">(체력 20.000, 공격 2.500, 방어 60)</div>
       <div style="font-size:11px;color:#888">드롭: 태양의 정수, 카이저 번의 알 C~A &nbsp;|&nbsp; 1인 최소 EVAL: 11000~12000</div>
     </div>
   </div>
@@ -429,140 +425,6 @@ h1{font-size:20px;color:var(--text2);margin-bottom:16px}
   </div>
 </div>
 
-<div class="section boss-section">
-  <div class="boss-header">
-    <img src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/boss/57.png" class="boss-portrait" alt="일요일 — 포이즌리버">
-    <div class="boss-header-text">
-      <div class="section-title">일요일 — 포이즌리버</div>
-      <div style="font-size:11px;color:#888">(체력 15,000, 공격 ???, 방어 ???)</div>
-      <div style="font-size:11px;color:#888">드롭: 랜덤 정수, 포이즌리버의 알 &nbsp;|&nbsp; 1인 최소 EVAL: 13000이상</div>
-    </div>
-  </div>
-  <div class="pattern-grid">
-    <div class="pattern-item">
-      <div>
-        <div class="pattern-name">(1) 아군의 공격력 1.5배 상승</div>
-        <div class="pattern-desc">?</div>
-        <div class="pattern-cond">한가지 '속성'통일 12마리</div>
-      </div>
-    </div>
-    <div class="pattern-item">
-      <div>
-        <div class="pattern-name">(2) 아군의 방어력 1.5배 상승</div>
-        <div class="pattern-desc">?</div>
-        <div class="pattern-cond">한가지 '타입'통일 12마리</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="section boss-section">
-  <div class="boss-header">
-    <img src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/boss/58.png" class="boss-portrait" alt="일요일 — 다크베인">
-    <div class="boss-header-text">
-      <div class="section-title">일요일 — 다크베인</div>
-      <div style="font-size:11px;color:#888">(체력 30.000, 공격 ???, 방어 ???)</div>
-      <div style="font-size:11px;color:#888">드롭: 랜덤 정수, 다크베인의 알 C~A &nbsp;|&nbsp; 1인 최소 EVAL: 14000이상</div>
-    </div>
-  </div>
-  <div class="pattern-grid">
-    <div class="pattern-item">
-      <div>
-        <div class="pattern-name">(1) 아군의 공격력 1.5배 상승</div>
-        <div class="pattern-desc">?</div>
-        <div class="pattern-cond">한가지 '속성'통일 12마리</div>
-      </div>
-    </div>
-    <div class="pattern-item">
-      <div>
-        <div class="pattern-name">(2) 아군의 방어력 1.5배 상승</div>
-        <div class="pattern-desc">?</div>
-        <div class="pattern-cond">한가지 '타입'통일 12마리</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="section boss-section">
-  <div class="boss-header">
-    <img src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/boss/59.png" class="boss-portrait" alt="일요일 — 설리반">
-    <div class="boss-header-text">
-      <div class="section-title">일요일 — 설리반</div>
-      <div style="font-size:11px;color:#888">(체력 4.500, 공격 ???, 방어 ???)</div>
-      <div style="font-size:11px;color:#888">드롭: 랜덤 정수, 설리반의 알 C~A &nbsp;|&nbsp; 1인 최소 EVAL: 15500이상</div>
-    </div>
-  </div>
-  <div class="pattern-grid">
-    <div class="pattern-item">
-      <div>
-        <div class="pattern-name">(1) 아군의 공격력 1.5배 상승</div>
-        <div class="pattern-desc">?</div>
-        <div class="pattern-cond">한가지 '속성'통일 12마리</div>
-      </div>
-    </div>
-    <div class="pattern-item">
-      <div>
-        <div class="pattern-name">(2) 아군의 방어력 1.5배 상승</div>
-        <div class="pattern-desc">?</div>
-        <div class="pattern-cond">한가지 '타입'통일 12마리</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="section boss-section">
-  <div class="boss-header">
-    <img src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/boss/60.png" class="boss-portrait" alt="일요일 — 블러디터스크">
-    <div class="boss-header-text">
-      <div class="section-title">일요일 — 블러디터스크</div>
-      <div style="font-size:11px;color:#888">(체력 5.500, 공격 ???, 방어 ???)</div>
-      <div style="font-size:11px;color:#888">드롭: 랜덤 정수, 블러디터스크의 알 C~A &nbsp;|&nbsp; 1인 최소 EVAL: 15000이상</div>
-    </div>
-  </div>
-  <div class="pattern-grid">
-    <div class="pattern-item">
-      <div>
-        <div class="pattern-name">(1) 아군의 공격력 1.5배 상승</div>
-        <div class="pattern-desc">?</div>
-        <div class="pattern-cond">한가지 '속성'통일 12마리</div>
-      </div>
-    </div>
-    <div class="pattern-item">
-      <div>
-        <div class="pattern-name">(2) 아군의 방어력 1.5배 상승</div>
-        <div class="pattern-desc">?</div>
-        <div class="pattern-cond">한가지 '타입'통일 12마리</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="section boss-section">
-  <div class="boss-header">
-    <img src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/boss/61.png" class="boss-portrait" alt="일요일 — 애니마라">
-    <div class="boss-header-text">
-      <div class="section-title">일요일 — 애니마라</div>
-      <div style="font-size:11px;color:#888">(체력 15,000, 공격 ???, 방어 ???)</div>
-      <div style="font-size:11px;color:#888">드롭: 랜덤 정수, 애니마라의 알 &nbsp;|&nbsp; 1인 최소 EVAL: 15000이상</div>
-    </div>
-  </div>
-  <div class="pattern-grid">
-    <div class="pattern-item">
-      <div>
-        <div class="pattern-name">(1) 아군의 공격력 1.5배 상승</div>
-        <div class="pattern-desc">?</div>
-        <div class="pattern-cond">한가지 '속성'통일 12마리</div>
-      </div>
-    </div>
-    <div class="pattern-item">
-      <div>
-        <div class="pattern-name">(2) 아군의 방어력 1.5배 상승</div>
-        <div class="pattern-desc">?</div>
-        <div class="pattern-cond">한가지 '타입'통일 12마리</div>
-      </div>
-    </div>
-  </div>
-</div>
 <!-- 토요일 -->
 <div class="section">
   <div class="section-title">토요일 — 랜덤 보스</div>
@@ -1273,6 +1135,8 @@ const allDragons=[
 {n:"블라드",e:"악몽",t:"체력",ad:true,tr:true}
 ];
 
+
+
 function switchMainTab(tab) {
   document.getElementById('section-raid').style.display = tab==='raid' ? '' : 'none';
   document.getElementById('section-daily').style.display = tab==='daily' ? '' : 'none';
@@ -1283,46 +1147,45 @@ function switchMainTab(tab) {
 
 const BOSS_PATTERNS = {
   dimension: [
-    {name:'(1) 피격 회피증가', elem:'불', type:'공방', elemCnt:2, typeCnt:2},
-    {name:'(2) 랜덤 강력 피해', elem:'악몽', type:'체력', elemCnt:2, typeCnt:2},
-    {name:'(3) 피해 감소', elem:'여명', type:'체공', elemCnt:2, typeCnt:2},
-    {name:'(4) 피해 반사', elem:'빛', type:'체방', elemCnt:2, typeCnt:2},
-    {name:'(5) 체력 회복', elem:'어둠', type:'공격', elemCnt:2, typeCnt:2},
+    {name:'(1) 피격 회피증가', elem:'불', type:'ATK-DEF', elemCnt:2, typeCnt:2},
+    {name:'(2) 랜덤 강력 피해', elem:'악몽', type:'HP', elemCnt:2, typeCnt:2},
+    {name:'(3) 피해 감소', elem:'여명', type:'HP-ATK', elemCnt:2, typeCnt:2},
+    {name:'(4) 피해 반사', elem:'빛', type:'HP-DEF', elemCnt:2, typeCnt:2},
+    {name:'(5) 체력 회복', elem:'어둠', type:'ATK', elemCnt:2, typeCnt:2},
   ],
   deathlock: [
-    {name:'(1) 체력 회복', elem:'바람', type:'체력', elemCnt:2, typeCnt:2},
-    {name:'(2) 공격력 증가', elem:'어둠', type:'공방', elemCnt:2, typeCnt:2},
+    {name:'(1) 체력 회복', elem:'바람', type:'HP', elemCnt:2, typeCnt:2},
+    {name:'(2) 공격력 증가', elem:'어둠', type:'ATK-DEF', elemCnt:2, typeCnt:2},
     {name:'(3) 방어력 증가', elem:'여명', type:null, elemCnt:2, typeCnt:0},
-    {name:'(4) 사슬 해제', elem:'빛', type:'공격', elemCnt:3, typeCnt:3},
-    {name:'(5) 방어력 버프', elem:'땅', type:'방어', elemCnt:2, typeCnt:2},
+    {name:'(4) 사슬 해제', elem:'빛', type:'ATK', elemCnt:3, typeCnt:3},
+    {name:'(5) 방어력 버프', elem:'땅', type:'DEF', elemCnt:2, typeCnt:2},
   ],
 };
 let currentBoss = 'dimension';
 
 function selectBoss(boss) {
   currentBoss = boss;
-  document.querySelectorAll('.boss-tab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.boss-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('boss-btn-' + boss).classList.add('active');
   document.querySelectorAll('.boss-dimension').forEach(el => el.style.display = boss==='dimension' ? '' : 'none');
   document.querySelectorAll('.boss-deathlock').forEach(el => el.style.display = boss==='deathlock' ? '' : 'none');
-  document.getElementById('boss-desc-dimension').style.display = boss==='dimension' ? '' : 'none';
-  document.getElementById('boss-desc-deathlock').style.display = boss==='deathlock' ? '' : 'none';
   const imgMap = {dimension:'https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/boss/6.png', deathlock:'https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/boss/7.png'};
   document.getElementById('boss-select-bg').style.backgroundImage = `url('${imgMap[boss]}')`;
-  saveToStorage();
 }
 
+// 패턴 정의 (레거시)
 const PATTERNS = {
-  1: {name:'(1) 피격 회피증가', elem:'불', type:'공방', elemCnt:2, typeCnt:2},
-  2: {name:'(2) 랜덤 강력 피해', elem:'악몽', type:'체력', elemCnt:2, typeCnt:2},
-  3: {name:'(3) 피해 감소', elem:'여명', type:'체공', elemCnt:2, typeCnt:2},
-  4: {name:'(4) 피해 반사', elem:'빛', type:'체방', elemCnt:2, typeCnt:2},
-  5: {name:'(5) 체력 회복', elem:'어둠', type:'공격', elemCnt:2, typeCnt:2},
+  1: {name:'(1) 피격 회피증가', elem:'불', type:'ATK-DEF', elemCnt:2, typeCnt:2},
+  2: {name:'(2) 랜덤 강력 피해', elem:'악몽', type:'HP', elemCnt:2, typeCnt:2},
+  3: {name:'(3) 피해 감소', elem:'여명', type:'HP-ATK', elemCnt:2, typeCnt:2},
+  4: {name:'(4) 피해 반사', elem:'빛', type:'HP-DEF', elemCnt:2, typeCnt:2},
+  5: {name:'(5) 체력 회복', elem:'어둠', type:'ATK', elemCnt:2, typeCnt:2},
 };
 
 const selectedPatterns = new Set([1,2,3,4,5]);
-const playerDragons = [[],[],[],[]];
+const playerDragons = [[],[],[],[]]; // 각 플레이어 드래곤 목록
 
+// 초기화
 function init() {
   const grid = document.getElementById('players-grid');
   grid.innerHTML = '';
@@ -1332,7 +1195,6 @@ function init() {
       <div class="player-title">
         <div class="player-num">${i+1}</div>
         <span>${i+1}번 플레이어</span>
-        <button class="reset-btn" onclick="resetPlayer(${i})">초기화</button>
       </div>
       <div class="dragon-search">
         <input type="text" placeholder="이름 검색 또는 쉼표로 여러 마리 입력" 
@@ -1348,34 +1210,13 @@ function init() {
   }
 }
 
-function saveToStorage() {
-  try {
-    localStorage.setItem('raid_boss_kr', currentBoss);
-    localStorage.setItem('raid_dragons_kr', JSON.stringify(playerDragons));
-  } catch(e) {}
-}
 
-function loadFromStorage() {
-  try {
-    const boss = localStorage.getItem('raid_boss_kr');
-    if(boss) selectBoss(boss);
-    const dragons = localStorage.getItem('raid_dragons_kr');
-    if(dragons) {
-      const saved = JSON.parse(dragons);
-      saved.forEach((list, i) => {
-        list.forEach(d => {
-          const found = allDragons.find(x => x.n === d.n);
-          if(found && !playerDragons[i].find(x => x.n === d.n)) {
-            playerDragons[i].push(found);
-          }
-        });
-        renderList(i);
-      });
-    }
-  } catch(e) {}
-}
 
+
+
+// 자동완성
 const transcendDragons = allDragons.filter(d => d.tr);
+
 
 function handleBulkInput(e, playerIdx) {
   if(e.key !== 'Enter') return;
@@ -1393,12 +1234,6 @@ function handleBulkInput(e, playerIdx) {
   }
   document.getElementById('search-'+playerIdx).value = '';
   hideAC(playerIdx);
-}
-
-function resetPlayer(playerIdx) {
-  playerDragons[playerIdx] = [];
-  renderList(playerIdx);
-  saveToStorage();
 }
 
 function showAC(playerIdx, query) {
@@ -1419,6 +1254,7 @@ function hideAC(i) { document.getElementById('ac-'+i).classList.remove('open'); 
 function addDragon(playerIdx, name) {
   const d = allDragons.find(x => x.n === name);
   if(!d) return;
+  // 중복 체크
   if(playerDragons[playerIdx].find(x => x.n === name)) {
     document.getElementById('search-'+playerIdx).value = '';
     return;
@@ -1426,7 +1262,6 @@ function addDragon(playerIdx, name) {
   playerDragons[playerIdx].push(d);
   document.getElementById('search-'+playerIdx).value = '';
   renderList(playerIdx);
-  saveToStorage();
 }
 
 function removeDragon(playerIdx, name) {
@@ -1445,89 +1280,90 @@ function renderList(playerIdx) {
         <span class="dragon-tag-name">${d.n}</span>
         <span class="dragon-tag-type">${d.t}</span>
       </div>
-      <button class="dragon-tag-remove" onclick="playerDragons[${playerIdx}].splice(${idx},1);renderList(${playerIdx});saveToStorage()">×</button>
+      <button class="dragon-tag-remove" onclick="playerDragons[${playerIdx}].splice(${idx},1);renderList(${playerIdx})">×</button>
     </div>`;
   }).join('');
 }
 
+// ===== 핵심 조합 로직 =====
 function calculate() {
+  // 유효성 검사
   for(let i=0; i<4; i++) {
     if(playerDragons[i].length < 3) {
-      alert(`${i+1}번 플레이어의 드래곤이 3마리 미만입니다. 현재 ${playerDragons[i].length}마리`);
+      alert(`${i+1}번 플레이어의 드래곤이 3마리 미만입니다.`);
       return;
     }
   }
 
+  // 현재 보스 패턴 조건 수집
   const conditions = {};
   for(const p of BOSS_PATTERNS[currentBoss]) {
     conditions[p.elem] = (conditions[p.elem]||0) + p.elemCnt;
     if(p.type && p.typeCnt > 0) conditions[p.type+'_type'] = (conditions[p.type+'_type']||0) + p.typeCnt;
   }
 
-  const reqSlots = [];
-  for(const p of BOSS_PATTERNS[currentBoss]) {
-    const paired = Math.min(p.elemCnt, p.typeCnt || 0);
-    for(let i=0; i<paired; i++) reqSlots.push({elem:p.elem, type:p.type, done:false});
-    for(let i=paired; i<p.elemCnt; i++) reqSlots.push({elem:p.elem, type:null, done:false});
-    for(let i=paired; i<(p.typeCnt||0); i++) reqSlots.push({elem:null, type:p.type, done:false});
+  // 각 플레이어에서 3마리씩 선택하는 모든 조합 시도
+  // 각 플레이어 조합 후보
+  function getCombos(arr, k) {
+    const result = [];
+    function pick(start, chosen) {
+      if(chosen.length === k) { result.push([...chosen]); return; }
+      for(let i=start; i<arr.length; i++) pick(i+1, [...chosen, arr[i]]);
+    }
+    pick(0, []);
+    return result;
   }
 
-  const globalUsed = new Set();
-  const result = [[],[],[],[]];
-  const condElems = new Set(BOSS_PATTERNS[currentBoss].map(p=>p.elem));
-  const condTypes = new Set(BOSS_PATTERNS[currentBoss].filter(p=>p.type).map(p=>p.type));
-  const playerCondElem = [{},{},{},{}];
-  const playerCondType = [{},{},{},{}];
+  const combos = [0,1,2,3].map(i => getCombos(playerDragons[i], 3));
 
-  for(const slot of reqSlots) {
-    if(slot.done) continue;
-    for(let pi=0; pi<4; pi++) {
-      if(result[pi].length >= 3) continue;
-      if(slot.elem && (playerCondElem[pi][slot.elem]||0) >= 1) continue;
-      if(slot.type && (playerCondType[pi][slot.type]||0) >= 1) continue;
-      const d = playerDragons[pi].find(x =>
-        !globalUsed.has(x.n) &&
-        (slot.elem ? x.e === slot.elem : true) &&
-        (slot.type ? x.t === slot.type : true)
-      );
-      if(d) {
-        result[pi].push(d);
-        globalUsed.add(d.n);
-        if(slot.elem) playerCondElem[pi][slot.elem] = (playerCondElem[pi][slot.elem]||0)+1;
-        if(slot.type) playerCondType[pi][slot.type] = (playerCondType[pi][slot.type]||0)+1;
-        slot.done = true;
-        break;
-      }
+  // 최적 조합 찾기 (브루트포스 - 각 플레이어 3마리씩)
+  let bestResult = null;
+  let bestScore = -1;
+
+  // 4명 각각의 조합 수가 많을 수 있으므로 스마트하게 처리
+  const limit = 50; // 각 플레이어 최대 조합 수 제한
+  for(const c0 of combos[0].slice(0,limit)) {
+  for(const c1 of combos[1].slice(0,limit)) {
+  for(const c2 of combos[2].slice(0,limit)) {
+  for(const c3 of combos[3].slice(0,limit)) {
+    const all12 = [...c0,...c1,...c2,...c3];
+    const score = evalCombo(all12, conditions);
+    if(score > bestScore) {
+      bestScore = score;
+      bestResult = [c0,c1,c2,c3];
+      if(score === 1000) break; // 완벽한 조합 찾으면 중단
     }
   }
-
-  for(let pi=0; pi<4; pi++) {
-    while(result[pi].length < 3) {
-      const allSoFar = result.flat();
-      const usedElem = {};
-      const usedType = {};
-      for(const x of allSoFar) {
-        usedElem[x.e] = (usedElem[x.e]||0)+1;
-        usedType[x.t] = (usedType[x.t]||0)+1;
-      }
-      const blockedElems = new Set(Object.keys(conditions).filter(k=>!k.endsWith('_type') && (usedElem[k]||0) >= conditions[k]));
-      const blockedTypes = new Set(Object.keys(conditions).filter(k=>k.endsWith('_type') && (usedType[k.replace('_type','')]||0) >= conditions[k]).map(k=>k.replace('_type','')));
-      let d = playerDragons[pi].find(x =>
-        !globalUsed.has(x.n) && !blockedElems.has(x.e) && !blockedTypes.has(x.t) && !condElems.has(x.e) && !condTypes.has(x.t)
-      );
-      if(!d) d = playerDragons[pi].find(x =>
-        !globalUsed.has(x.n) && !blockedElems.has(x.e) && !blockedTypes.has(x.t) && !condElems.has(x.e)
-      );
-      if(!d) d = playerDragons[pi].find(x =>
-        !globalUsed.has(x.n) && !blockedElems.has(x.e) && !blockedTypes.has(x.t)
-      );
-      if(!d) break;
-      result[pi].push(d);
-      globalUsed.add(d.n);
-    }
+  if(bestScore===1000) break;
+  }
+  if(bestScore===1000) break;
+  }
+  if(bestScore===1000) break;
   }
 
-  showResult(result, conditions);
+  showResult(bestResult, conditions);
+}
+
+function evalCombo(all12, conditions) {
+  // 속성/타입 카운트
+  const elemCount = {};
+  const typeCount = {};
+  for(const d of all12) {
+    elemCount[d.e] = (elemCount[d.e]||0) + 1;
+    typeCount[d.t] = (typeCount[d.t]||0) + 1;
+  }
+
+  // 조건 체크 - 정확히 맞아야 함 (초과 금지)
+  let score = 0;
+  let perfect = true;
+  for(const [key, cnt] of Object.entries(conditions)) {
+    let actual;
+    if(key.endsWith('_type')) actual = typeCount[key.replace('_type','')] || 0;
+    else actual = elemCount[key] || 0;
+    if(actual === cnt) score += 200;
+    else { perfect = false; score -= Math.abs(actual - cnt) * 100; }
+  }
+  return perfect && Object.keys(conditions).length > 0 ? 1000 : Math.max(0, score);
 }
 
 function showResult(result, conditions) {
@@ -1539,6 +1375,7 @@ function showResult(result, conditions) {
     typeCount[d.t] = (typeCount[d.t]||0) + 1;
   }
 
+  // 패턴 충족 여부
   let allOk = true;
   const checkHtml = [];
   for(const p of BOSS_PATTERNS[currentBoss]) {
@@ -1561,45 +1398,9 @@ function showResult(result, conditions) {
         </div>`);
     }
   }
-
-  document.getElementById('result').style.display = 'block';
-  document.getElementById('result-badge').className = 'result-badge ' + (allOk?'badge-ok':'badge-fail');
-  document.getElementById('result-badge').textContent = allOk ? '✓ 모든 패턴 파훼 가능' : '✗ 일부 패턴 미충족';
-
-  const rpEl = document.getElementById('result-players');
-  rpEl.innerHTML = result.map((combo, i) => `
-    <div class="result-player">
-      <div class="result-player-title">${i+1}번 플레이어</div>
-      ${combo.map(d => `
-        <div class="result-dragon">
-          <span class="dragon-tag-elem e-${d.e}" style="font-size:10px;padding:1px 5px;border-radius:3px;font-weight:500">${d.e}</span>
-          <span class="result-dragon-name">${d.n}</span>
-          <span style="font-size:10px;color:#666">${d.t}</span>
-        </div>`).join('')}
-    </div>`).join('');
-
-  document.getElementById('result-check').innerHTML = checkHtml.join('');
-  document.getElementById('result-fail-msg').innerHTML = allOk ? '' :
-    '<div class="fail-msg">⚠ 현재 드래곤 조합으로는 모든 패턴을 정확히 파훼하기 어렵습니다. 드래곤 목록을 보완해주세요.</div>';
-
-  document.getElementById('result').scrollIntoView({behavior:'smooth'});
 }
 
 init();
-loadFromStorage();
-
-function toggleTooltip(el) {
-  el.classList.toggle('active');
-  document.querySelectorAll('.info-icon.active').forEach(other => {
-    if(other !== el) other.classList.remove('active');
-  });
-}
-
-document.addEventListener('click', function(e) {
-  if(!e.target.closest('.info-icon')) {
-    document.querySelectorAll('.info-icon.active').forEach(el => el.classList.remove('active'));
-  }
-});
 
 </script>
 </body>
