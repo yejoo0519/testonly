@@ -140,7 +140,7 @@ const params = new URLSearchParams(location.search);
 const board = params.get('board') || 'qna';
 const user = getUser();
 
-if(!user) { alert('로그인이 필요합니다.'); location.href = './login.html'; }
+if(!user) { alert('로그인이 필요합니다.'); location.href = './login.html?from=' + encodeURIComponent(location.href.split('/').pop()); }
 
 const boardConfig = {
   qna:    { name: '묻고답하기',    back: './community.html', placeholder: '내용을 입력하세요' },
