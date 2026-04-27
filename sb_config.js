@@ -27,7 +27,7 @@ function getUser() {
   try { return JSON.parse(localStorage.getItem('community_user')); } catch { return null; }
 }
 function setUser(user) { localStorage.setItem('community_user', JSON.stringify(user)); }
-function logout() { localStorage.removeItem('community_user'); location.href = './community.html'; }
+function logout() { localStorage.removeItem('community_user'); location.href = location.href.split('/').pop() || './index.html'; }
 
 // 비밀번호 SHA-256 해시
 async function hashPassword(pw) {
