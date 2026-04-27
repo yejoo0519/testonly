@@ -60,7 +60,9 @@ async function login() {
       is_admin: user.is_admin
     });
     msg.className='msg success'; msg.textContent='로그인 성공!';
-    setTimeout(() => location.href='./community.html', 800);
+    const params = new URLSearchParams(location.search);
+    const redirectTo = params.get('from') || './community.html';
+    setTimeout(() => location.href=redirectTo, 800);
   } catch(e) {
     msg.className='msg error'; msg.textContent='오류: ' + e.message;
   }
