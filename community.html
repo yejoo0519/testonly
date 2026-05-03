@@ -28,24 +28,6 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
 .write-form input{width:100%;padding:9px 12px;background:var(--bg3);border:1px solid var(--border3);border-radius:8px;color:var(--text);font-size:13px;font-family:inherit;margin-bottom:8px}
 .write-form input:focus{outline:none;border-color:var(--accent)}
 .write-form-btns{display:flex;justify-content:flex-end;gap:8px;margin-top:8px}
-.post-table{width:100%;border-collapse:collapse;background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden}
-.post-table th{background:var(--bg3);padding:10px 14px;font-size:12px;font-weight:700;color:var(--accent);text-align:left;border-bottom:1px solid var(--border)}
-.post-table th.num{width:50px;text-align:center}
-.post-table th.author{width:90px;text-align:center}
-.post-table th.likes{width:60px;text-align:center}
-.post-table th.date{width:100px;text-align:center}
-.post-table td{padding:11px 14px;font-size:13px;border-bottom:1px solid var(--border2);color:var(--text)}
-.post-table td.num{text-align:center;color:var(--text4);font-size:12px}
-.post-table td.author{text-align:center;color:var(--text2);font-size:12px}
-.post-table td.likes{text-align:center;color:#f5c842;font-size:12px}
-.post-table td.date{text-align:center;color:var(--text4);font-size:12px}
-.post-table tr:last-child td{border-bottom:none}
-.post-table tr:hover td{background:var(--bg3);cursor:pointer}
-.post-table tr.pinned td{background:rgba(255,167,38,0.05)}
-.post-table tr.pinned:hover td{background:rgba(255,167,38,0.1)}
-.post-link{color:var(--text);text-decoration:none}
-.post-link:hover{color:var(--accent)}
-.pin-icon{font-size:11px;margin-right:4px}
 .empty{text-align:center;color:var(--text4);font-size:13px;padding:32px 0}
 .block-btn{font-size:10px;padding:2px 6px;border-radius:4px;border:1px solid var(--border3);background:none;color:var(--text4);cursor:pointer;font-family:inherit;margin-left:4px}
 .block-btn:hover{border-color:#ef5350;color:#ef5350}
@@ -61,11 +43,53 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
 .ql-snow .ql-picker-options{background:var(--bg2)!important;border-color:var(--border)!important}
 .ql-snow.ql-toolbar button:hover .ql-stroke{stroke:var(--accent)!important}
 .ql-snow.ql-toolbar button.ql-active .ql-stroke{stroke:var(--accent)!important}
+
+/* ── PC: 테이블형 ── */
+.post-table{width:100%;border-collapse:collapse;background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.post-table th{background:var(--bg3);padding:10px 14px;font-size:12px;font-weight:700;color:var(--accent);text-align:left;border-bottom:1px solid var(--border)}
+.post-table th.num{width:50px;text-align:center}
+.post-table th.author{width:90px;text-align:center}
+.post-table th.replies{width:60px;text-align:center}
+.post-table th.date{width:100px;text-align:center}
+.post-table td{padding:11px 14px;font-size:13px;border-bottom:1px solid var(--border2);color:var(--text)}
+.post-table td.num{text-align:center;color:var(--text4);font-size:12px}
+.post-table td.author{text-align:center;color:var(--text2);font-size:12px}
+.post-table td.replies{text-align:center;color:var(--text2);font-size:12px}
+.post-table td.date{text-align:center;color:var(--text4);font-size:12px}
+.post-table tr:last-child td{border-bottom:none}
+.post-table tr:hover td{background:var(--bg3);cursor:pointer}
+.post-table tr.pinned td{background:rgba(255,167,38,0.05)}
+.post-table tr.pinned:hover td{background:rgba(255,167,38,0.1)}
+.post-link{color:var(--text);text-decoration:none}
+.post-link:hover{color:var(--accent)}
+.pin-icon{font-size:11px;margin-right:4px}
+
+/* ── 모바일: 카드형 ── */
+.post-list-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;display:none}
+.post-card{padding:11px 14px;border-bottom:1px solid var(--border2);cursor:pointer;transition:background 0.1s}
+.post-card:last-child{border-bottom:none}
+.post-card:hover{background:var(--bg3)}
+.post-card.pinned{background:rgba(255,167,38,0.05)}
+.post-card.pinned:hover{background:rgba(255,167,38,0.1)}
+.post-meta{display:flex;align-items:center;gap:6px;margin-bottom:4px}
+.post-num{font-size:11px;color:var(--text4);min-width:18px}
+.post-author{font-size:12px;color:var(--text2);font-weight:600}
+.post-date{margin-left:auto;font-size:11px;color:var(--text4);white-space:nowrap}
+.post-title{font-size:14px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:4px;text-decoration:none;display:block}
+.post-title:hover{color:var(--accent)}
+.post-footer{display:flex;align-items:center;gap:12px}
+.post-replies{font-size:11px;color:var(--text4)}
+
+/* ── 반응형 분기 ── */
+@media(max-width:600px){
+  .post-table{display:none}
+  .post-list-wrap{display:block}
+}
 </style>
 </head>
 <body>
 
-<a href="./index.html" class="back-btn">← 메인으로</a>
+<a id="back-btn" href="./index.html" class="back-btn">← 메인으로</a>
 
 <div class="header">
   <h1>묻고답하기</h1>
@@ -78,21 +102,37 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
 
 <div id="blocked-info"></div>
 
-<table class="post-table">
+<!-- PC: 테이블형 -->
+<table class="post-table" id="post-table">
   <thead>
     <tr>
       <th class="num">번호</th>
       <th>제목</th>
       <th class="author">작성자</th>
-      <th class="likes">추천</th>
+      <th class="replies">답변수</th>
       <th class="date">날짜</th>
     </tr>
   </thead>
-  <tbody id="post-list"></tbody>
+  <tbody id="post-list-table"></tbody>
 </table>
+
+<!-- 모바일: 카드형 -->
+<div class="post-list-wrap" id="post-list-card">
+  <div class="empty">로딩 중...</div>
+</div>
 
 <script src="./sb_config.js"></script>
 <script>
+// ?from= 파라미터를 읽어서 뒤로가기 URL 결정
+(function() {
+  const from = new URLSearchParams(location.search).get('from');
+  const allowed = ['community','weekly','guide','info'];
+  const backBtn = document.getElementById('back-btn');
+  if(from && allowed.includes(from)) {
+    backBtn.href = `./index.html?tab=${from}`;
+  }
+})();
+
 const user = getUser();
 
 // 차단 관리
@@ -138,8 +178,10 @@ if(user) {
 }
 
 async function loadPosts() {
-  const tbody = document.getElementById('post-list');
+  const tbody = document.getElementById('post-list-table');
+  const cardWrap = document.getElementById('post-list-card');
   tbody.innerHTML = '<tr><td colspan="5" class="empty">로딩 중...</td></tr>';
+  cardWrap.innerHTML = '<div class="empty">로딩 중...</div>';
   const blockList = getBlockList();
 
   // 차단 목록 표시
@@ -151,31 +193,65 @@ async function loadPosts() {
   }
 
   try {
-    const posts = await supabase('GET', 'posts', null, '?board=eq.qna&order=is_pinned.desc,created_at.desc');
+    const posts = await supabase('GET', 'posts_with_comment_count', null, '?board=eq.qna&order=is_pinned.desc,created_at.desc');
     if(!posts || posts.length === 0) {
       tbody.innerHTML = '<tr><td colspan="5" class="empty">아직 글이 없어요. 첫 글을 남겨보세요!</td></tr>';
+      cardWrap.innerHTML = '<div class="empty">아직 글이 없어요. 첫 글을 남겨보세요!</div>';
       return;
     }
     const filtered = posts.filter(p => !blockList.includes(p.user_id));
     if(filtered.length === 0) {
       tbody.innerHTML = '<tr><td colspan="5" class="empty">표시할 글이 없어요.</td></tr>';
+      cardWrap.innerHTML = '<div class="empty">표시할 글이 없어요.</div>';
       return;
     }
+
     let num = filtered.filter(p => !p.is_pinned).length;
-    tbody.innerHTML = filtered.map(p => {
+    const rows = { table: [], card: [] };
+
+    filtered.forEach(p => {
       const isMe = user && user.id === p.user_id;
-      const blockBtn = user && !isMe ? `<button class="block-btn" onclick="event.stopPropagation();blockUser('${p.user_id}','${p.nickname||p.username}')">차단</button>` : '';
-      return `
+      const blockBtn = user && !isMe
+        ? `<button class="block-btn" onclick="event.stopPropagation();blockUser('${p.user_id}','${p.nickname||p.username}')">차단</button>`
+        : '';
+      const numDisplay = p.is_pinned ? '📌' : num--;
+      const titlePrefix = p.is_pinned ? '<span class="pin-icon">📌</span>' : '';
+      const dateStr = p.created_at.slice(0,10).replace(/-/g,'.');
+      const replyCount = p.comment_count || 0;
+
+      // PC 테이블 행
+      rows.table.push(`
         <tr class="${p.is_pinned ? 'pinned' : ''}" onclick="location.href='./community_view.html?id=${p.id}'">
-          <td class="num">${p.is_pinned ? '📌' : num--}</td>
-          <td><a class="post-link" href="./community_view.html?id=${p.id}">${p.title}</a></td>
+          <td class="num">${numDisplay}</td>
+          <td><a class="post-link" href="./community_view.html?id=${p.id}">${titlePrefix}${p.title}</a></td>
           <td class="author">${p.nickname || p.username}${blockBtn}</td>
-          <td class="likes">❤ ${p.likes || 0}</td>
-          <td class="date">${p.created_at.slice(0,10).replace(/-/g,'.')}</td>
+          <td class="replies">💬 ${replyCount}</td>
+          <td class="date">${dateStr}</td>
         </tr>
-      `;
-    }).join('');
-  } catch(e) { tbody.innerHTML = `<tr><td colspan="5" class="empty">불러오기 실패: ${e.message}</td></tr>`; }
+      `);
+
+      // 모바일 카드
+      rows.card.push(`
+        <div class="post-card${p.is_pinned ? ' pinned' : ''}" onclick="location.href='./community_view.html?id=${p.id}'">
+          <div class="post-meta">
+            <span class="post-num">${p.is_pinned ? '' : numDisplay}</span>
+            <span class="post-author">${p.nickname || p.username}${blockBtn}</span>
+            <span class="post-date">${dateStr}</span>
+          </div>
+          <a class="post-title" href="./community_view.html?id=${p.id}" onclick="event.stopPropagation()">${titlePrefix}${p.title}</a>
+          <div class="post-footer">
+            <span class="post-replies">💬 ${replyCount}</span>
+          </div>
+        </div>
+      `);
+    });
+
+    tbody.innerHTML = rows.table.join('');
+    cardWrap.innerHTML = rows.card.join('');
+  } catch(e) {
+    tbody.innerHTML = `<tr><td colspan="5" class="empty">불러오기 실패: ${e.message}</td></tr>`;
+    cardWrap.innerHTML = `<div class="empty">불러오기 실패: ${e.message}</div>`;
+  }
 }
 
 loadPosts();

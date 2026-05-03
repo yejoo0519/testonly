@@ -19,7 +19,6 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
 .btn-primary{background:var(--accent-bg);color:var(--accent);border:1px solid var(--accent-border)}
 .btn-primary:hover{background:rgba(93,207,245,0.25)}
 .btn-danger{background:rgba(239,83,80,0.1);color:#ef5350;border:1px solid rgba(239,83,80,0.2)}
-.btn-danger:hover{background:rgba(239,83,80,0.2)}
 .btn-gray{background:var(--bg3);color:var(--text2);border:1px solid var(--border)}
 .btn-gray:hover{border-color:var(--accent);color:var(--text)}
 .filter-wrap{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:16px}
@@ -30,6 +29,8 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
 .tag-정기친구{background:rgba(102,187,106,0.15);color:#66bb6a;border:1px solid rgba(102,187,106,0.3)}
 .tag-레이드프리미엄{background:rgba(245,200,66,0.15);color:#f5c842;border:1px solid rgba(245,200,66,0.3)}
 .tag-기타{background:rgba(255,255,255,0.08);color:var(--text2);border:1px solid var(--border)}
+
+/* ---- 공통 테이블 ---- */
 .post-table{width:100%;border-collapse:collapse;background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden}
 .post-table th{background:var(--bg3);padding:10px 14px;font-size:12px;font-weight:700;color:var(--accent);text-align:left;border-bottom:1px solid var(--border)}
 .post-table th.num{width:50px;text-align:center}
@@ -52,11 +53,38 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
 .block-btn:hover{border-color:#ef5350;color:#ef5350}
 .blocked-count{font-size:11px;color:var(--text4);text-align:right;margin-bottom:6px}
 .blocked-count a{color:var(--accent);cursor:pointer;text-decoration:none}
+
+/* ---- PC 전용: 추천/날짜 보임 ---- */
+.pc-only{display:table-cell}
+
+/* ---- 모바일 전용 스타일 ---- */
+@media(max-width:700px){
+  /* PC 전용 컬럼 숨김 */
+  .pc-only{display:none}
+
+  /* 모바일 테이블 고정 레이아웃 */
+  .post-table{table-layout:fixed}
+  .post-table th.num{width:40px}
+  .post-table th.meta-m{width:80px;text-align:center}
+  .post-table td.num{width:40px}
+  .post-table td.meta-m{width:80px;text-align:center;vertical-align:middle}
+
+  /* 제목 한줄 + 태그 아래줄 */
+  .title-wrap{display:flex;flex-direction:column;gap:4px}
+  .title-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+  .tag-row{display:flex;flex-wrap:wrap;gap:3px}
+
+  /* 작성자+차단 묶음 */
+  .meta-wrap-m{display:flex;flex-direction:column;align-items:center;gap:3px}
+  .meta-author-m{color:var(--text2);font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:76px}
+  .block-btn-m{font-size:10px;padding:1px 5px;border-radius:4px;border:1px solid var(--border3);background:none;color:var(--text4);cursor:pointer;font-family:inherit;margin-top:2px}
+  .block-btn-m:hover{border-color:#ef5350;color:#ef5350}
+}
 </style>
 </head>
 <body>
 
-<a href="./index.html" class="back-btn">← 메인으로</a>
+<a id="back-btn" href="./index.html" class="back-btn">← 메인으로</a>
 
 <div class="header">
   <h1>친구요청</h1>
@@ -82,9 +110,10 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
     <tr>
       <th class="num">번호</th>
       <th>제목</th>
-      <th class="author">작성자</th>
-      <th class="likes">추천</th>
-      <th class="date">날짜</th>
+      <th class="author pc-only">작성자</th>
+      <th class="likes pc-only">추천</th>
+      <th class="date pc-only">날짜</th>
+      <th class="meta-m" style="display:none">작성자</th><!-- 모바일 헤더 (JS로 처리) -->
     </tr>
   </thead>
   <tbody id="post-list"></tbody>
@@ -92,6 +121,23 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
 
 <script src="./sb_config.js"></script>
 <script>
+// 모바일 여부에 따라 헤더 조정
+(function(){
+  const isMobile = window.innerWidth <= 700;
+  const mHead = document.querySelector('.post-table thead tr th.meta-m');
+  if(mHead) mHead.style.display = isMobile ? 'table-cell' : 'none';
+})();
+
+// ?from= 파라미터를 읽어서 뒤로가기 URL 결정
+(function() {
+  const from = new URLSearchParams(location.search).get('from');
+  const allowed = ['community','weekly','guide','info'];
+  const backBtn = document.getElementById('back-btn');
+  if(from && allowed.includes(from)) {
+    backBtn.href = `./index.html?tab=${from}`;
+  }
+})();
+
 const user = getUser();
 let activeFilter = '';
 let allPosts = [];
@@ -137,6 +183,7 @@ function setFilter(tag, el) {
 function renderList() {
   const tbody = document.getElementById('post-list');
   const blockList = getBlockList();
+  const isMobile = window.innerWidth <= 700;
 
   const blockedInfo = document.getElementById('blocked-info');
   blockedInfo.innerHTML = blockList.length > 0 ? `<div class="blocked-count">차단된 유저 ${blockList.length}명 · <a onclick="showBlockList()">차단 관리</a></div>` : '';
@@ -151,7 +198,8 @@ function renderList() {
   });
 
   if(filtered.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="5" class="empty">글이 없어요.</td></tr>';
+    const cols = isMobile ? 3 : 5;
+    tbody.innerHTML = `<tr><td colspan="${cols}" class="empty">글이 없어요.</td></tr>`;
     return;
   }
 
@@ -162,15 +210,41 @@ function renderList() {
     const tagHtml = tags.map(t => `<span class="tag-badge tag-${t.replace(/\s/g,'')}">${t}</span>`).join('');
     const isMe = user && user.id === p.user_id;
     const blockBtn = user && !isMe ? `<button class="block-btn" onclick="event.stopPropagation();blockUser('${p.user_id}','${p.nickname||p.username}')">차단</button>` : '';
-    return `
-      <tr class="${p.is_pinned ? 'pinned' : ''}" onclick="location.href='./community_view.html?id=${p.id}&back=friend'">
-        <td class="num">${p.is_pinned ? '📌' : num--}</td>
-        <td><a class="post-link" href="./community_view.html?id=${p.id}&back=friend">${p.title}</a> ${tagHtml}</td>
-        <td class="author">${p.nickname || p.username}${blockBtn}</td>
-        <td class="likes">❤ ${p.likes || 0}</td>
-        <td class="date">${p.created_at.slice(0,10).replace(/-/g,'.')}</td>
-      </tr>
-    `;
+    const blockBtnM = user && !isMe ? `<button class="block-btn-m" onclick="event.stopPropagation();blockUser('${p.user_id}','${p.nickname||p.username}')">차단</button>` : '';
+    const dateStr = p.created_at.slice(0,10).replace(/-/g,'.');
+
+    if(isMobile) {
+      // 모바일: 추천/날짜 없음, 제목 한줄 + 태그 아래줄, 작성자 묶음
+      const tagRow = tags.length ? `<div class="tag-row">${tagHtml}</div>` : '';
+      return `
+        <tr class="${p.is_pinned ? 'pinned' : ''}" onclick="location.href='./community_view.html?id=${p.id}&back=friend'">
+          <td class="num">${p.is_pinned ? '📌' : num--}</td>
+          <td>
+            <div class="title-wrap">
+              <a class="title-text post-link" href="./community_view.html?id=${p.id}&back=friend">${p.title}</a>
+              ${tagRow}
+            </div>
+          </td>
+          <td class="meta-m">
+            <div class="meta-wrap-m">
+              <span class="meta-author-m">${p.nickname || p.username}</span>
+              ${blockBtnM}
+            </div>
+          </td>
+        </tr>
+      `;
+    } else {
+      // PC: 원래 레이아웃 그대로
+      return `
+        <tr class="${p.is_pinned ? 'pinned' : ''}" onclick="location.href='./community_view.html?id=${p.id}&back=friend'">
+          <td class="num">${p.is_pinned ? '📌' : num--}</td>
+          <td><a class="post-link" href="./community_view.html?id=${p.id}&back=friend">${p.title}</a> ${tagHtml}</td>
+          <td class="author pc-only">${p.nickname || p.username}${blockBtn}</td>
+          <td class="likes pc-only">❤ ${p.likes || 0}</td>
+          <td class="date pc-only">${dateStr}</td>
+        </tr>
+      `;
+    }
   }).join('');
 }
 
