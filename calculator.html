@@ -1049,12 +1049,16 @@ function genAllocs(pool,slots){
  *   finalStat = D + E + F + collection + buf
  */
 function calcStat(B,G,P,AP,SP,PP,SL,SB,C,BU){
-  const a=Math.floor((B+G+P)*(1+AP));
-  const b=Math.floor(a*(1+SP));
-  const c=Math.floor(b*(1+PP));
-  const d=Math.floor(Math.floor(SL*(1+SP))*(1+PP));
-  const e=Math.floor(SB*(1+PP));
-  return c+d+e+C+BU;
+  // step1 = int((기본+젬+포션)×(1+장신구%+인챈트%))
+  // step2 = int(step1×(1+정령%) + 정령flat×(1+정령%))
+  // step3 = int(step2×(1+펜던트%))
+  // step4 = int(부가옵×(1+펜던트%))
+  // 최종 = step3 + step4 + 컬렉션 + 버프
+  const step1=Math.floor((B+G+P)*(1+AP));
+  const step2=Math.floor(step1*(1+SP)+SL*(1+SP));
+  const step3=Math.floor(step2*(1+PP));
+  const step4=Math.floor(SB*(1+PP));
+  return step3+step4+C+BU;
 }
 
 // 정령 상태를 스탯별 + / % / 부가옵 기여로 변환
