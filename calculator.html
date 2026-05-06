@@ -284,9 +284,13 @@ input[type=number]{-moz-appearance:textfield}
     </div>
   </div>
 
-  <div style="display:flex;align-items:center;gap:8px;padding:8px 16px 0">
+  <div style="display:flex;align-items:center;gap:16px;padding:8px 16px 0;flex-wrap:wrap">
   <label style="display:flex;align-items:center;gap:7px;cursor:pointer;font-size:13px">
     <input type="checkbox" id="exc-sun-pend" style="accent-color:var(--gold)"> 태펜 제외
+  </label>
+  <label style="display:flex;align-items:center;gap:7px;cursor:pointer;font-size:13px">
+    <input type="checkbox" id="exc-dup-acc" style="accent-color:var(--gold)"> 중복 장신구 제외
+    <span style="color:var(--dim);font-size:11px">(같은 장신구+인챈트 중복 제거)</span>
   </label>
   </div>
   <button class="btn-sim" id="sim-btn" onclick="runSim()">🐉 시뮬레이션 실행</button>
@@ -1103,6 +1107,7 @@ function switchResTab(t){
 
 function runSim(){
   const encMode=document.querySelector('input[name="enc-mode"]:checked')?.value||'fixed';
+  const excDupAcc=document.getElementById('exc-dup-acc')?.checked;
   const accSeen=new Set();
   const ownedAcc=S.accCards
     .filter(c=>c.name)
@@ -1112,6 +1117,12 @@ function runSim(){
       const key=encMode==='fixed'?`${a.n}|${a._enc||'none'}`:a.n;
       if(accSeen.has(key))return false;
       accSeen.add(key);return true;
+    })
+    .filter((a,_,arr)=>{
+      if(!excDupAcc)return true;
+      // 중복 장신구 제외: 같은 장신구명+인챈트 조합은 첫 번째만
+      const key=`${a.n}|${a._enc||'none'}`;
+      return arr.findIndex(x=>`${x.n}|${x._enc||'none'}`===key)===arr.indexOf(a);
     });
   if(!ownedAcc.length){alert('내 스펙 탭에서 장신구를 1개 이상 추가하세요.');return;}
   const btn=document.getElementById('sim-btn');
