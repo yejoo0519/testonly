@@ -86,7 +86,7 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
 #lang-btn:hover{border-color:var(--accent);color:var(--text)}
 </style>
 <link id="theme-css" rel="stylesheet" href="../theme-dark.css">
-<script src="../theme.js"></script>
+<script src="./theme.js"></script>
 </head>
 <body>
 
@@ -163,6 +163,7 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
       <button class="pc-tab active" onclick="switchPCTab('info')">Info</button>
       <button class="pc-tab" onclick="switchPCTab('guide')">Guides</button>
       <button class="pc-tab" onclick="switchPCTab('weekly')">Weekly</button>
+      <button class="pc-tab" onclick="switchPCTab('calculator')">Calculator</button>
     </div>
     <!-- Right cards -->
     <div class="pc-cards">
@@ -194,15 +195,37 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
           <div class="card-desc">Archa Exploration Raid · Normal Raid · Lemuria<br>Detailed boss info</div>
         </a>
       </div>
+      <!-- Calculator -->
+      <div class="pc-category" id="pc-calculator">
+        <a href="../calculator.html" class="card">
+          <span class="card-badge" style="background:rgba(100,181,246,0.15);color:#64b5f6;border:1px solid rgba(100,181,246,0.3)">Calculator</span>
+          <div class="card-title">Spirit Calculator</div>
+          <div class="card-desc">Save your setup · Auto spirit stat optimizer<br>(UI currently in Korean)</div>
+        </a>
+      </div>
       <!-- Guides -->
       <div class="pc-category" id="pc-guide">
         <div class="pc-category-empty">Guides content coming soon.</div>
       </div>
       <!-- Weekly -->
       <div class="pc-category" id="pc-weekly">
-        <div class="pc-category-empty">Weekly content coming soon.</div>
+        <a href="./weekly.html" class="card">
+          <span class="card-badge" style="background:rgba(245,200,66,0.15);color:#f5c842;border:1px solid rgba(245,200,66,0.3)">Weekly</span>
+          <div class="card-title">Weekly Info</div>
+          <div class="card-desc">Lemuria · Raid · Guild Battle<br>Updated every week</div>
+        </a>
       </div>
     </div>
+    <a href="./weekly.html" class="card">
+      <span class="card-badge" style="background:rgba(245,200,66,0.15);color:#f5c842;border:1px solid rgba(245,200,66,0.3)">Weekly</span>
+      <div class="card-title">Weekly Info</div>
+      <div class="card-desc">Lemuria · Raid · Guild Battle<br>Updated every week</div>
+    </a>
+    <a href="../calculator.html" class="card">
+      <span class="card-badge" style="background:rgba(100,181,246,0.15);color:#64b5f6;border:1px solid rgba(100,181,246,0.3)">Calculator</span>
+      <div class="card-title">Spirit Calculator</div>
+      <div class="card-desc">Auto spirit stat optimizer<br>(UI currently in Korean)</div>
+    </a>
   </div>
 </div>
 

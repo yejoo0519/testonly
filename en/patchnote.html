@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,14 +32,15 @@ h1{font-size:20px;color:var(--text2);margin-bottom:20px}
 .patch-content{font-size:13px;color:var(--text2);line-height:2}
 .patch-content li{list-style:none;padding-left:12px;position:relative}
 .patch-content li::before{content:"·";position:absolute;left:0;color:var(--accent)}
-
-#lang-btn{margin-left:auto;padding:6px 14px;border-radius:20px;border:1px solid var(--border3);background:var(--bg2);color:var(--text2);font-size:12px;cursor:pointer;font-family:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:4px;transition:all 0.15s;flex-shrink:0}
-#lang-btn:hover{border-color:var(--accent);color:var(--text)}
 </style>
 <link id="theme-css" rel="stylesheet" href="../theme-dark.css">
-<script src="../theme.js"></script>
+<script src="./theme.js"></script>
 </head>
 <body>
+<style>
+#lang-btn{padding:6px 14px;border-radius:20px;border:1px solid var(--border3);background:var(--bg2);color:var(--text2);font-size:12px;font-family:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:4px;transition:all 0.15s;flex-shrink:0;align-self:center;margin-bottom:6px}
+#lang-btn:hover{border-color:var(--accent);color:var(--text)}
+</style>
 <div id="tab-bar">
   <a href="./index.html" id="site-title">
     <span class="title-main">Main</span>
