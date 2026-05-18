@@ -37,15 +37,15 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
 .panel-header{display:flex;align-items:center;gap:10px;padding:10px 14px;font-size:15px;font-weight:700}
 .panel-header .elem-icon{width:36px;height:36px;border-radius:6px;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:20px;background:rgba(0,0,0,0.2)}
 .panel-header .elem-icon img{width:100%;height:100%;object-fit:cover}
-.panel-땅 .panel-header{background:linear-gradient(90deg,#b5651d,#d4863a)}
-.panel-물 .panel-header{background:linear-gradient(90deg,#1565c0,#1e88e5)}
-.panel-불 .panel-header{background:linear-gradient(90deg,#b71c1c,#e53935)}
-.panel-바람 .panel-header{background:linear-gradient(90deg,#1b5e20,#388e3c)}
-.panel-빛 .panel-header{background:linear-gradient(90deg,#e65100,#fb8c00)}
-.panel-어둠 .panel-header{background:linear-gradient(90deg,#311b92,#5e35b1)}
-.panel-황혼 .panel-header{background:linear-gradient(90deg,#880e4f,#c2185b)}
-.panel-여명 .panel-header{background:linear-gradient(90deg,#4e342e,#795548)}
-.panel-악몽 .panel-header{background:linear-gradient(90deg,#4a148c,#7b1fa2)}
+.panel-Earth .panel-header{background:linear-gradient(90deg,#b5651d,#d4863a)}
+.panel-Water .panel-header{background:linear-gradient(90deg,#1565c0,#1e88e5)}
+.panel-Fire .panel-header{background:linear-gradient(90deg,#b71c1c,#e53935)}
+.panel-Wind .panel-header{background:linear-gradient(90deg,#1b5e20,#388e3c)}
+.panel-Light .panel-header{background:linear-gradient(90deg,#e65100,#fb8c00)}
+.panel-Dark .panel-header{background:linear-gradient(90deg,#311b92,#5e35b1)}
+.panel-Dusk .panel-header{background:linear-gradient(90deg,#880e4f,#c2185b)}
+.panel-Dawn .panel-header{background:linear-gradient(90deg,#4e342e,#795548)}
+.panel-Nightmare .panel-header{background:linear-gradient(90deg,#4a148c,#7b1fa2)}
 .panel table{width:100%;border-collapse:collapse;font-size:12px;background:var(--bg2);min-width:0}
 .panel thead tr{background:var(--bg3)}
 .panel th{padding:6px 8px;text-align:center;font-weight:500;color:var(--text2);border-bottom:1px solid var(--border);white-space:nowrap;font-size:11px}
@@ -65,15 +65,15 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
 .t-pink  {color:#c4879e !important;font-weight:700;font-size:13px;text-shadow:0 0 4px rgba(196,135,158,0.4)}
 .t-neg   {color:#ef5350 !important;font-weight:700;font-size:13px}
 .no-data td{text-align:center;padding:1rem;color:var(--text4)}
-.panel-땅 tr.ex-true{background:linear-gradient(90deg,rgba(181,101,29,0.25) 0%,transparent 30%)}
-.panel-물 tr.ex-true{background:linear-gradient(90deg,rgba(21,101,192,0.25) 0%,transparent 30%)}
-.panel-불 tr.ex-true{background:linear-gradient(90deg,rgba(183,28,28,0.25) 0%,transparent 30%)}
-.panel-바람 tr.ex-true{background:linear-gradient(90deg,rgba(27,94,32,0.25) 0%,transparent 30%)}
-.panel-빛 tr.ex-true{background:linear-gradient(90deg,rgba(230,81,0,0.25) 0%,transparent 30%)}
-.panel-어둠 tr.ex-true{background:linear-gradient(90deg,rgba(49,27,146,0.25) 0%,transparent 30%)}
-.panel-황혼 tr.ex-true{background:linear-gradient(90deg,rgba(136,14,79,0.25) 0%,transparent 30%)}
-.panel-여명 tr.ex-true{background:linear-gradient(90deg,rgba(78,52,46,0.3) 0%,transparent 30%)}
-.panel-악몽 tr.ex-true{background:linear-gradient(90deg,rgba(74,20,140,0.25) 0%,transparent 30%)}
+.panel-Earth tr.ex-true{background:linear-gradient(90deg,rgba(181,101,29,0.25) 0%,transparent 30%)}
+.panel-Water tr.ex-true{background:linear-gradient(90deg,rgba(21,101,192,0.25) 0%,transparent 30%)}
+.panel-Fire tr.ex-true{background:linear-gradient(90deg,rgba(183,28,28,0.25) 0%,transparent 30%)}
+.panel-Wind tr.ex-true{background:linear-gradient(90deg,rgba(27,94,32,0.25) 0%,transparent 30%)}
+.panel-Light tr.ex-true{background:linear-gradient(90deg,rgba(230,81,0,0.25) 0%,transparent 30%)}
+.panel-Dark tr.ex-true{background:linear-gradient(90deg,rgba(49,27,146,0.25) 0%,transparent 30%)}
+.panel-Dusk tr.ex-true{background:linear-gradient(90deg,rgba(136,14,79,0.25) 0%,transparent 30%)}
+.panel-Dawn tr.ex-true{background:linear-gradient(90deg,rgba(78,52,46,0.3) 0%,transparent 30%)}
+.panel-Nightmare tr.ex-true{background:linear-gradient(90deg,rgba(74,20,140,0.25) 0%,transparent 30%)}
 
 h1{font-size:24px;margin-bottom:12px;color:var(--text2)}
 #filter-area{margin-bottom:10px}
@@ -120,24 +120,24 @@ h1{font-size:24px;margin-bottom:12px;color:var(--text2)}
 #modal-close:hover{color:var(--text)}
 #modal-title{font-size:16px;font-weight:700;color:var(--text);margin-bottom:16px}
 #modal-body{font-size:13px;color:var(--text2);line-height:1.8}
-.e-땅{background:#fff3e0;color:#e65100}
-.e-물{background:#e3f2fd;color:#1565c0}
-.e-불{background:#fce4ec;color:#b71c1c}
-.e-바람{background:#e8f5e9;color:#1b5e20}
-.e-빛{background:#fffde7;color:#f57f17}
-.e-어둠{background:#ede7f6;color:#4a148c}
-.e-황혼{background:#fdf2f8;color:#880e4f}
-.e-여명{background:#fff8e1;color:#6d4c41}
-.e-악몽{background:#f3e5f5;color:#6a1b9a}
-tr.e-row-땅  {background:linear-gradient(90deg,rgba(181,101,29,0.12) 0%,transparent 20%)}
-tr.e-row-물  {background:linear-gradient(90deg,rgba(21,101,192,0.12) 0%,transparent 20%)}
-tr.e-row-불  {background:linear-gradient(90deg,rgba(183,28,28,0.12) 0%,transparent 20%)}
-tr.e-row-바람{background:linear-gradient(90deg,rgba(27,94,32,0.12) 0%,transparent 20%)}
-tr.e-row-빛  {background:linear-gradient(90deg,rgba(230,81,0,0.12) 0%,transparent 20%)}
-tr.e-row-어둠{background:linear-gradient(90deg,rgba(49,27,146,0.12) 0%,transparent 20%)}
-tr.e-row-황혼{background:linear-gradient(90deg,rgba(136,14,79,0.12) 0%,transparent 20%)}
-tr.e-row-여명{background:linear-gradient(90deg,rgba(78,52,46,0.15) 0%,transparent 20%)}
-tr.e-row-악몽{background:linear-gradient(90deg,rgba(74,20,140,0.12) 0%,transparent 20%)}
+.e-Earth{background:#fff3e0;color:#e65100}
+.e-Water{background:#e3f2fd;color:#1565c0}
+.e-Fire{background:#fce4ec;color:#b71c1c}
+.e-Wind{background:#e8f5e9;color:#1b5e20}
+.e-Light{background:#fffde7;color:#f57f17}
+.e-Dark{background:#ede7f6;color:#4a148c}
+.e-Dusk{background:#fdf2f8;color:#880e4f}
+.e-Dawn{background:#fff8e1;color:#6d4c41}
+.e-Nightmare{background:#f3e5f5;color:#6a1b9a}
+tr.e-row-Earth  {background:linear-gradient(90deg,rgba(181,101,29,0.12) 0%,transparent 20%)}
+tr.e-row-Water  {background:linear-gradient(90deg,rgba(21,101,192,0.12) 0%,transparent 20%)}
+tr.e-row-Fire  {background:linear-gradient(90deg,rgba(183,28,28,0.12) 0%,transparent 20%)}
+tr.e-row-Wind{background:linear-gradient(90deg,rgba(27,94,32,0.12) 0%,transparent 20%)}
+tr.e-row-Light  {background:linear-gradient(90deg,rgba(230,81,0,0.12) 0%,transparent 20%)}
+tr.e-row-Dark{background:linear-gradient(90deg,rgba(49,27,146,0.12) 0%,transparent 20%)}
+tr.e-row-Dusk{background:linear-gradient(90deg,rgba(136,14,79,0.12) 0%,transparent 20%)}
+tr.e-row-Dawn{background:linear-gradient(90deg,rgba(78,52,46,0.15) 0%,transparent 20%)}
+tr.e-row-Nightmare{background:linear-gradient(90deg,rgba(74,20,140,0.12) 0%,transparent 20%)}
 #tab-bar a{text-decoration:none}
 
 
@@ -172,12 +172,12 @@ tr.e-row-악몽{background:linear-gradient(90deg,rgba(74,20,140,0.12) 0%,transpa
       <tr>
         <th style="width:28px">#</th>
         <th style="width:42px"></th>
-        <th class="left">드래곤</th>
+        <th class="left">Dragon</th>
         <th style="width:32px"></th>
-        <th>타입</th>
-        <th>각성</th>
-        <th>강림</th>
-        <th>초월</th>
+        <th>Type</th>
+        <th>Awaken</th>
+        <th>Advent</th>
+        <th>Transcend</th>
         <th>Lv.Up</th>
         <th>Codable</th>
         <th></th>
@@ -1662,8 +1662,8 @@ function buildFilters(){
     fr.appendChild(sep);
   };
 
-  addMulti("속성",dexElemOrder.slice(1),eFilters);
-  addMulti("타입",typeOrder.slice(1),tFilters);
+  addMulti("Element",dexElemOrder.slice(1),eFilters);
+  addMulti("Type",typeOrder.slice(1),tFilters);
   addSingle("Stage",stageOrder,stFilter,v=>stFilter=v);
   addSingle("Lv.Up",lvOrder,lvFilter,v=>lvFilter=v);
   addSingle("Codable",cdOrder,cdFilter,v=>cdFilter=v);
@@ -1687,19 +1687,19 @@ function render(){
 
   if(eFilters.size>0) list=list.filter(d=>eFilters.has(d.e));
   if(tFilters.size>0) list=list.filter(d=>tFilters.has(d.t));
-  if(stFilter==="성체만") list=list.filter(d=>d.tr===0);
-  if(stFilter==="초월이상") list=list.filter(d=>d.tr===1);
+  if(stFilter==="Adult only") list=list.filter(d=>d.tr===0);
+  if(stFilter==="Transcended+") list=list.filter(d=>d.tr===1);
   if(lvFilter==="O") list=list.filter(d=>d.lv===1);
   if(lvFilter==="X") list=list.filter(d=>d.lv===0);
   if(cdFilter!=="All") list=list.filter(d=>d.cd===cdFilter);
   if(q) list=list.filter(d=>d.n.includes(q));
 
-  document.getElementById("dex-count").textContent=`${list.length}마리`;
+  document.getElementById("dex-count").textContent=`${list.length} dragons`;
 
   const tbody=document.getElementById("tbody");
   tbody.innerHTML="";
   if(!list.length){
-    tbody.innerHTML=`<tr><td colspan="10" style="text-align:center;padding:2rem;color:#555">검색 결과가 없습니다</td></tr>`;
+    tbody.innerHTML=`<tr><td colspan="10" style="text-align:center;padding:2rem;color:#555">No results found</td></tr>`;
     return;
   }
 
@@ -1723,12 +1723,12 @@ function render(){
         <span class="badge-type">${d.t_kr}</span>
       </td>
       <td class="td-mobile row2">
-        <div class="row2-cell"><span class="r2-label">각성</span><span class="r2-val ${d.aw?"chk-y":"chk-n"}">${d.aw?"√":"X"}</span></div>
-        <div class="row2-cell"><span class="r2-label">강림</span><span class="r2-val ${d.ad?"chk-y":"chk-n"}">${d.ad?"√":"X"}</span></div>
-        <div class="row2-cell"><span class="r2-label">초월</span><span class="r2-val ${d.tr?"chk-y":"chk-n"}">${d.tr?"√":"X"}</span></div>
+        <div class="row2-cell"><span class="r2-label">Awaken</span><span class="r2-val ${d.aw?"chk-y":"chk-n"}">${d.aw?"√":"X"}</span></div>
+        <div class="row2-cell"><span class="r2-label">Advent</span><span class="r2-val ${d.ad?"chk-y":"chk-n"}">${d.ad?"√":"X"}</span></div>
+        <div class="row2-cell"><span class="r2-label">Trans.</span><span class="r2-val ${d.tr?"chk-y":"chk-n"}">${d.tr?"√":"X"}</span></div>
         <div class="row2-cell"><span class="r2-label">Lv.Up</span><span class="r2-val ${d.lv?"chk-y":"chk-n"}">${d.lv?"√":"X"}</span></div>
         <div class="row2-cell"><span class="r2-label">Codable</span><span class="r2-val ${cdCls}">${d.cd}</span></div>
-        <div class="row2-cell"><button class="detail-btn" onclick="openModal('${d.n.replace(/'/g,"\\'")}')">상세</button></div>
+        <div class="row2-cell"><button class="detail-btn" onclick="openModal('${d.n.replace(/'/g,"\\'")}')">Detail</button></div>
       </td>
       <td class="td-pc" style="color:#666;font-size:11px">${i+1}</td>
       <td class="td-pc center">${imgCell}</td>
@@ -1740,7 +1740,7 @@ function render(){
       <td class="td-pc ${d.tr?"chk-y":"chk-n"}">${d.tr?"√":"X"}</td>
       <td class="td-pc ${d.lv?"chk-y":"chk-n"}">${d.lv?"√":"X"}</td>
       <td class="td-pc ${cdCls}">${d.cd}</td>
-      <td class="td-pc"><button class="detail-btn" onclick="openModal('${d.n.replace(/'/g,"\\'")}')">상세</button></td>`;
+      <td class="td-pc"><button class="detail-btn" onclick="openModal('${d.n.replace(/'/g,"\\'")}')">Detail</button></td>`;
     tbody.appendChild(tr);
   });
 }
