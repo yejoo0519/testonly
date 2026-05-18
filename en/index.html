@@ -3,17 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>종합 정보사이트 made by 닉스</title>
-<meta property="og:title" content="종합 정보사이트 made by 닉스">
-<meta property="og:description" content="드래곤빌리지 종합 정보사이트 - 초월 등급표, 도감, 레이드, 공략, 커뮤니티">
-<meta property="og:image" content="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/main.jpg">
-<meta property="og:url" content="https://yejoo0519.github.io/dogam">
-<meta property="og:type" content="website">
-<link id="theme-css" rel="stylesheet" href="./theme-dark.css">
-<script src="./theme.js"></script>
+<title>Dragon Info Site made by Nix</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:24px}
+
+
+
 .patch-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:500;align-items:center;justify-content:center}
 .patch-modal-overlay.open{display:flex}
 .patch-modal{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:24px;width:90%;max-width:480px;max-height:70vh;overflow-y:auto;position:relative}
@@ -33,280 +29,229 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
 .patch-item-content li{list-style:none;padding-left:12px;position:relative}
 .patch-item-content li::before{content:"·";position:absolute;left:0;color:var(--accent)}
 .patch-more-btn{display:block;width:100%;margin-top:16px;padding:10px;background:var(--bg3);border:1px solid var(--border3);border-radius:8px;color:var(--accent);font-size:13px;font-weight:600;cursor:pointer;text-align:center;text-decoration:none;font-family:inherit}
-.patch-more-btn:hover{border-color:var(--accent)}
+.patch-more-btn:hover{background:var(--bg3);border-color:var(--accent)}
 .patch-note-btn{display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:var(--bg2);color:var(--text2);font-size:12px;cursor:pointer;font-family:inherit;transition:all 0.15s}
-.patch-note-btn:hover{border-color:var(--accent);color:var(--text)}
+.patch-note-btn:hover{border-color:var(--accent);color:var(--text);background:var(--bg3)}
 .patch-note-icon{font-size:14px}
-.day-icon-btn{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--border3);background:var(--bg2);cursor:pointer;padding:0;overflow:hidden;transition:border-color 0.15s;flex-shrink:0}
-.day-icon-btn:hover{border-color:var(--accent)}
-.day-icon-btn img{width:100%;height:100%;object-fit:cover;border-radius:50%}
-.item-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:600;align-items:center;justify-content:center}
-.item-modal-overlay.open{display:flex}
-.item-modal{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;width:90%;max-width:400px;position:relative;text-align:center}
-.item-modal-close{position:absolute;top:12px;right:14px;background:none;border:none;color:var(--text2);font-size:18px;cursor:pointer}
-.item-modal-close:hover{color:var(--text)}
-.item-modal-title{font-size:14px;font-weight:700;color:var(--accent);margin-bottom:12px}
-.item-modal img{width:100%;border-radius:8px;display:block}
-.contact-bar{display:flex;gap:12px;justify-content:center;margin-bottom:16px}
+
+.contact-bar{display:flex;gap:12px;justify-content:center;margin-bottom:32px}
 .contact-btn{display:flex;align-items:center;gap:8px;padding:8px 16px;border-radius:20px;border:1px solid var(--border);background:var(--bg2);text-decoration:none;color:var(--text2);font-size:12px;transition:all 0.15s}
-.contact-btn:hover{border-color:var(--accent);color:var(--text)}
+.contact-btn:hover{border-color:var(--accent);color:var(--text);background:var(--bg3)}
 .contact-icon{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
 .contact-kakao .contact-icon{background:#FEE500;color:#3C1E1E}
 .contact-discord .contact-icon{background:#5865F2;color:#fff}
+
+/* 공통 카드 */
 .card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:24px;cursor:pointer;text-decoration:none;display:block;transition:border-color 0.15s,background 0.15s;position:relative}
 .card:hover{border-color:var(--accent);background:var(--bg3)}
 .card-title{font-size:18px;font-weight:700;color:var(--text);margin-bottom:8px}
 .card-desc{font-size:12px;color:var(--text3);line-height:1.6}
 .card-badge{position:absolute;top:16px;right:16px;font-size:10px;padding:3px 8px;border-radius:10px;background:var(--accent-bg);color:var(--accent);border:1px solid var(--accent-border)}
-.card-badge-guide{background:rgba(245,200,66,0.15);color:#f5c842;border:1px solid rgba(245,200,66,0.3)}
-.card-badge-community{background:rgba(102,187,106,0.15);color:#66bb6a;border:1px solid rgba(102,187,106,0.3)}
-.card-badge-calculator{background:rgba(100,181,246,0.15);color:#64b5f6;border:1px solid rgba(100,181,246,0.3)}
-.stats-bar{display:flex;gap:16px;justify-content:center;margin-bottom:20px;flex-wrap:wrap}
-.stat-item{font-size:11px;color:var(--text4);display:flex;align-items:center;gap:4px}
-.stat-item span{color:var(--accent);font-weight:700}
+
+/* 모바일 레이아웃 */
 .mobile-layout{display:flex;flex-direction:column;align-items:center}
 .mobile-layout h1{font-size:28px;margin-bottom:8px;text-align:center}
-.mobile-layout .subtitle{font-size:13px;color:var(--text3);margin-bottom:20px;text-align:center}
+.mobile-layout .subtitle{font-size:13px;color:var(--text3);margin-bottom:40px;text-align:center}
+.mobile-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;width:100%;max-width:900px}
+
+/* PC 레이아웃 */
 .pc-layout{display:none;max-width:1100px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:60px 24px}
 .pc-header{text-align:center;margin-bottom:40px}
 .pc-header h1{font-size:28px;margin-bottom:8px}
 .pc-header .subtitle{font-size:13px;color:var(--text3)}
 .pc-body{display:flex;gap:0}
+
+/* PC 왼쪽 카테고리 탭 */
 .pc-tabs{display:flex;flex-direction:column;gap:4px;width:160px;flex-shrink:0;padding-right:24px;border-right:1px solid var(--border)}
 .pc-tab{padding:12px 16px;border-radius:8px;font-size:13px;font-weight:600;color:var(--text3);cursor:pointer;transition:all 0.15s;border:none;background:none;text-align:left;font-family:inherit}
 .pc-tab:hover{color:var(--text2);background:var(--bg3)}
 .pc-tab.active{color:var(--accent);background:var(--accent-bg);border-left:2px solid var(--accent);padding-left:14px}
+
+/* PC 오른쪽 카드 영역 */
 .pc-cards{flex:1;padding-left:28px}
 .pc-category{display:none}
 .pc-category.active{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
-.mobile-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:16px;width:100%;max-width:900px;overflow-x:auto}
-.mobile-tab{flex:1;min-width:fit-content;padding:10px 14px;font-size:13px;font-weight:600;background:none;border:none;border-bottom:2px solid transparent;color:var(--text3);cursor:pointer;font-family:inherit;margin-bottom:-1px;white-space:nowrap}
-.mobile-tab:hover{color:var(--text2)}
-.mobile-tab.active{color:var(--accent);border-bottom:2px solid var(--accent)}
-.mobile-category{display:none;width:100%;max-width:900px}
-.mobile-category.active{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
-@media(max-width:700px){.mobile-layout{display:flex}.pc-layout{display:none!important}}
-@media(min-width:701px){.mobile-layout{display:none}.pc-layout{display:block}}
+.pc-category-empty{color:#555;font-size:13px;padding:40px 0;text-align:center}
+
+@media(max-width:700px){
+  .mobile-layout{display:flex}
+  .pc-layout{display:none!important}
+}
+@media(min-width:701px){
+  .mobile-layout{display:none}
+  .pc-layout{display:block}
+}
+
+#lang-btn{padding:6px 14px;border-radius:20px;border:1px solid var(--border3);background:var(--bg2);color:var(--text2);font-size:12px;font-family:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:4px;transition:all 0.15s}
+#lang-btn:hover{border-color:var(--accent);color:var(--text)}
 </style>
+<link id="theme-css" rel="stylesheet" href="../theme-dark.css">
+<script src="../theme.js"></script>
 </head>
 <body>
 
-<!-- 모바일 -->
+<!-- Mobile layout -->
 <div class="mobile-layout">
-  <h1>종합 정보사이트<br>made by 닉스</h1>
-  <p class="subtitle">원하는 메뉴를 선택하세요</p>
-  <div class="stats-bar" id="mobile-stats">
-    <div class="stat-item">오늘 방문자 <span id="m-today">-</span>명</div>
-    <div class="stat-item">누적 방문자 <span id="m-total">-</span>명</div>
-    <div class="stat-item">회원 <span id="m-members">-</span>명</div>
-  </div>
+  <h1>Dragon Info Site<br>made by Nix</h1>
+  <p class="subtitle">Choose a menu</p>
   <div style="display:flex;justify-content:center;margin-bottom:12px;gap:8px">
     <button class="patch-note-btn" onclick="openPatchModal()">
-      <span class="patch-note-icon">📋</span> 패치노트
+      <span class="patch-note-icon">📋</span> Release Notes
     </button>
-    <button onclick="openThemeModal()" style="padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:var(--bg2);color:var(--text2);font-size:12px;cursor:pointer;font-family:inherit">🎨 테마</button>
-      <a href="./en/index.html" style="padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:var(--bg2);color:var(--text2);font-size:12px;cursor:pointer;font-family:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:4px">🌐 EN</a>
+    <a href="../index.html" id="lang-btn">🌐 KR</a>
   </div>
   <div class="contact-bar">
     <a href="https://open.kakao.com/o/sgNwijri" target="_blank" class="contact-btn contact-kakao">
-      <span class="contact-icon">K</span>카카오톡
+      <span class="contact-icon">K</span>KakaoTalk
     </a>
     <a href="https://discord.com/users/629966669875511296" target="_blank" class="contact-btn contact-discord">
-      <span class="contact-icon">D</span>디스코드
+      <span class="contact-icon">D</span>Discord
     </a>
-    <button class="day-icon-btn" onclick="openItemModal()">
-      <img src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/Day.png" alt="방랑상인">
-    </button>
   </div>
-  <div class="mobile-tabs">
-    <button class="mobile-tab active" onclick="switchMobileTab('info', this)">정보</button>
-    <button class="mobile-tab" onclick="switchMobileTab('guide', this)">공략&amp;가이드</button>
-    <button class="mobile-tab" onclick="switchMobileTab('weekly', this)">주간</button>
-    <button class="mobile-tab" onclick="switchMobileTab('community', this)">커뮤니티</button>
-    <button class="mobile-tab" onclick="switchMobileTab('calculator', this)">계산기</button>
-  </div>
-  <div class="mobile-category active" id="mobile-info">
-    <a href="./tier.html" class="card"><span class="card-badge">정보</span><div class="card-title">초월 등급표</div><div class="card-desc">속성별 초월 드래곤 등급 정보<br>속성 · 타입 필터 지원</div></a>
-    <a href="./dex.html" class="card"><span class="card-badge">정보</span><div class="card-title">드래곤 도감</div><div class="card-desc">전체 697마리 드래곤 정보<br>속성 · 타입 · 단계 · 코드화 필터 지원</div></a>
-    <a href="./sss.html" class="card"><span class="card-badge">정보</span><div class="card-title">SSS 랭킹</div><div class="card-desc">Lv.45 / Lv.21 SSS 드래곤 랭킹<br>속성 필터 지원</div></a>
-    <a href="./raid.html" class="card"><span class="card-badge">정보</span><div class="card-title">아르하 입구</div><div class="card-desc">디데락 조합, 평르하 조합<br>디데락 자동 조합기능 제공</div></a>
-    <a href="./raid_info.html" class="card"><span class="card-badge">정보</span><div class="card-title">레이드 정보</div><div class="card-desc">아르하필드 · 일반 레이드 · 레무리아<br>보스별 상세 정보</div></a>
-  </div>
-  <div class="mobile-category" id="mobile-guide">
-    <a href="./guide.html?from=guide" class="card"><span class="card-badge card-badge-guide">공략</span><div class="card-title">공략 &amp; 가이드</div><div class="card-desc">드래곤 공략 및 레이드 가이드<br>글 목록 보기</div></a>
-  </div>
-  <div class="mobile-category" id="mobile-weekly">
-    <a href="./weekly.html?from=weekly" class="card"><span class="card-badge" style="background:rgba(245,200,66,0.15);color:#f5c842;border:1px solid rgba(245,200,66,0.3)">주간</span><div class="card-title">주간 정보</div><div class="card-desc">레무리아 · 레이드 · 길드전<br>매주 업데이트되는 주간 정보</div></a>
-  </div>
-  <div class="mobile-category" id="mobile-community">
-    <a href="./guild.html?from=community" class="card"><span class="card-badge card-badge-community">커뮤니티</span><div class="card-title">길드</div><div class="card-desc">길드 홍보 및 모집 정보</div></a>
-    <a href="./friend.html?from=community" class="card"><span class="card-badge card-badge-community">커뮤니티</span><div class="card-title">친구요청</div><div class="card-desc">정기친구 · 레이드 프리미엄<br>친구 구하는 게시판</div></a>
-  </div>
-  <!-- ✅ 계산기 탭 카드 (올바른 위치) -->
-  <div class="mobile-category" id="mobile-calculator">
-    <a href="./calculator.html?from=calculator" class="card"><span class="card-badge card-badge-calculator">계산기</span><div class="card-title">자동 계산기</div><div class="card-desc">본인 셋팅 저장 · 정령 자동 비밸셋팅</div></a>
+  <div class="mobile-grid">
+    <a href="./tier.html" class="card">
+      <span class="card-badge">Info</span>
+      <div class="card-title">Transcedence Tier List</div>
+      <div class="card-desc">Transcedence Dragon Grade by element<br>Element · Type filter supported</div>
+    </a>
+    <a href="./dex.html" class="card">
+      <span class="card-badge">Info</span>
+      <div class="card-title">Dragon Dex</div>
+      <div class="card-desc">All 697 dragons info<br>Element · Type · Stage · Codable filter</div>
+    </a>
+    <a href="./sss.html" class="card">
+      <span class="card-badge">Info</span>
+      <div class="card-title">SSS Ranking</div>
+      <div class="card-desc">Lv.45 / Lv.21 SSS Dragon Ranking<br>Element filter supported</div>
+    </a>
+    <a href="./raid.html" class="card">
+      <span class="card-badge">Info</span>
+      <div class="card-title">Entrance to Archa</div>
+      <div class="card-desc">Mystery Boss combo, Weekday Boss combo<br>Auto-combo calculator</div>
+    </a>
+    <a href="./raid_info.html" class="card">
+      <span class="card-badge">Info</span>
+      <div class="card-title">Raid Info</div>
+      <div class="card-desc">Archa Exploration Raid · Normal Raid · Lemuria<br>Detailed boss info</div>
+    </a>
   </div>
 </div>
 
-<!-- PC -->
+<!-- PC layout -->
 <div class="pc-layout">
   <div class="pc-header">
-    <h1>종합 정보사이트 made by 닉스</h1>
-    <p class="subtitle"> </p>
-    <div class="stats-bar" id="pc-stats">
-      <div class="stat-item">오늘 방문자 <span id="p-today">-</span>명</div>
-      <div class="stat-item">누적 방문자 <span id="p-total">-</span>명</div>
-      <div class="stat-item">회원 <span id="p-members">-</span>명</div>
-    </div>
-    <div style="display:flex;justify-content:center;margin-bottom:12px;gap:8px">
+    <h1>Dragon Info Site made by Nix</h1>
+    <p class="subtitle">Choose a menu</p>
+    <div style="display:flex;justify-content:center;margin-top:12px;margin-bottom:8px">
       <button class="patch-note-btn" onclick="openPatchModal()">
-        <span class="patch-note-icon">📋</span> 패치노트
+        <span class="patch-note-icon">📋</span> Release Notes
       </button>
-      <button onclick="openThemeModal()" style="padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:var(--bg2);color:var(--text2);font-size:12px;cursor:pointer;font-family:inherit">🎨 테마</button>
-      <a href="./en/index.html" style="padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:var(--bg2);color:var(--text2);font-size:12px;cursor:pointer;font-family:inherit;text-decoration:none;display:inline-flex;align-items:center;gap:4px">🌐 EN</a>
+      <a href="../index.html" id="lang-btn">🌐 KR</a>
     </div>
-    <div class="contact-bar">
+    <div class="contact-bar" style="margin-top:8px;margin-bottom:0">
       <a href="https://open.kakao.com/o/sgNwijri" target="_blank" class="contact-btn contact-kakao">
-        <span class="contact-icon">K</span>카카오톡
+        <span class="contact-icon">K</span>KakaoTalk
       </a>
       <a href="https://discord.com/users/629966669875511296" target="_blank" class="contact-btn contact-discord">
-        <span class="contact-icon">D</span>디스코드
+        <span class="contact-icon">D</span>Discord
       </a>
-      <button class="day-icon-btn" onclick="openItemModal()">
-        <img src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/Day.png" alt="방랑상인">
-      </button>
     </div>
   </div>
   <div class="pc-body">
+    <!-- Left tabs -->
     <div class="pc-tabs">
-      <button class="pc-tab active" onclick="switchPCTab('info', this)">정보</button>
-      <button class="pc-tab" onclick="switchPCTab('guide', this)">공략 &amp; 가이드</button>
-      <button class="pc-tab" onclick="switchPCTab('weekly', this)">주간</button>
-      <button class="pc-tab" onclick="switchPCTab('community', this)">커뮤니티</button>
-      <!-- ✅ PC 계산기 탭 버튼 추가 -->
-      <button class="pc-tab" onclick="switchPCTab('calculator', this)">계산기</button>
+      <button class="pc-tab active" onclick="switchPCTab('info')">Info</button>
+      <button class="pc-tab" onclick="switchPCTab('guide')">Guides</button>
+      <button class="pc-tab" onclick="switchPCTab('weekly')">Weekly</button>
     </div>
+    <!-- Right cards -->
     <div class="pc-cards">
+      <!-- Info -->
       <div class="pc-category active" id="pc-info">
-        <a href="./tier.html" class="card"><span class="card-badge">정보</span><div class="card-title">초월 등급표</div><div class="card-desc">속성별 초월 드래곤 등급 정보<br>속성 · 타입 필터 지원</div></a>
-        <a href="./dex.html" class="card"><span class="card-badge">정보</span><div class="card-title">드래곤 도감</div><div class="card-desc">전체 697마리 드래곤 정보<br>속성 · 타입 · 단계 · 코드화 필터 지원</div></a>
-        <a href="./sss.html" class="card"><span class="card-badge">정보</span><div class="card-title">SSS 랭킹</div><div class="card-desc">Lv.45 / Lv.21 SSS 드래곤 랭킹<br>속성 필터 지원</div></a>
-        <a href="./raid.html" class="card"><span class="card-badge">정보</span><div class="card-title">아르하 입구</div><div class="card-desc">디데락 조합, 평르하 조합<br>디데락 자동 조합기능 제공</div></a>
-        <a href="./raid_info.html" class="card"><span class="card-badge">정보</span><div class="card-title">레이드 정보</div><div class="card-desc">아르하필드 · 일반 레이드 · 레무리아<br>보스별 상세 정보</div></a>
+        <a href="./tier.html" class="card">
+          <span class="card-badge">Info</span>
+          <div class="card-title">Transcedence Tier List</div>
+          <div class="card-desc">Transcedence Dragon Grade by element<br>Element · Type filter supported</div>
+        </a>
+        <a href="./dex.html" class="card">
+          <span class="card-badge">Info</span>
+          <div class="card-title">Dragon Dex</div>
+          <div class="card-desc">All 697 dragons info<br>Element · Type · Stage · Codable filter</div>
+        </a>
+        <a href="./sss.html" class="card">
+          <span class="card-badge">Info</span>
+          <div class="card-title">SSS Ranking</div>
+          <div class="card-desc">Lv.45 / Lv.21 SSS Dragon Ranking<br>Element filter supported</div>
+        </a>
+        <a href="./raid.html" class="card">
+          <span class="card-badge">Info</span>
+          <div class="card-title">Entrance to Archa</div>
+          <div class="card-desc">Mystery Boss combo, Weekday Boss combo<br>Auto-combo calculator</div>
+        </a>
+        <a href="./raid_info.html" class="card">
+          <span class="card-badge">Info</span>
+          <div class="card-title">Raid Info</div>
+          <div class="card-desc">Archa Exploration Raid · Normal Raid · Lemuria<br>Detailed boss info</div>
+        </a>
       </div>
+      <!-- Guides -->
       <div class="pc-category" id="pc-guide">
-        <a href="./guide.html?from=guide" class="card"><span class="card-badge card-badge-guide">공략</span><div class="card-title">공략 &amp; 가이드</div><div class="card-desc">드래곤 공략 및 레이드 가이드<br>글 목록 보기</div></a>
+        <div class="pc-category-empty">Guides content coming soon.</div>
       </div>
+      <!-- Weekly -->
       <div class="pc-category" id="pc-weekly">
-        <a href="./weekly.html?from=weekly" class="card"><span class="card-badge" style="background:rgba(245,200,66,0.15);color:#f5c842;border:1px solid rgba(245,200,66,0.3)">주간</span><div class="card-title">주간 정보</div><div class="card-desc">레무리아 · 레이드 · 길드전<br>매주 업데이트되는 주간 정보</div></a>
-      </div>
-      <div class="pc-category" id="pc-community">
-        <a href="./guild.html?from=community" class="card"><span class="card-badge card-badge-community">커뮤니티</span><div class="card-title">길드</div><div class="card-desc">길드 홍보 및 모집 정보</div></a>
-        <a href="./friend.html?from=community" class="card"><span class="card-badge card-badge-community">커뮤니티</span><div class="card-title">친구요청</div><div class="card-desc">정기친구 · 레이드 프리미엄<br>친구 구하는 게시판</div></a>
-      </div>
-      <!-- ✅ PC 계산기 카드 (올바른 위치) -->
-      <div class="pc-category" id="pc-calculator">
-        <a href="./calculator.html?from=calculator" class="card"><span class="card-badge card-badge-calculator">계산기</span><div class="card-title">자동 계산기</div><div class="card-desc">본인 셋팅 저장 · 정령 자동 비밸셋팅</div></a>
+        <div class="pc-category-empty">Weekly content coming soon.</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- 패치노트 모달 -->
+
 <div class="patch-modal-overlay" id="patch-modal-overlay" onclick="closePatchModal(event)">
   <div class="patch-modal">
     <button class="patch-modal-close" onclick="closePatchModal()">✕</button>
-    <div class="patch-modal-title">📋 패치노트</div>
+    <div class="patch-modal-title">📋 Release Notes</div>
     <div id="patch-modal-body">
+
+      <!-- Latest patch notes — add here -->
       <div class="patch-item">
         <div class="patch-item-header">
-          <span class="patch-version">v0.0.6</span>
-          <span class="patch-date">2026-05-06</span>
+          <span class="patch-version">v0.0.1</span>
+          <span class="patch-date">2026-04-20</span>
           <span class="patch-item-badge badge-new">NEW</span>
         </div>
         <ul class="patch-item-content">
-          <li>비밸 기준 자동 계산기 추가</li>
-          <li style="color:#666">오류 발생시 문의 부탁드립니다.</li>
+          <li>Added multi-select for Element & Type</li>
+          <li>Added Dragon Dex with image support</li>
+          <li>Added SSS Ranking</li>
+          <li>Added Entrance to Archa combos & auto-combo calculator</li>
+          <li>Added Raid Info page</li>
+          <li>Improved mobile & PC UI</li>
         </ul>
       </div>
+
     </div>
-    <a href="./patchnote.html" class="patch-more-btn">전체 패치노트 보기 →</a>
+    <a href="./patchnote.html" class="patch-more-btn">View all patch notes →</a>
   </div>
 </div>
 
-<!-- 방랑상인 모달 -->
-<div class="item-modal-overlay" id="item-modal-overlay" onclick="closeItemModal(event)">
-  <div class="item-modal">
-    <button class="item-modal-close" onclick="closeItemModal()">✕</button>
-    <div class="item-modal-title">방랑상인 품목</div>
-    <img src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/item.png" alt="방랑상인">
-  </div>
-</div>
-
-<script src="./sb_config.js"></script>
 <script>
-function openPatchModal(){document.getElementById('patch-modal-overlay').classList.add('open')}
-function closePatchModal(e){if(!e||e.target===document.getElementById('patch-modal-overlay'))document.getElementById('patch-modal-overlay').classList.remove('open')}
-function openItemModal(){document.getElementById('item-modal-overlay').classList.add('open')}
-function closeItemModal(e){if(!e||e.target===document.getElementById('item-modal-overlay'))document.getElementById('item-modal-overlay').classList.remove('open')}
 
-function switchPCTab(tab, el){
+function openPatchModal() {
+  document.getElementById('patch-modal-overlay').classList.add('open');
+}
+function closePatchModal(e) {
+  if(!e || e.target === document.getElementById('patch-modal-overlay')) {
+    document.getElementById('patch-modal-overlay').classList.remove('open');
+  }
+}
+
+function switchPCTab(tab) {
   document.querySelectorAll('.pc-tab').forEach(b=>b.classList.remove('active'));
   document.querySelectorAll('.pc-category').forEach(c=>c.classList.remove('active'));
-  (el||event.currentTarget).classList.add('active');
+  event.currentTarget.classList.add('active');
   document.getElementById('pc-'+tab).classList.add('active');
 }
-
-function switchMobileTab(tab,el){
-  document.querySelectorAll('.mobile-tab').forEach(b=>b.classList.remove('active'));
-  document.querySelectorAll('.mobile-category').forEach(c=>c.classList.remove('active'));
-  el.classList.add('active');
-  document.getElementById('mobile-'+tab).classList.add('active');
-}
-
-async function trackVisitor() {
-  try {
-    const today = new Date().toISOString().slice(0,10);
-    const lastVisit = localStorage.getItem('last_visit');
-    if(lastVisit !== today) {
-      await supabase('POST', 'visitors', { visited_at: today });
-      localStorage.setItem('last_visit', today);
-    }
-    const todayCount = await getCount('visitors', `?visited_at=eq.${today}`);
-    const totalCount = await getCount('visitors');
-    const memberCount = await getCount('users');
-    document.getElementById('m-today').textContent = todayCount.toLocaleString();
-    document.getElementById('m-total').textContent = totalCount.toLocaleString();
-    document.getElementById('m-members').textContent = memberCount.toLocaleString();
-    document.getElementById('p-today').textContent = todayCount.toLocaleString();
-    document.getElementById('p-total').textContent = totalCount.toLocaleString();
-    document.getElementById('p-members').textContent = memberCount.toLocaleString();
-  } catch(e) { console.error(e); }
-}
-
-trackVisitor();
-
-// ?tab= 파라미터가 있으면 해당 탭 자동 활성화
-(function() {
-  const tab = new URLSearchParams(location.search).get('tab');
-  if(!tab) return;
-  const mobileBtn = document.querySelector(`.mobile-tab[onclick*="'${tab}'"]`);
-  if(mobileBtn) {
-    document.querySelectorAll('.mobile-tab').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.mobile-category').forEach(c => c.classList.remove('active'));
-    mobileBtn.classList.add('active');
-    const cat = document.getElementById('mobile-' + tab);
-    if(cat) cat.classList.add('active');
-  }
-  const pcBtn = document.querySelector(`.pc-tab[onclick*="'${tab}'"]`);
-  if(pcBtn) {
-    document.querySelectorAll('.pc-tab').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.pc-category').forEach(c => c.classList.remove('active'));
-    pcBtn.classList.add('active');
-    const cat = document.getElementById('pc-' + tab);
-    if(cat) cat.classList.add('active');
-  }
-})();
 </script>
 </body>
 </html>
