@@ -117,24 +117,24 @@ h1{font-size:24px;margin-bottom:12px;color:var(--text2)}
 #modal-close:hover{color:var(--text)}
 #modal-title{font-size:16px;font-weight:700;color:var(--text);margin-bottom:16px}
 #modal-body{font-size:13px;color:var(--text2);line-height:1.8}
-.e-땅{background:#fff3e0;color:#e65100}
-.e-물{background:#e3f2fd;color:#1565c0}
-.e-불{background:#fce4ec;color:#b71c1c}
-.e-바람{background:#e8f5e9;color:#1b5e20}
-.e-빛{background:#fffde7;color:#f57f17}
-.e-어둠{background:#ede7f6;color:#4a148c}
-.e-황혼{background:#fdf2f8;color:#880e4f}
-.e-여명{background:#fff8e1;color:#6d4c41}
-.e-악몽{background:#f3e5f5;color:#6a1b9a}
-tr.e-row-땅{background:linear-gradient(90deg,rgba(181,101,29,0.12) 0%,transparent 20%)}
-tr.e-row-물{background:linear-gradient(90deg,rgba(21,101,192,0.12) 0%,transparent 20%)}
-tr.e-row-불{background:linear-gradient(90deg,rgba(183,28,28,0.12) 0%,transparent 20%)}
-tr.e-row-바람{background:linear-gradient(90deg,rgba(27,94,32,0.12) 0%,transparent 20%)}
-tr.e-row-빛{background:linear-gradient(90deg,rgba(230,81,0,0.12) 0%,transparent 20%)}
-tr.e-row-어둠{background:linear-gradient(90deg,rgba(49,27,146,0.12) 0%,transparent 20%)}
-tr.e-row-황혼{background:linear-gradient(90deg,rgba(136,14,79,0.12) 0%,transparent 20%)}
-tr.e-row-여명{background:linear-gradient(90deg,rgba(78,52,46,0.15) 0%,transparent 20%)}
-tr.e-row-악몽{background:linear-gradient(90deg,rgba(74,20,140,0.12) 0%,transparent 20%)}
+.e-Earth{background:#fff3e0;color:#e65100}
+.e-Water{background:#e3f2fd;color:#1565c0}
+.e-Fire{background:#fce4ec;color:#b71c1c}
+.e-Wind{background:#e8f5e9;color:#1b5e20}
+.e-Light{background:#fffde7;color:#f57f17}
+.e-Dark{background:#ede7f6;color:#4a148c}
+.e-Dusk{background:#fdf2f8;color:#880e4f}
+.e-Dawn{background:#fff8e1;color:#6d4c41}
+.e-Nightmare{background:#f3e5f5;color:#6a1b9a}
+tr.e-row-Earth{background:linear-gradient(90deg,rgba(181,101,29,0.12) 0%,transparent 20%)}
+tr.e-row-Water{background:linear-gradient(90deg,rgba(21,101,192,0.12) 0%,transparent 20%)}
+tr.e-row-Fire{background:linear-gradient(90deg,rgba(183,28,28,0.12) 0%,transparent 20%)}
+tr.e-row-Wind{background:linear-gradient(90deg,rgba(27,94,32,0.12) 0%,transparent 20%)}
+tr.e-row-Light{background:linear-gradient(90deg,rgba(230,81,0,0.12) 0%,transparent 20%)}
+tr.e-row-Dark{background:linear-gradient(90deg,rgba(49,27,146,0.12) 0%,transparent 20%)}
+tr.e-row-Dusk{background:linear-gradient(90deg,rgba(136,14,79,0.12) 0%,transparent 20%)}
+tr.e-row-Dawn{background:linear-gradient(90deg,rgba(78,52,46,0.15) 0%,transparent 20%)}
+tr.e-row-Nightmare{background:linear-gradient(90deg,rgba(74,20,140,0.12) 0%,transparent 20%)}
 tr:hover td{background:var(--bg3)!important}
 #tab-bar a{text-decoration:none}
 
@@ -145,7 +145,7 @@ tr:hover td{background:var(--bg3)!important}
 </head>
 <body>
 <div id="tab-bar">
-  <a href="../index.html" id="site-title">
+  <a href="./index.html" id="site-title">
   <span class="title-main">Main</span>
   <span class="title-sub">made by nix</span>
 </a>
@@ -167,29 +167,7 @@ tr:hover td{background:var(--bg3)!important}
 
 <div id="panels"></div>
 <script>
-/* ===== 속성 설정 =====
-   icon: 속성 아이콘 이미지 경로. 없으면 "" 로 두면 텍스트로 표시 */
-const elemConfig={
-  "Earth"   :{icon:"https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/11.png", label:"Earth"},
-  "Water"   :{icon:"https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/12.png", label:"Water"},
-  "Fire"    :{icon:"https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/13.png", label:"Fire"},
-  "Wind"    :{icon:"https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/14.png", label:"Wind"},
-  "Light"   :{icon:"https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/84.png", label:"Light"},
-  "Dark"    :{icon:"https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/87.png", label:"Dark"},
-  "Dusk"    :{icon:"https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/487.png", label:"Dusk"},
-  "Dawn"    :{icon:"https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/486.png", label:"Dawn"},
-  "Nightmare":{icon:"https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/488.png", label:"Nightmare"},
-};
 
-function tierClass(g){
-  if(g>=7.0) return 't-blue';
-  if(g>=6.5) return 't-gold';
-  if(g>=4.5) return 't-silver';
-  if(g>=0)   return 't-pink';
-  return 't-neg';
-}
-
-/* ===== 데이터 ===== */
 const data=[
 {n:"Daros",e:"Earth",t:"ATK-DEF",lv:"X",g:7.0,img1:"https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/img1/1.png",ex:true},
 {n:"Pachy",e:"Earth",t:"DEF",lv:"O",g:6.8,img1:"https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/img1/2.png",ex:true},
@@ -487,14 +465,14 @@ const data=[
 ];
 
 const tierElemOrder=["Earth","Water","Fire","Wind","Light","Dark","Dusk","Dawn","Nightmare"];
-const tierTypes=["전체","공방","공격","방어","체공","체방","체력"];
+const tierTypes=["All","ATK-DEF","ATK","DEF","HP-ATK","HP-DEF","HP"];
 let eTFilters=new Set(); let tTFilters=new Set();
 
 function buildFilters(){
   const fr=document.getElementById("filter-row");
   fr.innerHTML="";
 
-  // 속성 필터
+  
   const eLabel=document.createElement("span");
   eLabel.textContent="Element";
   eLabel.style="font-size:11px;color:#888;align-self:center;margin-right:2px";
@@ -511,12 +489,12 @@ function buildFilters(){
     fr.appendChild(b);
   });
 
-  // 구분선
+  
   const sep=document.createElement("div");
   sep.style="width:100%;height:6px";
   fr.appendChild(sep);
 
-  // 타입 필터
+  
   const tLabel=document.createElement("span");
   tLabel.textContent="Type";
   tLabel.style="font-size:11px;color:#888;align-self:center;margin-right:2px";
@@ -554,7 +532,7 @@ function render(){
     const panel=document.createElement("div");
     panel.className=`panel panel-${elem}`;
 
-    // 헤더
+    
     const iconHtml=cfg.icon
       ?`<div class="elem-icon"><img src="${cfg.icon}" alt="${elem}"></div>`
       :`<div class="elem-icon" style="font-size:18px;background:rgba(0,0,0,0.25);width:36px;height:36px;border-radius:6px;display:flex;align-items:center;justify-content:center">${elem[0]}</div>`;
