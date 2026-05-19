@@ -168,6 +168,26 @@ tr:hover td{background:var(--bg3)!important}
 <div id="panels"></div>
 <script>
 
+const elemConfig={
+  "Earth"    :{icon:"https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/11.png", label:"Earth"},
+  "Water"    :{icon:"https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/12.png", label:"Water"},
+  "Fire"     :{icon:"https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/13.png", label:"Fire"},
+  "Wind"     :{icon:"https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/14.png", label:"Wind"},
+  "Light"    :{icon:"https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/84.png", label:"Light"},
+  "Dark"     :{icon:"https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/87.png", label:"Dark"},
+  "Dusk"     :{icon:"https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/487.png", label:"Dusk"},
+  "Dawn"     :{icon:"https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/486.png", label:"Dawn"},
+  "Nightmare":{icon:"https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/488.png", label:"Nightmare"},
+};
+
+function tierClass(g){
+  if(g>=7.0) return 't-blue';
+  if(g>=6.5) return 't-gold';
+  if(g>=4.5) return 't-silver';
+  if(g>=0)   return 't-pink';
+  return 't-neg';
+}
+
 const data=[
 {n:"Daros",e:"Earth",t:"ATK-DEF",lv:"X",g:7.0,img1:"https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/img1/1.png",ex:true},
 {n:"Pachy",e:"Earth",t:"DEF",lv:"O",g:6.8,img1:"https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/img1/2.png",ex:true},
