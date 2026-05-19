@@ -2009,7 +2009,8 @@ function settingTypeOptions(v){
 
 function settingBuffPanel(key,title){
   const cfg=S.settingBuffs[key];
-  const attrImg=`이미지/속성/${cfg.attr}.png`;
+  const _an1={'땅':11,'물':12,'불':13,'바람':14,'빛':84,'어둠':87,'황혼':487,'여명':486,'악몽':488};
+  const attrImg=`https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/${_an1[cfg.attr]||11}.png`;
   return `
     <div class="buff-setting-panel">
       <div class="buff-setting-title">${title}</div>
@@ -2757,7 +2758,8 @@ function renderResDeck(results,excludedCount){
   results.forEach((r,i)=>{
     const dc=DCOLORS[r.dragon.dtype];
     const rank=i<3?medals[i]:`<span class="rank-n">${i+1}</span>`;
-    const attrImg=`이미지/속성/${r.dragon.attr}.png`;
+    const _an2={'땅':11,'물':12,'불':13,'바람':14,'빛':84,'어둠':87,'황혼':487,'여명':486,'악몽':488};
+    const attrImg=`https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/${_an2[r.dragon.attr]||11}.png`;
     html+=`<tr>
       <td>${rank}</td>
       <td>
