@@ -98,6 +98,7 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
     <button class="patch-note-btn" onclick="openPatchModal()">
       <span class="patch-note-icon">📋</span> Release Notes
     </button>
+    <button onclick="openThemeModal()" style="padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:var(--bg2);color:var(--text2);font-size:12px;cursor:pointer;font-family:inherit">🎨 Theme</button>
     <a href="../index.html" id="lang-btn">🌐 KR</a>
   </div>
   <div class="contact-bar">
@@ -142,10 +143,16 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
   <div class="pc-header">
     <h1>Dragon Info Site made by Nix</h1>
     <p class="subtitle">Choose a menu</p>
+    <div class="stats-bar" id="pc-stats">
+      <div class="stat-item">Today <span id="p-today">-</span></div>
+      <div class="stat-item">Total <span id="p-total">-</span></div>
+      <div class="stat-item">Members <span id="p-members">-</span></div>
+    </div>
     <div style="display:flex;justify-content:center;margin-top:12px;margin-bottom:8px">
       <button class="patch-note-btn" onclick="openPatchModal()">
         <span class="patch-note-icon">📋</span> Release Notes
       </button>
+      <button onclick="openThemeModal()" style="padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:var(--bg2);color:var(--text2);font-size:12px;cursor:pointer;font-family:inherit">🎨 Theme</button>
       <a href="../index.html" id="lang-btn">🌐 KR</a>
     </div>
     <div class="contact-bar" style="margin-top:8px;margin-bottom:0">
@@ -266,6 +273,27 @@ function switchPCTab(tab) {
   event.currentTarget.classList.add('active');
   document.getElementById('pc-'+tab).classList.add('active');
 }
+</script>
+
+<script src="../sb_config.js"></script>
+<script>
+async function trackVisitor() {
+  try {
+    const today = new Date().toISOString().slice(0,10);
+    const lastVisit = localStorage.getItem('last_visit_en');
+    if(lastVisit !== today) {
+      await supabase('POST', 'visitors', { visited_at: today });
+      localStorage.setItem('last_visit_en', today);
+    }
+    const todayCount = await getCount('visitors', `?visited_at=eq.${today}`);
+    const totalCount = await getCount('visitors');
+    const memberCount = await getCount('users');
+    ['m-today','p-today'].forEach(id => { const el=document.getElementById(id); if(el) el.textContent=todayCount.toLocaleString(); });
+    ['m-total','p-total'].forEach(id => { const el=document.getElementById(id); if(el) el.textContent=totalCount.toLocaleString(); });
+    ['m-members','p-members'].forEach(id => { const el=document.getElementById(id); if(el) el.textContent=memberCount.toLocaleString(); });
+  } catch(e) { console.error(e); }
+}
+trackVisitor();
 </script>
 </body>
 </html>
