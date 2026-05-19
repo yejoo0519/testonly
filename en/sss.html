@@ -34,15 +34,15 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
 .panel-header{display:flex;align-items:center;gap:10px;padding:10px 14px;font-size:15px;font-weight:700}
 .panel-header .elem-icon{width:36px;height:36px;border-radius:6px;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:20px;background:rgba(0,0,0,0.2)}
 .panel-header .elem-icon img{width:100%;height:100%;object-fit:cover}
-.panel-땅 .panel-header{background:linear-gradient(90deg,#b5651d,#d4863a)}
-.panel-물 .panel-header{background:linear-gradient(90deg,#1565c0,#1e88e5)}
-.panel-불 .panel-header{background:linear-gradient(90deg,#b71c1c,#e53935)}
-.panel-바람 .panel-header{background:linear-gradient(90deg,#1b5e20,#388e3c)}
-.panel-빛 .panel-header{background:linear-gradient(90deg,#e65100,#fb8c00)}
-.panel-어둠 .panel-header{background:linear-gradient(90deg,#311b92,#5e35b1)}
-.panel-황혼 .panel-header{background:linear-gradient(90deg,#880e4f,#c2185b)}
-.panel-여명 .panel-header{background:linear-gradient(90deg,#4e342e,#795548)}
-.panel-악몽 .panel-header{background:linear-gradient(90deg,#4a148c,#7b1fa2)}
+.panel-Earth .panel-header{background:linear-gradient(90deg,#b5651d,#d4863a)}
+.panel-Water .panel-header{background:linear-gradient(90deg,#1565c0,#1e88e5)}
+.panel-Fire .panel-header{background:linear-gradient(90deg,#b71c1c,#e53935)}
+.panel-Wind .panel-header{background:linear-gradient(90deg,#1b5e20,#388e3c)}
+.panel-Light .panel-header{background:linear-gradient(90deg,#e65100,#fb8c00)}
+.panel-Dark .panel-header{background:linear-gradient(90deg,#311b92,#5e35b1)}
+.panel-Dusk .panel-header{background:linear-gradient(90deg,#880e4f,#c2185b)}
+.panel-Dawn .panel-header{background:linear-gradient(90deg,#4e342e,#795548)}
+.panel-Nightmare .panel-header{background:linear-gradient(90deg,#4a148c,#7b1fa2)}
 .panel table{width:100%;border-collapse:collapse;font-size:12px;background:var(--bg2);min-width:0}
 .panel thead tr{background:var(--bg3)}
 .panel th{padding:6px 8px;text-align:center;font-weight:500;color:var(--text2);border-bottom:1px solid var(--border);white-space:nowrap;font-size:11px}
@@ -62,15 +62,15 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
 .t-pink{color:#c4879e !important;font-weight:700;font-size:13px;text-shadow:0 0 4px rgba(196,135,158,0.4)}
 .t-neg{color:#ef5350 !important;font-weight:700;font-size:13px}
 .no-data td{text-align:center;padding:1rem;color:var(--text4)}
-.panel-땅 tr.ex-true{background:linear-gradient(90deg,rgba(181,101,29,0.25) 0%,transparent 30%)}
-.panel-물 tr.ex-true{background:linear-gradient(90deg,rgba(21,101,192,0.25) 0%,transparent 30%)}
-.panel-불 tr.ex-true{background:linear-gradient(90deg,rgba(183,28,28,0.25) 0%,transparent 30%)}
-.panel-바람 tr.ex-true{background:linear-gradient(90deg,rgba(27,94,32,0.25) 0%,transparent 30%)}
-.panel-빛 tr.ex-true{background:linear-gradient(90deg,rgba(230,81,0,0.25) 0%,transparent 30%)}
-.panel-어둠 tr.ex-true{background:linear-gradient(90deg,rgba(49,27,146,0.25) 0%,transparent 30%)}
-.panel-황혼 tr.ex-true{background:linear-gradient(90deg,rgba(136,14,79,0.25) 0%,transparent 30%)}
-.panel-여명 tr.ex-true{background:linear-gradient(90deg,rgba(78,52,46,0.3) 0%,transparent 30%)}
-.panel-악몽 tr.ex-true{background:linear-gradient(90deg,rgba(74,20,140,0.25) 0%,transparent 30%)}
+.panel-Earth tr.ex-true{background:linear-gradient(90deg,rgba(181,101,29,0.25) 0%,transparent 30%)}
+.panel-Water tr.ex-true{background:linear-gradient(90deg,rgba(21,101,192,0.25) 0%,transparent 30%)}
+.panel-Fire tr.ex-true{background:linear-gradient(90deg,rgba(183,28,28,0.25) 0%,transparent 30%)}
+.panel-Wind tr.ex-true{background:linear-gradient(90deg,rgba(27,94,32,0.25) 0%,transparent 30%)}
+.panel-Light tr.ex-true{background:linear-gradient(90deg,rgba(230,81,0,0.25) 0%,transparent 30%)}
+.panel-Dark tr.ex-true{background:linear-gradient(90deg,rgba(49,27,146,0.25) 0%,transparent 30%)}
+.panel-Dusk tr.ex-true{background:linear-gradient(90deg,rgba(136,14,79,0.25) 0%,transparent 30%)}
+.panel-Dawn tr.ex-true{background:linear-gradient(90deg,rgba(78,52,46,0.3) 0%,transparent 30%)}
+.panel-Nightmare tr.ex-true{background:linear-gradient(90deg,rgba(74,20,140,0.25) 0%,transparent 30%)}
 h1{font-size:24px;margin-bottom:12px;color:var(--text2)}
 #filter-area{margin-bottom:10px}
 #dex-search-bar{display:flex;gap:8px;margin-bottom:8px}
@@ -116,24 +116,24 @@ h1{font-size:24px;margin-bottom:12px;color:var(--text2)}
 #modal-close:hover{color:var(--text)}
 #modal-title{font-size:16px;font-weight:700;color:var(--text);margin-bottom:16px}
 #modal-body{font-size:13px;color:var(--text2);line-height:1.8}
-.e-땅{background:#fff3e0;color:#e65100}
-.e-물{background:#e3f2fd;color:#1565c0}
-.e-불{background:#fce4ec;color:#b71c1c}
-.e-바람{background:#e8f5e9;color:#1b5e20}
-.e-빛{background:#fffde7;color:#f57f17}
-.e-어둠{background:#ede7f6;color:#4a148c}
-.e-황혼{background:#fdf2f8;color:#880e4f}
-.e-여명{background:#fff8e1;color:#6d4c41}
-.e-악몽{background:#f3e5f5;color:#6a1b9a}
-tr.e-row-땅{background:linear-gradient(90deg,rgba(181,101,29,0.12) 0%,transparent 20%)}
-tr.e-row-물{background:linear-gradient(90deg,rgba(21,101,192,0.12) 0%,transparent 20%)}
-tr.e-row-불{background:linear-gradient(90deg,rgba(183,28,28,0.12) 0%,transparent 20%)}
-tr.e-row-바람{background:linear-gradient(90deg,rgba(27,94,32,0.12) 0%,transparent 20%)}
-tr.e-row-빛{background:linear-gradient(90deg,rgba(230,81,0,0.12) 0%,transparent 20%)}
-tr.e-row-어둠{background:linear-gradient(90deg,rgba(49,27,146,0.12) 0%,transparent 20%)}
-tr.e-row-황혼{background:linear-gradient(90deg,rgba(136,14,79,0.12) 0%,transparent 20%)}
-tr.e-row-여명{background:linear-gradient(90deg,rgba(78,52,46,0.15) 0%,transparent 20%)}
-tr.e-row-악몽{background:linear-gradient(90deg,rgba(74,20,140,0.12) 0%,transparent 20%)}
+.e-Earth{background:#fff3e0;color:#e65100}
+.e-Water{background:#e3f2fd;color:#1565c0}
+.e-Fire{background:#fce4ec;color:#b71c1c}
+.e-Wind{background:#e8f5e9;color:#1b5e20}
+.e-Light{background:#fffde7;color:#f57f17}
+.e-Dark{background:#ede7f6;color:#4a148c}
+.e-Dusk{background:#fdf2f8;color:#880e4f}
+.e-Dawn{background:#fff8e1;color:#6d4c41}
+.e-Nightmare{background:#f3e5f5;color:#6a1b9a}
+tr.e-row-Earth{background:linear-gradient(90deg,rgba(181,101,29,0.12) 0%,transparent 20%)}
+tr.e-row-Water{background:linear-gradient(90deg,rgba(21,101,192,0.12) 0%,transparent 20%)}
+tr.e-row-Fire{background:linear-gradient(90deg,rgba(183,28,28,0.12) 0%,transparent 20%)}
+tr.e-row-Wind{background:linear-gradient(90deg,rgba(27,94,32,0.12) 0%,transparent 20%)}
+tr.e-row-Light{background:linear-gradient(90deg,rgba(230,81,0,0.12) 0%,transparent 20%)}
+tr.e-row-Dark{background:linear-gradient(90deg,rgba(49,27,146,0.12) 0%,transparent 20%)}
+tr.e-row-Dusk{background:linear-gradient(90deg,rgba(136,14,79,0.12) 0%,transparent 20%)}
+tr.e-row-Dawn{background:linear-gradient(90deg,rgba(78,52,46,0.15) 0%,transparent 20%)}
+tr.e-row-Nightmare{background:linear-gradient(90deg,rgba(74,20,140,0.12) 0%,transparent 20%)}
 tr:hover td{background:var(--bg3)!important}
 #tab-bar a{text-decoration:none}
 
@@ -144,7 +144,7 @@ tr:hover td{background:var(--bg3)!important}
 </head>
 <body>
 <div id="tab-bar">
-  <a href="../index.html" id="site-title">
+  <a href="./index.html" id="site-title">
   <span class="title-main">Main</span>
   <span class="title-sub">made by nix</span>
 </a>
@@ -157,22 +157,22 @@ tr:hover td{background:var(--bg3)!important}
 </div>
 <h1 style="font-size:20px;color:#aaa;margin-bottom:12px">SSS Ranking</h1>
 <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;align-items:center">
-  <span style="font-size:11px;color:#888;margin-right:2px">레벨</span>
+  <span style="font-size:11px;color:#888;margin-right:2px">Level</span>
   <button class="ftag active" id="sss-lv-45" onclick="setSSSLv(45)">Lv.45</button>
   <button class="ftag" id="sss-lv-21" onclick="setSSSLv(21)">Lv.21</button>
 </div>
 <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;align-items:center">
   <span style="font-size:11px;color:#888;margin-right:2px">Element</span>
   <button class="ftag active" id="sss-e-all" onclick="setSSSElem('All')">All</button>
-  <button class="ftag" id="sss-e-땅" onclick="setSSSElem('땅')">땅</button>
-  <button class="ftag" id="sss-e-물" onclick="setSSSElem('물')">물</button>
-  <button class="ftag" id="sss-e-불" onclick="setSSSElem('불')">불</button>
-  <button class="ftag" id="sss-e-바람" onclick="setSSSElem('바람')">바람</button>
-  <button class="ftag" id="sss-e-빛" onclick="setSSSElem('빛')">빛</button>
-  <button class="ftag" id="sss-e-어둠" onclick="setSSSElem('어둠')">어둠</button>
-  <button class="ftag" id="sss-e-황혼" onclick="setSSSElem('황혼')">황혼</button>
-  <button class="ftag" id="sss-e-여명" onclick="setSSSElem('여명')">여명</button>
-  <button class="ftag" id="sss-e-악몽" onclick="setSSSElem('악몽')">악몽</button>
+  <button class="ftag" id="sss-e-Earth" onclick="setSSSElem('Earth')">Earth</button>
+  <button class="ftag" id="sss-e-Water" onclick="setSSSElem('Water')">Water</button>
+  <button class="ftag" id="sss-e-Fire" onclick="setSSSElem('Fire')">Fire</button>
+  <button class="ftag" id="sss-e-Wind" onclick="setSSSElem('Wind')">Wind</button>
+  <button class="ftag" id="sss-e-Light" onclick="setSSSElem('Light')">Light</button>
+  <button class="ftag" id="sss-e-Dark" onclick="setSSSElem('Dark')">Dark</button>
+  <button class="ftag" id="sss-e-Dusk" onclick="setSSSElem('Dusk')">Dusk</button>
+  <button class="ftag" id="sss-e-Dawn" onclick="setSSSElem('Dawn')">Dawn</button>
+  <button class="ftag" id="sss-e-Nightmare" onclick="setSSSElem('Nightmare')">Nightmare</button>
 </div>
 <div id="sss-count" style="font-size:12px;color:#888;margin-bottom:8px"></div>
 <div class="tbl-wrap">
@@ -183,13 +183,13 @@ tr:hover td{background:var(--bg3)!important}
       <th style="width:42px"></th>
       <th class="left">Dragon</th>
       <th style="width:32px"></th>
-      <th>레벨</th>
+      <th>Level</th>
       <th>HP</th>
       <th>ATK</th>
       <th>DEF</th>
       <th>Eval</th>
-      <th>기본스탯</th>
-      <th>성장스탯</th>
+      <th>Base Stats</th>
+      <th>Growth Stats</th>
     </tr>
   </thead>
   <tbody id="sss-tbody"></tbody>
@@ -797,7 +797,7 @@ function render(){
   const tbody=document.getElementById('sss-tbody');
   tbody.innerHTML='';
   if(!list.length){
-    tbody.innerHTML='<tr><td colspan="10" style="text-align:center;padding:2rem;color:#555">결과가 없습니다</td></tr>';
+    tbody.innerHTML='<tr><td colspan="10" style="text-align:center;padding:2rem;color:#555">Results not found</td></tr>';
     return;
   }
   list.forEach(d=>{
@@ -811,7 +811,7 @@ function render(){
       <td class="td-mobile row1">
         <span style="font-weight:700;color:#5dcff5;min-width:24px;text-align:center">${d.rank}</span>
         ${sssImgCell}
-        <span style="font-size:12px;font-weight:500;flex:1">${d.kor}</span>${d.skill ? `<img src="${skillIcons[d.skill]}" title="${d.skill==='boom' ? '폭스' : '방확'}" style="width:18px;height:18px;margin-left:5px;vertical-align:middle;opacity:0.9">` : ""}
+        <span style="font-size:12px;font-weight:500;flex:1">${d.kor}</span>${d.skill ? `<img src="${skillIcons[d.skill]}" title="${d.skill==='boom' ? 'Fox' : 'DEF%'}" style="width:18px;height:18px;margin-left:5px;vertical-align:middle;opacity:0.9">` : ""}
         ${sssIconCell}
         <span style="font-size:11px;color:#aaa">Lv.${d.lv}</span>
       </td>
@@ -820,12 +820,12 @@ function render(){
         <div class="row2-cell"><span class="r2-label">ATK</span><span class="r2-val" style="color:#ef5350">${d.atk}</span></div>
         <div class="row2-cell"><span class="r2-label">DEF</span><span class="r2-val" style="color:#5dcff5">${d.def}</span></div>
         <div class="row2-cell"><span class="r2-label">Eval</span><span class="r2-val" style="color:#f5c842;font-weight:700">${d.eval}</span></div>
-        <div class="row2-cell"><span class="r2-label">기본</span><span class="r2-val" style="color:#aaa">${d.base}</span></div>
-        <div class="row2-cell"><span class="r2-label">성장</span><span class="r2-val" style="color:#aaa">${d.grow}</span></div>
+        <div class="row2-cell"><span class="r2-label">Base</span><span class="r2-val" style="color:#aaa">${d.base}</span></div>
+        <div class="row2-cell"><span class="r2-label">Growth</span><span class="r2-val" style="color:#aaa">${d.grow}</span></div>
       </td>
       <td class="td-pc center" style="font-weight:700;color:#5dcff5">${d.rank}</td>
       <td class="td-pc center">${sssImgCell}</td>
-      <td class="td-pc left" style="font-size:12px;font-weight:500;white-space:nowrap">${d.kor}${d.skill ? `<img src="${skillIcons[d.skill]}" title="${d.skill==='boom' ? '폭스' : '방확'}" style="width:18px;height:18px;margin-left:5px;vertical-align:middle;opacity:0.9">` : ""}</td>
+      <td class="td-pc left" style="font-size:12px;font-weight:500;white-space:nowrap">${d.kor}${d.skill ? `<img src="${skillIcons[d.skill]}" title="${d.skill==='boom' ? 'Fox' : 'DEF%'}" style="width:18px;height:18px;margin-left:5px;vertical-align:middle;opacity:0.9">` : ""}</td>
       <td class="td-pc">${sssIconCell}</td>
       <td class="td-pc" style="font-size:11px;color:#aaa">Lv.${d.lv}</td>
       <td class="td-pc" style="color:#66bb6a;font-size:11px">${d.hp}</td>
