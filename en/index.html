@@ -6,6 +6,7 @@
 <title>Dragon Village Info · made by Nix</title>
 <link id="theme-css" rel="stylesheet" href="../theme-dark.css">
 <script src="./theme.js"></script>
+<script src="../sb_config.js"></script>
 <style>
   :root {
     --bg-soft:var(--bg);--border-strong:var(--border3,var(--border));
@@ -132,6 +133,7 @@
     .mobile-bar button.active{color:var(--accent);font-weight:700}
     .mobile-bar button.active::after{content:'';position:absolute;top:-1px;left:50%;transform:translateX(-50%);width:24px;height:2px;background:var(--accent);border-radius:999px}
   }
+  .pill-btn.auth-user{color:var(--accent);cursor:default}
 </style>
 </head>
 <body>
@@ -145,12 +147,14 @@
     <div class="mobile-actions">
       <a href="../index.html" class="icon-btn">🌐</a>
       <button class="icon-btn" onclick="openThemeModal()">🎨</button>
+      <button class="icon-btn" id="mob-auth-icon" onclick="handleMobAuth()">👤</button>
     </div>
   </div>
 
   <div class="header-actions pc-only">
     <a href="../index.html" class="pill-btn">🌐 KR</a>
     <button class="pill-btn" onclick="openThemeModal()">🎨 Theme</button>
+    <div id="pc-auth" style="display:flex;gap:6px;align-items:center;margin-left:4px"></div>
   </div>
 
   <header class="hero">
@@ -169,8 +173,8 @@
 
   <nav class="tab-bar" data-scroll-x>
     <button class="tab active" onclick="switchTab('info',this)">Info</button>
-    <button class="tab" onclick="switchTab('weekly',this)">Weekly</button>
     <button class="tab" onclick="switchTab('calculator',this)">Calculator</button>
+    <button class="tab" onclick="switchTab('convenience',this)">Tools</button>
   </nav>
 
   <div class="body">
@@ -200,40 +204,34 @@
               <div class="card-desc">Lv.45 / Lv.21 SSS dragon ranking · Element filter</div>
             </div>
           </a>
+          <a href="./cham.html" class="card">
+            <span class="icon-tile amber">C</span>
+            <div class="card-body">
+              <div class="card-title">Champion / Rookie Ranking</div>
+              <div class="card-desc">Champion (SSS) · Rookie (SS) · Lv.45 / Lv.21 · Element filter</div>
+            </div>
+          </a>
           <a href="./raid.html" class="card">
             <span class="icon-tile rose">入</span>
             <div class="card-body">
-              <div class="card-title">Arha Gate</div>
-              <div class="card-desc">Diderak &amp; flat Arha combos · Auto combo calculator</div>
+              <div class="card-title">Archa Gate</div>
+              <div class="card-desc">Diderak &amp; flat Archa combos · Auto combo calculator</div>
             </div>
           </a>
           <a href="./raid_info.html" class="card">
             <span class="icon-tile emerald">R</span>
             <div class="card-body">
               <div class="card-title">Raid Info</div>
-              <div class="card-desc">Arha Field · Normal Raid · Guild Raid boss details</div>
+              <div class="card-desc">Archa Field · Normal Raid · Guild Raid boss details</div>
             </div>
           </a>
         </div>
       </section>
 
-
-      <section class="category" id="cat-weekly">
-        <div class="cat-head"><h3>Weekly</h3><span class="meta">· 1 page</span></div>
-        <div class="cards">
-          <a href="./weekly.html?from=weekly" class="card">
-            <span class="icon-tile sky">W</span>
-            <div class="card-body">
-              <div class="card-title">Weekly Info</div>
-              <div class="card-desc">Lemuria · Raid · Guild Battle · Updated weekly</div>
-            </div>
-          </a>
-        </div>
-      </section>
 
 
       <section class="category" id="cat-calculator">
-        <div class="cat-head"><h3>Calculator</h3><span class="meta">· 3 pages</span></div>
+        <div class="cat-head"><h3>Calculator</h3><span class="meta">· 4 pages</span></div>
         <div class="cards tri">
           <a href="./calculator.html?from=calculator" class="card">
             <span class="icon-tile sky">C</span>
@@ -254,6 +252,26 @@
             <div class="card-body">
               <div class="card-title">Guild Battle Sim (Beginner)</div>
               <div class="card-desc">v7.0~9.0 selectable · Nerfed output</div>
+            </div>
+          </a>
+          <a href="./cham_manual.html?from=calculator" class="card">
+            <span class="icon-tile violet">CH</span>
+            <div class="card-body">
+              <div class="card-title">Champion League Calculator (Manual)</div>
+              <div class="card-desc">3 teams × 3 dragons · Final stats · EVAL · B-Val</div>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <section class="category" id="cat-convenience">
+        <div class="cat-head"><h3>Tools</h3><span class="meta">· 1 page</span></div>
+        <div class="cards">
+          <a href="./aura-preview.html" class="card">
+            <span class="icon-tile sky">AU</span>
+            <div class="card-body">
+              <div class="card-title">Aura Preview</div>
+              <div class="card-desc">All 4 aura effects · Cave backgrounds supported</div>
             </div>
           </a>
         </div>
@@ -294,15 +312,6 @@
           <ul><li>Updated Weekly Info page</li></ul>
         </div>
       </div>
-      <button class="day-card" onclick="openItemModal()">
-        <div class="day-icon">
-          <img src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/Day.png" alt="Daily Item" onerror="this.style.display='none'">
-        </div>
-        <div>
-          <div class="day-text-title">Daily Item</div>
-          <div class="day-text-sub">View today's items</div>
-        </div>
-      </button>
     </aside>
   </div>
 
@@ -319,7 +328,7 @@
       </a>
     </div>
     <div class="footer-meta">
-      <span>© 2026 Dragon Village Info · made by Nix<br>Calculator by 리레프</span>
+      <span>© 2026 Dragon Village Info · made by Nix<br>Calculator by Nix</span>
       <span>Response time may take 1–2 days.</span>
     </div>
   </footer>
@@ -328,13 +337,10 @@
     <button class="active" onclick="window.scrollTo({top:0,behavior:'smooth'})">
       <span class="glyph">⌂</span><span>Home</span>
     </button>
-    <button onclick="openItemModal()">
-      <span class="glyph">☀</span><span>Daily</span>
-    </button>
     <button onclick="openPatchModal()">
       <span class="glyph">📋</span><span>Patch</span>
     </button>
-    <button onclick="location.href='../my.html'">
+    <button onclick="location.href='./my.html'">
       <span class="glyph">👤</span><span>My Info</span>
     </button>
   </nav>
@@ -368,7 +374,7 @@
           <li>Added multi-select for Element &amp; Type</li>
           <li>Added Dragon Dex with image support</li>
           <li>Added SSS Ranking</li>
-          <li>Added Arha Gate combos &amp; auto-combo calculator</li>
+          <li>Added Archa Gate combos &amp; auto-combo calculator</li>
           <li>Added Raid Info page</li>
           <li>Improved mobile &amp; PC UI</li>
         </ul>
@@ -378,19 +384,57 @@
   </div>
 </div>
 
-<div class="item-modal-overlay" id="item-modal-overlay" onclick="closeItemModal(event)">
-  <div class="item-modal" onclick="event.stopPropagation()">
-    <button class="item-modal-close" onclick="closeItemModal()">✕</button>
-    <div class="item-modal-title">Daily Item</div>
-    <img src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/item.png" alt="Daily Item">
-  </div>
-</div>
-
 <script>
+
+  // ─── Visitor stats ───
+  async function trackVisitor(){
+    try{
+      const today=new Date().toISOString().slice(0,10);
+      if(localStorage.getItem('last_visit')!==today){
+        await supabase('POST','visitors',{visited_at:today});
+        localStorage.setItem('last_visit',today);
+      }
+      const todayCount=await getCount('visitors',`?visited_at=eq.${today}`);
+      const totalCount=await getCount('visitors');
+      const memberCount=await getCount('users');
+      document.getElementById('s-today').textContent=todayCount.toLocaleString();
+      document.getElementById('s-total').textContent=totalCount.toLocaleString();
+      document.getElementById('s-members').textContent=memberCount.toLocaleString();
+    }catch(e){console.error(e);}
+  }
+  if(typeof supabase==='function'&&typeof getCount==='function')trackVisitor();
+
+  // ── Login / auth ──
+  function initAuth(){
+    var user=(typeof getUser==='function')?getUser():null;
+    var pc=document.getElementById('pc-auth');
+    var mob=document.getElementById('mob-auth-icon');
+    if(user){
+      if(pc) pc.innerHTML=
+        '<span class="pill-btn auth-user" style="pointer-events:none">\u{1F464} '+(user.nickname||user.username)+'</span>'+
+        '<a href="./my.html" class="pill-btn">My Spec</a>'+
+        '<button class="pill-btn" onclick="doLogout()">Log out</button>';
+      if(mob) mob.title='My Spec';
+    }else{
+      if(pc) pc.innerHTML=
+        '<a href="./login.html" class="pill-btn">Login</a>'+
+        '<a href="./register.html" class="pill-btn">Sign up</a>';
+      if(mob) mob.title='Login';
+    }
+  }
+  function handleMobAuth(){
+    var user=(typeof getUser==='function')?getUser():null;
+    location.href=user?'./my.html':'./login.html';
+  }
+  function doLogout(){
+    if(!confirm('Log out?'))return;
+    if(typeof logout==='function')logout();
+    location.reload();
+  }
+  initAuth();
+
 function openPatchModal(){document.getElementById('patch-modal-overlay').classList.add('open')}
 function closePatchModal(e){if(!e||e.target===document.getElementById('patch-modal-overlay'))document.getElementById('patch-modal-overlay').classList.remove('open')}
-function openItemModal(){document.getElementById('item-modal-overlay').classList.add('open')}
-function closeItemModal(e){if(!e||e.target===document.getElementById('item-modal-overlay'))document.getElementById('item-modal-overlay').classList.remove('open')}
 function switchTab(tab,el){
   document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
   document.querySelectorAll('.category').forEach(c=>c.classList.remove('active'));

@@ -3,11 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dragon Village 1 BV Simulator</title>
+<title>Dragon Village 1 B-Val Simulator</title>
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
 <script src="../dragon-data.js"></script>
-<link id="theme-css" rel="stylesheet" href="../theme-dark.css">
+<link id="theme-css" rel="stylesheet" href="./theme-dark.css">
 <script src="../theme.js"></script>
+<script src="../sb_config.js"></script>
 <style>
 
 *{box-sizing:border-box;margin:0;padding:0}
@@ -27,7 +28,7 @@ select,input[type=number],input[type=text]{background:var(--sf2);border:1px soli
 select:focus,input:focus{outline:none;border-color:var(--gold)}
 select:disabled,input:disabled{opacity:.3;cursor:not-allowed}
 .readonly-field{background:var(--sf2);border:1px solid var(--bd);color:var(--dim);padding:5px 9px;border-radius:5px;font-family:'Nanum Gothic',sans-serif;font-size:13px;min-height:29px;display:flex;align-items:center}
-.dragon-type-field{color:#fff}
+.dragon-type-field{color:var(--text)}
 .acc-srch{width:100%;padding:8px 12px;margin-bottom:10px;background:var(--sf2);border:1px solid var(--bd);border-radius:5px;color:var(--text);font-family:'Nanum Gothic',sans-serif;font-size:13px}
 .acc-srch:focus{outline:none;border-color:var(--gold)}
 .acc-list{max-height:260px;overflow-y:auto;padding-right:2px}
@@ -71,16 +72,16 @@ select:disabled,input:disabled{opacity:.3;cursor:not-allowed}
 .sp-onum{color:var(--gold);font-size:11px;font-weight:800;min-width:18px}
 .sp-ocard select{flex:1;font-size:12px}
 .sp-oval{color:var(--green);font-size:11px;min-width:46px;text-align:right}
-.sp-preset-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin-bottom:10px}
+.sp-preset-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-bottom:10px}
 .sp-preset-btn{background:var(--sf2);border:1px solid var(--bd);border-radius:5px;padding:6px 8px;color:var(--text);cursor:pointer;font-family:'Nanum Gothic',sans-serif;text-align:center;transition:all .15s;min-height:34px;white-space:nowrap}
 .sp-preset-btn:hover{border-color:var(--gold);background:rgba(232,184,75,.08)}
 .sp-preset-btn.active{border-color:var(--gold);background:rgba(232,184,75,.14)}
-.sp-preset-name{display:inline;font-size:12px;font-weight:800;color:var(--gold)}
-.sp-preset-desc{display:inline;font-size:11px;color:#fff;margin-left:5px}
+.sp-preset-name{display:block;font-size:12px;font-weight:800;color:var(--gold)}
+.sp-preset-desc{display:block;font-size:11px;color:var(--text);margin-left:0}
 .coll-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .coll-g label{display:block;font-size:12px;color:var(--dim);margin-bottom:4px}
 .coll-g input{width:100%;text-align:center}
-.btn-white{background:none;border:1px solid #fff;color:#fff;padding:6px 13px;border-radius:5px;cursor:pointer;font-family:'Nanum Gothic',sans-serif;font-size:13px;font-weight:700}
+.btn-white{background:none;border:1px solid var(--text);color:var(--text);padding:6px 13px;border-radius:5px;cursor:pointer;font-family:'Nanum Gothic',sans-serif;font-size:13px;font-weight:700}
 .btn-white:hover{background:rgba(255,255,255,.1)}
 .btn-gold{background:none;border:1px solid var(--gold);color:var(--gold);padding:6px 13px;border-radius:5px;cursor:pointer;font-family:'Nanum Gothic',sans-serif;font-size:13px;font-weight:700}
 .btn-gold:hover{background:rgba(232,184,75,.1)}
@@ -105,7 +106,7 @@ select:disabled,input:disabled{opacity:.3;cursor:not-allowed}
 .buff-setting-cell{min-height:74px;padding:8px;border-right:1px solid var(--bd);border-bottom:1px solid var(--bd);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px}
 .buff-setting-cell:nth-child(2n){border-right:none}
 .buff-setting-cell:nth-last-child(-n+2){border-bottom:none}
-.buff-setting-lbl{font-size:11px;color:#fff;font-weight:800}
+.buff-setting-lbl{font-size:11px;color:var(--text);font-weight:800}
 .buff-setting-cell select{width:100%;max-width:150px;text-align:center}
 .buff-attr-icon{width:48px;height:48px;object-fit:contain}
 .btn-sim{width:100%;padding:14px;background:linear-gradient(135deg,var(--gold2),var(--gold));border:none;border-radius:8px;color:#0a0c18;font-family:'Nanum Gothic',sans-serif;font-size:16px;font-weight:800;cursor:pointer;margin:12px 0;letter-spacing:-.5px;transition:opacity .15s,transform .1s}
@@ -118,6 +119,16 @@ table.rtbl{width:100%;border-collapse:collapse;min-width:640px}
 .rtbl tbody tr:hover td{background:rgba(255,255,255,.015)}
 .td-pc{display:table-cell}.td-mob{display:none}
 @media(max-width:600px){
+  .dragon-spirit-grid{grid-template-columns:1fr!important}
+  .dragon-opt-card{grid-template-columns:20px 1fr 1fr 40px!important;gap:4px!important;padding:5px 8px!important}
+  .dragon-opt-card select{font-size:12px!important;padding:4px 2px!important;min-width:0!important}
+  .dragon-card-hd{display:flex!important;flex-wrap:wrap!important;gap:6px!important}
+  .dragon-card-hd .dragon-name-cell{width:100%!important;flex:none!important}
+  .dragon-card-hd .dragon-dupe-check{margin-left:0!important}
+  .dragon-card-hd .readonly-field{flex:1!important;min-width:80px!important}
+  .dragon-card-hd select{flex:1!important;min-width:80px!important}
+  .dragon-card-hd .dragon-delete-btn{width:100%!important;margin-top:2px!important}
+
   table.rtbl{min-width:0}
   .rtbl thead{display:none}
   .rtbl tbody tr{display:block;border-bottom:1px solid var(--bd);padding:0}
@@ -170,7 +181,7 @@ input[type=number]{appearance:textfield;-moz-appearance:textfield}
 .dragon-card:last-child{margin-bottom:0}
 .dragon-card-hd{display:grid;grid-template-columns:minmax(0,1.25fr) auto minmax(0,.85fr) minmax(0,.85fr) minmax(0,.55fr) auto;gap:8px;align-items:center;margin-bottom:10px}
 .dragon-name-cell{display:flex;align-items:center;gap:8px;min-width:0}
-.dragon-card-no{color:#fff;font-size:12px;font-weight:800;min-width:18px;text-align:right}
+.dragon-card-no{color:var(--text);font-size:12px;font-weight:800;min-width:18px;text-align:right}
 .dragon-name-input{width:100%;min-width:0}
 .dragon-view-toggle{display:flex;gap:6px;margin-bottom:12px;}
 .dragon-view-btn{padding:5px 14px;border-radius:5px;border:1px solid var(--bd);background:var(--sf2);color:var(--dim);font-size:12px;cursor:pointer;}
@@ -216,12 +227,12 @@ input[type=number]{appearance:textfield;-moz-appearance:textfield}
 .dragon-drop.open{display:block;}
 .dragon-drop .acc-drop-item{padding:5px 10px;cursor:pointer;display:flex;align-items:center;font-size:13px;}
 .dragon-drop .acc-drop-item:hover{background:var(--sf);}
-.dragon-dupe-check{display:flex;align-items:center;gap:5px;color:#fff;font-size:12px;white-space:nowrap;margin-left:10px}
+.dragon-dupe-check{display:flex;align-items:center;gap:5px;color:var(--text);font-size:12px;white-space:nowrap;margin-left:10px}
 .dragon-dupe-check input{accent-color:var(--gold)}
 .dragon-card-hd select,.dragon-card-hd .dragon-type-field{width:100%;min-width:0}
 .dragon-reset-btn{justify-self:end;width:40px;height:30px;padding:0;font-size:13px;line-height:1}
 .dragon-delete-btn{height:30px;white-space:nowrap}
-.dragon-preset-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr)) auto;gap:6px;align-items:center;margin-bottom:10px}
+.dragon-preset-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;align-items:center;margin-bottom:10px}
 .dragon-preset-row .sp-preset-btn{min-height:30px;padding:4px 6px}
 .dragon-preset-row .sp-preset-name{font-size:12px;font-weight:400}
 .dragon-preset-row .sp-preset-desc{font-size:12px;margin-left:4px}
@@ -261,7 +272,7 @@ input[type=number]{appearance:textfield;-moz-appearance:textfield}
   --text:#2a2316;--text2:#5a4e34;--text3:#837553;--text4:#a99971;
   --accent:#b06a1e;--accent-bg:rgba(176,106,30,0.10);--accent-border:rgba(176,106,30,0.32);
 }
-/* custom vars mapping */
+/* spec custom vars → map to theme vars */
 :root{
   --sf:var(--bg2);--sf2:var(--bg3);--bd:var(--border);
   --gold:var(--accent);--gold2:var(--accent);
@@ -269,6 +280,27 @@ input[type=number]{appearance:textfield;-moz-appearance:textfield}
   --red:#f87171;--green:#4ade80;--blue:#60a5fa;
   --hpc:#fbbf24;--atc:#f87171;--dfc:#60a5fa;
 }
+
+.sv-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px}
+.sv-badge{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(100,200,100,.12);color:#4ade80;border:1px solid rgba(74,222,128,.25);font-weight:800}
+.sv-edit-btn{background:none;border:1px solid var(--gold);color:var(--gold);padding:7px 16px;border-radius:6px;cursor:pointer;font-family:inherit;font-size:13px;font-weight:700;text-decoration:none;display:inline-block;transition:background .15s}
+.sv-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.sv-sec{background:var(--sf);border:1px solid var(--bd);border-radius:8px;overflow:hidden;margin-bottom:14px}
+.sv-sec-hd{padding:9px 14px;background:var(--sf2);border-bottom:1px solid var(--bd);font-size:11px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:.5px}
+.sv-sec-bd{padding:12px 14px}
+.sv-gem-table{width:100%;border-collapse:collapse;font-size:13px}
+.sv-gem-table th{font-size:10px;color:var(--dim);padding:4px 8px;text-align:center;border-bottom:1px solid var(--bd)}
+.sv-gem-table td{padding:5px 8px;text-align:center;border-bottom:1px solid var(--bd);font-size:12px}
+.sv-gem-table tr:last-child td{border-bottom:none}
+.sv-gem-hp{color:#fbbf24}.sv-gem-atk{color:#f87171}.sv-gem-def{color:#60a5fa}
+.sv-item{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--bd);font-size:12px}
+.sv-item:last-child{border-bottom:none}
+.sv-item-img{width:28px;height:28px;object-fit:contain;border-radius:3px;flex-shrink:0}
+.sv-item-name{flex:1}
+.sv-enc{font-size:10px;padding:1px 6px;border-radius:3px;border:1px solid;font-weight:800}
+.sv-coll-row{display:flex;justify-content:space-around;padding:8px 0;font-size:13px;font-weight:700}
+.sv-empty{color:var(--dimmer);font-style:italic;font-size:12px;padding:8px 0;text-align:center}
+@media(max-width:700px){.sv-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -276,157 +308,59 @@ input[type=number]{appearance:textfield;-moz-appearance:textfield}
 <div class="hd">
   <a href="./index.html?tab=calculator" style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;border:1px solid var(--bd);background:var(--sf2);color:var(--text2);text-decoration:none;font-size:16px;flex-shrink:0;transition:all 0.15s" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--text)'" onmouseout="this.style.borderColor='var(--bd)';this.style.color='var(--text2)'">←</a>
   <div class="hd-icon">🐉</div>
-  <div><div class="hd-t">Guild War Simulator</div><div class="hd-s">BV (HP × ATK × DEF) Optimizer</div></div>
-  <div style="margin-left:auto;font-size:12px;color:#fff;text-align:right">Made by 리레프<br>
+  <div><div class="hd-t">Guild War Simulator</div><div class="hd-s">B-Val (HP × ATK × DEF) optimization</div></div>
+  <div style="margin-left:auto;font-size:12px;color:var(--text);text-align:right">Made by Nix<br>
 </div>
 </div>
 
 <div class="tabs">
-  <button class="tab-btn active" id="tab-btn-spec" onclick="switchTab('spec')">My Stats</button>
-  <button class="tab-btn" id="tab-btn-dragon" onclick="switchTab('dragon')">Dragon Info</button>
+  <button class="tab-btn active" id="tab-btn-spec" onclick="switchTab('spec')">My Spec</button>
+  <button class="tab-btn" id="tab-btn-dragon" onclick="switchTab('dragon')">My Dragons</button>
   <button class="tab-btn" id="tab-btn-sim" onclick="switchTab('sim')">3vs3 Setup</button>
 </div>
 
-<!-- ■ My Stats Tab -->
+<!-- ■ My Spec 탭 (보기 전용) -->
 <div id="tab-spec" class="tc active"><div class="ti">
-  <div class="save-row" style="margin-bottom:10px">
-    <span class="save-msg" id="save-msg"></span>
-    <button class="btn-reset" onclick="resetAll()">↺ Full Reset</button>
-    <button class="btn-save" onclick="doSave()">💾 Save</button>
-  </div>
-  <div class="spec-layout">
-
-    <!-- bottom: 3col grid -->
-    <div class="spec-grid">
-
-      <!-- 1zone: Gems + Collection -->
-      <div class="spec-col">
-        <div class="sec">
-          <div class="sec-hd">
-            <span>💎 Gem Inventory</span>
-            <button class="btn-reset" onclick="resetGems()">↺</button>
-          </div>
-          <div class="sec-bd">
-            <div class="gem-grid">
-              <div class="gem-hdr"></div>
-              <div class="gem-hdr" style="color:var(--hpc)">HP</div>
-              <div class="gem-hdr" style="color:var(--atc)">ATK</div>
-              <div class="gem-hdr" style="color:var(--dfc)">DEF</div>
-              <div class="gem-lbl">Gem Lv37</div>
-              <input type="number" id="gem-hp-37" min="0" value="0" oninput="onGem('hp',37,this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()">
-              <input type="number" id="gem-atk-37" min="0" value="0" oninput="onGem('atk',37,this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()">
-              <input type="number" id="gem-def-37" min="0" value="0" oninput="onGem('def',37,this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()">
-              <div class="gem-lbl">Gem Lv38</div>
-              <input type="number" id="gem-hp-38" min="0" value="0" oninput="onGem('hp',38,this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()">
-              <input type="number" id="gem-atk-38" min="0" value="0" oninput="onGem('atk',38,this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()">
-              <input type="number" id="gem-def-38" min="0" value="0" oninput="onGem('def',38,this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()">
-              <div class="gem-lbl">Gem Lv39</div>
-              <input type="number" id="gem-hp-39" min="0" value="0" oninput="onGem('hp',39,this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()">
-              <input type="number" id="gem-atk-39" min="0" value="0" oninput="onGem('atk',39,this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()">
-              <input type="number" id="gem-def-39" min="0" value="0" oninput="onGem('def',39,this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()">
-              <div class="gem-lbl">Gem Lv40</div>
-              <input type="number" id="gem-hp-40" min="0" value="0" oninput="onGem('hp',40,this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()">
-              <input type="number" id="gem-atk-40" min="0" value="0" oninput="onGem('atk',40,this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()">
-              <input type="number" id="gem-def-40" min="0" value="0" oninput="onGem('def',40,this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()">
-            </div>
-          </div>
-        </div>
-        <div class="sec">
-          <div class="sec-hd">
-            <span>📚 Collection Stat</span>
-            <button class="btn-white" onclick="setFullCollection()">Full</button>
-          </div>
-          <div class="sec-bd">
-            <div class="coll-grid">
-              <div class="coll-g"><label>HP</label><input type="number" id="coll-hp" min="0" value="0" oninput="onColl('hp',this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()"></div>
-              <div class="coll-g"><label>ATK</label><input type="number" id="coll-atk" min="0" value="0" oninput="onColl('atk',this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()"></div>
-              <div class="coll-g"><label>DEF</label><input type="number" id="coll-def" min="0" value="0" oninput="onColl('def',this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 2zone: accessory -->
-      <div class="spec-col">
-        <div class="sec">
-          <div class="sec-hd">
-            <span>⚒ Accessory &nbsp;&nbsp;<label style="font-size:11px;font-weight:400;color:#fff;cursor:pointer">Stat-only &nbsp;<input type="checkbox" id="chk-stat-only" checked onchange="renderAcc()" style="accent-color:var(--gold);margin-right:5px"></label></span>
-            <div style="display:flex;gap:6px">
-              <button class="btn-reset" onclick="resetAcc()">↺</button>
-              <button class="btn-gold" onclick="sortAccCards();renderAcc();qSave()">Sort</button>
-              <button class="btn-white" onclick="addAcc()">+ Add</button>
-            </div>
-          </div>
-          <div class="acc-preset-row">
-            <button class="btn-white" onclick="addAccBulk(16)">16</button>
-            <button class="btn-white" onclick="addAccBulk(17)">17</button>
-            <button class="btn-white" onclick="addAccBulk(18)">18</button>
-            <button class="btn-white" onclick="addAccBulk(19)">19</button>
-            <button class="btn-white" onclick="addAccBulk(20)">20</button>
-          </div>
-          <div class="sec-bd"><div id="acc-list"><div style="color:var(--dimmer);font-size:13px">No Accessories</div></div></div>
-        </div>
-      </div>
-
-      <!-- 3zone: pendant -->
-      <div class="spec-col">
-        <div class="sec">
-          <div class="sec-hd">
-            <span>🌙 Pendant</span>
-            <div style="display:flex;gap:6px">
-              <button class="btn-reset" onclick="resetPend()">↺</button>
-              <button class="btn-gold" onclick="sortPendants();renderPends();qSave()">Sort</button>
-              <button class="btn-white" onclick="addPendant()">+ Add</button>
-            </div>
-          </div>
-          <div class="pend-preset-row">
-            <button class="btn-white" onclick="addMoonPendantSet()">Moon Pend Set</button>
-          </div>
-          <div class="sec-bd"><div id="pend-list"><div style="color:var(--dimmer);font-size:13px">No pendants (not applied in simulation)</div></div></div>
-        </div>
-      </div>
-
-    </div>
-  </div>
+  <div id="spec-view-wrap"><!-- renderSpecView()로 채워짐 --></div>
 </div></div>
 
-<!-- ■ Dragon Info Tab -->
+<!-- ■ My Dragons 탭 -->
 <div id="tab-dragon" class="tc"><div class="ti-dragon">
   <div class="sec">
     <div class="sec-hd">
-      <span>Dragon Info</span>
+      <span>My Dragons</span>
       <div style="display:flex;align-items:center;gap:8px;">
-        <button class="btn-gold" style="font-size:12px;padding:4px 12px" onclick="saveDragonToSpec()">💾 Save to My Stats</button>
-        <a href="./my.html" class="btn-white" style="font-size:12px;padding:4px 12px;text-decoration:none">My Stats →</a>
+        <span id="dragon-sync-msg" style="font-size:11px;color:var(--dim);max-width:110px;line-height:1.3;text-align:right;word-break:keep-all"></span>
+        <a href="./my.html" class="btn-white" style="font-size:12px;padding:4px 12px;text-decoration:none">My Spec →</a>
         <div class="dragon-view-toggle">
-          <button class="dragon-view-btn active" id="btn-dragon-form" onclick="switchDragonView('form')">Dragon Info</button>
-          <button class="dragon-view-btn" id="btn-dragon-gallery" onclick="switchDragonView('gallery')">View All</button>
+          <button class="dragon-view-btn active" id="btn-dragon-form" onclick="switchDragonView('form')">My Dragons</button>
+          <button class="dragon-view-btn" id="btn-dragon-gallery" onclick="switchDragonView('gallery')">Gallery</button>
         </div>
-        <button class="btn-reset" onclick="resetAllDragonInfo()">all Reset</button>
+        <button class="btn-reset" onclick="resetAllDragonInfo()">Reset all</button>
       </div>
     </div>
     <div class="sec-bd">
       <div id="dragon-form-view">
       <div class="dragon-cats">
-        <details class="dragon-cat"><summary><span class="dragon-cat-title"><img class="dragon-cat-icon" src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/11.png" alt="">Earth <span class="dragon-cat-count" data-dragon-count="Earth">(0dragon(s))</span></span><span class="dragon-cat-actions"><button class="btn-red" onclick="clearDragonCat('Earth',event)">Delete All</button><button class="btn-white" onclick="addDragonCard('Earth',event)">Add</button></span></summary><div class="dragon-cat-body" data-dragon-list="Earth"></div></details>
-        <details class="dragon-cat"><summary><span class="dragon-cat-title"><img class="dragon-cat-icon" src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/12.png" alt="">Water <span class="dragon-cat-count" data-dragon-count="Water">(0dragon(s))</span></span><span class="dragon-cat-actions"><button class="btn-red" onclick="clearDragonCat('Water',event)">Delete All</button><button class="btn-white" onclick="addDragonCard('Water',event)">Add</button></span></summary><div class="dragon-cat-body" data-dragon-list="Water"></div></details>
-        <details class="dragon-cat"><summary><span class="dragon-cat-title"><img class="dragon-cat-icon" src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/13.png" alt="">Fire <span class="dragon-cat-count" data-dragon-count="Fire">(0dragon(s))</span></span><span class="dragon-cat-actions"><button class="btn-red" onclick="clearDragonCat('Fire',event)">Delete All</button><button class="btn-white" onclick="addDragonCard('Fire',event)">Add</button></span></summary><div class="dragon-cat-body" data-dragon-list="Fire"></div></details>
-        <details class="dragon-cat"><summary><span class="dragon-cat-title"><img class="dragon-cat-icon" src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/14.png" alt="">Wind <span class="dragon-cat-count" data-dragon-count="Wind">(0dragon(s))</span></span><span class="dragon-cat-actions"><button class="btn-red" onclick="clearDragonCat('Wind',event)">Delete All</button><button class="btn-white" onclick="addDragonCard('Wind',event)">Add</button></span></summary><div class="dragon-cat-body" data-dragon-list="Wind"></div></details>
-        <details class="dragon-cat"><summary><span class="dragon-cat-title"><img class="dragon-cat-icon" src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/84.png" alt="">Light <span class="dragon-cat-count" data-dragon-count="Light">(0dragon(s))</span></span><span class="dragon-cat-actions"><button class="btn-red" onclick="clearDragonCat('Light',event)">Delete All</button><button class="btn-white" onclick="addDragonCard('Light',event)">Add</button></span></summary><div class="dragon-cat-body" data-dragon-list="Light"></div></details>
-        <details class="dragon-cat"><summary><span class="dragon-cat-title"><img class="dragon-cat-icon" src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/87.png" alt="">Dark <span class="dragon-cat-count" data-dragon-count="Dark">(0dragon(s))</span></span><span class="dragon-cat-actions"><button class="btn-red" onclick="clearDragonCat('Dark',event)">Delete All</button><button class="btn-white" onclick="addDragonCard('Dark',event)">Add</button></span></summary><div class="dragon-cat-body" data-dragon-list="Dark"></div></details>
-        <details class="dragon-cat"><summary><span class="dragon-cat-title"><img class="dragon-cat-icon" src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/486.png" alt="">Dawn <span class="dragon-cat-count" data-dragon-count="Dawn">(0dragon(s))</span></span><span class="dragon-cat-actions"><button class="btn-red" onclick="clearDragonCat('Dawn',event)">Delete All</button><button class="btn-white" onclick="addDragonCard('Dawn',event)">Add</button></span></summary><div class="dragon-cat-body" data-dragon-list="Dawn"></div></details>
-        <details class="dragon-cat"><summary><span class="dragon-cat-title"><img class="dragon-cat-icon" src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/487.png" alt="">Dusk <span class="dragon-cat-count" data-dragon-count="Dusk">(0dragon(s))</span></span><span class="dragon-cat-actions"><button class="btn-red" onclick="clearDragonCat('Dusk',event)">Delete All</button><button class="btn-white" onclick="addDragonCard('Dusk',event)">Add</button></span></summary><div class="dragon-cat-body" data-dragon-list="Dusk"></div></details>
-        <details class="dragon-cat"><summary><span class="dragon-cat-title"><img class="dragon-cat-icon" src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/488.png" alt="">Nightmare <span class="dragon-cat-count" data-dragon-count="Nightmare">(0dragon(s))</span></span><span class="dragon-cat-actions"><button class="btn-red" onclick="clearDragonCat('Nightmare',event)">Delete All</button><button class="btn-white" onclick="addDragonCard('Nightmare',event)">Add</button></span></summary><div class="dragon-cat-body" data-dragon-list="Nightmare"></div></details>
+        <details class="dragon-cat"><summary><span class="dragon-cat-title"><img class="dragon-cat-icon" src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/11.png" alt="">Earth <span class="dragon-cat-count" data-dragon-count="땅">(0)</span></span><span class="dragon-cat-actions"><button class="btn-red" onclick="clearDragonCat('땅',event)">Clear all</button><button class="btn-white" onclick="addDragonCard('땅',event)">Add</button></span></summary><div class="dragon-cat-body" data-dragon-list="땅"></div></details>
+        <details class="dragon-cat"><summary><span class="dragon-cat-title"><img class="dragon-cat-icon" src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/12.png" alt="">Water <span class="dragon-cat-count" data-dragon-count="물">(0)</span></span><span class="dragon-cat-actions"><button class="btn-red" onclick="clearDragonCat('물',event)">Clear all</button><button class="btn-white" onclick="addDragonCard('물',event)">Add</button></span></summary><div class="dragon-cat-body" data-dragon-list="물"></div></details>
+        <details class="dragon-cat"><summary><span class="dragon-cat-title"><img class="dragon-cat-icon" src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/13.png" alt="">Fire <span class="dragon-cat-count" data-dragon-count="불">(0)</span></span><span class="dragon-cat-actions"><button class="btn-red" onclick="clearDragonCat('불',event)">Clear all</button><button class="btn-white" onclick="addDragonCard('불',event)">Add</button></span></summary><div class="dragon-cat-body" data-dragon-list="불"></div></details>
+        <details class="dragon-cat"><summary><span class="dragon-cat-title"><img class="dragon-cat-icon" src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/14.png" alt="">Wind <span class="dragon-cat-count" data-dragon-count="바람">(0)</span></span><span class="dragon-cat-actions"><button class="btn-red" onclick="clearDragonCat('바람',event)">Clear all</button><button class="btn-white" onclick="addDragonCard('바람',event)">Add</button></span></summary><div class="dragon-cat-body" data-dragon-list="바람"></div></details>
+        <details class="dragon-cat"><summary><span class="dragon-cat-title"><img class="dragon-cat-icon" src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/84.png" alt="">Light <span class="dragon-cat-count" data-dragon-count="빛">(0)</span></span><span class="dragon-cat-actions"><button class="btn-red" onclick="clearDragonCat('빛',event)">Clear all</button><button class="btn-white" onclick="addDragonCard('빛',event)">Add</button></span></summary><div class="dragon-cat-body" data-dragon-list="빛"></div></details>
+        <details class="dragon-cat"><summary><span class="dragon-cat-title"><img class="dragon-cat-icon" src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/87.png" alt="">Dark <span class="dragon-cat-count" data-dragon-count="어둠">(0)</span></span><span class="dragon-cat-actions"><button class="btn-red" onclick="clearDragonCat('어둠',event)">Clear all</button><button class="btn-white" onclick="addDragonCard('어둠',event)">Add</button></span></summary><div class="dragon-cat-body" data-dragon-list="어둠"></div></details>
+        <details class="dragon-cat"><summary><span class="dragon-cat-title"><img class="dragon-cat-icon" src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/486.png" alt="">Dawn <span class="dragon-cat-count" data-dragon-count="여명">(0)</span></span><span class="dragon-cat-actions"><button class="btn-red" onclick="clearDragonCat('여명',event)">Clear all</button><button class="btn-white" onclick="addDragonCard('여명',event)">Add</button></span></summary><div class="dragon-cat-body" data-dragon-list="여명"></div></details>
+        <details class="dragon-cat"><summary><span class="dragon-cat-title"><img class="dragon-cat-icon" src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/487.png" alt="">Dusk <span class="dragon-cat-count" data-dragon-count="황혼">(0)</span></span><span class="dragon-cat-actions"><button class="btn-red" onclick="clearDragonCat('황혼',event)">Clear all</button><button class="btn-white" onclick="addDragonCard('황혼',event)">Add</button></span></summary><div class="dragon-cat-body" data-dragon-list="황혼"></div></details>
+        <details class="dragon-cat"><summary><span class="dragon-cat-title"><img class="dragon-cat-icon" src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/488.png" alt="">Nightmare <span class="dragon-cat-count" data-dragon-count="악몽">(0)</span></span><span class="dragon-cat-actions"><button class="btn-red" onclick="clearDragonCat('악몽',event)">Clear all</button><button class="btn-white" onclick="addDragonCard('악몽',event)">Add</button></span></summary><div class="dragon-cat-body" data-dragon-list="악몽"></div></details>
       </div>
       </div><!-- /dragon-form-view -->
       <div id="dragon-gallery">
-        <!-- JS fill -->
+        <!-- JS로 채움 -->
       </div>
     </div>
   </div>
 </div></div>
 
-<!-- gallery panel overlay -->
+<!-- 갤러리 패널 오버레이 -->
 <div class="gallery-panel-overlay" id="gp-overlay" onclick="closeGalleryPanel()"></div>
 <div class="gallery-panel" id="gallery-panel">
   <div class="gp-header">
@@ -439,10 +373,10 @@ input[type=number]{appearance:textfield;-moz-appearance:textfield}
   </div>
   <div class="gp-rows" id="gp-rows"></div>
   <div class="gp-opts" id="gp-opts"></div>
-  <button class="gp-edit-btn" id="gp-edit-btn" onclick="goEditDragon()">✏️ fixto do</button>
+  <button class="gp-edit-btn" id="gp-edit-btn" onclick="goEditDragon()">✏️ Edit</button>
 </div>
 
-<!-- ■ simulator tab -->
+<!-- ■ 시뮬레이터 탭 -->
 <div id="tab-sim" class="tc"><div class="ti ti-sim">
 
   <div class="sec">
@@ -451,10 +385,10 @@ input[type=number]{appearance:textfield;-moz-appearance:textfield}
       <div id="setting-buffs"></div>
       <div class="sim-cfg">
         <div>
-          <div class="cfg-lbl">enchant option</div>
+          <div class="cfg-lbl">Enchant Option</div>
           <div class="radio-opts">
-            <label><input type="radio" name="enc-mode" value="fixed"> my accessory+enchant use</label>
-            <label><input type="radio" name="enc-mode" value="infinite" checked> my accessory use(inheritable only)</label>
+            <label><input type="radio" name="enc-mode" value="fixed"> Use my accessories + enchants</label>
+            <label><input type="radio" name="enc-mode" value="infinite" checked> Use my accessories only (if inheritable)</label>
           </div>
         </div>
         <div>
@@ -468,407 +402,420 @@ input[type=number]{appearance:textfield;-moz-appearance:textfield}
   <button class="btn-sim" id="sim-btn" onclick="runSim()">🐉 Run Simulation</button>
 
   <div class="sec" id="res-sec" style="display:none">
-  <div class="sec-hd">🏆 Simulation Result — Top 3</div>
+  <div class="sec-hd">🏆 Simulation Results — Top 3</div>
   <div class="res-wrap"><div id="res-body-avg"></div></div>
+  <div id="guild-send-wrap" style="display:none;padding:12px 16px;border-top:1px solid var(--bd);align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
+    <span id="guild-send-label" style="font-size:12px;color:var(--dim)"></span>
+    <button class="btn-gold" id="guild-send-btn" onclick="sendToGuild()">📤 Submit This Week's Setup</button>
+  </div>
 </div>
 
 </div></div>
 
 <script>
 // ================================================================
-// game data
+// Game data
 // ================================================================
 
 
 const TEM_BASE='https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/tem';
 const ACC_IMG_MAP={
-  '20':{'Horn of Light':12,'Horn of Wind':13,'Nightmare Orb':20,'Dusk Orb':21,'Dawn Orb':22,'Horn of Earth':1433,'Horn of Water':1435,'Horn of Fire':1437},
-  '19':{'Nightmare Orb':1273,'Dusk Orb':1274,'Dawn Orb':1275,'Horn of Wind':1276,'Horn of Earth':1306,'Horn of Water':1308,'Horn of Fire':1310},
-  '18':{'Horn of Light':1209,'Nightmare Orb':1205,'Dusk Orb':1206,'Dawn Orb':1207,'Horn of Wind':1202,'Horn of Earth':1247,'Horn of Water':1249,'Horn of Fire':1251},
-  '17':{'Nightmare Orb':1102,'Dusk Orb':1103,'Dawn Orb':1104,'Horn of Wind':1105,'Horn of Earth':1130,'Horn of Water':1132,'Horn of Fire':1134},
-  '16':{'Nightmare Orb':1046,'Dusk Orb':1047,'Dawn Orb':1048,'Horn of Wind':1049,'Horn of Earth':1130,'Horn of Water':1132,'Horn of Fire':1134},
+  '20':{'빛뿔':12,'바뿔':13,'악보':20,'황보':21,'여보':22,'대뿔':1433,'물뿔':1435,'불뿔':1437},
+  '19':{'악보':1273,'황보':1274,'여보':1275,'바뿔':1276,'대뿔':1306,'물뿔':1308,'불뿔':1310},
+  '18':{'빛뿔':1209,'악보':1205,'황보':1206,'여보':1207,'바뿔':1202,'대뿔':1247,'물뿔':1249,'불뿔':1251},
+  '17':{'악보':1102,'황보':1103,'여보':1104,'바뿔':1105,'대뿔':1130,'물뿔':1132,'불뿔':1134},
+  '16':{'악보':1046,'황보':1047,'여보':1048,'바뿔':1049,'대뿔':1130,'물뿔':1132,'불뿔':1134},
 };
 const accImg=(lv,name)=>{const n=ACC_IMG_MAP[String(lv)]?.[name];return n?`${TEM_BASE}/${n}.png`:'';};
 const DRAGON_IMG_NUM={
-  "Patroa":1,
-  "Tiger Dragon":2,
-  "Lambgon":3,
-  "Hungry Dragon":4,
-  "Mud Dragon":5,
-  "Orange Leaf Dragon":6,
-  "Earthquake":7,
-  "Poison River":8,
-  "Popon":9,
-  "Appleche Dragon":10,
-  "Aldebaran":11,
-  "Eggmayong":12,
-  "Power Dragon":13,
-  "Devilgon":14,
-  "Vagabond":15,
-  "Leo Vector":16,
-  "Vaska":17,
-  "Rock Dragon":18,
-  "Underground Dragon":19,
-  "Egg Dragon":20,
-  "Leaf Dragon":21,
-  "Smart Dragon":22,
-  "Tattoo":23,
-  "Timber":24,
-  "Flower":25,
-  "Pachy":26,
-  "Hydra Dragon":27,
-  "Collosus":28,
-  "Layers":29,
-  "Liberte":30,
-  "Quetzalcoatl":31,
-  "Golden Horn Dragon":32,
-  "Mustard Hammer":33,
-  "Kanthaka":34,
-  "Astarte":35,
-  "Heimdallr":36,
-  "Non":37,
-  "Python":38,
-  "Hercules Dragon":39,
-  "Spine":40,
-  "Scorpion Dragon":41,
-  "Daros":42,
-  "Zimon":43,
-  "Acaia":44,
-  "Chroma Acaia":45,
-  "Ness":46,
-  "Swamp Dragon":47,
-  "Tundra Dragon":48,
-  "Yurqa":49,
-  "Alresch":50,
-  "Chroma Alresch":51,
-  "Volva":52,
-  "Glacier":53,
-  "Fairy Dragon":54,
-  "Shark Dragon":55,
-  "Megalodon":56,
-  "Blizzard":57,
-  "Bernhard":58,
-  "Rudra":59,
-  "Fishing Tail Dragon":60,
-  "Luminesce":61,
-  "Frog Dragon":62,
-  "Baekho":63,
-  "Rupia":64,
-  "Stud":65,
-  "Withme":66,
-  "Portunus":67,
-  "Skat":68,
-  "Loki":69,
-  "Blue Lightning":70,
-  "Violet Dragon":71,
-  "Haema":72,
-  "Venom Dragon":73,
-  "Vritra":74,
-  "Frozen":75,
-  "Rusalka":76,
-  "Tail":77,
-  "Water Dragon":78,
-  "Slime Dragon":79,
-  "Purple Lips":80,
-  "Marino Dragon":81,
-  "Natron":82,
-  "Regulus":83,
-  "Chroma Regulus":84,
-  "Mini Dragon":85,
-  "Aqua Dragon":86,
-  "IceDrake":87,
-  "Secreta":88,
-  "Tropheus":89,
-  "Myosotis":90,
-  "Octa":91,
-  "Chroma Octa":92,
-  "Bomber Dragon":93,
-  "Popomo":94,
-  "Yeomhwa Dragon":95,
-  "Figar":96,
-  "Chroma Figar":97,
-  "Fire Dragon":98,
-  "Phoenix":99,
-  "Red Wybern":100,
-  "Malsoja":101,
-  "Sura Dragon":102,
-  "Enturath":103,
-  "Lancenti":104,
-  "Battle Dragon":105,
-  "Burnesce":106,
-  "Demonio":107,
-  "Spike Dragon":108,
-  "Naughty Villan":109,
-  "Wild Dragon":110,
-  "Rugar Dragon":111,
-  "Thoth":112,
-  "Scartooth":113,
-  "Chroma Scartooth":114,
-  "Iron":115,
-  "Lightning Dragon":116,
-  "Lava Dragon":117,
-  "Bone Head":118,
-  "Flame Dragon":119,
-  "Redbull Dragon":120,
-  "Mneia":121,
-  "Blaze Dragon":122,
-  "Scarlet":123,
-  "Jaryong":124,
-  "Kum-O":125,
-  "Futurum":126,
-  "Igna":127,
-  "Hwa gui Dragon":128,
-  "Tanatos":129,
-  "Hell":130,
-  "Insect":131,
-  "Sand Dragon":132,
-  "Volcano Dragon":133,
-  "Ignis":134,
-  "Garuda":135,
-  "Maga":136,
-  "Firetail":137,
-  "Chroma Firetail":138,
-  "Wind Dragon":139,
-  "Six Legged Dragon":140,
-  "Music Dragon":141,
-  "Guardian":142,
-  "Totem":143,
-  "Cloud":144,
-  "Pink Bell Dragon":145,
-  "Empire":146,
-  "Spirit":147,
-  "Blue Dragon":148,
-  "Paper Dragon":149,
-  "Striker":150,
-  "Asti Dragon":151,
-  "Araca":152,
-  "Gust":153,
-  "Blue Thunder":154,
-  "Chroma Blue Thunder":155,
-  "Frosty":156,
-  "Haetai":157,
-  "Steelwing":158,
-  "Kigal":159,
-  "Litio":160,
-  "Chroma Litio":161,
-  "Jet Dragon":162,
-  "Swallow":163,
-  "Chaos":164,
-  "Zephyros":165,
-  "Boreas":166,
-  "Lady Dragon":167,
-  "Tyfoon":168,
-  "Spring Dragon":169,
-  "Centura":170,
-  "Tyr":171,
-  "Lulu":172,
-  "Chroma Lulu":173,
-  "Alien Dragon":174,
-  "Wing Dragon":175,
-  "Metal Magnet Dragon":176,
-  "iGon":177,
-  "Peace Dragon":178,
-  "Graytan":179,
-  "Rainbowbatgon":180,
-  "Etoile Dragon":181,
-  "Pitaya":182,
-  "Thor":183,
-  "Oro":184,
-  "Cameleon Dragon":185,
-  "Rainbow":186,
-  "Siamese Dragon":187,
-  "Pierrot Dragon":188,
-  "Citael":189,
-  "Angel Jr.":190,
-  "Cupid Dragon":191,
-  "Morika Dragon":192,
-  "Ordo":193,
-  "Sola":194,
-  "Karura":195,
-  "Aton":196,
-  "Sword":197,
-  "Vargr":198,
-  "Yajnir":199,
-  "Argo Dragon":200,
-  "Knight Dragon":201,
-  "Goodhearted":202,
-  "Sana":203,
-  "Roluce":204,
-  "Haze":205,
-  "Gautling-gon":206,
-  "Solucanis":207,
-  "Protect Dragon":208,
-  "Chroma Protect Dragon":209,
-  "Crymagong":210,
-  "Ligon":211,
-  "Kanggarabbit Dragon":212,
-  "Neon Dragon":213,
-  "Shooting Star":214,
-  "Goblin Dragon":215,
-  "Minas Dragon":216,
-  "Atlus":217,
-  "Merak":218,
-  "Spicy":219,
-  "God Dragon":220,
-  "Angel Dragon":221,
-  "Emerald":222,
-  "Chickenhead":223,
-  "Gold":224,
-  "White Dragon":225,
-  "Aurora Dragon":226,
-  "Asili":227,
-  "Star Ace":228,
-  "Teddy Dragon":229,
-  "Berna":230,
-  "Rafael":231,
-  "God Jr.":232,
-  "Pharaogon":233,
-  "Bar'rah":234,
-  "Artemis Dragon":235,
-  "Whitethunder":236,
-  "Talissah":237,
-  "Amanta":238,
-  "Shah":239,
-  "Franken":240,
-  "Black Tear Dragon":241,
-  "Wonder Dragon":242,
-  "Black Jindo":243,
-  "Moon Light":244,
-  "Maloden":245,
-  "Magnas":246,
-  "Caslux":247,
-  "Blade Dragon":248,
-  "Serpent Dragon":249,
-  "Galaxy":250,
-  "Unicorn":251,
-  "Dark Frosty":252,
-  "Shadow":253,
-  "Ninja Dragon":254,
-  "Black Queen":255,
-  "Splender Dragon":256,
-  "Time Machine":257,
-  "Azak":258,
-  "Vetala":259,
-  "Chroma Vetala":260,
-  "Obex":261,
-  "Venezie":262,
-  "Tutankha":263,
-  "Black Armor Dragon":264,
-  "Kuroy Dragon":265,
-  "Karna":266,
-  "Kubera":267,
-  "Porta":268,
-  "Black Dragon":269,
-  "Metal Dragon":270,
-  "Mummy Dragon":271,
-  "Skelegon":272,
-  "Dark Nix":273,
-  "Hyena Dragon":274,
-  "Crescent":275,
-  "Witch Dragon":276,
-  "Catsgon":277,
-  "Tartaros":278,
-  "Dark Fal":279,
-  "Fides":280,
-  "Jormungandr":281,
-  "Tiamat":282,
-  "Baal":283,
-  "Sigma Dragon":284,
-  "Dragonoid":285,
-  "Universe":286,
-  "Behemoth":287,
-  "Dark Knight":288,
-  "Goat":289,
-  "Batdragon":290,
-  "Cobra":291,
-  "Marbas":292,
-  "Scare":293,
-  "Dragon Slayer":294,
-  "Makara":295,
-  "Lichmond":296,
-  "Chroma Lichmond":297,
-  "Hatshya":298,
-  "Demong&Gargoyle":299,
-  "Berith":300,
-  "Amaltheia":301,
-  "Janus":302,
-  "Hapla":303,
-  "Selmasa":304,
-  "Ullr":305,
-  "Eligos":306,
-  "Lars":307,
-  "Harmonious Dragon":308,
-  "Harleybell":309,
-  "Taabire":310,
-  "Reward Dragon":311,
-  "Rukbat":312,
-  "Freyja":313,
-  "Mimir":314,
-  "Nebia":315,
-  "Aphrodite":316,
-  "Kinder Dragon":317,
-  "Amdusias":318,
-  "Cornatus":319,
-  "Eclipse":320,
-  "Tempios":321,
-  "Hresvelgr":322,
-  "Characen":323,
-  "Rexton":324,
-  "Tilki":325,
-  "Harika":326,
-  "Deathlock":327,
-  "Seere":328,
-  "Chachawung":329,
-  "Rekmall Reverse":330,
-  "Nebula":331,
-  "Inverso":332,
-  "Reginleif":333,
-  "Chroma Reginleif":334,
-  "Ballack":335,
-  "Epit":336,
-  "Manus":337,
-  "Vefal":338,
-  "Pomekle":339,
-  "Pride":340,
-  "Dantalion":341,
-  "Nemus":342,
-  "Vlad":343,
-  "Dimension Dragon":344,
-  "Slosi":345,
-  "Corrupted Jormungandr":346,
-  "Lemures":347,
-  "Beleth":348,
-  "Mysfit":349,
-  "Chroma Beleth":350,
-  "Umbra":351,
-  "Rude Ore":352,
-  "Crevasse":353,
-  "Valefor":354,
-  "Chroma Valefor":355,
-  "Animala":356,
-  "Longinus":357,
-  "Mastema":358,
-  "Jagan":359,
-  "Curse Reaper":360,
-  "Jin":361,
-};const DRAGON_IMG_BASE="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main";
+  "Fat Dragon":25,
+  "Tiger Dragon":50,
+  "Lambgon":103,
+  "Hungry Dragon":131,
+  "Mud Dragon":140,
+  "Orange Leaf Dragon":164,
+  "Earthquake":322,
+  "Poison River":337,
+  "Popon":349,
+  "Appleche Dragon":415,
+  "Aldebaran":519,
+  "Eggmayong":593,
+  "Power Dragon":14,
+  "Devilgon":97,
+  "Vegabond Dragon":159,
+  "Leo Vector":483,
+  "Vaska":696,
+  "Rock Dragon":15,
+  "Underground Dragon":16,
+  "Egg Dragon":19,
+  "Leaf Dragon":28,
+  "Smart Dragon":32,
+  "Tattoo":62,
+  "Timber":108,
+  "Flower":113,
+  "Pachy":559,
+  "Hydra Dragon":13,
+  "Collosus":196,
+  "Layers":246,
+  "Liberte":393,
+  "Quetzalcoatl":568,
+  "Golden Horn Dragon":57,
+  "Mustard Hammer":73,
+  "Kanthaka":400,
+  "Astarte":426,
+  "Heimdallr":659,
+  "Non":667,
+  "Python":92,
+  "Hercules Dragon":105,
+  "Spine":63,
+  "Scorpion Dragon":76,
+  "Daros":268,
+  "Zimon":392,
+  "Acaia":672,
+  "Chroma Acaia":673,
+  "Ness":10,
+  "Swamp Dragon":24,
+  "Tundra Dragon":123,
+  "Yurqa":615,
+  "Alresch":648,
+  "Chroma Alresch":649,
+  "Volva":660,
+  "Frost Dragon":9,
+  "Fairy Dragon":17,
+  "Shark Dragon":58,
+  "Megalodon":124,
+  "Blizzard":367,
+  "Bernhard":502,
+  "Rudra":579,
+  "Fishing Tail Dragon":691,
+  "Luminesce":134,
+  "Frog Dragon":29,
+  "Snake Dragon":67,
+  "Rupia":110,
+  "Stud":112,
+  "Withme":218,
+  "Portunus":529,
+  "Skat":647,
+  "Loki":655,
+  "Blue Lightning":89,
+  "Violet Dragon":98,
+  "Haema":114,
+  "Venom Dragon":248,
+  "Vritra":394,
+  "Frozen":453,
+  "Rusalka":600,
+  "Tail Dragon":11,
+  "Water Dragon":12,
+  "Slime Dragon":42,
+  "Purple Lips":91,
+  "Marino Dragon":138,
+  "Natron":345,
+  "Regulus":517,
+  "Chroma Regulus":518,
+  "Mini Dragon":23,
+  "Aqua Dragon":132,
+  "IceDrake":198,
+  "Secreta":230,
+  "Tropheus":416,
+  "Myosotis":496,
+  "Octa":620,
+  "Chroma Octa":621,
+  "Bomber Dragon":141,
+  "Popomo":274,
+  "Yeomhwa Dragon":527,
+  "Figar":651,
+  "Chroma Figar":652,
+  "Fire Dragon":5,
+  "Phoenix":8,
+  "Red Wybern":74,
+  "Malsoja":107,
+  "Sura Dragon":429,
+  "Enturath":438,
+  "Lancenti":555,
+  "Battle Dragon":96,
+  "Burnesce":135,
+  "Demonio":169,
+  "Spike Dragon":26,
+  "Naughty Villan":145,
+  "Wild Dragon":244,
+  "Rugar Dragon":250,
+  "Thoth":544,
+  "Scartooth":653,
+  "Chroma Scartooth":654,
+  "Iron":93,
+  "Lightning Dragon":6,
+  "Lava Dragon":7,
+  "Bone Head":71,
+  "Flame Dragon":100,
+  "Redbull Dragon":122,
+  "Mneia":147,
+  "Blaze Dragon":629,
+  "Red Horse Dragon":689,
+  "Jaryong":95,
+  "Goldenfly Dragon":51,
+  "Futurum":231,
+  "Igna":366,
+  "Hwa gui Dragon":489,
+  "Tanatos":535,
+  "Hell Dragon":20,
+  "Insect Dragon":27,
+  "Sand Dragon":31,
+  "Volcano Dragon":88,
+  "Ignis":127,
+  "Garuda":225,
+  "Evil Dragon":305,
+  "Firetail":613,
+  "Chroma Firetail":614,
+  "Wind Dragon":2,
+  "Six Legged Dragon":3,
+  "Music Dragon":33,
+  "Guardian":59,
+  "Totem":106,
+  "Cloud":115,
+  "Pink Bell Dragon":165,
+  "Empire":319,
+  "Spirit":344,
+  "Blue Dragon":4,
+  "Paper Dragon":156,
+  "Striker":224,
+  "Asti Dragon":255,
+  "Araca":290,
+  "Gust":370,
+  "Blue Thunder":594,
+  "Chroma Blue Thunder":595,
+  "Frosty":65,
+  "Haetai":75,
+  "Steelwing":260,
+  "Kigal":397,
+  "Litio":644,
+  "Chroma Litio":645,
+  "Jet Dragon":137,
+  "Swallow":151,
+  "Chaos":186,
+  "Zephyros":350,
+  "Boreas":486,
+  "Lady Dragon":18,
+  "Tyfoon":111,
+  "Spring Dragon":160,
+  "Centura":387,
+  "Tyr":508,
+  "Lulu":694,
+  "Chroma Lulu":695,
+  "Alien Dragon":22,
+  "Wing Dragon":30,
+  "Metal Magnet Dragon":52,
+  "iGon":152,
+  "Peace Dragon":154,
+  "Graytan":266,
+  "Rainbowbatgon":289,
+  "Etoile Dragon":389,
+  "Pitaya":563,
+  "Thor":661,
+  "Oro":94,
+  "Cameleon Dragon":37,
+  "Rainbow":61,
+  "Siamese Dragon":70,
+  "Pierrot Dragon":81,
+  "Citael":192,
+  "Angel Jr.":432,
+  "Cupid Dragon":40,
+  "Morika Dragon":158,
+  "Ordo":229,
+  "Sola":348,
+  "Karura":373,
+  "Aton":408,
+  "Sword":458,
+  "Vargr":531,
+  "Yajnir":665,
+  "Argo Dragon":104,
+  "Knight Dragon":77,
+  "Marshmallow Dragon":84,
+  "Sanare Dragon":142,
+  "Roloce":209,
+  "Haze":219,
+  "Gautling-gon":501,
+  "Solucanis":597,
+  "Protect Dragon":633,
+  "Chroma Protect Dragon":634,
+  "Xmas Dragon":68,
+  "Ligon":36,
+  "Kanggarabbit Dragon":39,
+  "Neon Dragon":99,
+  "Shooting Star":129,
+  "Goblin Dragon":136,
+  "Minas Dragon":378,
+  "Atlus":606,
+  "Merak":686,
+  "Spicy":78,
+  "God Dragon":1,
+  "Angel Dragon":21,
+  "Emerald Dragon":35,
+  "Chickenhead Dragon":38,
+  "Gold Dragon":41,
+  "White Dragon":54,
+  "Aurora Dragon":125,
+  "Asili":206,
+  "Star Ace":271,
+  "Teddy Dragon":275,
+  "Berna":342,
+  "Rafael":79,
+  "God Jr.":64,
+  "Pharaogon":82,
+  "Bar'rah":202,
+  "Artemis Dragon":309,
+  "Whitethunder":372,
+  "Talissah":409,
+  "Amanta":509,
+  "Shah":513,
+  "Franken Dragon":85,
+  "Black Tear Dragon":162,
+  "Wonder Dragon":197,
+  "Black Jindo":207,
+  "Moon Light":213,
+  "Maloden":272,
+  "Magnas":573,
+  "Caslux":604,
+  "Blade Dragon":43,
+  "Serpent Dragon":48,
+  "Contipede Dragon":49,
+  "Ghost Dragon":56,
+  "Dark Frosty":66,
+  "Shadow":83,
+  "Ninja Dragon":86,
+  "Black Queen":101,
+  "Splender Dragon":161,
+  "Time Machine":191,
+  "Azak":452,
+  "Vetala":601,
+  "Chroma Vetala":602,
+  "Obex":676,
+  "Venezie":72,
+  "Tutankha":139,
+  "Black Armor Dragon":163,
+  "Kuroy Dragon":166,
+  "Karna":303,
+  "Kubera":380,
+  "Porta":575,
+  "Black Dragon":34,
+  "Metal Dragon":44,
+  "Mummy Dragon":45,
+  "Skelegon":47,
+  "Dark Nix":53,
+  "Hyena Dragon":55,
+  "Crescent":60,
+  "Witch Dragon":90,
+  "Catsgon":126,
+  "Tartaros":128,
+  "Dark Fal":130,
+  "Fides":611,
+  "Jormungandr":662,
+  "Tiamat":674,
+  "Baal":80,
+  "Sigma Dragon":102,
+  "Dragonoid":87,
+  "Universe":252,
+  "Behemoth":259,
+  "Dark Knight":368,
+  "Goat":557,
+  "Hedgebat Dragon":46,
+  "Cobra":109,
+  "Marbas":241,
+  "Scare":281,
+  "Dragon Slayer":351,
+  "Makara":467,
+  "Lichmond":497,
+  "Chroma Lichmond":498,
+  "Hatshya":681,
+  "Demong&Gargoyle":69,
+  "Berith":463,
+  "Amaltheia":566,
+  "Janus":650,
+  "Hapla":287,
+  "Selmasa":296,
+  "Ullr":623,
+  "Eligos":473,
+  "Wrath":540,
+  "Harmonious Dragon":569,
+  "Harleybell":232,
+  "Taabire":233,
+  "Reward Dragon":334,
+  "Rukbat":603,
+  "Freyja":698,
+  "Mimir":476,
+  "Nebia":484,
+  "Aphrodite":625,
+  "Kinder Dragon":358,
+  "Amdusias":481,
+  "Cortus":587,
+  "Eclipse":469,
+  "Tempios":635,
+  "Hresvelgr":677,
+  "Characen":298,
+  "Rexton":301,
+  "Tilki":365,
+  "Harika":411,
+  "Deathlock":447,
+  "Seere":530,
+  "Chachawung":583,
+  "Rekmall Reverse":385,
+  "Nebula":516,
+  "Inverso":641,
+  "Reginleif":687,
+  "Chroma Reginleif":688,
+  "Ballack":234,
+  "Epit":590,
+  "Manus":663,
+  "Vefal":235,
+  "Pomekle":302,
+  "Pride":538,
+  "Dantalion":236,
+  "Nemus":547,
+  "Vlad":697,
+  "Dimension Dragon":355,
+  "Slosi":617,
+  "Corrupted Jormungandr":664,
+  "Lemures":671,
+  "Beleth":470,
+  "Mysfit":526,
+  "Chroma Beleth":574,
+  "Umbra":347,
+  "Rude Ore":457,
+  "Crevasse":554,
+  "Valefor":684,
+  "Chroma Valefor":685,
+  "Animala":448,
+  "Longinus":523,
+  "Mastema":532,
+  "Jagan":237,
+  "Curse Reaper":622,
+  "Jin":637,
+  "Cthulhu":703,
+  "Chroma Cthulhu":704,
+  "Mangtaegon":705,
+  "Undine":706,
+  "Chroma Undine":707,
+  "Seraphim":708,
+  "Ophanim":710,
+  "Chroma Ophanim":711,
+  "Castigue":712,
+};
+const NAME_KR={"Castigue":"카스티그","Chroma Ophanim":"크로마 오파님","Ophanim":"오파님","Mangtaegon":"망태곤","Undine":"운디네","Chroma Undine":"크로마 운디네","Seraphim":"세라핌","Fat Dragon":"패트","Tiger Dragon":"타이거","Lambgon":"램곤","Hungry Dragon":"헝그리","Mud Dragon":"머드","Orange Leaf Dragon":"오렌지리프","Earthquake":"지진","Poison River":"포이즌리버","Popon":"포폰","Appleche Dragon":"애플칙","Aldebaran":"알데바란","Eggmayong":"에그마용","Power Dragon":"파워","Devilgon":"데빌곤","Vegabond Dragon":"베가본드","Leo Vector":"레오벡터","Vaska":"바스카","Rock Dragon":"바위","Underground Dragon":"지하땅굴","Egg Dragon":"에그","Leaf Dragon":"리프","Smart Dragon":"스마트","Tattoo":"타투","Timber":"팀버","Flower":"플라워","Pachy":"파키","Hydra Dragon":"히드라곤","Collosus":"콜로서스","Layers":"레이어스","Liberte":"리베티","Quetzalcoatl":"케찰코아틀","Golden Horn Dragon":"골든혼","Mustard Hammer":"머스타드해머","Kanthaka":"칸타카","Astarte":"아스타테","Heimdallr":"헤임달","Non":"논","Python":"파이썬","Hercules Dragon":"헤라클레스","Spine":"스파인","Scorpion Dragon":"스콜피온","Daros":"다로스","Zimon":"즈믄","Acaia":"아카이아","Chroma Acaia":"크로마 아카이아","Ness":"네시","Swamp Dragon":"스왐프","Tundra Dragon":"툰드라","Yurqa":"유르카","Alresch":"알레샤","Chroma Alresch":"크로마 알레샤","Volva":"볼바","Frost Dragon":"빙하고룡","Fairy Dragon":"페어리","Shark Dragon":"샤크곤","Megalodon":"메갈로돈","Blizzard":"블리자드","Bernhard":"베른하르트","Rudra":"루드라","Fishing Tail Dragon":"피싱테일","Luminesce":"루미네스","Frog Dragon":"프로그","Snake Dragon":"현무","Rupia":"루피아","Stud":"스터드","Withme":"위드미","Portunus":"폴투누스","Skat":"스카트","Loki":"로키","Blue Lightning":"블루라이트닝","Violet Dragon":"바이올렛","Haema":"해마곤","Venom Dragon":"베놈","Vritra":"브리트라","Frozen":"프로즌","Rusalka":"루살카","Tail Dragon":"테일","Water Dragon":"수룡","Slime Dragon":"슬라임","Purple Lips":"퍼플립스","Marino Dragon":"노","Natron":"나트론","Regulus":"레굴루스","Chroma Regulus":"크로마 레굴루스","Mini Dragon":"미니","Aqua Dragon":"아쿠아","IceDrake":"아이스 드레이크","Secreta":"세크레타","Tropheus":"트로페우스","Myosotis":"마소티스","Octa":"옥타","Chroma Octa":"크로마 옥타","Bomber Dragon":"붐버","Popomo":"포포모","Yeomhwa Dragon":"염화룡","Figar":"파이거","Chroma Figar":"크로마 파이거","Fire Dragon":"파이어","Phoenix":"피닉스","Red Wybern":"레드와이번","Malsoja":"말소자","Sura Dragon":"수라","Enturath":"엔투라스","Lancenti":"라센티","Battle Dragon":"배틀","Burnesce":"번네스","Demonio":"데모니오","Spike Dragon":"스파이크","Naughty Villan":"너티빌런","Wild Dragon":"와일드","Rugar Dragon":"루가르","Thoth":"토트","Scartooth":"스카투스","Chroma Scartooth":"크로마 스카투스","Iron":"아이언","Lightning Dragon":"번개고룡","Lava Dragon":"라바","Bone Head":"본헤드","Flame Dragon":"플레임","Redbull Dragon":"레드불","Mneia":"므네이아","Blaze Dragon":"블레이즈","Red Horse Dragon":"적마룡","Jaryong":"자룡","Goldenfly Dragon":"금오","Futurum":"푸투룸","Igna":"이그나","Hwa gui Dragon":"화귀","Tanatos":"타나토스","Hell Dragon":"헬","Insect Dragon":"인섹트","Sand Dragon":"샌드","Volcano Dragon":"볼케이노","Ignis":"이그니스","Garuda":"가루다","Evil Dragon":"마룡","Firetail":"불나래","Chroma Firetail":"크로마 불나래","Wind Dragon":"윈드","Six Legged Dragon":"식스 레그 혼","Music Dragon":"뮤직","Guardian":"가디언","Totem":"토템","Cloud":"클라우드","Pink Bell Dragon":"핑크벨","Empire":"엠파이어","Spirit":"혼","Blue Dragon":"청룡","Paper Dragon":"페이퍼","Striker":"스트라이커","Asti Dragon":"아스티","Araca":"아라카","Gust":"거스트","Blue Thunder":"블루썬더","Chroma Blue Thunder":"크로마 블루썬더","Frosty":"프로스티","Haetai":"해태","Steelwing":"스틸윙","Kigal":"키갈","Litio":"리티오","Chroma Litio":"크로마 리티오","Jet Dragon":"제트","Swallow":"스왈로우","Chaos":"카오스","Zephyros":"제피로스","Boreas":"보레아스","Lady Dragon":"레이디","Tyfoon":"타이푼","Spring Dragon":"태엽","Centura":"센투라","Tyr":"티르","Lulu":"루루","Chroma Lulu":"크로마 루루","Alien Dragon":"에일리언","Wing Dragon":"윙스","Metal Magnet Dragon":"메탈 마그넷","iGon":"i곤","Peace Dragon":"피스","Graytan":"그레이탄","Rainbowbatgon":"레인보우배트곤","Etoile Dragon":"에트왈","Pitaya":"피타야","Thor":"토르","Oro":"오로","Cameleon Dragon":"카멜레용","Rainbow":"레인보우","Siamese Dragon":"샴","Pierrot Dragon":"삐에로","Citael":"시타엘","Angel Jr.":"엔젤주니어","Cupid Dragon":"큐피트","Morika Dragon":"모리카","Ordo":"오르도","Sola":"솔라","Karura":"카루라","Aton":"아톤","Sword":"스워드","Vargr":"바르그","Yajnir":"야즈니르","Argo Dragon":"아르고","Knight Dragon":"나이트","Marshmallow Dragon":"순둥곤","Sanare Dragon":"사나래","Roloce":"로루스","Haze":"헤이즈","Gautling-gon":"개틀링곤","Solucanis":"솔루카니스","Protect Dragon":"프로텍트","Chroma Protect Dragon":"크로마 프로텍트","Xmas Dragon":"크리마용","Ligon":"라이곤","Kanggarabbit Dragon":"캥거레빗","Neon Dragon":"네온","Shooting Star":"슈팅스타","Goblin Dragon":"깨비곤","Minas Dragon":"미나스","Atlus":"알투스","Merak":"메라크","Spicy":"스파이시","God Dragon":"고대신룡","Angel Dragon":"엔젤","Emerald Dragon":"에메랄드","Chickenhead Dragon":"치킨헤드","Gold Dragon":"골드","White Dragon":"백룡","Aurora Dragon":"오로라","Asili":"아실리","Star Ace":"스타에이스","Teddy Dragon":"테디","Berna":"베르나","Rafael":"라파엘","God Jr.":"고대 주니어","Pharaogon":"파라오곤","Bar'rah":"바르라아","Artemis Dragon":"아르테미스","Whitethunder":"화이트썬더","Talissah":"탈릿사","Amanta":"아만타","Shah":"샤흐","Franken Dragon":"프랑켄","Black Tear Dragon":"블랙티어","Wonder Dragon":"원더","Black Jindo":"블랙찡또","Moon Light":"문라이트","Maloden":"말로단","Magnas":"마그나스","Caslux":"카스룩스","Blade Dragon":"블레이드","Serpent Dragon":"서펀트","Contipede Dragon":"G네","Ghost Dragon":"유니","Dark Frosty":"다크프로스티","Shadow":"쉐도우","Ninja Dragon":"닌자","Black Queen":"블랙퀸","Splender Dragon":"스플렌더","Time Machine":"타임머신","Azak":"아자크","Vetala":"베타라","Chroma Vetala":"크로마 베타라","Obex":"오벡스","Venezie":"베네지","Tutankha":"투탕카","Black Armor Dragon":"블랙아머","Kuroy Dragon":"쿠로이","Karna":"카르나","Kubera":"쿠베라","Porta":"포르타","Black Dragon":"흑룡","Metal Dragon":"메탈","Mummy Dragon":"미이라곤","Skelegon":"스켈레곤","Dark Nix":"다크닉스","Hyena Dragon":"히에나곤","Crescent":"크레센트","Witch Dragon":"윗치","Catsgon":"캣츠곤","Tartaros":"타르타로스","Dark Fal":"다크폴","Fides":"피데스","Jormungandr":"요르문간드","Tiamat":"티아매트","Baal":"바알","Sigma Dragon":"시그마","Dragonoid":"드라고노이드","Universe":"유니버스","Behemoth":"베히모스","Dark Knight":"다크나이트","Goat":"고트","Hedgebat Dragon":"뱃도치","Cobra":"코브라곤","Marbas":"마르바스","Scare":"스케어","Dragon Slayer":"Dragon 슬레이어","Makara":"마카라","Lichmond":"리치몬드","Chroma Lichmond":"크로마 리치몬드","Hatshya":"하트샤","Demong&Gargoyle":"데몽과가고일","Berith":"베리스","Amaltheia":"아말테아","Janus":"야누스","Hapla":"합라","Selmasa":"셀마사","Ullr":"울르","Eligos":"엘리고스","Wrath":"라스","Harmonious Dragon":"조화룡","Harleybell":"할리벨","Taabire":"타아비레","Reward Dragon":"보상이용","Rukbat":"루크바트","Freyja":"프레이야","Mimir":"미미르","Nebia":"네비아","Aphrodite":"아프로디테","Kinder Dragon":"킨더","Amdusias":"암두시아스","Cortus":"코르투스","Eclipse":"이클립스","Tempios":"템피오스","Hresvelgr":"흐레스벨그","Characen":"카라선","Rexton":"렉스톤","Tilki":"틸키","Harika":"하리카","Deathlock":"데스락","Seere":"세에레","Chachawung":"차차웅","Rekmall Reverse":"렉몰 리버스","Nebula":"네뷸라","Inverso":"인베르소","Reginleif":"레긴레이프","Chroma Reginleif":"크로마 레긴레이프","Ballack":"발라크","Epit":"에피트","Manus":"마누스","Vefal":"베팔","Pomekle":"포메쿨","Pride":"프라이드","Dantalion":"단탈리온","Nemus":"네무스","Vlad":"블라드","Dimension Dragon":"디멘션","Slosi":"쉴로시","Corrupted Jormungandr":"잠식된 요르문간드","Lemures":"레무레스","Beleth":"벨레드","Mysfit":"미스핏","Chroma Beleth":"크로마 벨레드","Umbra":"움브라","Rude Ore":"루드오어","Crevasse":"크레바스","Valefor":"발레포르","Chroma Valefor":"크로마 발레포르","Animala":"애니마라","Longinus":"롱기누스","Mastema":"마스테마","Jagan":"자간","Curse Reaper":"커스리퍼","Jin":"진","Cthulhu":"크툴루","Chroma Cthulhu":"크로마 크툴루"};const DRAGON_IMG_BASE="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main";
 function getDragonImgUrl(name){
   let n=DRAGON_IMG_NUM[name];
-  if(!n){const s=name.replace(/ Dragon$/,'i').replace(/Dragon$/,'').trim();n=DRAGON_IMG_NUM[s];}
+  if(!n){const s=name.replace(/ Dragon$/,'').replace(/ Dragon$/,'').trim();n=DRAGON_IMG_NUM[s];}
   if(!n)return null;
-  const folder=Math.ceil(n/95);
-  return DRAGON_IMG_BASE+"/"+folder+"/"+n+".png";
+  return DRAGON_IMG_BASE+"/dragon/"+n+"/profile/8.png";
 }
 const DRAGON_ALLOWED={
-  "Earth":["Hydra Dragon","Power Dragon","Underground Dragon","Egg Dragon","Mustard Hammer","Scorpion Dragon","Python","Collosus","Layers","Daros","Earthquake","Zimon","Liberte","Kanthaka","Appleche Dragon","Astarte","Leo Vector","Aldebaran","Pachy","Quetzalcoatl","Eggmayong","Heimdallr","Non","Acaia","Chroma Acaia","Vaska","Popon","Poison River"],
-  "Water":["Glacier","Water Dragon","Fairy Dragon","Shark Dragon","IceDrake","Withme","Secreta","Venom Dragon","Luminesce","Blizzard","Vritra","Tropheus","Frozen","Myosotis","Bernhard","Regulus","Chroma Regulus","Portunus","Rudra","Rusalka","Yurqa","Octa","Chroma Octa","Skat","Alresch","Chroma Alresch","Loki","Volva","Fishing Tail Dragon","Natron","Swamp Dragon"],
-  "Fire":["Fire Dragon","Lightning Dragon","Phoenix","Red Wybern","Iron","Jaryong","Garuda","Futurum","Wild Dragon","Rugar Dragon","Popomo","Maga","Mneia","Burnesce","Igna","Sura Dragon","Enturath","Hwa gui Dragon","Yeomhwa Dragon","Tanatos","Thoth","Lancenti","Firetail","Chroma Firetail","Blaze Dragon","Figar","Chroma Figar","Scartooth","Chroma Scartooth","Scarlet"],
-  "Wind":["Wind Dragon","Six Legged Dragon","Blue Dragon","Spring Dragon","Chaos","Striker","Asti Dragon","Steelwing","Graytan","Araca","Empire","Gust","Centura","Etoile Dragon","Kigal","Boreas","Tyr","Pitaya","Blue Thunder","Chroma Blue Thunder","Litio","Chroma Litio","Thor","Lulu","Chroma Lulu","Zephyros","Spirit"],
-  "Light":["God Dragon","Angel Dragon","Morika Dragon","Siamese Dragon","Knight Dragon","Spicy","Rafael","White Dragon","God Jr.","Argo Dragon","Citael","Bar'rah","Asili","Roluce","Haze","Ordo","Star Ace","Teddy Dragon","Artemis Dragon","Whitethunder","Karura","Minas Dragon","Aton","Talissah","Angel Jr.","Sword","Gautling-gon","Amanta","Shah","Vargr","Solucanis","Atlus","Protect Dragon","Chroma Protect Dragon","Yajnir","Merak","Sola","Berna"],
-  "Dark":["Venezie","Baal","Dark Nix","Sigma Dragon","Black Tear Dragon","Black Armor Dragon","Kuroy Dragon","Time Machine","Wonder Dragon","Black Jindo","Moon Light","Marbas","Universe","Behemoth","Maloden","Karna","Dark Fal","Dark Knight","Kubera","Azak","Makara","Lichmond","Chroma Lichmond","Goat","Magnas","Porta","Vetala","Chroma Vetala","Caslux","Fides","Jormungandr","Tiamat","Obex","Hatshya","Dragon Slayer","Black Dragon"],
-  "Dawn":["Harleybell","Taabire","Hapla","Selmasa","Berith","Eligos","Mimir","Amdusias","Nebia","Lars","Amaltheia","Harmonious Dragon","Cornatus","Rukbat","Ullr","Aphrodite","Janus","Freyja","Kinder Dragon","Reward Dragon"],
-  "Dusk":["Ballack","Vefal","Characen","Rexton","Pomekle","Tilki","Rekmall Reverse","Harika","Deathlock","Eclipse","Nebula","Seere","Pride","Chachawung","Epit","Tempios","Inverso","Manus","Hresvelgr","Reginleif","Chroma Reginleif"],
-  "Nightmare":["Dantalion","Jagan","Animala","Rude Ore","Beleth","Longinus","Mysfit","Mastema","Nemus","Crevasse","Chroma Beleth","Slosi","Curse Reaper","Jin","Corrupted Jormungandr","Lemures","Valefor","Chroma Valefor","Vlad","Dimension Dragon"],
+  "땅":["Hydra Dragon","Power Dragon","Underground Dragon","Egg Dragon","Mustard Hammer","Scorpion Dragon","Python","Collosus","Layers","Daros","Earthquake","Zimon","Liberte","Kanthaka","Appleche Dragon","Astarte","Leo Vector","Aldebaran","Pachy","Quetzalcoatl","Eggmayong","Heimdallr","Non","Acaia","Chroma Acaia","Vaska","Popon","Poison River"],
+  "물":["Frost Dragon","Water Dragon","Fairy Dragon","Shark Dragon","IceDrake","Withme","Secreta","Venom Dragon","Luminesce","Blizzard","Vritra","Tropheus","Frozen","Myosotis","Bernhard","Regulus","Chroma Regulus","Portunus","Rudra","Rusalka","Yurqa","Octa","Chroma Octa","Skat","Alresch","Chroma Alresch","Loki","Volva","Fishing Tail Dragon","Natron","Swamp Dragon","Undine","Chroma Undine"],
+  "불":["Fire Dragon","Lightning Dragon","Phoenix","Red Wybern","Iron","Jaryong","Garuda","Futurum","Wild Dragon","Rugar Dragon","Popomo","Evil Dragon","Mneia","Burnesce","Igna","Sura Dragon","Enturath","Hwa gui Dragon","Yeomhwa Dragon","Tanatos","Thoth","Lancenti","Firetail","Chroma Firetail","Blaze Dragon","Figar","Chroma Figar","Scartooth","Chroma Scartooth","Red Horse Dragon"],
+  "바람":["Wind Dragon","Six Legged Dragon","Blue Dragon","Spring Dragon","Chaos","Striker","Asti Dragon","Steelwing","Graytan","Araca","Empire","Gust","Centura","Etoile Dragon","Kigal","Boreas","Tyr","Pitaya","Blue Thunder","Chroma Blue Thunder","Litio","Chroma Litio","Thor","Lulu","Chroma Lulu","Zephyros","Spirit", "Chroma Ophanim", "Ophanim"],
+  "빛":["God Dragon","Angel Dragon","Morika Dragon","Siamese Dragon","Knight Dragon","Spicy","Rafael","White Dragon","God Jr.","Argo Dragon","Citael","Bar'rah","Asili","Roloce","Haze","Ordo","Star Ace","Teddy Dragon","Artemis Dragon","Whitethunder","Karura","Minas Dragon","Aton","Talissah","Angel Jr.","Sword","Gautling-gon","Amanta","Shah","Vargr","Solucanis","Atlus","Protect Dragon","Chroma Protect Dragon","Yajnir","Merak","Sola","Berna","Seraphim"],
+  "어둠":["Venezie","Baal","Dark Nix","Sigma Dragon","Black Tear Dragon","Black Armor Dragon","Kuroy Dragon","Time Machine","Wonder Dragon","Black Jindo","Moon Light","Marbas","Universe","Behemoth","Maloden","Karna","Dark Fal","Dark Knight","Kubera","Azak","Makara","Lichmond","Chroma Lichmond","Goat","Magnas","Porta","Vetala","Chroma Vetala","Caslux","Fides","Jormungandr","Tiamat","Obex","Cthulhu","Chroma Cthulhu","Hatshya","Dragon Slayer","Black Dragon"],
+  "여명":["Harleybell","Taabire","Hapla","Selmasa","Berith","Eligos","Mimir","Amdusias","Nebia","Wrath","Amaltheia","Harmonious Dragon","Cortus","Rukbat","Ullr","Aphrodite","Janus","Freyja","Kinder Dragon","Reward Dragon"],
+  "황혼":["Ballack","Vefal","Characen","Rexton","Pomekle","Tilki","Rekmall Reverse","Harika","Deathlock","Eclipse","Nebula","Seere","Pride","Chachawung","Epit","Tempios","Inverso","Manus","Hresvelgr","Reginleif","Chroma Reginleif","Castigue"],
+  "악몽":["Dantalion","Jagan","Animala","Rude Ore","Beleth","Longinus","Mysfit","Mastema","Nemus","Crevasse","Chroma Beleth","Slosi","Curse Reaper","Jin","Corrupted Jormungandr","Lemures","Valefor","Chroma Valefor","Vlad","Dimension Dragon","Mangtaegon"],
 };
 function isAllowedDragon(cat,name){
   const strip=n=>String(n||'').replace(/\s*Dragon$/,'').trim();
@@ -939,7 +886,7 @@ function renderDragonGallery(){
   normalizeDragonCards();
   const el=document.getElementById('dragon-gallery');
   if(!el)return;
-  const attrIcon={'Earth':'https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/11.png','Water':'https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/12.png','Fire':'https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/13.png','Wind':'https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/14.png','Light':'https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/84.png','Dark':'https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/87.png','Dawn':'https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/486.png','Dusk':'https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/487.png','Nightmare':'https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/488.png'};
+  const attrIcon={'땅':'https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/11.png','물':'https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/12.png','불':'https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/13.png','바람':'https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/14.png','빛':'https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/84.png','어둠':'https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/87.png','여명':'https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/486.png','황혼':'https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/487.png','악몽':'https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/488.png'};
   let html2='';
   DRAGON_CATS.forEach(function(cat){
     const cards=S.dragonCards[cat]||[];
@@ -956,11 +903,11 @@ function renderDragonGallery(){
         +'</div>';
     }).join('');
     html2+='<div class="gallery-section">'
-      +'<div class="gallery-section-title"><img src="'+attrIcon[cat]+'" style="width:18px;height:18px;object-fit:contain;">'+cat+' ('+named.length+'dragon(s))</div>'
+      +'<div class="gallery-section-title"><img src="'+attrIcon[cat]+'" style="width:18px;height:18px;object-fit:contain;">'+(CAT_LBL[cat]||cat)+' ('+named.length+')</div>'
       +'<div class="gallery-grid">'+iconHtml+'</div>'
       +'</div>';
   });
-  el.innerHTML=html2||'<div style="color:var(--dim);text-align:center;padding:40px;font-size:13px;">No dragons found</div>';
+  el.innerHTML=html2||'<div style="color:var(--dim);text-align:center;padding:40px;font-size:13px;">No dragons entered</div>';
 }
 
 function openGalleryPanel(cat,ci){
@@ -972,19 +919,19 @@ function openGalleryPanel(cat,ci){
   const imgEl=document.getElementById('gp-img');
   if(url){imgEl.src=url;imgEl.style.display='';}
   else imgEl.style.display='none';
-  document.getElementById('gp-name').textContent=card.name||'(No Name)';
-  document.getElementById('gp-type').textContent=(card.dtype||'')+(card.dtype&&card.growth?' · ':'')+((card.growth||''));
-  const gradeLabel=card.growth==='Advent'||card.growth==='Advanced'?'7.0':card.grade||'-';
+  document.getElementById('gp-name').textContent=card.name||'(No name)';
+  document.getElementById('gp-type').textContent=(T_TYPE_S[card.dtype]||card.dtype||'')+(card.dtype&&card.growth?' · ':'')+((GROWTH_LBL[card.growth]||card.growth||''));
+  const gradeLabel=card.growth==='강림'||card.growth==='진각'?'7.0':card.grade||'-';
   document.getElementById('gp-rows').innerHTML=
-    '<div class="gp-row"><div class="gp-label">Attribute</div><div class="gp-val">'+cat+'</div></div>'
-    +'<div class="gp-row"><div class="gp-label">type</div><div class="gp-val">'+(card.dtype||'-')+'</div></div>'
-    +'<div class="gp-row"><div class="gp-label">Growth Stage</div><div class="gp-val">'+(card.growth||'-')+'</div></div>'
-    +'<div class="gp-row"><div class="gp-label">grade</div><div class="gp-val">'+gradeLabel+'</div></div>';
+    '<div class="gp-row"><div class="gp-label">Element</div><div class="gp-val">'+(CAT_LBL[cat]||cat)+'</div></div>'
+    +'<div class="gp-row"><div class="gp-label">Type</div><div class="gp-val">'+(T_TYPE_S[card.dtype]||card.dtype||'-')+'</div></div>'
+    +'<div class="gp-row"><div class="gp-label">Advent stage</div><div class="gp-val">'+(GROWTH_LBL[card.growth]||card.growth||'-')+'</div></div>'
+    +'<div class="gp-row"><div class="gp-label">Grade</div><div class="gp-val">'+gradeLabel+'</div></div>';
   const opts=card.opts||[];
   const bonusLabel={'hp':'HP (+40)','atk':'ATK (+10)','def':'DEF (+10)'};
-  const bonusRow=card.bonus?'<div class="gp-opt-row"><span class="gp-opt-label">Bonus</span><span class="gp-opt-val">'+bonusLabel[card.bonus]+'</span></div>':'';
+  const bonusRow=card.bonus?'<div class="gp-opt-row"><span class="gp-opt-label">Spirit type</span><span class="gp-opt-val">'+bonusLabel[card.bonus]+'</span></div>':'';
   document.getElementById('gp-opts').innerHTML=opts.map(function(o,i){
-    if(!o.stat||o.stat==='None')return '';
+    if(!o.stat||o.stat==='없음')return '';
     const v=fmtDragonSpVal(i+1,o.stat,o.type);
     return '<div class="gp-opt-row"><span class="gp-opt-label">'+(i+1)+'opt '+o.stat+'</span><span class="gp-opt-val">'+v+'</span></div>';
   }).join('')+bonusRow;
@@ -1002,13 +949,13 @@ function goEditDragon(){
   if(!_gpCat||_gpCi===null)return;
   closeGalleryPanel();
   switchDragonView('form');
-  // relevant attribute details open
+  // 해당 Element details 열기
   const details=document.querySelector('[data-dragon-list="'+_gpCat+'"]');
   if(details){
     const det=details.closest('details');
     if(det)det.open=true;
   }
-  // relevant card scroll
+  // 해당 카드로 스크롤
   setTimeout(function(){
     const cards=document.querySelectorAll('[data-dragon-list="'+_gpCat+'"] .dragon-card');
     if(cards[_gpCi]){
@@ -1021,170 +968,250 @@ function goEditDragon(){
 
 
 
-const IMG_Horn of Light18=accImg(18,'Horn of Light');
-const IMG_Horn of Light20=accImg(20,'Horn of Light');
-const IMG_Nightmare Orb16=accImg(16,'Nightmare Orb');
-const IMG_Dusk Orb16=accImg(16,'Dusk Orb');
-const IMG_Dawn Orb16=accImg(16,'Dawn Orb');
-const IMG_Water16=accImg(16,'Horn of Water');
-const IMG_Fire16=accImg(16,'Horn of Fire');
-const IMG_Earth16=accImg(16,'Horn of Earth');
-const IMG_Wind16=accImg(16,'Horn of Wind');
-const IMG_Nightmare Orb17=accImg(17,'Nightmare Orb');
-const IMG_Dusk Orb17=accImg(17,'Dusk Orb');
-const IMG_Dawn Orb17=accImg(17,'Dawn Orb');
-const IMG_Water17=accImg(17,'Horn of Water');
-const IMG_Fire17=accImg(17,'Horn of Fire');
-const IMG_Earth17=accImg(17,'Horn of Earth');
-const IMG_Wind17=accImg(17,'Horn of Wind');
-const IMG_Nightmare Orb18=accImg(18,'Nightmare Orb');
-const IMG_Dusk Orb18=accImg(18,'Dusk Orb');
-const IMG_Dawn Orb18=accImg(18,'Dawn Orb');
-const IMG_Water18=accImg(18,'Horn of Water');
-const IMG_Fire18=accImg(18,'Horn of Fire');
-const IMG_Earth18=accImg(18,'Horn of Earth');
-const IMG_Wind18=accImg(18,'Horn of Wind');
-const IMG_Nightmare Orb19=accImg(19,'Nightmare Orb');
-const IMG_Dusk Orb19=accImg(19,'Dusk Orb');
-const IMG_Dawn Orb19=accImg(19,'Dawn Orb');
-const IMG_Water19=accImg(19,'Horn of Water');
-const IMG_Fire19=accImg(19,'Horn of Fire');
-const IMG_Earth19=accImg(19,'Horn of Earth');
-const IMG_Wind19=accImg(19,'Horn of Wind');
-const IMG_Nightmare Orb20=accImg(20,'Nightmare Orb');
-const IMG_Dusk Orb20=accImg(20,'Dusk Orb');
-const IMG_Dawn Orb20=accImg(20,'Dawn Orb');
-const IMG_Water20=accImg(20,'Horn of Water');
-const IMG_Fire20=accImg(20,'Horn of Fire');
-const IMG_Earth20=accImg(20,'Horn of Earth');
-const IMG_Horn of Wind20=accImg(20,'Horn of Wind');
+const IMG_빛뿔18=accImg(18,'빛뿔');
+const IMG_빛뿔20=accImg(20,'빛뿔');
+const IMG_악보16=accImg(16,'악보');
+const IMG_황보16=accImg(16,'황보');
+const IMG_여보16=accImg(16,'여보');
+const IMG_물16=accImg(16,'물뿔');
+const IMG_불16=accImg(16,'불뿔');
+const IMG_땅16=accImg(16,'대뿔');
+const IMG_바람16=accImg(16,'바뿔');
+const IMG_악보17=accImg(17,'악보');
+const IMG_황보17=accImg(17,'황보');
+const IMG_여보17=accImg(17,'여보');
+const IMG_물17=accImg(17,'물뿔');
+const IMG_불17=accImg(17,'불뿔');
+const IMG_땅17=accImg(17,'대뿔');
+const IMG_바람17=accImg(17,'바뿔');
+const IMG_악보18=accImg(18,'악보');
+const IMG_황보18=accImg(18,'황보');
+const IMG_여보18=accImg(18,'여보');
+const IMG_물18=accImg(18,'물뿔');
+const IMG_불18=accImg(18,'불뿔');
+const IMG_땅18=accImg(18,'대뿔');
+const IMG_바람18=accImg(18,'바뿔');
+const IMG_악보19=accImg(19,'악보');
+const IMG_황보19=accImg(19,'황보');
+const IMG_여보19=accImg(19,'여보');
+const IMG_물19=accImg(19,'물뿔');
+const IMG_불19=accImg(19,'불뿔');
+const IMG_땅19=accImg(19,'대뿔');
+const IMG_바람19=accImg(19,'바뿔');
+const IMG_악보20=accImg(20,'악보');
+const IMG_황보20=accImg(20,'황보');
+const IMG_여보20=accImg(20,'여보');
+const IMG_물20=accImg(20,'물뿔');
+const IMG_불20=accImg(20,'불뿔');
+const IMG_땅20=accImg(20,'대뿔');
+const IMG_바뿔20=accImg(20,'바뿔');
 const IMG_PEND={
-  Sun:`${TEM_BASE}/1337.png`,
-  Moon:`${TEM_BASE}/1336.png`,
-  Star:`${TEM_BASE}/1335.png`
+  태양:`${TEM_BASE}/1337.png`,
+  달:`${TEM_BASE}/1336.png`,
+  별:`${TEM_BASE}/1335.png`
 };
 
 const ACC_DB=[
 
-  {n:'Horn of Light (Crit/HP) +18',hp:0.08, atk:0,    def:0   , img:IMG_Horn of Light18},
-  {n:'Horn of Light (Crit/ATK) +18',hp:0,    atk:0.08, def:0   , img:IMG_Horn of Light18},
-  {n:'Horn of Light (Crit/DEF) +18',hp:0,    atk:0,    def:0.08, img:IMG_Horn of Light18},
+  {n:'Horn of light +18 (Crit/HP)',hp:0.08, atk:0,    def:0   , img:IMG_빛뿔18},
+  {n:'Horn of light +18 (Crit/ATK)',hp:0,    atk:0.08, def:0   , img:IMG_빛뿔18},
+  {n:'Horn of light +18 (Crit/DEF)',hp:0,    atk:0,    def:0.08, img:IMG_빛뿔18},
 
-  {n:'Horn of Light (Crit/HP) +20',hp:0.1, atk:0,    def:0   , img:IMG_Horn of Light20},
-  {n:'Horn of Light (Crit/ATK) +20',hp:0,    atk:0.1, def:0   , img:IMG_Horn of Light20},
-  {n:'Horn of Light (Crit/DEF) +20',hp:0,    atk:0,    def:0.1, img:IMG_Horn of Light20},
+  {n:'Horn of light +20 (Crit/HP)',hp:0.1, atk:0,    def:0   , img:IMG_빛뿔20},
+  {n:'Horn of light +20 (Crit/ATK)',hp:0,    atk:0.1, def:0   , img:IMG_빛뿔20},
+  {n:'Horn of light +20 (Crit/DEF)',hp:0,    atk:0,    def:0.1, img:IMG_빛뿔20},
 
-  {n:'Nightmare Orb (HP) +16',hp:0.16, atk:0,    def:0   , img:IMG_Nightmare Orb16},
-  {n:'Dusk Orb (ATK) +16',hp:0,    atk:0.16, def:0   , img:IMG_Dusk Orb16},
-  {n:'Dawn Orb (DEF) +16',hp:0,    atk:0,    def:0.16, img:IMG_Dawn Orb16},
-  {n:'Horn of Water (HP/ATK) +16',hp:0.1,  atk:0.06, def:0   , img:IMG_Water16},
-  {n:'Horn of Water (HP/DEF) +16',hp:0.1,  atk:0,    def:0.06, img:IMG_Water16},
-  {n:'Horn of Fire (ATK/HP) +16',hp:0.06, atk:0.1,  def:0   , img:IMG_Fire16},
-  {n:'Horn of Fire (ATK/DEF) +16',hp:0,    atk:0.1,  def:0.06, img:IMG_Fire16},
-  {n:'Horn of Earth (DEF/HP) +16',hp:0.06, atk:0,    def:0.1 , img:IMG_Earth16},
-  {n:'Horn of Earth (DEF/ATK) +16',hp:0,    atk:0.06, def:0.1 , img:IMG_Earth16},
-  {n:'Horn of Wind (HP/DEF) +16',hp:0.08, atk:0,    def:0.08, img:IMG_Wind16},
-  {n:'Horn of Wind (ATK/HP) +16',hp:0.08, atk:0.08, def:0   , img:IMG_Wind16},
-  {n:'Horn of Wind (ATK/DEF) +16',hp:0,    atk:0.08, def:0.08, img:IMG_Wind16},
+  {n:'Nightmare Orb +16 (HP)',hp:0.16, atk:0,    def:0   , img:IMG_악보16},
+  {n:'Dusk Orb +16 (ATK)',hp:0,    atk:0.16, def:0   , img:IMG_황보16},
+  {n:'Dawn Orb +16 (DEF)',hp:0,    atk:0,    def:0.16, img:IMG_여보16},
+  {n:'Horn of water +16 (HP/ATK)',hp:0.1,  atk:0.06, def:0   , img:IMG_물16},
+  {n:'Horn of water +16 (HP/DEF)',hp:0.1,  atk:0,    def:0.06, img:IMG_물16},
+  {n:'Horn of fire +16 (ATK/HP)',hp:0.06, atk:0.1,  def:0   , img:IMG_불16},
+  {n:'Horn of fire +16 (ATK/DEF)',hp:0,    atk:0.1,  def:0.06, img:IMG_불16},
+  {n:'Horn of earth +16 (DEF/HP)',hp:0.06, atk:0,    def:0.1 , img:IMG_땅16},
+  {n:'Horn of earth +16 (DEF/ATK)',hp:0,    atk:0.06, def:0.1 , img:IMG_땅16},
+  {n:'Horn of wind +16 (HP/DEF)',hp:0.08, atk:0,    def:0.08, img:IMG_바람16},
+  {n:'Horn of wind +16 (ATK/HP)',hp:0.08, atk:0.08, def:0   , img:IMG_바람16},
+  {n:'Horn of wind +16 (ATK/DEF)',hp:0,    atk:0.08, def:0.08, img:IMG_바람16},
 
-  {n:'Nightmare Orb (HP) +17',hp:0.17, atk:0,    def:0   , img:IMG_Nightmare Orb17},
-  {n:'Dusk Orb (ATK) +17',hp:0,    atk:0.17, def:0   , img:IMG_Dusk Orb17},
-  {n:'Dawn Orb (DEF) +17',hp:0,    atk:0,    def:0.17, img:IMG_Dawn Orb17},
-  {n:'Horn of Water (HP/ATK) +17',hp:0.11, atk:0.06, def:0   , img:IMG_Water17},
-  {n:'Horn of Water (HP/DEF) +17',hp:0.11, atk:0,    def:0.06, img:IMG_Water17},
-  {n:'Horn of Fire (ATK/HP) +17',hp:0.06, atk:0.11, def:0   , img:IMG_Fire17},
-  {n:'Horn of Fire (ATK/DEF) +17',hp:0,    atk:0.11, def:0.06, img:IMG_Fire17},
-  {n:'Horn of Earth (DEF/HP) +17',hp:0.06, atk:0,    def:0.11, img:IMG_Earth17},
-  {n:'Horn of Earth (DEF/ATK) +17',hp:0,    atk:0.06, def:0.11, img:IMG_Earth17},
-  {n:'Horn of Wind (HP/DEF) +17',hp:0.09, atk:0,    def:0.08, img:IMG_Wind17},
-  {n:'Horn of Wind (ATK/HP) +17',hp:0.08, atk:0.09, def:0   , img:IMG_Wind17},
-  {n:'Horn of Wind (ATK/DEF) +17',hp:0,    atk:0.09, def:0.08, img:IMG_Wind17},
+  {n:'Nightmare Orb +17 (HP)',hp:0.17, atk:0,    def:0   , img:IMG_악보17},
+  {n:'Dusk Orb +17 (ATK)',hp:0,    atk:0.17, def:0   , img:IMG_황보17},
+  {n:'Dawn Orb +17 (DEF)',hp:0,    atk:0,    def:0.17, img:IMG_여보17},
+  {n:'Horn of water +17 (HP/ATK)',hp:0.11, atk:0.06, def:0   , img:IMG_물17},
+  {n:'Horn of water +17 (HP/DEF)',hp:0.11, atk:0,    def:0.06, img:IMG_물17},
+  {n:'Horn of fire +17 (ATK/HP)',hp:0.06, atk:0.11, def:0   , img:IMG_불17},
+  {n:'Horn of fire +17 (ATK/DEF)',hp:0,    atk:0.11, def:0.06, img:IMG_불17},
+  {n:'Horn of earth +17 (DEF/HP)',hp:0.06, atk:0,    def:0.11, img:IMG_땅17},
+  {n:'Horn of earth +17 (DEF/ATK)',hp:0,    atk:0.06, def:0.11, img:IMG_땅17},
+  {n:'Horn of wind +17 (HP/DEF)',hp:0.09, atk:0,    def:0.08, img:IMG_바람17},
+  {n:'Horn of wind +17 (ATK/HP)',hp:0.08, atk:0.09, def:0   , img:IMG_바람17},
+  {n:'Horn of wind +17 (ATK/DEF)',hp:0,    atk:0.09, def:0.08, img:IMG_바람17},
 
-  {n:'Nightmare Orb (HP) +18',hp:0.18, atk:0,    def:0   , img:IMG_Nightmare Orb18},
-  {n:'Dusk Orb (ATK) +18',hp:0,    atk:0.18, def:0   , img:IMG_Dusk Orb18},
-  {n:'Dawn Orb (DEF) +18',hp:0,    atk:0,    def:0.18, img:IMG_Dawn Orb18},
-  {n:'Horn of Water (HP/ATK) +18',hp:0.12, atk:0.06, def:0   , img:IMG_Water18},
-  {n:'Horn of Water (HP/DEF) +18',hp:0.12, atk:0,    def:0.06, img:IMG_Water18},
-  {n:'Horn of Fire (ATK/HP) +18',hp:0.06, atk:0.12, def:0   , img:IMG_Fire18},
-  {n:'Horn of Fire (ATK/DEF) +18',hp:0,    atk:0.12, def:0.06, img:IMG_Fire18},
-  {n:'Horn of Earth (DEF/HP) +18',hp:0.06, atk:0,    def:0.12, img:IMG_Earth18},
-  {n:'Horn of Earth (DEF/ATK) +18',hp:0,    atk:0.06, def:0.12, img:IMG_Earth18},
-  {n:'Horn of Wind (HP/DEF) +18',hp:0.09, atk:0,    def:0.09, img:IMG_Wind18},
-  {n:'Horn of Wind (ATK/HP) +18',hp:0.09, atk:0.09, def:0   , img:IMG_Wind18},
-  {n:'Horn of Wind (ATK/DEF) +18',hp:0,    atk:0.09, def:0.09, img:IMG_Wind18},
+  {n:'Nightmare Orb +18 (HP)',hp:0.18, atk:0,    def:0   , img:IMG_악보18},
+  {n:'Dusk Orb +18 (ATK)',hp:0,    atk:0.18, def:0   , img:IMG_황보18},
+  {n:'Dawn Orb +18 (DEF)',hp:0,    atk:0,    def:0.18, img:IMG_여보18},
+  {n:'Horn of water +18 (HP/ATK)',hp:0.12, atk:0.06, def:0   , img:IMG_물18},
+  {n:'Horn of water +18 (HP/DEF)',hp:0.12, atk:0,    def:0.06, img:IMG_물18},
+  {n:'Horn of fire +18 (ATK/HP)',hp:0.06, atk:0.12, def:0   , img:IMG_불18},
+  {n:'Horn of fire +18 (ATK/DEF)',hp:0,    atk:0.12, def:0.06, img:IMG_불18},
+  {n:'Horn of earth +18 (DEF/HP)',hp:0.06, atk:0,    def:0.12, img:IMG_땅18},
+  {n:'Horn of earth +18 (DEF/ATK)',hp:0,    atk:0.06, def:0.12, img:IMG_땅18},
+  {n:'Horn of wind +18 (HP/DEF)',hp:0.09, atk:0,    def:0.09, img:IMG_바람18},
+  {n:'Horn of wind +18 (ATK/HP)',hp:0.09, atk:0.09, def:0   , img:IMG_바람18},
+  {n:'Horn of wind +18 (ATK/DEF)',hp:0,    atk:0.09, def:0.09, img:IMG_바람18},
 
-  {n:'Nightmare Orb (HP) +19',hp:0.19, atk:0,    def:0   , img:IMG_Nightmare Orb19},
-  {n:'Dusk Orb (ATK) +19',hp:0,    atk:0.19, def:0   , img:IMG_Dusk Orb19},
-  {n:'Dawn Orb (DEF) +19',hp:0,    atk:0,    def:0.19, img:IMG_Dawn Orb19},
-  {n:'Horn of Water (HP/ATK) +19',hp:0.13, atk:0.06, def:0   , img:IMG_Water19},
-  {n:'Horn of Water (HP/DEF) +19',hp:0.13, atk:0,    def:0.06, img:IMG_Water19},
-  {n:'Horn of Fire (ATK/HP) +19',hp:0.06, atk:0.13, def:0   , img:IMG_Fire19},
-  {n:'Horn of Fire (ATK/DEF) +19',hp:0,    atk:0.13, def:0.06, img:IMG_Fire19},
-  {n:'Horn of Earth (DEF/HP) +19',hp:0.06, atk:0,    def:0.13, img:IMG_Earth19},
-  {n:'Horn of Earth (DEF/ATK) +19',hp:0,    atk:0.06, def:0.13, img:IMG_Earth19},
-  {n:'Horn of Wind (HP/DEF) +19',hp:0.1,  atk:0,    def:0.09, img:IMG_Wind19},
-  {n:'Horn of Wind (ATK/HP) +19',hp:0.09, atk:0.1,  def:0   , img:IMG_Wind19},
-  {n:'Horn of Wind (ATK/DEF) +19',hp:0,    atk:0.1,  def:0.09, img:IMG_Wind19},
+  {n:'Nightmare Orb +19 (HP)',hp:0.19, atk:0,    def:0   , img:IMG_악보19},
+  {n:'Dusk Orb +19 (ATK)',hp:0,    atk:0.19, def:0   , img:IMG_황보19},
+  {n:'Dawn Orb +19 (DEF)',hp:0,    atk:0,    def:0.19, img:IMG_여보19},
+  {n:'Horn of water +19 (HP/ATK)',hp:0.13, atk:0.06, def:0   , img:IMG_물19},
+  {n:'Horn of water +19 (HP/DEF)',hp:0.13, atk:0,    def:0.06, img:IMG_물19},
+  {n:'Horn of fire +19 (ATK/HP)',hp:0.06, atk:0.13, def:0   , img:IMG_불19},
+  {n:'Horn of fire +19 (ATK/DEF)',hp:0,    atk:0.13, def:0.06, img:IMG_불19},
+  {n:'Horn of earth +19 (DEF/HP)',hp:0.06, atk:0,    def:0.13, img:IMG_땅19},
+  {n:'Horn of earth +19 (DEF/ATK)',hp:0,    atk:0.06, def:0.13, img:IMG_땅19},
+  {n:'Horn of wind +19 (HP/DEF)',hp:0.1,  atk:0,    def:0.09, img:IMG_바람19},
+  {n:'Horn of wind +19 (ATK/HP)',hp:0.09, atk:0.1,  def:0   , img:IMG_바람19},
+  {n:'Horn of wind +19 (ATK/DEF)',hp:0,    atk:0.1,  def:0.09, img:IMG_바람19},
 
-  {n:'Nightmare Orb (HP) +20',hp:0.2,  atk:0,    def:0   , img:IMG_Nightmare Orb20},
-  {n:'Dusk Orb (ATK) +20',hp:0,    atk:0.2,  def:0   , img:IMG_Dusk Orb20},
-  {n:'Dawn Orb (DEF) +20',hp:0,    atk:0,    def:0.2 , img:IMG_Dawn Orb20},
-  {n:'Horn of Water (HP/ATK) +20',hp:0.14, atk:0.06, def:0   , img:IMG_Water20},
-  {n:'Horn of Water (HP/DEF) +20',hp:0.14, atk:0,    def:0.06, img:IMG_Water20},
-  {n:'Horn of Fire (ATK/HP) +20',hp:0.06, atk:0.14, def:0   , img:IMG_Fire20},
-  {n:'Horn of Fire (ATK/DEF) +20',hp:0,    atk:0.14, def:0.06, img:IMG_Fire20},
-  {n:'Horn of Earth (DEF/HP) +20',hp:0.06, atk:0,    def:0.14, img:IMG_Earth20},
-  {n:'Horn of Earth (DEF/ATK) +20',hp:0,    atk:0.06, def:0.14, img:IMG_Earth20},
-  {n:'Horn of Wind (HP/DEF) +20',hp:0.1, atk:0,    def:0.1, img:IMG_Horn of Wind20},
-  {n:'Horn of Wind (ATK/HP) +20',hp:0.1, atk:0.1, def:0   , img:IMG_Horn of Wind20},
-  {n:'Horn of Wind (ATK/DEF) +20',hp:0,    atk:0.1, def:0.1, img:IMG_Horn of Wind20},
+  {n:'Nightmare Orb +20 (HP)',hp:0.2,  atk:0,    def:0   , img:IMG_악보20},
+  {n:'Dusk Orb +20 (ATK)',hp:0,    atk:0.2,  def:0   , img:IMG_황보20},
+  {n:'Dawn Orb +20 (DEF)',hp:0,    atk:0,    def:0.2 , img:IMG_여보20},
+  {n:'Horn of water +20 (HP/ATK)',hp:0.14, atk:0.06, def:0   , img:IMG_물20},
+  {n:'Horn of water +20 (HP/DEF)',hp:0.14, atk:0,    def:0.06, img:IMG_물20},
+  {n:'Horn of fire +20 (ATK/HP)',hp:0.06, atk:0.14, def:0   , img:IMG_불20},
+  {n:'Horn of fire +20 (ATK/DEF)',hp:0,    atk:0.14, def:0.06, img:IMG_불20},
+  {n:'Horn of earth +20 (DEF/HP)',hp:0.06, atk:0,    def:0.14, img:IMG_땅20},
+  {n:'Horn of earth +20 (DEF/ATK)',hp:0,    atk:0.06, def:0.14, img:IMG_땅20},
+  {n:'Horn of wind +20 (HP/DEF)',hp:0.1, atk:0,    def:0.1, img:IMG_바뿔20},
+  {n:'Horn of wind +20 (ATK/HP)',hp:0.1, atk:0.1, def:0   , img:IMG_바뿔20},
+  {n:'Horn of wind +20 (ATK/DEF)',hp:0,    atk:0.1, def:0.1, img:IMG_바뿔20},
 ];
+const ACC_NAME_KR2EN={
+  '빛뿔 (크/체) 18':'Horn of light +18 (Crit/HP)',
+  '빛뿔 (크/공) 18':'Horn of light +18 (Crit/ATK)',
+  '빛뿔 (크/방) 18':'Horn of light +18 (Crit/DEF)',
+  '빛뿔 (크/체) 20':'Horn of light +20 (Crit/HP)',
+  '빛뿔 (크/공) 20':'Horn of light +20 (Crit/ATK)',
+  '빛뿔 (크/방) 20':'Horn of light +20 (Crit/DEF)',
+  '악몽 수호자의 보주 (악보) 16':'Nightmare Orb +16 (HP)',
+  '황혼 수호자의 보주 (황보) 16':'Dusk Orb +16 (ATK)',
+  '여명 수호자의 보주 (여보) 16':'Dawn Orb +16 (DEF)',
+  '물뿔 (체/공) 16':'Horn of water +16 (HP/ATK)',
+  '물뿔 (체/방) 16':'Horn of water +16 (HP/DEF)',
+  '불뿔 (공/체) 16':'Horn of fire +16 (ATK/HP)',
+  '불뿔 (공/방) 16':'Horn of fire +16 (ATK/DEF)',
+  '대뿔 (방/체) 16':'Horn of earth +16 (DEF/HP)',
+  '대뿔 (방/공) 16':'Horn of earth +16 (DEF/ATK)',
+  '바뿔 (체/방) 16':'Horn of wind +16 (HP/DEF)',
+  '바뿔 (공/체) 16':'Horn of wind +16 (ATK/HP)',
+  '바뿔 (공/방) 16':'Horn of wind +16 (ATK/DEF)',
+  '악몽 수호자의 보주 (악보) 17':'Nightmare Orb +17 (HP)',
+  '황혼 수호자의 보주 (황보) 17':'Dusk Orb +17 (ATK)',
+  '여명 수호자의 보주 (여보) 17':'Dawn Orb +17 (DEF)',
+  '물뿔 (체/공) 17':'Horn of water +17 (HP/ATK)',
+  '물뿔 (체/방) 17':'Horn of water +17 (HP/DEF)',
+  '불뿔 (공/체) 17':'Horn of fire +17 (ATK/HP)',
+  '불뿔 (공/방) 17':'Horn of fire +17 (ATK/DEF)',
+  '대뿔 (방/체) 17':'Horn of earth +17 (DEF/HP)',
+  '대뿔 (방/공) 17':'Horn of earth +17 (DEF/ATK)',
+  '바뿔 (체/방) 17':'Horn of wind +17 (HP/DEF)',
+  '바뿔 (공/체) 17':'Horn of wind +17 (ATK/HP)',
+  '바뿔 (공/방) 17':'Horn of wind +17 (ATK/DEF)',
+  '악몽 수호자의 보주 (악보) 18':'Nightmare Orb +18 (HP)',
+  '황혼 수호자의 보주 (황보) 18':'Dusk Orb +18 (ATK)',
+  '여명 수호자의 보주 (여보) 18':'Dawn Orb +18 (DEF)',
+  '물뿔 (체/공) 18':'Horn of water +18 (HP/ATK)',
+  '물뿔 (체/방) 18':'Horn of water +18 (HP/DEF)',
+  '불뿔 (공/체) 18':'Horn of fire +18 (ATK/HP)',
+  '불뿔 (공/방) 18':'Horn of fire +18 (ATK/DEF)',
+  '대뿔 (방/체) 18':'Horn of earth +18 (DEF/HP)',
+  '대뿔 (방/공) 18':'Horn of earth +18 (DEF/ATK)',
+  '바뿔 (체/방) 18':'Horn of wind +18 (HP/DEF)',
+  '바뿔 (공/체) 18':'Horn of wind +18 (ATK/HP)',
+  '바뿔 (공/방) 18':'Horn of wind +18 (ATK/DEF)',
+  '악몽 수호자의 보주 (악보) 19':'Nightmare Orb +19 (HP)',
+  '황혼 수호자의 보주 (황보) 19':'Dusk Orb +19 (ATK)',
+  '여명 수호자의 보주 (여보) 19':'Dawn Orb +19 (DEF)',
+  '물뿔 (체/공) 19':'Horn of water +19 (HP/ATK)',
+  '물뿔 (체/방) 19':'Horn of water +19 (HP/DEF)',
+  '불뿔 (공/체) 19':'Horn of fire +19 (ATK/HP)',
+  '불뿔 (공/방) 19':'Horn of fire +19 (ATK/DEF)',
+  '대뿔 (방/체) 19':'Horn of earth +19 (DEF/HP)',
+  '대뿔 (방/공) 19':'Horn of earth +19 (DEF/ATK)',
+  '바뿔 (체/방) 19':'Horn of wind +19 (HP/DEF)',
+  '바뿔 (공/체) 19':'Horn of wind +19 (ATK/HP)',
+  '바뿔 (공/방) 19':'Horn of wind +19 (ATK/DEF)',
+  '악몽 수호자의 보주 (악보) 20':'Nightmare Orb +20 (HP)',
+  '황혼 수호자의 보주 (황보) 20':'Dusk Orb +20 (ATK)',
+  '여명 수호자의 보주 (여보) 20':'Dawn Orb +20 (DEF)',
+  '물뿔 (체/공) 20':'Horn of water +20 (HP/ATK)',
+  '물뿔 (체/방) 20':'Horn of water +20 (HP/DEF)',
+  '불뿔 (공/체) 20':'Horn of fire +20 (ATK/HP)',
+  '불뿔 (공/방) 20':'Horn of fire +20 (ATK/DEF)',
+  '대뿔 (방/체) 20':'Horn of earth +20 (DEF/HP)',
+  '대뿔 (방/공) 20':'Horn of earth +20 (DEF/ATK)',
+  '바뿔 (체/방) 20':'Horn of wind +20 (HP/DEF)',
+  '바뿔 (공/체) 20':'Horn of wind +20 (ATK/HP)',
+  '바뿔 (공/방) 20':'Horn of wind +20 (ATK/DEF)'
+};
+function normalizeAccName(name){
+  if(!name)return name;
+  if(ACC_DB.some(a=>a.n===name))return name;
+  return ACC_NAME_KR2EN[name]||name;
+}
 
-// new accessory input at sort judge by
-const ACC_TYPE_ORDER=['Nightmare Orb','Dusk Orb','Dawn Orb','Horn of Water','Horn of Fire','Horn of Earth','Horn of Wind','Horn of Light'];
+// 신규 Accessory 입력 시 정렬 판단 기준
+const ACC_TYPE_ORDER=['Nightmare Orb','Dusk Orb','Dawn Orb','Horn of water','Horn of fire','Horn of earth','Horn of wind','Horn of light'];
 const ENC_ORDER={hp:0,atk:1,def:2,none:3}
 
-// defaultstat DB (per grade × typeStar)
+// 기본Stat DB (Grade별 × Type별)
 const BASE={
-  '7.0':{'HP Type':{hp:1252,atk:176,def:176},'ATK Type':{hp:876,atk:285,def:161},'DEF Type':{hp:788,atk:185,def:283},'ATK-DEF Type':{hp:720,atk:242,def:243},'HP-ATK Type':{hp:1080,atk:262,def:133},'HP-DEF Type':{hp:1080,atk:133,def:262}},
-  '8.0':{'HP Type':{hp:1332,atk:176,def:176},'ATK Type':{hp:876,atk:305,def:161},'DEF Type':{hp:788,atk:185,def:303},'ATK-DEF Type':{hp:720,atk:252,def:253},'HP-ATK Type':{hp:1120,atk:272,def:133},'HP-DEF Type':{hp:1120,atk:133,def:272}},
-  '9.0':{'HP Type':{hp:1412,atk:176,def:176},'ATK Type':{hp:876,atk:325,def:161},'DEF Type':{hp:788,atk:185,def:323},'ATK-DEF Type':{hp:720,atk:262,def:263},'HP-ATK Type':{hp:1160,atk:282,def:133},'HP-DEF Type':{hp:1160,atk:133,def:282}},
+  '7.0':{체력형:{hp:1252,atk:176,def:176},공격형:{hp:876,atk:285,def:161},방어형:{hp:788,atk:185,def:283},공방형:{hp:720,atk:242,def:243},체공형:{hp:1080,atk:262,def:133},체방형:{hp:1080,atk:133,def:262}},
+  '8.0':{체력형:{hp:1332,atk:176,def:176},공격형:{hp:876,atk:305,def:161},방어형:{hp:788,atk:185,def:303},공방형:{hp:720,atk:252,def:253},체공형:{hp:1120,atk:272,def:133},체방형:{hp:1120,atk:133,def:272}},
+  '9.0':{체력형:{hp:1412,atk:176,def:176},공격형:{hp:876,atk:325,def:161},방어형:{hp:788,atk:185,def:323},공방형:{hp:720,atk:262,def:263},체공형:{hp:1160,atk:282,def:133},체방형:{hp:1160,atk:133,def:282}},
 };
 
-// gem DB (per stage HP/ATK/DEF value)
-const GEM={36:{hp:144,atk:36,def:36},37:{hp:148,atk:37,def:37},38:{hp:152,atk:38,def:38},39:{hp:156,atk:39,def:39},40:{hp:160,atk:40,def:40}};
+// 젬 DB (단계별 체/공/방 수치)
+const GEM={36:{hp:144,atk:36,def:36},37:{hp:152,atk:38,def:38},38:{hp:160,atk:40,def:40},39:{hp:168,atk:42,def:42},40:{hp:176,atk:44,def:44}};
+const GEM_NAME={36:36,37:38,38:40,39:42,40:44}; // storage key (old tier) -> display name (new tier)
 const FALLBACK_GEM_LV=36;
 const FALLBACK_GEM_COUNT=999;
 
-// Spirit DB: +opt value (stat×opt num), %opt value (opt num), Bonus value
+// Spirit DB: +opt 수치 (Stat×opt번호), %opt 수치 (opt번호), Spirit type 수치
 const SP_PLUS={hp:{1:216,2:240,3:264,4:480},atk:{1:54,2:60,3:66,4:120},def:{1:54,2:60,3:66,4:120}};
 const SP_PCT={1:0.24,2:0.28,3:0.32,4:0.40};
 const SP_BONUS={hp:40,atk:10,def:10};
 const SP_PRESETS=[
   {id:'custom',name:'Custom',types:['','','','']},
-  {id:'last_plus',name:'Last+',types:['%','%','%','+']},
+  {id:'last_plus',name:'Ult+',types:['%','%','%','+']},
+  {id:'first_one_plus',name:'1st+',types:['+','%','%','%']},
   {id:'all_pct',name:'All%',types:['%','%','%','%']},
-  {id:'one_four_plus',name:'1&4+',types:['+','%','%','+']},
-  {id:'first_plus',name:'2&4+',types:['%','+','%','+']}
+  {id:'one_four_plus',name:'14+',types:['+','%','%','+']},
+  {id:'three_four_plus',name:'34+',types:['%','%','+','+']},
+  {id:'first_plus',name:'24+',types:['%','+','%','+']}
 ];
 
-const DTYPES=['HP Type','ATK Type','DEF Type','HP-ATK Type','HP-DEF Type','ATK-DEF Type'];
-const DCOLORS={'HP Type':'#fbbf24','ATK Type':'#f87171','DEF Type':'#60a5fa','HP-ATK Type':'#f59e4a','HP-DEF Type':'#90d97f','ATK-DEF Type':'#c084fc'};
+const DTYPES=['체력형','공격형','방어형','체공형','체방형','공방형'];
+const T_TYPE_S={'체력형':'HP','공격형':'ATK','방어형':'DEF','공방형':'ATK/DEF','체공형':'HP/ATK','체방형':'HP/DEF'};
+const T_PEND={'태양':'Sun','달':'Moon','별':'Star'};
+const CAT_LBL={'땅':'Earth','물':'Water','불':'Fire','바람':'Wind','빛':'Light','어둠':'Dark','황혼':'Dusk','여명':'Dawn','악몽':'Nightmare'};
+const GROWTH_LBL={'강림(축복)':'Advent (Blessing)','강림':'Advent','진각':'Jin-Awaken'};
+const DCOLORS={체력형:'#fbbf24',공격형:'#f87171',방어형:'#60a5fa',체공형:'#f59e4a',체방형:'#90d97f',공방형:'#c084fc'};
 const SK={hp:'HP',atk:'ATK',def:'DEF'};
 const SKEYS=['hp','atk','def'];
-const DRAGON_CATS=['Earth','Water','Fire','Wind','Light','Dark','Dawn','Dusk','Nightmare'];
+const DRAGON_CATS=['땅','물','불','바람','빛','어둠','여명','황혼','악몽'];
 const DRAGON_TYPE_DB=window.DRAGON_TYPE_DB||{};
 const DRAGON_ATTR_DB=window.DRAGON_ATTR_DB||{};
 const newDragonUid=()=>`dragon-${Date.now().toString(36)}-${Math.random().toString(36).slice(2,8)}`;
-const mkDragonCard=()=>({uid:newDragonUid(),name:'',dtype:'',dupe:false,grade:'9.0',growth:'Advent(Blessed)',opts:[{stat:'',type:''},{stat:'',type:''},{stat:'',type:''},{stat:'',type:''}],bonus:''});
+const mkDragonCard=()=>({uid:newDragonUid(),name:'',dtype:'',dupe:false,grade:'9.0',growth:'강림(축복)',opts:[{stat:'',type:''},{stat:'',type:''},{stat:'',type:''},{stat:'',type:''}],bonus:''});
 const mkDragonCards=()=>Object.fromEntries(DRAGON_CATS.map(c=>[c,[]]));
 const mkSettingBuffs=()=>({
-  buff:{attr:'Dark',type:'HP-ATK Type',stat1:'hp',stat2:'hp'},
-  debuff:{attr:'Wind',type:'DEF Type',stat1:'atk',stat2:'hp'}
+  buff:{attr:'어둠',type:'체공형',stat1:'hp',stat2:'hp'},
+  debuff:{attr:'바람',type:'방어형',stat1:'atk',stat2:'hp'}
 });
 
 // ================================================================
-// state manage (LocalStorage)
+// 상태 관리 (LocalStorage)
 // ================================================================
 const mkState=()=>({
   accCards:[],
@@ -1199,15 +1226,15 @@ const mkState=()=>({
 let S=mkState();
 let simGrade='9.0', simBuf=2;
 
-const SAVE_KEY='dv1sim_'+location.pathname.split('/').pop().replace(/\.[^.]+$/,'');
+const SAVE_KEY='dv1simEN_'+location.pathname.split('/').pop().replace(/\.[^.]+$/,'');
 
 function doLoad(){
   try{
     const r=localStorage.getItem(SAVE_KEY);
-    // ── My Stats auto apply ──
+    // ── My Spec 자동 적용 ──
     (function(){
       try{
-        const _sr=localStorage.getItem('dv1sim_spec');
+        const _sr=localStorage.getItem('dv1simEN_spec');
         if(!_sr)return;
         const _sp=JSON.parse(_sr);
         if(_sp.accCards)S.accCards=_sp.accCards;
@@ -1221,10 +1248,10 @@ function doLoad(){
     S={...mkState(),...p,accCards:p.accCards||[],gems:{...mkState().gems,...(p.gems||{})},spirit:{...mkState().spirit,...(p.spirit||{})},coll:{...mkState().coll,...(p.coll||{})},dragonCards:{...mkDragonCards(),...(p.dragonCards||{})},settingBuffs:{...mkSettingBuffs(),...(p.settingBuffs||{})}};
     while(S.spirit.opts.length<4)S.spirit.opts.push({stat:'',type:''});
     normalizeDragonCards();
-    // ── My Stats auto apply ──
+    // ── My Spec 자동 적용 ──
     (function(){
       try{
-        const _sr=localStorage.getItem('dv1sim_spec');
+        const _sr=localStorage.getItem('dv1simEN_spec');
         if(!_sr)return;
         const _sp=JSON.parse(_sr);
         if(_sp.accCards)S.accCards=_sp.accCards;
@@ -1238,18 +1265,18 @@ function doLoad(){
 
 function saveDragonToSpec(){
   try{
-    // S.dragonCards direct use (localStoragemore than latest state guaranteed)
+    // S.dragonCards 직접 사용 (localStorage보다 최신 상태 보장)
     const dragonCards=S.dragonCards||{};
-    const specRaw=localStorage.getItem('dv1sim_spec');
+    const specRaw=localStorage.getItem('dv1simEN_spec');
     const spec=specRaw?JSON.parse(specRaw):{};
     spec.dragonCards=dragonCards;
-    localStorage.setItem('dv1sim_spec',JSON.stringify(spec));
-    localStorage.setItem('dv1sim_dragon_pending','1'); // local Dragon is latest display
+    localStorage.setItem('dv1simEN_spec',JSON.stringify(spec));
+    localStorage.setItem('dv1simEN_dragon_pending','1'); // 로컬 Dragon이 최신임을 표시
     const el=document.getElementById('save-msg');
-    if(el){el.textContent='✓ Dragon setting Savedone';setTimeout(()=>el.textContent='',2500);}
+    if(el){el.textContent='✓ Dragon setup saved';setTimeout(()=>el.textContent='',2500);}
     const t=document.createElement('div');
     t.style.cssText='position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--gold);color:#0a0c18;padding:10px 24px;border-radius:8px;font-weight:800;font-size:14px;z-index:9999;transition:opacity .3s';
-    t.textContent='✓ My Statsin Dragon setting Savedone!';
+    t.textContent='✓ Dragon setup saved to My Spec!';
     document.body.appendChild(t);
     setTimeout(()=>{t.style.opacity='0';setTimeout(()=>t.remove(),300);},2200);
   }catch(e){console.error(e);}
@@ -1260,11 +1287,11 @@ function doSave(){
   clearTimeout(saveT);
   localStorage.setItem(SAVE_KEY,JSON.stringify(S));
   const el=document.getElementById('save-msg');
-  if(el){el.textContent='✓ Savedone';setTimeout(()=>el.textContent='',2000);}
+  if(el){el.textContent='✓ Saved';setTimeout(()=>el.textContent='',2000);}
 }
 function qSave(){clearTimeout(saveT);saveT=setTimeout(doSave,1200);}
 function resetAll(){
-  if(!confirm('All inputs and simulation results will be Reset. (Collection included)'))return;
+  if(!confirm('All inputs and sim results will be reset (including Collection).'))return;
   S=mkState();
   const chk=document.getElementById('chk-stat-only');
   if(chk)chk.checked=true;
@@ -1289,7 +1316,7 @@ function resetSimResult(){
 }
 
 function getAccNum(name){
-  const m=name.match(/(\d+)\s*$/);
+  const m=name.match(/\+(\d+)/)||name.match(/(\d+)\s*$/);
   return m?parseInt(m[1]):0;
 }
 function getAccType(name){
@@ -1312,9 +1339,9 @@ function sortAccCards(){
   });
   S.accCards=S.accCards.map(({_idx,...c})=>c);
 }
-function getPendOrder(type){return type==='Sun'?0:type==='Moon'?1:2;}
+function getPendOrder(type){return type==='태양'?0:type==='달'?1:2;}
 function getPendSum(p){
-  const mo=p.type==='Sun'?3:p.type==='Moon'?2:1;
+  const mo=p.type==='태양'?3:p.type==='달'?2:1;
   return p.options.slice(0,mo).reduce((s,o)=>s+(o.val||0),0);
 }
 function sortPendants(){
@@ -1330,7 +1357,7 @@ function sortPendants(){
 }
 
 // ================================================================
-// UI - accessory section
+// UI - Accessory 섹션
 // ================================================================
 function fmtAccSt(a){
   if(!a)return'';
@@ -1338,7 +1365,7 @@ function fmtAccSt(a){
   if(a.hp>0)p.push(`<span style="color:var(--hpc)">HP${(a.hp*100).toFixed(0)}%</span>`);
   if(a.atk>0)p.push(`<span style="color:var(--atc)">ATK${(a.atk*100).toFixed(0)}%</span>`);
   if(a.def>0)p.push(`<span style="color:var(--dfc)">DEF${(a.def*100).toFixed(0)}%</span>`);
-  return p.length?p.join(' '):'<span style="color:var(--dimmer)">crit/evade</span>';
+  return p.length?p.join(' '):'<span style="color:var(--dimmer)">Crit/AVD</span>';
 }
 
 function applyEncColor(sel){
@@ -1350,17 +1377,18 @@ function renderAcc(){
   const list=document.getElementById('acc-list');
   if(!list)return;
   if(!S.accCards.length){
-    list.innerHTML='<div style="color:var(--dimmer);font-size:13px">No Accessories</div>';
+    list.innerHTML='<div style="color:var(--dimmer);font-size:13px">No accessories</div>';
     return;
   }
   let html='';
   S.accCards.forEach((card,ci)=>{
-    const a=ACC_DB.find(x=>x.n===card.name);
+    const dispName=normalizeAccName(card.name);
+    const a=ACC_DB.find(x=>x.n===dispName);
     const stHtml=a?fmtAccSt(a):'<span style="color:var(--dimmer)">-</span>';
     html+=`<div class="acc-card">
       <div class="acc-card-row">
         <div class="acc-search-wrap" id="acc-wrap-${ci}">
-          <input class="acc-search-input" id="acc-inp-${ci}" value="${card.name||''}" placeholder="..."
+          <input class="acc-search-input" id="acc-inp-${ci}" value="${dispName||''}" placeholder="Search accessory..."
             oninput="filterAccDrop(${ci},this.value)"
             onfocus="openAccDrop(${ci})"
             onblur="setTimeout(()=>closeAccDrop(${ci},this),150)"
@@ -1371,7 +1399,7 @@ function renderAcc(){
         <span style="font-size:11px;min-width:80px">${stHtml}</span>
         <span style="font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.3px;font-weight:700;flex-shrink:0">Enchant</span>
         <select style="font-size:12px" onchange="onAccEnc(${ci},this.value);applyEncColor(this)">
-          <option value="none" ${card.enchant==='none'?'selected':''}>enchant None</option>
+          <option value="none" ${card.enchant==='none'?'selected':''}>No enchant</option>
           <option value="hp"   ${card.enchant==='hp'?'selected':''}>HP +21%</option>
           <option value="atk"  ${card.enchant==='atk'?'selected':''}>ATK +21%</option>
           <option value="def"  ${card.enchant==='def'?'selected':''}>DEF +21%</option>
@@ -1441,7 +1469,7 @@ function filterAccDrop(ci,q){
   if(!drop)return;
   const kw=q.toLowerCase().trim();
   const statOnly=document.getElementById('chk-stat-only')?.checked;
-  let filtered=statOnly?ACC_DB.filter(a=>!a.n.startsWith('Horn of Light')):ACC_DB;
+  let filtered=statOnly?ACC_DB.filter(a=>!a.n.startsWith('Horn of light')):ACC_DB;
   if(kw)filtered=filtered.filter(a=>a.n.toLowerCase().includes(kw));
   drop.innerHTML=filtered.slice(0,30).map(a=>
     `<div class="acc-drop-item" onmousedown="selectAcc(${ci},'${a.n.replace(/'/g,"\'")}')">
@@ -1464,12 +1492,12 @@ function addAcc(){
   renderAcc();qSave();
 }
 
-//accessory per stage bulk Add
+//Accessory 단계별 일괄 추가
 function addAccBulk(lv){
   const statOnly=document.getElementById('chk-stat-only')?.checked;
-  const targets=ACC_DB.filter(a=>getAccNum(a.n)===lv&&(!statOnly||!a.n.startsWith('Horn of Light')));
+  const targets=ACC_DB.filter(a=>getAccNum(a.n)===lv&&(!statOnly||!a.n.startsWith('Horn of light')));
   if(!targets.length){
-    alert(`${lv} Accessory find count not found.`);
+    alert(`Tier ${lv} accessory not found.`);
     return;
   }
   targets.forEach(a=>S.accCards.unshift({name:a.n,enchant:'none'}));
@@ -1477,7 +1505,7 @@ function addAccBulk(lv){
   renderAcc();
   resetSimResult();
   qSave();
-  alert(`${lv} Accessory 1set Adddone.`);
+  alert(`Tier ${lv} accessory set added.`);
 }
 
 function delAcc(ci){
@@ -1486,7 +1514,7 @@ function delAcc(ci){
 }
 
 function resetAcc(){
-  if(!confirm('All entered options will be Reset.'))return;
+  if(!confirm('All entered option values will be reset.'))return;
   S.accCards=[];
   renderAcc();
   qSave();
@@ -1498,7 +1526,7 @@ function onAccEnc(ci,enc){
 }
 
 // ================================================================
-// UI - gem section
+// UI - 젬 섹션
 // ================================================================
 function populateGems(){
   for(const s of SKEYS)for(const lv of [37,38,39,40]){
@@ -1508,7 +1536,7 @@ function populateGems(){
 }
 
 function resetGems(){
-  if(!confirm('All entered options will be Reset.'))return;
+  if(!confirm('All entered option values will be reset.'))return;
   S.gems={hp:{37:0,38:0,39:0,40:0},atk:{37:0,38:0,39:0,40:0},def:{37:0,38:0,39:0,40:0}};
   populateGems();
   qSave();
@@ -1522,18 +1550,18 @@ function onGem(stat,lv,val,el){
 }
 
 // ================================================================
-// UI - Pendant Section
+// UI - Pendant 섹션
 // ================================================================
 function renderPends(){
   const el=document.getElementById('pend-list');
   if(!el)return;
   if(!S.pendants.length){
-    el.innerHTML='<div style="color:var(--dimmer);font-size:13px">No pendants (not applied in simulation)</div>';
+    el.innerHTML='<div style="color:var(--dimmer);font-size:13px">No pendants (pendant effect not applied in sim)</div>';
     return;
   }
   let html='';
   S.pendants.forEach((p,pi)=>{
-    const mo=p.type==='Sun'?3:p.type==='Moon'?2:1;
+    const mo=p.type==='태양'?3:p.type==='달'?2:1;
     let opts='';
     for(let oi=0;oi<mo;oi++){
       const o=p.options[oi]||{stat:'hp',val:1};
@@ -1553,12 +1581,12 @@ function renderPends(){
     html+=`<div class="pcard">
       <div class="pcard-hd">
         <select onchange="onPType(${pi},this.value)" style="width:100px">
-          <option value="Sun" ${p.type==='Sun'?'selected':''}>Sun (3 opts)</option>
-          <option value="Moon"   ${p.type==='Moon'?'selected':''}>Moon (2 opts)</option>
-          <option value="Star"   ${p.type==='Star'?'selected':''}>Star (1 opt)</option>
+          <option value="태양" ${p.type==='태양'?'selected':''}>Sun (3 opts)</option>
+          <option value="달"   ${p.type==='달'?'selected':''}>Moon (2 opts)</option>
+          <option value="별"   ${p.type==='별'?'selected':''}>Star (1 opt)</option>
         </select>
         <img src="${IMG_PEND[p.type]||''}" style="width:36px;height:36px;object-fit:contain;border-radius:4px">
-        <span id="pend-summ-${pi}" style="color:#fff;font-size:12px">(${summ})</span>
+        <span id="pend-summ-${pi}" style="color:var(--text);font-size:12px">(${summ})</span>
         <button class="btn-red" onclick="delPend(${pi})" style="margin-left:auto">Delete</button>
       </div>
       <div style="display:flex;flex-wrap:wrap;gap:10px 16px;margin-top:2px">${opts}</div>
@@ -1569,7 +1597,7 @@ function renderPends(){
 
 function getPendSummary(p){
   if(!p)return'';
-  const mo=p.type==='Sun'?3:p.type==='Moon'?2:1;
+  const mo=p.type==='태양'?3:p.type==='달'?2:1;
   return p.options.slice(0,mo).map(o=>`${SK[o.stat]||'?'}${o.val||0}%`).join('/');
 }
 
@@ -1580,7 +1608,7 @@ function updatePendSummary(pi){
 }
 
 function addPendant(){
-  S.pendants.unshift({type:'Moon',options:[{stat:'hp',val:1},{stat:'hp',val:1}]});
+  S.pendants.unshift({type:'달',options:[{stat:'hp',val:1},{stat:'hp',val:1}]});
   renderPends();qSave();
 }
 
@@ -1594,19 +1622,19 @@ function addMoonPendantSet(){
     ['def','def']
   ];
   const set=combos.map(([a,b])=>({
-    type:'Moon',
+    type:'달',
     options:[{stat:a,val:6},{stat:b,val:6}]
   }));
   S.pendants.unshift(...set);
   renderPends();
   qSave();
-  alert('Moon Pend set 1(6type) Adddone.');
+  alert('One Moon-pendant set (6 types) added.');
 }
 
 function delPend(i){S.pendants.splice(i,1);renderPends();qSave();}
 
 function resetPend(){
-  if(!confirm('All entered options will be Reset.'))return;
+  if(!confirm('All entered option values will be reset.'))return;
   S.pendants=[];
   renderPends();
   qSave();
@@ -1614,7 +1642,7 @@ function resetPend(){
 
 function onPType(pi,type){
   S.pendants[pi].type=type;
-  const max=type==='Sun'?3:type==='Moon'?2:1;
+  const max=type==='태양'?3:type==='달'?2:1;
   while(S.pendants[pi].options.length<max)S.pendants[pi].options.push({stat:'hp',val:1});
   S.pendants[pi].options=S.pendants[pi].options.slice(0,max);
   renderPends();qSave();
@@ -1623,7 +1651,7 @@ function onPType(pi,type){
 function validatePOpt(el,pi,oi){
   const n=parseInt(el.value);
   if(el.value===''||isNaN(n)||n<1||n>6){
-    alert('1~6 between integer please enter.');
+    alert('Please enter an integer between 1 and 6.');
     el.value='';
     return;
   }
@@ -1639,7 +1667,7 @@ function onPOpt(pi,oi,field,val){
 }
 
 // ================================================================
-// UI - Spirit section
+// UI - Spirit 섹션
 // ================================================================
 function spPresetLabel(type){
   return type==='%'?'%':type==='+'?'+':'-';
@@ -1691,8 +1719,8 @@ function renderSpirit(){
       </select>
       <select onchange="onSpOpt(${i-1},'type',this.value)">
         <option value=""  ${!o.type?'selected':''}>-</option>
-        <option value="+" ${o.type==='+'?'selected':''}>+stat</option>
-        <option value="%" ${o.type==='%'?'selected':''}>%stat</option>
+        <option value="+" ${o.type==='+'?'selected':''}>+Stat</option>
+        <option value="%" ${o.type==='%'?'selected':''}>%Stat</option>
       </select>
       <span class="sp-oval">${v}</span>
     </div>`;
@@ -1701,7 +1729,7 @@ function renderSpirit(){
   el.innerHTML=`
     <div class="sp-preset-grid">${presets}</div>
     <div class="sp-opts">${opts}</div>
-    <div class="fg"><label>Bonus</label>
+    <div class="fg"><label>Spirit type</label>
       <select onchange="onSpBonus(this.value)">
         <option value=""    ${!sp.bonus?'selected':''}>None</option>
         <option value="hp"  ${sp.bonus==='hp'?'selected':''}>HP (+40)</option>
@@ -1712,7 +1740,7 @@ function renderSpirit(){
 }
 
 function resetSpirit(){
-  if(!confirm('entered optionand value sim result Reset.'))return;
+  if(!confirm('Entered option values and sim results will be reset.'))return;
   S.spirit={level:1,maxLvl:false,opts:[{stat:'',type:''},{stat:'',type:''},{stat:'',type:''},{stat:'',type:''}],bonus:''};
   renderSpirit();
   resetSimResult();
@@ -1739,7 +1767,7 @@ function onSpBonus(val){
 }
 
 // ================================================================
-// UI - Dragon Info
+// UI - My Dragons
 // ================================================================
 function escHtml(v){
   return String(v??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -1764,8 +1792,8 @@ function normalizeDragonCards(){
       card.dupe=!!card.dupe;
       if(!card.grade&&BASE[card.growth])card.grade=card.growth;
       card.grade=BASE[card.grade]?card.grade:'9.0';
-      card.growth=['Advent(Blessed)','Advent','Advanced'].includes(card.growth)?card.growth:'Advent(Blessed)';
-      if(card.growth==='Advent'||card.growth==='Advanced')card.grade='7.0';
+      card.growth=['강림(축복)','강림','진각'].includes(card.growth)?card.growth:'강림(축복)';
+      if(card.growth==='강림'||card.growth==='진각')card.grade='7.0';
     });
   });
 }
@@ -1781,8 +1809,8 @@ function dragonStatOptions(v){
 function dragonTypeOptions(v){
   return `
     <option value="" ${!v?'selected':''}>-</option>
-    <option value="+" ${v==='+'?'selected':''}>+stat</option>
-    <option value="%" ${v==='%'?'selected':''}>%stat</option>`;
+    <option value="+" ${v==='+'?'selected':''}>+Stat</option>
+    <option value="%" ${v==='%'?'selected':''}>%Stat</option>`;
 }
 
 function normDragonName(name){
@@ -1800,6 +1828,7 @@ function dragonOfficialName(entry){
 }
 
 function findDragonMatch(name){
+  name=NAME_KR[name]||name;
   const key=normDragonName(name);
   if(!key)return null;
   const prefixMatches=[];
@@ -1863,7 +1892,7 @@ function warnUncheckedDragonDuplicate(){
   const group=findUncheckedDragonDuplicate();
   if(!group)return;
   const name=group[0].card.name;
-  alert(`same dragon name "${name}" entered exists. same entity if not each card duplicate whether please check.`);
+  alert(`The dragon name "${name}" is already entered. If not the same individual, check the Duplicate box on each card.`);
 }
 
 function syncDragonDupeGroupByName(name){
@@ -1892,7 +1921,7 @@ function isDragonSpiritPresetActive(card,preset){
 function renderDragonCounts(){
   DRAGON_CATS.forEach(cat=>{
     const el=document.querySelector(`[data-dragon-count="${cat}"]`);
-    if(el)el.textContent=`(${(S.dragonCards?.[cat]||[]).length}dragon(s))`;
+    if(el)el.textContent=`(${(S.dragonCards?.[cat]||[]).length})`;
   });
 }
 
@@ -1928,23 +1957,23 @@ function renderDragonInfo(){
               <span class="dragon-card-no">${ci+1}</span>
               ${(()=>{const _u=getDragonImgUrl(card.name);return _u?'<img class="dragon-img-icon" src="'+_u+'" onerror="this.style.display=\'none\'">':'<div class="dragon-img-placeholder"></div>';})()}
               <div class="dragon-name-wrap">
-                <input class="dragon-name-input" type="text" value="${escHtml(card.name)}" placeholder="" oninput="onDragonNameInput('${cat}',${ci},this.value);filterDragonDrop('${cat}',${ci},this.value)" onchange="applyDragonNameType('${cat}',${ci})" onfocus="filterDragonDrop('${cat}',${ci},this.value)" onblur="setTimeout(()=>{const d=document.getElementById('dragon-drop-${cat}-${ci}');if(d)d.classList.remove('open');},200)">
+                <input class="dragon-name-input" type="text" value="${escHtml(card.name)}" placeholder="용 이름" oninput="onDragonNameInput('${cat}',${ci},this.value);filterDragonDrop('${cat}',${ci},this.value)" onchange="applyDragonNameType('${cat}',${ci})" onfocus="filterDragonDrop('${cat}',${ci},this.value)" onblur="setTimeout(()=>{const d=document.getElementById('dragon-drop-${cat}-${ci}');if(d)d.classList.remove('open');},200)">
                 <div class="dragon-drop" id="dragon-drop-${cat}-${ci}"></div>
               </div>
             </div>
-            <label class="dragon-dupe-check">duplicate whether <input type="checkbox" ${card.dupe?'checked':''} onchange="onDragonDupe('${cat}',${ci},this.checked)"></label>
-            <div class="readonly-field dragon-type-field">${escHtml(card.dtype||'type')}</div>
+            <label class="dragon-dupe-check">Duplicate <input type="checkbox" ${card.dupe?'checked':''} onchange="onDragonDupe('${cat}',${ci},this.checked)"></label>
+            <div class="readonly-field dragon-type-field">${escHtml(T_TYPE_S[card.dtype]||card.dtype||'Type')}</div>
             <select onchange="onDragonField('${cat}',${ci},'growth',this.value)">
-              <option value="Advent(Blessed)" ${card.growth==='Advent(Blessed)'?'selected':''}>Advent(blessed)</option>
-              <option value="Advent" ${card.growth==='Advent'?'selected':''}>Advent</option>
-              <option value="Advanced" ${card.growth==='Advanced'?'selected':''}>Advanced</option>
+              <option value="강림(축복)" ${card.growth==='강림(축복)'?'selected':''}>Advent (Blessing)</option>
+              <option value="강림" ${card.growth==='강림'?'selected':''}>Advent</option>
+              <option value="진각" ${card.growth==='진각'?'selected':''}>Jin-Awaken</option>
             </select>
-            <select onchange="onDragonField('${cat}',${ci},'grade',this.value)" ${(card.growth==='Advent'||card.growth==='Advanced')?'disabled':''}>
+            <select onchange="onDragonField('${cat}',${ci},'grade',this.value)" ${(card.growth==='강림'||card.growth==='진각')?'disabled':''}>
               <option value="9.0" ${card.grade==='9.0'?'selected':''}>9.0</option>
               <option value="8.0" ${card.grade==='8.0'?'selected':''}>8.0</option>
               <option value="7.0" ${card.grade==='7.0'?'selected':''}>7.0</option>
             </select>
-            <button class="btn-red dragon-delete-btn" onclick="delDragonCard('${cat}',${ci})">dragon info Delete</button>
+            <button class="btn-red dragon-delete-btn" onclick="delDragonCard('${cat}',${ci})">Delete</button>
           </div>
           <div class="dragon-preset-row">
             ${presets}
@@ -1953,7 +1982,7 @@ function renderDragonInfo(){
           <div class="dragon-spirit-grid">${opts}</div>
           <div class="dragon-bonus-row">
             <div class="dragon-bonus-fields">
-              <label>Bonus</label>
+              <label>Spirit type</label>
               <select onchange="onDragonBonus('${cat}',${ci},this.value)">
                 <option value="" ${!card.bonus?'selected':''}>None</option>
                 <option value="hp" ${card.bonus==='hp'?'selected':''}>HP (+40)</option>
@@ -1986,7 +2015,7 @@ function clearDragonCat(cat,ev){
   if(ev){ev.preventDefault();ev.stopPropagation();}
   normalizeDragonCards();
   if(!S.dragonCards[cat].length)return;
-  if(!confirm(`${cat} of attr dragon info all Deletewill you?`))return;
+  if(!confirm(`Delete all ${CAT_LBL[cat]||cat} dragons?`))return;
   S.dragonCards[cat]=[];
   renderDragonInfo();
   qSave();
@@ -1996,7 +2025,7 @@ function resetAllDragonInfo(){
   normalizeDragonCards();
   const total=DRAGON_CATS.reduce((sum,cat)=>sum+(S.dragonCards[cat]?.length||0),0);
   if(!total)return;
-  if(!confirm('my dragon of info all card Deletewill you?'))return;
+  if(!confirm('Delete all cards in My Dragons?'))return;
   S.dragonCards=mkDragonCards();
   renderDragonInfo();
   qSave();
@@ -2045,8 +2074,8 @@ function onDragonField(cat,idx,field,val){
   normalizeDragonCards();
   const card=S.dragonCards[cat][idx];
   card[field]=val;
-  if(field==='growth'&&(val==='Advent'||val==='Advanced'))card.grade='7.0';
-  if(field==='grade'&&(card.growth==='Advent'||card.growth==='Advanced'))card.grade='7.0';
+  if(field==='growth'&&(val==='강림'||val==='진각'))card.grade='7.0';
+  if(field==='grade'&&(card.growth==='강림'||card.growth==='진각'))card.grade='7.0';
   if(field==='growth'||field==='grade')renderDragonInfo();
   qSave();
 }
@@ -2063,7 +2092,7 @@ function onDragonDupe(cat,idx,checked){
     return;
   }
   if(!checked&&hasOtherDragonWithSameName(cat,idx)){
-    alert(`same dragon name "${card.name}" entered exists. duplicate entity if not dragon name differently please enter.`);
+    alert(`The dragon name "${card.name}" is already entered. If not a duplicate, use a different name.`);
   }
   card.dupe=checked;
   qSave();
@@ -2096,10 +2125,10 @@ function onDragonBonus(cat,idx,val){
 }
 
 // ================================================================
-// UI - 3vs3 Setting Buff/Dbuff
+// UI - 3vs3 Setup Buff/Debuff
 // ================================================================
 function settingAttrOptions(v){
-  return DRAGON_CATS.map(cat=>`<option value="${cat}" ${v===cat?'selected':''}>${cat}</option>`).join('');
+  return DRAGON_CATS.map(cat=>`<option value="${cat}" ${v===cat?'selected':''}>${CAT_LBL[cat]||cat}</option>`).join('');
 }
 
 function settingStatOptions(v){
@@ -2108,24 +2137,24 @@ function settingStatOptions(v){
 }
 
 function settingTypeOptions(v){
-  return DTYPES.map(t=>`<option value="${t}" ${v===t?'selected':''}>${t.replace('type','')}</option>`).join('');
+  return DTYPES.map(t=>`<option value="${t}" ${v===t?'selected':''}>${T_TYPE_S[t]||t.replace('형','')}</option>`).join('');
 }
 
 function settingBuffPanel(key,title){
   const cfg=S.settingBuffs[key];
-  const _an1={'Earth':11,'Water':12,'Fire':13,'Wind':14,'Light':84,'Dark':87,'Dusk':487,'Dawn':486,'Nightmare':488};
+  const _an1={'땅':11,'물':12,'불':13,'바람':14,'빛':84,'어둠':87,'황혼':487,'여명':486,'악몽':488};
   const attrImg=`https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/${_an1[cfg.attr]||11}.png`;
   return `
     <div class="buff-setting-panel">
       <div class="buff-setting-title">${title}</div>
       <div class="buff-setting-body">
         <div class="buff-setting-cell">
-          <div class="buff-setting-lbl">Attribute</div>
+          <div class="buff-setting-lbl">Element</div>
           <select onchange="onSettingBuff('${key}','attr',this.value)">${settingAttrOptions(cfg.attr)}</select>
           <img class="buff-attr-icon" src="${attrImg}" alt="">
         </div>
         <div class="buff-setting-cell">
-          <div class="buff-setting-lbl">type</div>
+          <div class="buff-setting-lbl">Type</div>
           <select onchange="onSettingBuff('${key}','type',this.value)">${settingTypeOptions(cfg.type)}</select>
         </div>
         <div class="buff-setting-cell">
@@ -2143,7 +2172,7 @@ function renderSettingBuffs(){
   S.settingBuffs={...mkSettingBuffs(),...S.settingBuffs};
   const el=document.getElementById('setting-buffs');
   if(!el)return;
-  el.innerHTML=`<div class="buff-setting-grid">${settingBuffPanel('buff','Buff')}${settingBuffPanel('debuff','Dbuff')}</div>`;
+  el.innerHTML=`<div class="buff-setting-grid">${settingBuffPanel('buff','Buff')}${settingBuffPanel('debuff','Debuff')}</div>`;
 }
 
 function onSettingBuff(key,field,val){
@@ -2172,9 +2201,10 @@ function setFullCollection(){
 }
 
 // ================================================================
-// tab / sim settings control
+// 탭 / 시뮬 설정 컨트롤
 // ================================================================
 function switchTab(t){
+  if(t==='spec'){try{renderSpecView();}catch(e){}}
   ['spec','dragon','sim'].forEach(x=>{
     document.getElementById(`tab-${x}`).classList.toggle('active',x===t);
     document.getElementById(`tab-btn-${x}`).classList.toggle('active',x===t);
@@ -2188,14 +2218,14 @@ function setGrade(g){
 
 function setBuf(b){
   simBuf=b;
-  document.querySelectorAll('#buf-grp button').forEach(btn=>btn.classList.toggle('active',btn.textContent===b+'Buff'));
+  document.querySelectorAll('#buf-grp button').forEach(btn=>btn.classList.toggle('active',btn.textContent==='Buff '+b));
 }
 
 // ================================================================
-// Simulation engine
+// 시뮬레이션 엔진
 // ================================================================
 
-// owned gem full(pool) convert. each element: {s:stat, lv:stage, cnt:count, h:HP contrib, a:ATK contrib, d:DEF contrib}
+// 보유 젬을 풀(pool)로 변환. 각 원소: {s:Stat, lv:단계, cnt:보유수, h:체기여, a:공기여, d:방기여}
 function buildPool(){
   const pool=[];
   for(const s of SKEYS)for(const lv of [37,38,39,40]){
@@ -2209,7 +2239,7 @@ function buildPool(){
   return pool;
 }
 
-// 5slot Gem Alloc case count enumerate (backtracking). return: [[each full element use count], ...]
+// 5슬롯 Gem Allocation 경우의 수 열거 (백트래킹). 반환: [[각 풀 원소 사용 개수], ...]
 function genAllocs(pool,slots,includePartial=false){
   const total=pool.reduce((s,g)=>s+g.cnt,0);
   const maxS=Math.min(slots,total);
@@ -2387,7 +2417,7 @@ function mergeOptionGroups(groups,limit){
 }
 
 /*
- * finalstat calc formula (game formula as-is INT = Math.floor):
+ * 최종Stat 계산 공식 (게임 수식 그대로 INT = Math.floor):
  *   A = base + gem + potion
  *   B = INT(A * (1 + acc% + enc%))
  *   C = INT(B * (1 + spirit%))
@@ -2406,7 +2436,7 @@ function calcStat(B,G,P,AP,SP,PP,SL,SB,C,BU){
   return c+d+e+C+BU;
 }
 
-// Spirit state statStar + / % / Bonus contribution convert
+// Spirit 상태를 Stat별 + / % / Spirit type 기여로 변환
 function procSpirit(){
   const sp=S.spirit;
   const lv=5;
@@ -2423,7 +2453,7 @@ function procSpirit(){
 }
 
 function getBufCombos(bufLv){
-  if(bufLv===0)return[{h:0,a:0,d:0,w:1,label:'Buff None'}];
+  if(bufLv===0)return[{h:0,a:0,d:0,w:1,label:'No buff'}];
   if(bufLv===1)return[
     {h:1,a:0,d:0,w:1/3,label:'HP'},
     {h:0,a:1,d:0,w:1/3,label:'ATK'},
@@ -2451,41 +2481,42 @@ function switchResTab(t){
 function runSim(){
   const encMode=document.querySelector('input[name="enc-mode"]:checked')?.value||'fixed';
   const ownedAcc=S.accCards
-    .map((c,i)=>({...ACC_DB.find(a=>a.n===c.name),_accId:i,_enc:encMode==='infinite'?'none':c.enchant}))
+    .map((c,i)=>({...ACC_DB.find(a=>a.n===normalizeAccName(c.name)),_accId:i,_enc:encMode==='infinite'?'none':c.enchant}))
     .filter(a=>a.n);
-  if(!ownedAcc.length){alert('My Stats Tabfrom Accessory 1 or more Addplease.');return;}
+  if(!ownedAcc.length){alert('Add at least one accessory in the My Spec tab.');return;}
   const btn=document.getElementById('sim-btn');
-  btn.disabled=true;btn.textContent='⏳ Calculating......';
+  btn.disabled=true;btn.textContent='⏳ Calculating...';
   setTimeout(()=>{
     try{
       const excSun=document.getElementById('exc-sun-pend')?.checked||false;
       const includeDebuff=document.getElementById('include-debuff')?.checked||false;
       const candidates=getSimDragonCandidates();
-      if(!candidates.length)throw new Error('my dragon in info calc available dragon not found.');
+      if(!candidates.length)throw new Error('No calculable dragons in My Dragons.');
       const filtered=includeDebuff?candidates:candidates.filter(d=>!isDebuffedDragon(d));
-      if(!filtered.length)throw new Error('DBuff not received not dragon not found.');
-      if(filtered.length<3)throw new Error('DNo Buff after calc available dragon 3dragon(s) is below.');
+      if(!filtered.length)throw new Error('No dragons are free of the debuff.');
+      if(filtered.length<3)throw new Error('Fewer than 3 calculable dragons after excluding debuffed.');
       const deck=doSimDeck(ownedAcc,filtered,excSun);
-      if(deck.length<3)throw new Error('Accessory/Pendant/gem duplicate limit satisfying 3dragon(s) combo not found failed.');
+      if(deck.length<3)throw new Error('Could not find a 3-dragon combo within the accessory/pendant/gem duplicate limits.');
       renderResDeck(deck,includeDebuff?0:candidates.length-filtered.length);
       const rs=document.getElementById('res-sec');
       rs.style.display='';
       rs.scrollIntoView({behavior:'smooth',block:'start'});
-    }catch(e){console.error(e);alert('error: '+e.message);}
+      afterSimComplete(deck);
+    }catch(e){console.error(e);alert('Error: '+e.message);}
     btn.disabled=false;btn.textContent='🐉 Run Simulation';
   },20);
 }
 
 function getPends(excSun){
   const raw=[null,...S.pendants.map((p,i)=>({...p,_pendId:i}))];
-  const filtered=excSun?raw.filter(p=>!p||p.type!=='Sun'):raw;
+  const filtered=excSun?raw.filter(p=>!p||p.type!=='태양'):raw;
   return filtered.length?filtered:[null];
 }
 
 function calcPendPct(pend){
   let pH=0,pA=0,pD=0;
   if(pend){
-    const mo=pend.type==='Sun'?3:pend.type==='Moon'?2:1;
+    const mo=pend.type==='태양'?3:pend.type==='달'?2:1;
     pend.options.slice(0,mo).forEach(o=>{
       if(!o||!o.stat)return;
       const v=(o.val||0)/100;
@@ -2537,6 +2568,7 @@ function getDragonBuffCounts(dragon){
   if(dragon.dtype===cfg.type&&counts[cfg.stat2]!=null)counts[cfg.stat2]++;
   return counts;
 }
+
 
 function doSimDeck(ownedAcc,dragons,excSun){
   const pool=buildBaselineGemPool(15);
@@ -2720,7 +2752,7 @@ function doSimTop(ownedAcc,bufCombos,excSun){
   return top10;
 }
 
-//Simulation run related
+//Run Simulation 관련
 function doSimAvg(ownedAcc,bufCombos,excSun){
   const {plus:sP,pct:sPct,bonus:sB}=procSpirit();
   const pool=buildPool();
@@ -2784,23 +2816,23 @@ function doSimAvg(ownedAcc,bufCombos,excSun){
 
 const STAT_COL={HP:'#fbbf24',ATK:'#f87171',DEF:'#60a5fa'};
 function fmtBufLabel(label){
-  if(label==='buff None')return`<span style="color:var(--dim)">buff None</span>`;
+  if(label==='No buff')return`<span style="color:var(--dim)">No buff</span>`;
   return label.split('+').map((s,i)=>{
     const trimmed=s.trim();
-    const col=STAT_COL[trimmed]||'#fff';
-    return(i>0?`<span style="color:#fff">+</span>`:'')
+    const col=STAT_COL[trimmed]||'var(--text)';
+    return(i>0?`<span style="color:var(--text)">+</span>`:'')
       +`<span style="color:${col};font-weight:700">${trimmed}</span>`;
   }).join('');
 }
 
 function fmtAccName(name){
-  const colored=name.replace(/[HP/ATK/DEF]/g,s=>{
+  const colored=name.replace(/HP|ATK|DEF/g,s=>{
     const col=s==='HP'?'#fbbf24':s==='ATK'?'#f87171':'#60a5fa';
     return`<span style="color:${col}">${s}</span>`;
   });
   const shortMatch=name.match(/\(([^)]+)\)\s*(\d+)$/);
   const shortName=shortMatch?shortMatch[1]+' '+shortMatch[2]:name;
-  const shortColored=shortName.replace(/[HP/ATK/DEF]/g,s=>{
+  const shortColored=shortName.replace(/HP|ATK|DEF/g,s=>{
     const col=s==='HP'?'#fbbf24':s==='ATK'?'#f87171':'#60a5fa';
     return`<span style="color:${col}">${s}</span>`;
   });
@@ -2814,21 +2846,21 @@ function fmtAccEnc(enc){
   return`<span class="enc-b" style="border-color:${col};color:${col}">${lbl} +21%</span>`;
 }
 
-//best BV Result output
+//최고 B-Val 결과 출력
 function renderResTop(top10){
   const el=document.getElementById('res-body-top');
-  if(!top10.length){el.innerHTML='<div style="padding:30px;text-align:center;color:var(--dim)">result None</div>';return;}
+  if(!top10.length){el.innerHTML='<div style="padding:30px;text-align:center;color:var(--dim)">No results</div>';return;}
   const medals=['🥇','🥈','🥉'];
   let html=`<table class="rtbl"><thead><tr>
-    <th>ranking</th><th>type</th><th>accessory / enchant</th>
-    <th>Gem Alloc</th><th>Pendant</th><th>Buff</th><th>HP / ATK / DEF</th><th>BV</th>
+    <th>Rank</th><th>Type</th><th>Accessory / Enchant</th>
+    <th>Gem Allocation</th><th>Pendant</th><th>Buff</th><th>HP / ATK / DEF</th><th>B-Val</th>
   </tr></thead><tbody>`;
   top10.forEach((r,i)=>{
     const rank=i<3?medals[i]:`<span class="rank-n">${i+1}</span>`;
     const dc=DCOLORS[r.dt];
     html+=`<tr>
       <td>${rank}</td>
-      <td><span class="dtype-b" style="color:${dc};border-color:${dc}">${r.dt}</span></td>
+      <td><span class="dtype-b" style="color:${dc};border-color:${dc}">${T_TYPE_S[r.dt]||r.dt}</span></td>
       <td>
         <div style="display:flex;align-items:center;gap:8px">
           ${(()=>{const a=ACC_DB.find(x=>x.n===r.accN);return a&&a.img?`<img src="${a.img}" style="width:36px;height:36px;object-fit:contain;border-radius:4px">`:'';})()}
@@ -2851,25 +2883,25 @@ function renderResTop(top10){
 
 function fmtWeeklyBuff(buff){
   const count=SKEYS.reduce((sum,s)=>sum+(buff?.[s]||0),0);
-  return count?`<span style="color:var(--gold);font-weight:800">${count}buff</span>`:'<span style="color:var(--dim)">buff None</span>';
+  return count?`<span style="color:var(--gold);font-weight:800">Buff ${count}</span>`:'<span style="color:var(--dim)">No buff</span>';
 }
 
 function renderResDeck(results,excludedCount){
   const el=document.getElementById('res-body-avg');
-  if(!results.length){el.innerHTML='<div style="padding:30px;text-align:center;color:var(--dim)">result None</div>';return;}
+  if(!results.length){el.innerHTML='<div style="padding:30px;text-align:center;color:var(--dim)">No results</div>';return;}
   let html='';
   if(excludedCount>0){
-    html+=`<div style="padding:10px 16px;color:var(--dim);font-size:12px;border-bottom:1px solid var(--bd)">Dbuff target ${excludedCount}dragon(s) calcfrom excluded.</div>`;
+    html+=`<div style="padding:10px 16px;color:var(--dim);font-size:12px;border-bottom:1px solid var(--bd)">${excludedCount} debuffed dragon(s) excluded from the calculation.</div>`;
   }
   html+=`<table class="rtbl"><thead><tr>
-    <th>ranking</th><th>dragon</th><th>attribute / type</th><th>accessory / enchant</th>
-    <th>Gem Alloc</th><th>Pendant</th><th>Buff</th><th>HP / ATK / DEF</th><th>BV</th>
+    <th>Rank</th><th>Dragon</th><th>Element / Type</th><th>Accessory / Enchant</th>
+    <th>Gem Allocation</th><th>Pendant</th><th>Buff</th><th>HP / ATK / DEF</th><th>B-Val</th>
   </tr></thead><tbody>`;
   const medals=['🥇','🥈','🥉'];
   results.forEach((r,i)=>{
     const dc=DCOLORS[r.dragon.dtype];
     const rank=i<3?medals[i]:`<span class="rank-n">${i+1}</span>`;
-    const _an2={'Earth':11,'Water':12,'Fire':13,'Wind':14,'Light':84,'Dark':87,'Dusk':487,'Dawn':486,'Nightmare':488};
+    const _an2={'땅':11,'물':12,'불':13,'바람':14,'빛':84,'어둠':87,'황혼':487,'여명':486,'악몽':488};
     const attrImg=`https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/${_an2[r.dragon.attr]||11}.png`;
     const _SK={hp:'HP',atk:'ATK',def:'DEF'};
     const _BL={hp:'HP+40',atk:'ATK+10',def:'DEF+10'};
@@ -2882,13 +2914,13 @@ function renderResDeck(results,excludedCount){
     const spiritLines=(_l1?`<div style="font-size:11px;color:var(--dim)">${_l1}</div>`:'')+(_l2?`<div style="font-size:11px;color:var(--dim)">${_l2}</div>`:'');
     const accImg=(()=>{const a=ACC_DB.find(x=>x.n===r.accN);return a&&a.img?`<img src="${a.img}" style="width:30px;height:30px;object-fit:contain;border-radius:4px">`:'';})();
     const pendMob=(()=>{
-      if(!r.pend)return'<span style="color:var(--dimmer);font-size:11px">pendant None</span>';
-      const mo=r.pend.type==='Sun'?3:r.pend.type==='Moon'?2:1;
+      if(!r.pend)return'<span style="color:var(--dimmer);font-size:11px">No pendant</span>';
+      const mo=r.pend.type==='태양'?3:r.pend.type==='달'?2:1;
       const opts=r.pend.options.slice(0,mo).filter(o=>o&&o.stat).map(o=>{
         const col=o.stat==='hp'?'#fbbf24':o.stat==='atk'?'#f87171':'#60a5fa';
         return`<span style="color:${col}">${SK[o.stat]}</span><span>${o.val||0}%</span>`;
-      }).join('<span style="color:#aab4cc">/</span>');
-      const shortTypeMap={'Moon':'Moon Pend','Sun':'Sun Pend','Star':'Star Pend'};
+      }).join('<span style="color:var(--dim)">/</span>');
+      const shortTypeMap={'달':'Moon','태양':'Sun','별':'Star'};
       const pimg=IMG_PEND[r.pend.type]?`<img src="${IMG_PEND[r.pend.type]}" style="width:26px;height:26px;object-fit:contain;border-radius:3px">`:'';
       return`<div class="mob-pend">${pimg}<span style="font-size:11px;color:var(--dim)">${shortTypeMap[r.pend.type]||r.pend.type} <small>(${opts})</small></span></div>`;
     })();
@@ -2902,7 +2934,7 @@ function renderResDeck(results,excludedCount){
       <td class="td-pc">
         <div class="res-attr-type">
           <img class="res-attr-icon" src="${attrImg}" alt="${escHtml(r.dragon.attr)}">
-          <span class="dtype-b" style="color:${dc};border-color:${dc}">${r.dragon.dtype}</span>
+          <span class="dtype-b" style="color:${dc};border-color:${dc}">${T_TYPE_S[r.dragon.dtype]||r.dragon.dtype}</span>
         </div>
       </td>
       <td class="td-pc">
@@ -2925,7 +2957,7 @@ function renderResDeck(results,excludedCount){
           <span class="mob-rank">${rank}</span>
           <img src="${attrImg}" style="width:20px;height:20px;object-fit:contain">
           <span class="mob-dname">${escHtml(r.dragon.name)}</span>
-          <span class="dtype-b" style="color:${dc};border-color:${dc};font-size:11px">${r.dragon.dtype}</span>
+          <span class="dtype-b" style="color:${dc};border-color:${dc};font-size:11px">${T_TYPE_S[r.dragon.dtype]||r.dragon.dtype}</span>
           <span class="mob-bv">${(r.bv/1e6).toFixed(1)}</span>
         </div>
         ${_l1?`<div class="mob-spirit">${_l1}</div>`:''}
@@ -2944,7 +2976,7 @@ function renderResDeck(results,excludedCount){
         <div class="mob-row3">
           ${pendMob}
           <div style="margin-left:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end">
-            ${buffCount?`<span style="color:var(--gold);font-weight:800;font-size:11px">${buffCount}buff</span>`:''}
+            ${buffCount?`<span style="color:var(--gold);font-weight:800;font-size:11px">${buffCount}Buff</span>`:''}
             <span class="mob-stats">
               <span style="color:var(--hpc)">${r.fH.toLocaleString('ko-KR')}</span>/<span style="color:var(--atc)">${r.fA.toLocaleString('ko-KR')}</span>/<span style="color:var(--dfc)">${r.fD.toLocaleString('ko-KR')}</span>
             </span>
@@ -2956,14 +2988,14 @@ function renderResDeck(results,excludedCount){
   const top3=results.slice(0,3);
   const avgBV=top3.reduce((s,r)=>s+r.bv,0)/top3.length;
   el.innerHTML=html+'</tbody></table>'
-    +(top3.length>1?'<div style="padding:10px 16px;border-top:1px solid var(--bd);text-align:right;font-size:13px;color:var(--dim)">3-Dragon Avg BV <span class="bv-cell" style="font-size:15px">'+(avgBV/1e6).toFixed(1)+'</span></div>':'');
+    +(top3.length>1?'<div style="padding:10px 16px;border-top:1px solid var(--bd);text-align:right;font-size:13px;color:var(--dim)">Top-3 Avg B-Val <span class="bv-cell" style="font-size:15px">'+(avgBV/1e6).toFixed(1)+'</span></div>':'');
 }
-//avg BV Result output
+//Avg B-Val 결과 출력
 function renderResAvg(results){
   const el=document.getElementById('res-body-avg');
-  if(!results.length){el.innerHTML='<div style="padding:30px;text-align:center;color:var(--dim)">result None</div>';return;}
+  if(!results.length){el.innerHTML='<div style="padding:30px;text-align:center;color:var(--dim)">No results</div>';return;}
   let html=`<table class="rtbl"><thead><tr>
-    <th>type</th><th>peak</th><th>low</th><th>avg BV</th>
+    <th>Type</th><th>High</th><th>Low</th><th>Avg B-Val</th>
   </tr></thead><tbody>`;
   results.forEach((r,i)=>{
     const dc=DCOLORS[r.dt];
@@ -2971,8 +3003,8 @@ function renderResAvg(results){
     const bottom=r.bufResults[r.bufResults.length-1];
     html+=`<tr style="cursor:pointer" onclick="toggleAvgDetail(${i})">
       <td>
-        <span class="dtype-b" style="color:${dc};border-color:${dc}">${r.dt}</span>
-        <span class="avg-arrow" id="avg-arrow-${i}" style="color:#fff;font-size:10px;margin-left:6px">▼</span>
+        <span class="dtype-b" style="color:${dc};border-color:${dc}">${T_TYPE_S[r.dt]||r.dt}</span>
+        <span class="avg-arrow" id="avg-arrow-${i}" style="color:var(--text);font-size:10px;margin-left:6px">▼</span>
       </td>
       <td><span class="bv-cell">${(peak.bestBV/1e6).toFixed(1)}</span> (${fmtBufLabel(peak.label)})</td>
       <td><span class="bv-cell">${(bottom.bestBV/1e6).toFixed(1)}</span> (${fmtBufLabel(bottom.label)})</td>
@@ -3000,7 +3032,7 @@ function renderAvgDetail(r){
     html+=`<div style="margin-bottom:14px">
       <div style="font-size:12px;font-weight:800;margin-bottom:6px"><span class="bv-cell">${(buf.bestBV/1e6).toFixed(1)}</span> (${fmtBufLabel(buf.label)})</div>
       <table class="rtbl" style="min-width:0"><thead><tr>
-        <th>ranking</th><th>accessory / enchant</th><th>Gem Alloc</th><th>Pendant</th><th>HP / ATK / DEF</th><th>BV</th>
+        <th>Rank</th><th>Accessory / Enchant</th><th>Gem Allocation</th><th>Pendant</th><th>HP / ATK / DEF</th><th>B-Val</th>
       </tr></thead><tbody>`;
     const medals=['🥇','🥈','🥉'];
     buf.top5.forEach((item,j)=>{
@@ -3026,7 +3058,7 @@ function renderAvgDetail(r){
   return html;
 }
 
-// Gem Alloc "HP2(40,40) ATK1(39) DEF2(40,38)" formatto format
+// Gem Allocation을 "체2(40,40) 공1(39) 방2(40,38)" 형식으로 포맷
 function fmtGem(alloc){
   if(!alloc||!alloc.length)return'<span style="color:var(--dimmer)">None</span>';
   const bySt={hp:[],atk:[],def:[]};
@@ -3035,42 +3067,175 @@ function fmtGem(alloc){
   const parts=[];
   for(const s of SKEYS){
     const lvs=bySt[s].sort((a,b)=>b-a);
-    if(lvs.length)parts.push(`<span class="gem-tag" style="color:${cols[s]}">${SK[s]}${lvs.length}(${lvs.join(',')})</span>`);
+    if(lvs.length)parts.push(`<span class="gem-tag" style="color:${cols[s]}">${SK[s]}${lvs.length}(${lvs.map(l=>GEM_NAME[l]||l).join(',')})</span>`);
   }
   return parts.length?parts.join(''):'<span style="color:var(--dimmer)">None</span>';
 }
 
-// pendant format "Sun Pendant (HP6%/ATK4%/DEF3%)"
+// Pendant 포맷 "태양의 Pendant (체6%/공4%/방3%)"
 function fmtPend(p){
   if(!p)return'<span style="color:var(--dimmer)">None</span>';
-  const mo=p.type==='Sun'?3:p.type==='Moon'?2:1;
+  const mo=p.type==='태양'?3:p.type==='달'?2:1;
   const opts=p.options.slice(0,mo).filter(o=>o&&o.stat).map(o=>{
     const col=o.stat==='hp'?'#fbbf24':o.stat==='atk'?'#f87171':'#60a5fa';
-    return`<span style="color:${col}">${SK[o.stat]}</span><span style="color:#fff">${o.val||0}%</span>`;
-  }).join('<span style="color:#aab4cc">/</span>');
+    return`<span style="color:${col}">${SK[o.stat]}</span><span style="color:var(--text)">${o.val||0}%</span>`;
+  }).join('<span style="color:var(--dim)">/</span>');
   const img=IMG_PEND[p.type]?`<img src="${IMG_PEND[p.type]}" style="width:36px;height:36px;object-fit:contain;border-radius:4px">`:'';
-  const shortTypeMap={'Moon':'Moon Pend','Sun':'Sun Pend','Star':'Star Pend'};
+  const shortTypeMap={'달':'Moon','태양':'Sun','별':'Star'};
   const shortType=shortTypeMap[p.type]||p.type;
-  return`<div style="display:flex;align-items:center;gap:8px">${img}<div style="color:var(--text)"><span class="pend-name-full">${p.type} pendant</span><span class="pend-name-short">${shortType}</span><br><small>(${opts})</small></div></div>`;
+  return`<div style="display:flex;align-items:center;gap:8px">${img}<div style="color:var(--text)"><span class="pend-name-full">Pendant of ${T_PEND[p.type]||p.type}</span><span class="pend-name-short">${shortType}</span><br><small>(${opts})</small></div></div>`;
 }
 
 // ================================================================
-// Reset
+// 초기화
 // ================================================================
 function init(){
-  doLoad();
-  renderAcc();
-  populateGems();
-  renderPends();
-  renderSpirit();
-  renderDragonInfo();
-  renderSettingBuffs();
-  populateColl();
+  try{doLoad();}catch(e){console.error('doLoad',e);}
+  try{renderAcc();}catch(e){}
+  try{populateGems();}catch(e){}
+  try{renderPends();}catch(e){}
+  try{renderSpirit();}catch(e){}
+  try{renderDragonInfo();}catch(e){}
+  try{renderSettingBuffs();}catch(e){}
+  try{populateColl();}catch(e){}
 }
-document.addEventListener('DOMContentLoaded',init);
+document.addEventListener('DOMContentLoaded',function(){init();try{renderSpecView();}catch(e){}});
 </script>
 <script>
 (function(){var link=document.getElementById('theme-css');if(!link)return;var sync=function(){var c=document.getElementById('custom-theme-style');if(c&&c.textContent&&c.textContent.length>0){document.documentElement.removeAttribute('data-theme');return;}var m=String(link.href||'').match(/theme-(dark|light|beige)\.css/);document.documentElement.setAttribute('data-theme',m?m[1]:'dark');};sync();new MutationObserver(sync).observe(link,{attributes:true,attributeFilter:['href']});new MutationObserver(sync).observe(document.head,{childList:true,subtree:true,characterData:true});})();
 </script>
+<script>
+
+function renderSpecView(){
+  const el=document.getElementById('spec-view-wrap');
+  if(!el)return;
+  const ENC_COL={atk:'#f87171',hp:'#fbbf24',def:'#60a5fa'};
+  const ENC_LBL={atk:'ATK',hp:'HP',def:'DEF'};
+  const PEND_LBL={달:'Pendant of Moon',태양:'Pendant of Sun',별:'Pendant of Star'};
+  const PEND_IMG={달:'1336',태양:'1337',별:'1335'};
+  const IB='https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main';
+  let gemRows='';
+  for(const lv of [40,39,38,37]){
+    const hp=S.gems?.hp?.[lv]||0,atk=S.gems?.atk?.[lv]||0,def=S.gems?.def?.[lv]||0;
+    if(hp||atk||def)gemRows+=`<tr><td style="color:var(--dim);font-weight:700">${GEM_NAME[lv]||lv} Gem <span style="color:var(--dimmer);font-weight:400;font-size:10px">(old ${lv})</span></td><td class="sv-gem-hp">${hp||'-'}</td><td class="sv-gem-atk">${atk||'-'}</td><td class="sv-gem-def">${def||'-'}</td></tr>`;
+  }
+  const t={hp:0,atk:0,def:0};
+  for(const s of ['hp','atk','def'])for(const lv of [37,38,39,40])t[s]+=(S.gems?.[s]?.[lv]||0);
+  if(gemRows)gemRows+=`<tr style="border-top:2px solid var(--bd)"><td style="color:var(--dim);font-size:10px">Total</td><td class="sv-gem-hp">${t.hp||'-'}</td><td class="sv-gem-atk">${t.atk||'-'}</td><td class="sv-gem-def">${t.def||'-'}</td></tr>`;
+  const gemH=gemRows?`<table class="sv-gem-table"><thead><tr><th></th><th class="sv-gem-hp">HP</th><th class="sv-gem-atk">ATK</th><th class="sv-gem-def">DEF</th></tr></thead><tbody>${gemRows}</tbody></table>`:`<div class="sv-empty">No gems</div>`;
+  const accs=S.accCards||[];
+  const accH=accs.length?accs.map(card=>{
+    const dispName=normalizeAccName(card.name);
+    const a=ACC_DB.find(x=>x.n===dispName);
+    const img=a&&a.img?`<img class="sv-item-img" src="${a.img}" onerror="this.style.display='none'">`:`<div style="width:28px;height:28px;flex-shrink:0"></div>`;
+    const enc=card.enchant&&card.enchant!=='none'?`<span class="sv-enc" style="color:${ENC_COL[card.enchant]||'var(--dim)'};border-color:${ENC_COL[card.enchant]||'var(--bd)'}">${ENC_LBL[card.enchant]||card.enchant}</span>`:'';
+    return `<div class="sv-item">${img}<span class="sv-item-name">${dispName||'<span style="color:var(--dimmer)">Not selected</span>'}</span>${enc}</div>`;
+  }).join(''):`<div class="sv-empty">No accessory</div>`;
+  const pends=S.pendants||[];
+  const pendH=pends.length?pends.map(p=>{
+    if(!p.type)return'';
+    const imgN=PEND_IMG[p.type]||'1335';
+    const mo=p.type==='태양'?3:p.type==='달'?2:1;
+    const opts=(p.options||[]).slice(0,mo).filter(o=>o&&o.stat).map(o=>`<span style="color:${o.stat==='hp'?'#fbbf24':o.stat==='atk'?'#f87171':'#60a5fa'}">${o.stat==='hp'?'HP':o.stat==='atk'?'ATK':'DEF'}${o.val||0}%</span>`).join('<span style="color:var(--dim)"> / </span>');
+    return `<div class="sv-item"><img class="sv-item-img" src="${IB}/item/${imgN}.png" onerror="this.style.display='none'"><div><div style="font-size:12px;font-weight:700">${PEND_LBL[p.type]||p.type}</div><div style="font-size:11px;color:var(--dim)">${opts||'No options'}</div></div></div>`;
+  }).filter(Boolean).join(''):`<div class="sv-empty">No pendant</div>`;
+  const col=S.coll||{hp:0,atk:0,def:0};
+  const colP=[];
+  if(col.hp)colP.push(`<span class="sv-gem-hp">HP +${col.hp}</span>`);
+  if(col.atk)colP.push(`<span class="sv-gem-atk">ATK +${col.atk}</span>`);
+  if(col.def)colP.push(`<span class="sv-gem-def">DEF +${col.def}</span>`);
+  const colH=colP.length?colP.join('<span style="color:var(--dim)"> · </span>'):`<span class="sv-empty">0</span>`;
+  el.innerHTML=`<div class="sv-header"><div style="display:flex;align-items:center;gap:10px"><span style="font-size:15px;font-weight:800">📋 My Spec</span><span class="sv-badge">View only</span></div><a href="./my.html" class="sv-edit-btn">✏️ Edit in my.html →</a></div>
+  <div class="sv-grid">
+    <div>
+      <div class="sv-sec"><div class="sv-sec-hd">💎 Gems Owned</div><div class="sv-sec-bd">${gemH}</div></div>
+      <div class="sv-sec"><div class="sv-sec-hd">📚 Collection</div><div class="sv-sec-bd"><div class="sv-coll-row">${colH}</div></div></div>
+    </div>
+    <div>
+      <div class="sv-sec"><div class="sv-sec-hd">💍 Accessory (${accs.length})</div><div class="sv-sec-bd" style="max-height:260px;overflow-y:auto">${accH}</div></div>
+      <div class="sv-sec"><div class="sv-sec-hd">🌙 Pendant (${pends.length})</div><div class="sv-sec-bd" style="max-height:220px;overflow-y:auto">${pendH}</div></div>
+    </div>
+  </div>`;
+}
+
+let _guildResult=null;
+async function afterSimComplete(results){
+  const wrap=document.getElementById('guild-send-wrap');
+  if(!wrap)return;
+  const lbl=document.getElementById('guild-send-label');
+  const btn=document.getElementById('guild-send-btn');
+  try{
+    const top3=(results||[]).slice(0,3);
+    if(!top3.length)return;
+    let settingsJson=null;
+    try{
+      const statWithBuff=Math.round(top3.reduce((s,r)=>s+r.bv,0)/top3.length);
+      const statNoBuff=Math.round(top3.reduce((s,r)=>{const c=r._calc||{};return s+(r.fH-(c.bufH||0))*(r.fA-(c.bufA||0))*(r.fD-(c.bufD||0));},0)/top3.length);
+      settingsJson={deck:top3.map(r=>({
+        dragon:{name:r.dragon.name,attr:r.dragon.attr,dtype:r.dragon.dtype,opts:r.dragon.opts||[],bonus:r.dragon.bonus||null},
+        dragonImg:(typeof getDragonImgUrl==='function'?getDragonImgUrl(r.dragon.name):null),
+        accName:r.accN,
+        accImg:(()=>{try{const a=ACC_DB.find(x=>x.n===r.accN);return a&&a.img?a.img:null;}catch(e){return null;}})(),
+        enc:r.enc,pend:r.pend,gemAlloc:r.alloc,
+        fH:r.fH,fA:r.fA,fD:r.fD,bv:r.bv,
+        bufH:r._calc?.bufH||0,bufA:r._calc?.bufA||0,bufD:r._calc?.bufD||0,
+        buff:r.buff||{hp:0,atk:0,def:0}
+      }))};
+      _guildResult={statWithBuff,statNoBuff,settingsJson};
+    }catch(e){console.warn('settingsJson build error:',e);}
+    const user=(typeof getUser==='function')?getUser():null;
+    if(!user){lbl.innerHTML='<span style="color:var(--dimmer)">Log in to submit to a guild.</span>';btn.disabled=true;btn.textContent='📤 Submit This Week\'s Setup';wrap.style.display='flex';return;}
+    lbl.innerHTML='<span style="color:var(--dim)">Checking guild link...</span>';btn.disabled=true;btn.textContent='📤 Submit This Week\'s Setup';wrap.style.display='flex';
+    const members=await supabase('GET','guild_members',null,`?user_id=eq.${user.id}&status=eq.approved&select=guild_id,nickname,guilds(id,name)&limit=1`);
+    if(!members||!members.length){lbl.innerHTML='<span style="color:var(--dimmer)">No linked guild.</span>';return;}
+    const member=members[0];
+    const seasons=await supabase('GET','guild_seasons',null,`?guild_id=eq.${member.guild_id}&closed_at=is.null&order=opened_at.desc&limit=1`);
+    if(!seasons||!seasons.length){lbl.innerHTML='<span style="color:var(--dimmer)">No active season.</span>';return;}
+    const season=seasons[0];
+    if(_guildResult)Object.assign(_guildResult,{member,season});
+    else _guildResult={...(settingsJson?{settingsJson}:{}),member,season};
+    const exist=await supabase('GET','guild_weekly_settings',null,`?season_id=eq.${season.id}&user_id=eq.${user.id}&select=submitted_at&limit=1`);
+    const gname=member.guilds?.name||'Guild';
+    if(exist&&exist.length){
+      const t=new Date(exist[0].submitted_at).toLocaleString('en-US',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'});
+      lbl.innerHTML=`<span style="color:var(--green)">✅ ${gname} — Submitted (${t})</span>`;
+      btn.textContent='🔄 Resubmit';
+    }else{
+      lbl.innerHTML=`<span style="color:var(--dim)">${gname} · ${season.season_label}</span>`;
+      btn.textContent='📤 Submit This Week\'s Setup';
+    }
+    btn.disabled=false;
+  }catch(e){
+    console.error('afterSimComplete error:',e);
+    lbl.innerHTML=`<span style="color:var(--dimmer)">Error: ${e.message||String(e)}</span>`;
+    wrap.style.display='flex';
+  }
+}
+async function sendToGuild(){
+  if(!_guildResult){alert('Please run the simulation first.');return;}
+  const{statWithBuff,statNoBuff,member,season,settingsJson}=_guildResult;
+  const user=getUser();if(!user){alert('You need to log in.');return;}
+  const btn=document.getElementById('guild-send-btn');
+  btn.disabled=true;btn.textContent='Submitting...';
+  try{
+    const exist=await supabase('GET','guild_weekly_settings',null,`?season_id=eq.${season.id}&user_id=eq.${user.id}&select=id&limit=1`);
+    if(exist&&exist.length){
+      await supabase('PATCH','guild_weekly_settings',{stat_no_buff:statNoBuff,stat_with_buff:statWithBuff,settings_json:settingsJson||null,submitted_at:new Date().toISOString()},`?id=eq.${exist[0].id}`);
+    }else{
+      await supabase('POST','guild_weekly_settings',{guild_id:member.guild_id,season_id:season.id,user_id:user.id,nickname:member.nickname,stat_no_buff:statNoBuff,stat_with_buff:statWithBuff,settings_json:settingsJson||null,submitted_at:new Date().toISOString()});
+    }
+    const t=new Date().toLocaleString('en-US',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'});
+    const gname=member.guilds?.name||'Guild';
+    document.getElementById('guild-send-label').innerHTML=`<span style="color:var(--green)">✅ ${gname} — Submitted (${t})</span>`;
+    btn.textContent='🔄 Resubmit';btn.disabled=false;
+    let el=document.getElementById('_guild-toast');
+    if(!el){el=document.createElement('div');el.id='_guild-toast';el.style.cssText='position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--gold);color:#0a0c18;padding:10px 24px;border-radius:8px;font-weight:800;font-size:14px;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap';document.body.appendChild(el);}
+    el.textContent='This week\'s setup was sent to your guild! 🎉';el.style.opacity='1';
+    setTimeout(()=>el.style.opacity='0',2800);
+  }catch(e){alert('Submit error: '+(e.message||'Please try again.'));btn.disabled=false;btn.textContent='📤 Submit This Week\'s Setup';}
+}
+
+</script>
+<script src="../spec_sync.js"></script>
 </body>
 </html>

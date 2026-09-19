@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>로그인</title>
-<link id="theme-css" rel="stylesheet" href="./theme-dark.css">
-<script src="./theme.js"></script>
+<title>Login</title>
+<link id="theme-css" rel="stylesheet" href="../theme-dark.css">
+<script src="../theme.js"></script>
 <style>
 /* ── 테마 팔레트 (index.html과 동일) ── */
 [data-theme="dark"]{
@@ -45,25 +45,25 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
 </head>
 <body>
 <div class="box">
-  <h2>로그인</h2>
+  <h2>Login</h2>
   <div class="field">
-    <label>아이디</label>
-    <input id="username" type="text" placeholder="아이디 입력">
+    <label>ID</label>
+    <input id="username" type="text" placeholder="Enter ID">
   </div>
   <div class="field">
-    <label>비밀번호</label>
-    <input id="password" type="password" placeholder="비밀번호 입력">
+    <label>Password</label>
+    <input id="password" type="password" placeholder="Enter password">
   </div>
-  <button class="btn" onclick="login()">로그인</button>
+  <button class="btn" onclick="login()">Login</button>
   <div class="msg" id="msg"></div>
-  <div class="link"><a href="./register.html">계정이 없어요 → 회원가입</a></div>
-  <div class="link" style="margin-top:8px"><a href="./account.html">아이디 · 비밀번호 찾기 / 닉네임 변경</a></div>
+  <div class="link"><a href="./register.html">No account? → Sign up</a></div>
+  <div class="link" style="margin-top:8px"><a href="./account.html">Find ID/password / Change nickname</a></div>
 </div>
-<script src="./sb_config.js"></script>
+<script src="../sb_config.js"></script>
 <script>
 // 로그인 직후 클라우드 스펙(활성 프리셋)을 계산기 로컬 키에 바로 반영 — my.html localSave와 동일한 키 구조
 function syncSpecOnLogin(raw){
-  const PRE='dv1sim';
+  const PRE='dv1simEN';
   try{
     if(!raw)return;
     const sd=typeof raw==='string'?JSON.parse(raw):raw;
@@ -73,7 +73,7 @@ function syncSpecOnLogin(raw){
     const isV2=!!(sd.v===2&&Array.isArray(sd.presets)&&sd.presets.length);
     // 구버전 클라우드 + 로그아웃 상태에서 만든 로컬 프리셋 → 내 스펙 페이지에서 처리
     if(!isV2&&localPresetsRaw)return;
-    const P=isV2?sd:{v:2,activeId:'p1',presets:[{id:'p1',name:'기본',data:sd}]};
+    const P=isV2?sd:{v:2,activeId:'p1',presets:[{id:'p1',name:'Default',data:sd}]};
     const act=P.presets.find(x=>x.id===P.activeId)||P.presets[0];
     P.activeId=act.id;
     const d=act.data||{};
@@ -107,13 +107,13 @@ async function login() {
   const username = document.getElementById('username').value.trim();
   const password = document.getElementById('password').value;
   const msg = document.getElementById('msg');
-  if(!username || !password){ msg.className='msg error'; msg.textContent='아이디와 비밀번호를 입력해주세요.'; return; }
+  if(!username || !password){ msg.className='msg error'; msg.textContent='Please enter your ID and password.'; return; }
   try {
     const hashed = await hashPassword(password);
     const rows = await supabase('GET', 'users', null, `?username=eq.${encodeURIComponent(username)}&password=eq.${hashed}`);
-    if(!rows || rows.length === 0){ msg.className='msg error'; msg.textContent='아이디 또는 비밀번호가 틀렸습니다.'; return; }
+    if(!rows || rows.length === 0){ msg.className='msg error'; msg.textContent='Incorrect ID or password.'; return; }
     const user = rows[0];
-    if(user.is_banned){ msg.className='msg error'; msg.textContent='이용이 제한된 계정입니다.'; return; }
+    if(user.is_banned){ msg.className='msg error'; msg.textContent='This account has been restricted.'; return; }
     setUser({
       id: user.id,
       username: user.username,
@@ -122,12 +122,12 @@ async function login() {
       is_admin: user.is_admin
     });
     syncSpecOnLogin(user.spec_data);
-    msg.className='msg success'; msg.textContent='로그인 성공!';
+    msg.className='msg success'; msg.textContent='Login successful!';
     const params = new URLSearchParams(location.search);
     const redirectTo = params.get('from') || './index.html';
     setTimeout(() => location.href=redirectTo, 800);
   } catch(e) {
-    msg.className='msg error'; msg.textContent='오류: ' + e.message;
+    msg.className='msg error'; msg.textContent='Error: ' + e.message;
   }
 }
 document.addEventListener('keydown', e => { if(e.key==='Enter') login(); });

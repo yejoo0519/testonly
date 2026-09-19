@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>종합 정보사이트 made by 닉스</title>
 <meta property="og:title" content="종합 정보사이트 made by 닉스">
-<meta property="og:description" content="드래곤빌리지 종합 정보사이트 - 초월 등급표, 도감, 레이드, 공략, 커뮤니티">
+<meta property="og:description" content="드래곤빌리지 종합 정보사이트 - 초월 등급표, 도감, 레이드, 공략, 길드">
 <meta property="og:image" content="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/main.jpg">
 <meta property="og:url" content="https://yejoo0519.github.io/dogam">
 <meta property="og:type" content="website">
@@ -154,7 +154,16 @@
   .icon-tile.rose    { background: color-mix(in oklab, var(--tone-rose)    18%, transparent); color: var(--tone-rose); }
   .icon-tile.emerald { background: color-mix(in oklab, var(--tone-emerald) 18%, transparent); color: var(--tone-emerald); }
 
-  /* 우측 사이드 레일 — 패치노트 + 방랑상인 */
+  /* 우측 사이드 레일 — 길드 배너 */
+  .guild-aside { display: flex; align-items: center; gap: 10px;
+                 padding: 12px 14px; background: var(--bg2);
+                 border: 1px solid var(--border); border-radius: 12px;
+                 transition: border-color .15s; }
+  .guild-aside:hover { border-color: var(--accent); }
+  .guild-aside-text { font-size: 13px; font-weight: 600; color: var(--text); flex: 1; }
+  .guild-aside-arrow { font-size: 12px; color: var(--accent); }
+
+  /* 우측 사이드 레일 — 패치노트 */
   .side-rail { width: 240px; flex-shrink: 0; position: sticky; top: 24px;
                display: flex; flex-direction: column; gap: 16px; }
   .patch-aside { padding: 16px; background: var(--bg2);
@@ -182,19 +191,6 @@
   .patch-item li { font-size: 11px; line-height: 1.5; color: var(--text2);
                    padding-left: 8px; position: relative; }
   .patch-item li::before { content: "·"; position: absolute; left: 0; color: var(--accent); }
-
-  .day-card { display: flex; align-items: center; gap: 10px;
-              padding: 14px; border-radius: 12px;
-              border: 1px dashed var(--border-strong);
-              background: transparent; text-align: left; width: 100%; }
-  .day-card:hover { border-color: var(--accent); border-style: solid; }
-  .day-icon { width: 32px; height: 32px; border-radius: 999px;
-              background: var(--bg3); flex-shrink: 0;
-              display: flex; align-items: center; justify-content: center;
-              overflow: hidden; }
-  .day-icon img { width: 80%; height: 80%; object-fit: contain; }
-  .day-text-title { font-size: 12px; font-weight: 600; color: var(--text); }
-  .day-text-sub   { font-size: 10px; color: var(--text3); }
 
   /* 푸터 */
   .page-footer { display: flex; flex-direction: column; gap: 12px;
@@ -247,7 +243,7 @@
     .hero-desc { font-size: 13px; }
     .hero { padding: 8px 0; }
     .tab-bar { justify-content: center; gap: 14px; }
-    .body { flex-direction: column; gap: 22px; }
+    .body { flex-direction: column; gap: 22px; align-items: stretch; }
     .side-rail { width: 100%; position: static; }
     .cards { grid-template-columns: 1fr; }
     .cards.tri { grid-template-columns: 1fr; }
@@ -275,22 +271,18 @@
   }
 
   /* ─── 모달 (원본 그대로) ─────────────────────────────────────── */
-  .patch-modal-overlay,
-  .item-modal-overlay { display: none; position: fixed; inset: 0;
+  .patch-modal-overlay { display: none; position: fixed; inset: 0;
                         background: rgba(0,0,0,0.7); z-index: 500;
                         align-items: center; justify-content: center; }
-  .patch-modal-overlay.open,
-  .item-modal-overlay.open { display: flex; }
+  .patch-modal-overlay.open { display: flex; }
   .patch-modal { background: var(--bg2); border: 1px solid var(--border);
                  border-radius: 12px; padding: 24px; width: 90%; max-width: 480px;
                  max-height: 70vh; overflow-y: auto; position: relative; }
   .patch-modal-title { font-size: 16px; font-weight: 700; color: var(--text);
                        margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
-  .patch-modal-close,
-  .item-modal-close { position: absolute; top: 14px; right: 16px;
+  .patch-modal-close { position: absolute; top: 14px; right: 16px;
                        color: var(--text2); font-size: 18px; }
-  .patch-modal-close:hover,
-  .item-modal-close:hover { color: var(--text); }
+  .patch-modal-close:hover { color: var(--text); }
   .patch-item-modal { margin-bottom: 16px; padding-bottom: 16px;
                       border-bottom: 1px solid var(--border2); }
   .patch-item-modal:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
@@ -302,11 +294,6 @@
                     border-radius: 8px; color: var(--accent); font-size: 13px; font-weight: 600;
                     text-align: center; text-decoration: none; }
   .patch-more-btn:hover { border-color: var(--accent); }
-  .item-modal { background: var(--bg2); border: 1px solid var(--border);
-                border-radius: 12px; padding: 20px; width: 90%; max-width: 400px;
-                position: relative; text-align: center; }
-  .item-modal-title { font-size: 14px; font-weight: 700; color: var(--accent); margin-bottom: 12px; }
-  .item-modal img { width: 100%; border-radius: 8px; display: block; }
 
   /* ── 어드민 회원 카드 ── */
   .admin-member-card{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;flex-wrap:wrap}
@@ -360,7 +347,7 @@
       <span class="h-section">made by 닉스</span>
     </div>
     <h1 class="h-display">종합 정보사이트</h1>
-    <p class="hero-desc">드래곤빌리지 초월 등급표, 도감, 레이드, 공략, 커뮤니티, 자동 계산기까지 — 한 페이지에서.</p>
+    <p class="hero-desc">드래곤빌리지 초월 등급표, 도감, 레이드, 공략, 길드, 자동 계산기까지 — 한 페이지에서.</p>
     <div class="stats-strip" id="stats-strip">
       <span>오늘 <strong id="s-today">-</strong></span>
       <span>누적 <strong id="s-total">-</strong></span>
@@ -372,9 +359,8 @@
   <nav class="tab-bar" data-scroll-x>
     <button class="tab active" onclick="switchTab('info', this)">정보</button>
     <button class="tab" onclick="switchTab('guide', this)">공략 &amp; 가이드</button>
-    <button class="tab" onclick="switchTab('weekly', this)">주간</button>
-    <button class="tab" onclick="switchTab('community', this)">커뮤니티</button>
     <button class="tab" onclick="switchTab('calculator', this)">계산기</button>
+    <button class="tab" onclick="switchTab('convenience', this)">편의성</button>
     <button class="tab" id="tab-admin" onclick="switchTab('admin', this)" style="display:none">⚙️ 어드민</button>
   </nav>
 
@@ -406,18 +392,25 @@
               <div class="card-desc">Lv.45 / Lv.21 SSS 드래곤 랭킹 · 속성 필터 지원</div>
             </div>
           </a>
-          <a href="./raid.html" class="card">
-            <span class="icon-tile rose">알하</span>
+          <a href="./cham.html" class="card">
+            <span class="icon-tile amber">챔대</span>
             <div class="card-body">
-              <div class="card-title">아르하 입구</div>
-              <div class="card-desc">디데락 조합, 평르하 조합 · 자동 조합기능 제공</div>
+              <div class="card-title">챔대 / 루키 랭킹</div>
+              <div class="card-desc">챔대(SSS) · 루키(SS) · Lv.45 / Lv.21 · 속성 필터 지원</div>
+            </div>
+          </a>
+          <a href="./pkg.html" class="card">
+            <span class="icon-tile emerald">패키</span>
+            <div class="card-body">
+              <div class="card-title">패키지 복각 주기</div>
+              <div class="card-desc">패키지별 복각 주기 · 마지막 복각일 · 예상 복각일</div>
             </div>
           </a>
         </div>
       </section>
 
       <section class="category" id="cat-guide">
-        <div class="cat-head"><h3>공략 &amp; 가이드</h3><span class="meta">· 2개 메뉴</span></div>
+        <div class="cat-head"><h3>공략 &amp; 가이드</h3><span class="meta">· 3개 메뉴</span></div>
         <div class="cards">
           <a href="./guide.html?from=guide" class="card">
             <span class="icon-tile amber">팁게</span>
@@ -433,45 +426,21 @@
               <div class="card-desc">아르하필드 · 일반 레이드 · 레무리아 보스 상세</div>
             </div>
           </a>
-        </div>
-      </section>
-
-      <section class="category" id="cat-weekly">
-        <div class="cat-head"><h3>주간</h3><span class="meta">· 1개 메뉴</span></div>
-        <div class="cards">
-          <a href="./weekly.html?from=weekly" class="card">
-            <span class="icon-tile sky">주간</span>
+          <a href="./raid.html" class="card">
+            <span class="icon-tile rose">알하</span>
             <div class="card-body">
-              <div class="card-title">주간 정보</div>
-              <div class="card-desc">레무리아 · 레이드 · 길드전 · 매주 업데이트</div>
+              <div class="card-title">아르하 입구</div>
+              <div class="card-desc">디데락 조합, 평르하 조합 · 자동 조합기능 제공</div>
             </div>
           </a>
         </div>
       </section>
 
-      <section class="category" id="cat-community">
-        <div class="cat-head"><h3>커뮤니티</h3><span class="meta">· 2개 메뉴</span></div>
-        <div class="cards">
-          <a href="./guild.html?from=community" class="card">
-            <span class="icon-tile emerald">길드</span>
-            <div class="card-body">
-              <div class="card-title">길드</div>
-              <div class="card-desc">길드 홍보 및 모집 정보</div>
-            </div>
-          </a>
-          <a href="./friend.html?from=community" class="card">
-            <span class="icon-tile violet">친추</span>
-            <div class="card-body">
-              <div class="card-title">친구요청</div>
-              <div class="card-desc">정기친구 · 레이드 프리미엄 · 친구 게시판</div>
-            </div>
-          </a>
-        </div>
       </section>
 
       <section class="category" id="cat-calculator">
         <div class="cat-head cat-head-row">
-          <div class="cat-head-inner"><h3>계산기</h3><span class="meta">· 3개 메뉴</span></div>
+          <div class="cat-head-inner"><h3>계산기</h3><span class="meta">· 4개 메뉴</span></div>
           <a href="./my.html" class="my-spec-btn">👤 내 스펙 →</a>
         </div>
         <div class="cards tri">
@@ -494,6 +463,26 @@
             <div class="card-body">
               <div class="card-title">길드전 계산기<br>(뉴비)</div>
               <div class="card-desc">7.0~9.0 선택 · 너프 적용 출력</div>
+            </div>
+          </a>
+          <a href="./cham_manual.html?from=calculator" class="card">
+            <span class="icon-tile violet">챔대</span>
+            <div class="card-body">
+              <div class="card-title">챔피언대전 계산기<br>(수동)</div>
+              <div class="card-desc">3팀 × 3마리 · 최종 스탯 · EVAL · 비벨</div>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <section class="category" id="cat-convenience">
+        <div class="cat-head"><h3>편의성</h3><span class="meta">· 1개 메뉴</span></div>
+        <div class="cards">
+          <a href="./aura-preview.html" class="card">
+            <span class="icon-tile sky">오라</span>
+            <div class="card-body">
+              <div class="card-title">오라 미리보기</div>
+              <div class="card-desc">현재 존재하는 4가지 오라 · 동굴 배경 지원</div>
             </div>
           </a>
         </div>
@@ -530,6 +519,11 @@
 
     <!-- 우측 사이드 (PC) -->
     <aside class="side-rail pc-only">
+      <a href="./guild.html?from=index" class="guild-aside">
+        <span class="icon-tile emerald">길드</span>
+        <span class="guild-aside-text">길드 홍보 &amp; 모집</span>
+        <span class="guild-aside-arrow">→</span>
+      </a>
       <div class="patch-aside" onclick="openPatchModal()">
         <div class="patch-aside-head">
           <span class="h-section">패치노트</span>
@@ -537,35 +531,24 @@
         </div>
         <div class="patch-item">
           <div class="patch-item-head">
+            <span class="patch-ver">v0.0.10</span>
+            <span class="patch-date">2026-05-29</span>
+            <span class="patch-badge badge-new">NEW</span>
+          </div>
+          <ul><li>크툴루, 크크툴 두마리의 이미지가 업데이트</li></li></ul>
+          <ul><li>뉴비버전 계산기 너프 스텟 반영되게 수정</li></li></ul>
+        </div>
+        <div class="patch-item">
+          <div class="patch-item-head">
             <span class="patch-ver">v0.0.8</span>
             <span class="patch-date">2026-05-26</span>
             <span class="patch-badge badge-new">NEW</span>
           </div>
-          <ul><li>계산기 모바일 Ui 개선</li></li></ul>
-          <ul><li>로그인 시 드래곤 데이터도 저장되게 개선</li></li></ul>
-          <ul><li>새로운 드래곤 3종 데이터 추가</li></li></ul>
-        </div>
-        <div class="patch-item">
-          <div class="patch-item-head">
-            <span class="patch-ver">v0.0.7</span>
-            <span class="patch-date">2026-05-23</span>
-            <span class="patch-badge badge-new">NEW</span>
-          </div>
-          <ul><li>전체적인 Ui 개선</li></ul>
-          <ul><li>계산기에 적용될 내 스펙 창 추가</li></ul>
-          <ul><li>내 스펙 내보내기/불러오기 기능 추가</li></ul>
+          <ul><li>계산기와 연동되는 길드 편의성 기능 추가</li></li></ul>
+          <ul><li>아이디, 비밀번호 찾기 / 비밀번호 변경 기능 추가</li></li></ul>
+          <ul><li>계산기 스펙 수정 내 스펙 탭으로 전체 통합</li></li></ul>
         </div>
       </div>
-      <button class="day-card" onclick="openItemModal()">
-        <div class="day-icon">
-          <img src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/Day.png" alt="방랑상인"
-               onerror="this.style.display='none'">
-        </div>
-        <div>
-          <div class="day-text-title">방랑상인</div>
-          <div class="day-text-sub">오늘의 품목 보기</div>
-        </div>
-      </button>
     </aside>
   </div>
 
@@ -595,11 +578,11 @@
     <button class="active" onclick="window.scrollTo({top:0, behavior:'smooth'})">
       <span class="glyph">⌂</span><span>홈</span>
     </button>
-    <button onclick="openItemModal()">
-      <span class="glyph">☀</span><span>방랑상인</span>
-    </button>
     <button onclick="openPatchModal()">
       <span class="glyph">📋</span><span>패치노트</span>
+    </button>
+    <button onclick="location.href='./guild.html?from=index'">
+      <span class="glyph">🛡️</span><span>길드</span>
     </button>
     <button onclick="location.href='./my.html'">
       <span class="glyph">👤</span><span>내 스펙</span>
@@ -616,28 +599,18 @@
     <div id="patch-modal-body">
       <div class="patch-item-modal">
         <div class="patch-item-head">
-          <span class="patch-ver">v0.0.8</span>
-          <span class="patch-date">2026-05-26</span>
+          <span class="patch-ver">v0.0.9</span>
+          <span class="patch-date">2026-05-29</span>
           <span class="patch-badge badge-new">NEW</span>
         </div>
         <ul class="patch-item-content">
-          <ul>계산기 모바일 Ui 개선</li></ul>
-          <ul>로그인 시 드래곤 데이터도 저장되게 개선</li></ul>
-          <ul>새로운 드래곤 3종 데이터 추가</li></ul>
+          <ul><li>크툴루, 크크툴 두마리의 이미지가 업데이트</li></li></ul>
+          <ul><li>뉴비버전 계산기 너프 스텟 반영되게 수정</li></li></ul>
           <li style="color:#666">오류 발생시 문의 부탁드립니다.</li>
         </ul>
       </div>
     </div>
     <a href="./patchnote.html" class="patch-more-btn">전체 패치노트 보기 →</a>
-  </div>
-</div>
-
-<!-- 방랑상인 모달 (원본 그대로) -->
-<div class="item-modal-overlay" id="item-modal-overlay" onclick="closeItemModal(event)">
-  <div class="item-modal" onclick="event.stopPropagation()">
-    <button class="item-modal-close" onclick="closeItemModal()">✕</button>
-    <div class="item-modal-title">방랑상인 품목</div>
-    <img src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/item.png" alt="방랑상인">
   </div>
 </div>
 
@@ -648,8 +621,6 @@
   // ─── 모달 (원본 그대로) ─────────────────────────────────────
   function openPatchModal()  { document.getElementById('patch-modal-overlay').classList.add('open'); }
   function closePatchModal(e){ if (!e || e.target === document.getElementById('patch-modal-overlay')) document.getElementById('patch-modal-overlay').classList.remove('open'); }
-  function openItemModal()   { document.getElementById('item-modal-overlay').classList.add('open'); }
-  function closeItemModal(e) { if (!e || e.target === document.getElementById('item-modal-overlay')) document.getElementById('item-modal-overlay').classList.remove('open'); }
 
   // ─── 탭 전환 (URL ?tab= 동기화) ──────────────────────────────
   function switchTab(tab, el) {

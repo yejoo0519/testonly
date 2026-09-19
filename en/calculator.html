@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dragon Village 1 BV Simulator</title>
+<title>Dragon Village 1 B-Val Simulator</title>
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
-<link id="theme-css" rel="stylesheet" href="../theme-dark.css">
-<script src="../theme.js"></script>
+<link id="theme-css" rel="stylesheet" href="./theme-dark.css">
+<script src="./theme.js"></script>
 <style>
 
 *{box-sizing:border-box;margin:0;padding:0}
@@ -65,16 +65,16 @@ select:disabled,input:disabled{opacity:.3;cursor:not-allowed}
 .sp-onum{color:var(--gold);font-size:11px;font-weight:800;min-width:18px}
 .sp-ocard select{flex:1;font-size:12px}
 .sp-oval{color:var(--green);font-size:11px;min-width:46px;text-align:right}
-.sp-preset-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin-bottom:10px}
+.sp-preset-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-bottom:10px}
 .sp-preset-btn{background:var(--sf2);border:1px solid var(--bd);border-radius:5px;padding:6px 8px;color:var(--text);cursor:pointer;font-family:'Nanum Gothic',sans-serif;text-align:center;transition:all .15s;min-height:34px;white-space:nowrap}
 .sp-preset-btn:hover{border-color:var(--gold);background:rgba(232,184,75,.08)}
 .sp-preset-btn.active{border-color:var(--gold);background:rgba(232,184,75,.14)}
-.sp-preset-name{display:inline;font-size:12px;font-weight:800;color:var(--gold)}
-.sp-preset-desc{display:inline;font-size:11px;color:#fff;margin-left:5px}
+.sp-preset-name{display:block;font-size:12px;font-weight:800;color:var(--gold)}
+.sp-preset-desc{display:block;font-size:11px;color:var(--text);margin-left:0}
 .coll-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .coll-g label{display:block;font-size:12px;color:var(--dim);margin-bottom:4px}
 .coll-g input{width:100%;text-align:center}
-.btn-white{background:none;border:1px solid #fff;color:#fff;padding:6px 13px;border-radius:5px;cursor:pointer;font-family:'Nanum Gothic',sans-serif;font-size:13px;font-weight:700}
+.btn-white{background:none;border:1px solid var(--text);color:var(--text);padding:6px 13px;border-radius:5px;cursor:pointer;font-family:'Nanum Gothic',sans-serif;font-size:13px;font-weight:700}
 .btn-white:hover{background:rgba(255,255,255,.1)}
 .btn-gold{background:none;border:1px solid var(--gold);color:var(--gold);padding:6px 13px;border-radius:5px;cursor:pointer;font-family:'Nanum Gothic',sans-serif;font-size:13px;font-weight:700}
 .btn-gold:hover{background:rgba(232,184,75,.1)}
@@ -172,7 +172,7 @@ input[type=number]{-moz-appearance:textfield}
   --text:#2a2316;--text2:#5a4e34;--text3:#837553;--text4:#a99971;
   --accent:#b06a1e;--accent-bg:rgba(176,106,30,0.10);--accent-border:rgba(176,106,30,0.32);
 }
-/* spec  Count →  Count  */
+/* spec 커스텀 변수 → 테마 변수로 매핑 */
 :root{
   --sf:var(--bg2);--sf2:var(--bg3);--bd:var(--border);
   --gold:var(--accent);--gold2:var(--accent);
@@ -180,6 +180,40 @@ input[type=number]{-moz-appearance:textfield}
   --red:#f87171;--green:#4ade80;--blue:#60a5fa;
   --hpc:#fbbf24;--atc:#f87171;--dfc:#60a5fa;
 }
+
+/* ── 스펙 View only ── */
+.sv-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px}
+.sv-badge{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(100,200,100,.12);color:#4ade80;border:1px solid rgba(74,222,128,.25);font-weight:800}
+.sv-edit-btn{background:none;border:1px solid var(--gold);color:var(--gold);padding:7px 16px;border-radius:6px;cursor:pointer;font-family:inherit;font-size:13px;font-weight:700;text-decoration:none;display:inline-block;transition:background .15s}
+.sv-edit-btn:hover{background:var(--accent-bg)}
+.sv-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.sv-sec{background:var(--sf);border:1px solid var(--bd);border-radius:8px;overflow:hidden;margin-bottom:14px}
+.sv-sec-hd{padding:9px 14px;background:var(--sf2);border-bottom:1px solid var(--bd);font-size:11px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:.5px}
+.sv-sec-bd{padding:12px 14px}
+.sv-gem-table{width:100%;border-collapse:collapse;font-size:13px}
+.sv-gem-table th{font-size:10px;color:var(--dim);padding:4px 8px;text-align:center;border-bottom:1px solid var(--bd)}
+.sv-gem-table td{padding:5px 8px;text-align:center;border-bottom:1px solid var(--bd);font-size:12px}
+.sv-gem-table tr:last-child td{border-bottom:none}
+.sv-gem-hp{color:#fbbf24}.sv-gem-atk{color:#f87171}.sv-gem-def{color:#60a5fa}
+.sv-item{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--bd);font-size:12px}
+.sv-item:last-child{border-bottom:none}
+.sv-item-img{width:28px;height:28px;object-fit:contain;border-radius:3px;flex-shrink:0}
+.sv-item-name{flex:1}
+.sv-enc{font-size:10px;padding:1px 6px;border-radius:3px;border:1px solid;font-weight:800}
+.sv-coll-row{display:flex;justify-content:space-around;padding:8px 0;font-size:13px;font-weight:700}
+.sv-empty{color:var(--dimmer);font-style:italic;font-size:12px;padding:8px 0;text-align:center}
+/* 스펙 요약 (시뮬 탭) */
+.spec-summary{background:var(--sf);border:1px solid var(--bd);border-radius:8px;margin-bottom:14px;overflow:hidden}
+.spec-summary-hd{display:flex;align-items:center;justify-content:space-between;padding:9px 16px;background:var(--sf2);border-bottom:1px solid var(--bd);font-size:11px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:.5px}
+.spec-summary-bd{padding:12px 16px;display:flex;flex-direction:column;gap:8px}
+.ss-row{display:flex;align-items:flex-start;gap:8px;font-size:12px;line-height:1.7}
+.ss-lbl{color:var(--dim);flex-shrink:0;width:52px;font-size:11px;font-weight:700;padding-top:1px}
+.ss-val{color:var(--text);flex:1;word-break:break-all}
+.ss-empty{color:var(--dimmer);font-style:italic}
+.ss-gem-hp{color:#fbbf24}.ss-gem-atk{color:#f87171}.ss-gem-def{color:#60a5fa}
+.ss-edit-btn{background:none;border:1px solid var(--gold);color:var(--gold);padding:4px 12px;border-radius:5px;cursor:pointer;font-family:inherit;font-size:12px;font-weight:700;white-space:nowrap;transition:background .15s}
+.ss-edit-btn:hover{background:var(--accent-bg)}
+@media(max-width:700px){.sv-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -187,128 +221,31 @@ input[type=number]{-moz-appearance:textfield}
 <div class="hd">
   <a href="./index.html?tab=calculator" style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;border:1px solid var(--bd);background:var(--sf2);color:var(--text2);text-decoration:none;font-size:16px;flex-shrink:0;transition:all 0.15s" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--text)'" onmouseout="this.style.borderColor='var(--bd)';this.style.color='var(--text2)'">←</a>
   <div class="hd-icon">🐉</div>
-  <div><div class="hd-t">Dragon1 Spirit simulator</div><div class="hd-s">BV (HP × ATK × DEF) Optimizer</div></div>
-  <div style="margin-left:auto;font-size:12px;color:#fff;text-align:right">Made by <br>
+  <div><div class="hd-t">Dragon Village 1 Spirit Simulator</div><div class="hd-s">B-Val (HP × ATK × DEF) optimization</div></div>
+  <div style="margin-left:auto;font-size:12px;color:var(--text);text-align:right">Made by Nix<br>
 </div>
 </div>
 
 <div class="tabs">
-  <button class="tab-btn active" id="tab-btn-spec" onclick="switchTab('spec')">My Stats</button>
-  <button class="tab-btn" id="tab-btn-sim" onclick="switchTab('sim')">simulator</button>
+  <button class="tab-btn active" id="tab-btn-spec" onclick="switchTab('spec')">My Spec</button>
+  <button class="tab-btn" id="tab-btn-sim" onclick="switchTab('sim')">Simulator</button>
 </div>
 
-<!-- ■ My Stats Tab -->
+<!-- ■ My Spec 탭 (View only) -->
 <div id="tab-spec" class="tc active"><div class="ti">
-  <div class="save-row" style="margin-bottom:10px">
-    <span class="save-msg" id="save-msg"></span>
-    <button class="btn-reset" onclick="resetAll()">↺ All Reset</button>
-    <button class="btn-save" onclick="doSave()">💾 Save</button>
-  </div>
-  <div class="spec-layout">
-
-    <!-- : Spirit (All ) -->
-    <div class="spec-spirit">
-      <div class="sec">
-        <div class="sec-hd">
-          <span>✨ Spirit</span>
-          <button class="btn-reset" onclick="resetSpirit()">↺</button>
-        </div>
-        <div class="sec-bd" id="sp-bd"></div>
+  <div class="spec-spirit" id="spec-spirit-wrap">
+    <div class="sec">
+      <div class="sec-hd">
+        <span>✨ Spirit</span>
+        <button class="btn-reset" onclick="resetSpirit()">↺</button>
       </div>
-    </div>
-
-    <!-- bottom: 3col grid -->
-    <div class="spec-grid">
-
-      <!-- 1: gem + Collection -->
-      <div class="spec-col">
-        <div class="sec">
-          <div class="sec-hd">
-            <span>💎 gem Owned</span>
-            <button class="btn-reset" onclick="resetGems()">↺</button>
-          </div>
-          <div class="sec-bd">
-            <div class="gem-grid">
-              <div class="gem-hdr"></div>
-              <div class="gem-hdr" style="color:var(--hpc)">HP</div>
-              <div class="gem-hdr" style="color:var(--atc)">ATK</div>
-              <div class="gem-hdr" style="color:var(--dfc)">DEF</div>
-              <div class="gem-lbl">Gem Lv37</div>
-              <input type="number" id="gem-hp-37" min="0" value="0" oninput="onGem('hp',37,this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()">
-              <input type="number" id="gem-atk-37" min="0" value="0" oninput="onGem('atk',37,this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()">
-              <input type="number" id="gem-def-37" min="0" value="0" oninput="onGem('def',37,this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()">
-              <div class="gem-lbl">Gem Lv38</div>
-              <input type="number" id="gem-hp-38" min="0" value="0" oninput="onGem('hp',38,this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()">
-              <input type="number" id="gem-atk-38" min="0" value="0" oninput="onGem('atk',38,this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()">
-              <input type="number" id="gem-def-38" min="0" value="0" oninput="onGem('def',38,this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()">
-              <div class="gem-lbl">Gem Lv39</div>
-              <input type="number" id="gem-hp-39" min="0" value="0" oninput="onGem('hp',39,this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()">
-              <input type="number" id="gem-atk-39" min="0" value="0" oninput="onGem('atk',39,this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()">
-              <input type="number" id="gem-def-39" min="0" value="0" oninput="onGem('def',39,this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()">
-              <div class="gem-lbl">Gem Lv40</div>
-              <input type="number" id="gem-hp-40" min="0" value="0" oninput="onGem('hp',40,this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()">
-              <input type="number" id="gem-atk-40" min="0" value="0" oninput="onGem('atk',40,this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()">
-              <input type="number" id="gem-def-40" min="0" value="0" oninput="onGem('def',40,this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()">
-            </div>
-          </div>
-        </div>
-        <div class="sec">
-          <div class="sec-hd">
-            <span>📚 Collection Stat</span>
-            <button class="btn-white" onclick="setFullCollection()">Full</button>
-          </div>
-          <div class="sec-bd">
-            <div class="coll-grid">
-              <div class="coll-g"><label>HP</label><input type="number" id="coll-hp" min="0" value="0" oninput="onColl('hp',this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()"></div>
-              <div class="coll-g"><label>ATK</label><input type="number" id="coll-atk" min="0" value="0" oninput="onColl('atk',this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()"></div>
-              <div class="coll-g"><label>DEF</label><input type="number" id="coll-def" min="0" value="0" oninput="onColl('def',this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 2: Accessory -->
-      <div class="spec-col">
-        <div class="sec">
-          <div class="sec-hd">
-            <span>⚒ Accessory &nbsp;&nbsp;<label style="font-size:11px;font-weight:400;color:#fff;cursor:pointer">Stat-only &nbsp;<input type="checkbox" id="chk-stat-only" checked onchange="renderAcc()" style="accent-color:var(--gold);margin-right:5px"></label></span>
-            <div style="display:flex;gap:6px">
-              <button class="btn-reset" onclick="resetAcc()">↺</button>
-              <button class="btn-gold" onclick="sortAccCards();renderAcc();qSave()">Sort</button>
-              <button class="btn-white" onclick="addAcc()">+ Add</button>
-            </div>
-          </div>
-          <div class="acc-preset-row">
-            <button class="btn-white" onclick="addAccBulk(16)">16</button>
-            <button class="btn-white" onclick="addAccBulk(17)">17</button>
-            <button class="btn-white" onclick="addAccBulk(18)">18</button>
-            <button class="btn-white" onclick="addAccBulk(19)">19</button>
-            <button class="btn-white" onclick="addAccBulk(20)">20</button>
-          </div>
-          <div class="sec-bd"><div id="acc-list"><div style="color:var(--dimmer);font-size:13px">Owned Accessory None</div></div></div>
-        </div>
-      </div>
-
-      <!-- 3: Pendant -->
-      <div class="spec-col">
-        <div class="sec">
-          <div class="sec-hd">
-            <span>🌙 Pendant</span>
-            <div style="display:flex;gap:6px">
-              <button class="btn-reset" onclick="resetPend()">↺</button>
-              <button class="btn-gold" onclick="sortPendants();renderPends();qSave()">Sort</button>
-              <button class="btn-white" onclick="addPendant()">+ Add</button>
-            </div>
-          </div>
-          <div class="sec-bd"><div id="pend-list"><div style="color:var(--dimmer);font-size:13px">No pendants (not applied in sim)</div></div></div>
-        </div>
-      </div>
-
+      <div class="sec-bd" id="sp-bd"></div>
     </div>
   </div>
+  <div id="spec-view-wrap"><!-- renderSpecView()로 채워짐 --></div>
 </div></div>
 
-<!-- ■ simulator Tab -->
+<!-- ■ Simulator 탭 -->
 <div id="tab-sim" class="tc"><div class="ti ti-sim">
 
   <div class="sec">
@@ -324,18 +261,18 @@ input[type=number]{-moz-appearance:textfield}
           </div>
         </div>
         <div>
-          <div class="cfg-lbl">Buff Stage</div>
+          <div class="cfg-lbl">Buff Level</div>
           <div class="btn-grp" id="buf-grp">
-            <button onclick="setBuf(0)">0Buff</button>
-            <button onclick="setBuf(1)">1Buff</button>
-            <button class="active" onclick="setBuf(2)">2Buff</button>
+            <button onclick="setBuf(0)">Buff 0</button>
+            <button onclick="setBuf(1)">Buff 1</button>
+            <button class="active" onclick="setBuf(2)">Buff 2</button>
           </div>
         </div>
         <div>
-          <div class="cfg-lbl">Enchant opt</div>
+          <div class="cfg-lbl">Enchant Option</div>
           <div class="radio-opts">
-            <label><input type="radio" name="enc-mode" value="fixed"> my Accessory+Enchant Use</label>
-            <label><input type="radio" name="enc-mode" value="infinite" checked> my Accessory Use(  case)</label>
+            <label><input type="radio" name="enc-mode" value="fixed"> Use my accessories + enchants</label>
+            <label><input type="radio" name="enc-mode" value="infinite" checked> Use my accessories only (if inheritable)</label>
           </div>
         </div>
       </div>
@@ -344,16 +281,16 @@ input[type=number]{-moz-appearance:textfield}
 
   <div style="display:flex;align-items:center;gap:8px;padding:8px 16px 0">
   <label style="display:flex;align-items:center;gap:7px;cursor:pointer;font-size:13px">
-    <input type="checkbox" id="exc-sun-pend" style="accent-color:var(--gold)">  Excl.
+    <input type="checkbox" id="exc-sun-pend" style="accent-color:var(--gold)"> Exclude Sun Pendant
   </label>
   </div>
   <button class="btn-sim" id="sim-btn" onclick="runSim()">🐉 Run Simulation</button>
 
   <div class="sec" id="res-sec" style="display:none">
-  <div class="sec-hd">🏆 Simulation Result — TOP 10</div>
+  <div class="sec-hd">🏆 Simulation Results — TOP 10</div>
   <div style="display:flex;border-bottom:1px solid var(--bd)">
-    <button class="res-tab-btn" id="res-tab-btn-avg" onclick="switchResTab('avg')">Final Count</button>
-    <button class="res-tab-btn" id="res-tab-btn-top" onclick="switchResTab('top')">best B-Val</button>
+    <button class="res-tab-btn" id="res-tab-btn-avg" onclick="switchResTab('avg')">Final Score</button>
+    <button class="res-tab-btn" id="res-tab-btn-top" onclick="switchResTab('top')">Top B-Val</button>
   </div>
   <div id="res-top" style="display:none"><div class="res-wrap"><div id="res-body-top"></div></div></div>
   <div id="res-avg"><div class="res-wrap"><div id="res-body-avg"></div></div></div>
@@ -363,172 +300,253 @@ input[type=number]{-moz-appearance:textfield}
 
 <script>
 // ================================================================
-//  data
+// 게임 데이터
 // ================================================================
 
 
 const TEM_BASE='https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/tem';
 const ACC_IMG_MAP={
-  '20':{'LightHorn':12,'Horn of Wind':13,'Nightmare Orb':20,'Dusk Orb':21,'Dawn Orb':22,'Horn of Earth':1433,'Horn of Water':1435,'FireHorn':1437},
-  '19':{'Nightmare Orb':1273,'Dusk Orb':1274,'Dawn Orb':1275,'Horn of Wind':1276,'Horn of Earth':1306,'Horn of Water':1308,'FireHorn':1310},
-  '18':{'LightHorn':1209,'Nightmare Orb':1205,'Dusk Orb':1206,'Dawn Orb':1207,'Horn of Wind':1202,'Horn of Earth':1247,'Horn of Water':1249,'FireHorn':1251},
-  '17':{'Nightmare Orb':1102,'Dusk Orb':1103,'Dawn Orb':1104,'Horn of Wind':1105,'Horn of Earth':1130,'Horn of Water':1132,'FireHorn':1134},
-  '16':{'Nightmare Orb':1046,'Dusk Orb':1047,'Dawn Orb':1048,'Horn of Wind':1049,'Horn of Earth':1130,'Horn of Water':1132,'FireHorn':1134},
+  '20':{'빛뿔':12,'바뿔':13,'악보':20,'황보':21,'여보':22,'대뿔':1433,'물뿔':1435,'불뿔':1437},
+  '19':{'악보':1273,'황보':1274,'여보':1275,'바뿔':1276,'대뿔':1306,'물뿔':1308,'불뿔':1310},
+  '18':{'빛뿔':1209,'악보':1205,'황보':1206,'여보':1207,'바뿔':1202,'대뿔':1247,'물뿔':1249,'불뿔':1251},
+  '17':{'악보':1102,'황보':1103,'여보':1104,'바뿔':1105,'대뿔':1130,'물뿔':1132,'불뿔':1134},
+  '16':{'악보':1046,'황보':1047,'여보':1048,'바뿔':1049,'대뿔':1130,'물뿔':1132,'불뿔':1134},
 };
 const accImg=(lv,name)=>{const n=ACC_IMG_MAP[String(lv)]?.[name];return n?`${TEM_BASE}/${n}.png`:'';}
 
-const IMG_LightHorn18=accImg(18,'LightHorn');
-const IMG_LightHorn20=accImg(20,'LightHorn');
-const IMG_NOrb16=accImg(16,'Nightmare Orb');
-const IMG_DOrb16=accImg(16,'Dusk Orb');
-const IMG_DaOrb16=accImg(16,'Dawn Orb');
-const IMG_WaterHorn16=accImg(16,'Horn of Water');
-const IMG_Fire16=accImg(16,'FireHorn');
-const IMG_EarthHorn16=accImg(16,'Horn of Earth');
-const IMG_WindHorn16=accImg(16,'Horn of Wind');
-const IMG_NOrb17=accImg(17,'Nightmare Orb');
-const IMG_DOrb17=accImg(17,'Dusk Orb');
-const IMG_DaOrb17=accImg(17,'Dawn Orb');
-const IMG_WaterHorn17=accImg(17,'Horn of Water');
-const IMG_Fire17=accImg(17,'FireHorn');
-const IMG_EarthHorn17=accImg(17,'Horn of Earth');
-const IMG_WindHorn17=accImg(17,'Horn of Wind');
-const IMG_NOrb18=accImg(18,'Nightmare Orb');
-const IMG_DOrb18=accImg(18,'Dusk Orb');
-const IMG_DaOrb18=accImg(18,'Dawn Orb');
-const IMG_WaterHorn18=accImg(18,'Horn of Water');
-const IMG_Fire18=accImg(18,'FireHorn');
-const IMG_EarthHorn18=accImg(18,'Horn of Earth');
-const IMG_WindHorn18=accImg(18,'Horn of Wind');
-const IMG_NOrb19=accImg(19,'Nightmare Orb');
-const IMG_DOrb19=accImg(19,'Dusk Orb');
-const IMG_DaOrb19=accImg(19,'Dawn Orb');
-const IMG_WaterHorn19=accImg(19,'Horn of Water');
-const IMG_Fire19=accImg(19,'FireHorn');
-const IMG_EarthHorn19=accImg(19,'Horn of Earth');
-const IMG_WindHorn19=accImg(19,'Horn of Wind');
-const IMG_NOrb20=accImg(20,'Nightmare Orb');
-const IMG_DOrb20=accImg(20,'Dusk Orb');
-const IMG_DaOrb20=accImg(20,'Dawn Orb');
-const IMG_WaterHorn20=accImg(20,'Horn of Water');
-const IMG_Fire20=accImg(20,'FireHorn');
-const IMG_EarthHorn20=accImg(20,'Horn of Earth');
-const IMG_WindHorn20=accImg(20,'Horn of Wind');
+const IMG_빛뿔18=accImg(18,'빛뿔');
+const IMG_빛뿔20=accImg(20,'빛뿔');
+const IMG_악보16=accImg(16,'악보');
+const IMG_황보16=accImg(16,'황보');
+const IMG_여보16=accImg(16,'여보');
+const IMG_물16=accImg(16,'물뿔');
+const IMG_불16=accImg(16,'불뿔');
+const IMG_땅16=accImg(16,'대뿔');
+const IMG_바람16=accImg(16,'바뿔');
+const IMG_악보17=accImg(17,'악보');
+const IMG_황보17=accImg(17,'황보');
+const IMG_여보17=accImg(17,'여보');
+const IMG_물17=accImg(17,'물뿔');
+const IMG_불17=accImg(17,'불뿔');
+const IMG_땅17=accImg(17,'대뿔');
+const IMG_바람17=accImg(17,'바뿔');
+const IMG_악보18=accImg(18,'악보');
+const IMG_황보18=accImg(18,'황보');
+const IMG_여보18=accImg(18,'여보');
+const IMG_물18=accImg(18,'물뿔');
+const IMG_불18=accImg(18,'불뿔');
+const IMG_땅18=accImg(18,'대뿔');
+const IMG_바람18=accImg(18,'바뿔');
+const IMG_악보19=accImg(19,'악보');
+const IMG_황보19=accImg(19,'황보');
+const IMG_여보19=accImg(19,'여보');
+const IMG_물19=accImg(19,'물뿔');
+const IMG_불19=accImg(19,'불뿔');
+const IMG_땅19=accImg(19,'대뿔');
+const IMG_바람19=accImg(19,'바뿔');
+const IMG_악보20=accImg(20,'악보');
+const IMG_황보20=accImg(20,'황보');
+const IMG_여보20=accImg(20,'여보');
+const IMG_물20=accImg(20,'물뿔');
+const IMG_불20=accImg(20,'불뿔');
+const IMG_땅20=accImg(20,'대뿔');
+const IMG_바뿔20=accImg(20,'바뿔');
 const IMG_PEND={
-  Sun:`${TEM_BASE}/1337.png`,
-  Moon:`${TEM_BASE}/1336.png`,
-  Star:`${TEM_BASE}/1335.png`
+  태양:`${TEM_BASE}/1337.png`,
+  달:`${TEM_BASE}/1336.png`,
+  별:`${TEM_BASE}/1335.png`
 };
 
 const ACC_DB=[
 
-  {n:'Horn of Light (Crit/HP) 18',hp:0.08, atk:0,    def:0   , img:IMG_LightHorn18},
-  {n:'Horn of Light (Crit/ATK) 18',hp:0,    atk:0.08, def:0   , img:IMG_LightHorn18},
-  {n:'Horn of Light (Crit/DEF) 18',hp:0,    atk:0,    def:0.08, img:IMG_LightHorn18},
+  {n:'Horn of light +18 (Crit/HP)',hp:0.08, atk:0,    def:0   , img:IMG_빛뿔18},
+  {n:'Horn of light +18 (Crit/ATK)',hp:0,    atk:0.08, def:0   , img:IMG_빛뿔18},
+  {n:'Horn of light +18 (Crit/DEF)',hp:0,    atk:0,    def:0.08, img:IMG_빛뿔18},
 
-  {n:'Horn of Light (Crit/HP) 20',hp:0.1, atk:0,    def:0   , img:IMG_LightHorn20},
-  {n:'Horn of Light (Crit/ATK) 20',hp:0,    atk:0.1, def:0   , img:IMG_LightHorn20},
-  {n:'Horn of Light (Crit/DEF) 20',hp:0,    atk:0,    def:0.1, img:IMG_LightHorn20},
+  {n:'Horn of light +20 (Crit/HP)',hp:0.1, atk:0,    def:0   , img:IMG_빛뿔20},
+  {n:'Horn of light +20 (Crit/ATK)',hp:0,    atk:0.1, def:0   , img:IMG_빛뿔20},
+  {n:'Horn of light +20 (Crit/DEF)',hp:0,    atk:0,    def:0.1, img:IMG_빛뿔20},
 
-  {n:'Nightmare Orb (HP) 16',hp:0.16, atk:0,    def:0   , img:IMG_NOrb16},
-  {n:'Dusk Orb (ATK) 16',hp:0,    atk:0.16, def:0   , img:IMG_DOrb16},
-  {n:'Dawn Orb (DEF) 16',hp:0,    atk:0,    def:0.16, img:IMG_DaOrb16},
-  {n:'Horn of Water (HP/ATK) 16',hp:0.1,  atk:0.06, def:0   , img:IMG_WaterHorn16},
-  {n:'Horn of Water (HP/DEF) 16',hp:0.1,  atk:0,    def:0.06, img:IMG_WaterHorn16},
-  {n:'Horn of Fire (ATK/HP) 16',hp:0.06, atk:0.1,  def:0   , img:IMG_Fire16},
-  {n:'Horn of Fire (ATK/DEF) 16',hp:0,    atk:0.1,  def:0.06, img:IMG_Fire16},
-  {n:'Horn of Earth (DEF/HP) 16',hp:0.06, atk:0,    def:0.1 , img:IMG_EarthHorn16},
-  {n:'Horn of Earth (DEF/ATK) 16',hp:0,    atk:0.06, def:0.1 , img:IMG_EarthHorn16},
-  {n:'Horn of Wind (HP/DEF) 16',hp:0.08, atk:0,    def:0.08, img:IMG_WindHorn16},
-  {n:'Horn of Wind (ATK/HP) 16',hp:0.08, atk:0.08, def:0   , img:IMG_WindHorn16},
-  {n:'Horn of Wind (ATK/DEF) 16',hp:0,    atk:0.08, def:0.08, img:IMG_WindHorn16},
+  {n:'Nightmare Orb +16 (HP)',hp:0.16, atk:0,    def:0   , img:IMG_악보16},
+  {n:'Dusk Orb +16 (ATK)',hp:0,    atk:0.16, def:0   , img:IMG_황보16},
+  {n:'Dawn Orb +16 (DEF)',hp:0,    atk:0,    def:0.16, img:IMG_여보16},
+  {n:'Horn of water +16 (HP/ATK)',hp:0.1,  atk:0.06, def:0   , img:IMG_물16},
+  {n:'Horn of water +16 (HP/DEF)',hp:0.1,  atk:0,    def:0.06, img:IMG_물16},
+  {n:'Horn of fire +16 (ATK/HP)',hp:0.06, atk:0.1,  def:0   , img:IMG_불16},
+  {n:'Horn of fire +16 (ATK/DEF)',hp:0,    atk:0.1,  def:0.06, img:IMG_불16},
+  {n:'Horn of earth +16 (DEF/HP)',hp:0.06, atk:0,    def:0.1 , img:IMG_땅16},
+  {n:'Horn of earth +16 (DEF/ATK)',hp:0,    atk:0.06, def:0.1 , img:IMG_땅16},
+  {n:'Horn of wind +16 (HP/DEF)',hp:0.08, atk:0,    def:0.08, img:IMG_바람16},
+  {n:'Horn of wind +16 (ATK/HP)',hp:0.08, atk:0.08, def:0   , img:IMG_바람16},
+  {n:'Horn of wind +16 (ATK/DEF)',hp:0,    atk:0.08, def:0.08, img:IMG_바람16},
 
-  {n:'Nightmare Orb (HP) 17',hp:0.17, atk:0,    def:0   , img:IMG_NOrb17},
-  {n:'Dusk Orb (ATK) 17',hp:0,    atk:0.17, def:0   , img:IMG_DOrb17},
-  {n:'Dawn Orb (DEF) 17',hp:0,    atk:0,    def:0.17, img:IMG_DaOrb17},
-  {n:'Horn of Water (HP/ATK) 17',hp:0.11, atk:0.06, def:0   , img:IMG_WaterHorn17},
-  {n:'Horn of Water (HP/DEF) 17',hp:0.11, atk:0,    def:0.06, img:IMG_WaterHorn17},
-  {n:'Horn of Fire (ATK/HP) 17',hp:0.06, atk:0.11, def:0   , img:IMG_Fire17},
-  {n:'Horn of Fire (ATK/DEF) 17',hp:0,    atk:0.11, def:0.06, img:IMG_Fire17},
-  {n:'Horn of Earth (DEF/HP) 17',hp:0.06, atk:0,    def:0.11, img:IMG_EarthHorn17},
-  {n:'Horn of Earth (DEF/ATK) 17',hp:0,    atk:0.06, def:0.11, img:IMG_EarthHorn17},
-  {n:'Horn of Wind (HP/DEF) 17',hp:0.09, atk:0,    def:0.08, img:IMG_WindHorn17},
-  {n:'Horn of Wind (ATK/HP) 17',hp:0.08, atk:0.09, def:0   , img:IMG_WindHorn17},
-  {n:'Horn of Wind (ATK/DEF) 17',hp:0,    atk:0.09, def:0.08, img:IMG_WindHorn17},
+  {n:'Nightmare Orb +17 (HP)',hp:0.17, atk:0,    def:0   , img:IMG_악보17},
+  {n:'Dusk Orb +17 (ATK)',hp:0,    atk:0.17, def:0   , img:IMG_황보17},
+  {n:'Dawn Orb +17 (DEF)',hp:0,    atk:0,    def:0.17, img:IMG_여보17},
+  {n:'Horn of water +17 (HP/ATK)',hp:0.11, atk:0.06, def:0   , img:IMG_물17},
+  {n:'Horn of water +17 (HP/DEF)',hp:0.11, atk:0,    def:0.06, img:IMG_물17},
+  {n:'Horn of fire +17 (ATK/HP)',hp:0.06, atk:0.11, def:0   , img:IMG_불17},
+  {n:'Horn of fire +17 (ATK/DEF)',hp:0,    atk:0.11, def:0.06, img:IMG_불17},
+  {n:'Horn of earth +17 (DEF/HP)',hp:0.06, atk:0,    def:0.11, img:IMG_땅17},
+  {n:'Horn of earth +17 (DEF/ATK)',hp:0,    atk:0.06, def:0.11, img:IMG_땅17},
+  {n:'Horn of wind +17 (HP/DEF)',hp:0.09, atk:0,    def:0.08, img:IMG_바람17},
+  {n:'Horn of wind +17 (ATK/HP)',hp:0.08, atk:0.09, def:0   , img:IMG_바람17},
+  {n:'Horn of wind +17 (ATK/DEF)',hp:0,    atk:0.09, def:0.08, img:IMG_바람17},
 
-  {n:'Nightmare Orb (HP) 18',hp:0.18, atk:0,    def:0   , img:IMG_NOrb18},
-  {n:'Dusk Orb (ATK) 18',hp:0,    atk:0.18, def:0   , img:IMG_DOrb18},
-  {n:'Dawn Orb (DEF) 18',hp:0,    atk:0,    def:0.18, img:IMG_DaOrb18},
-  {n:'Horn of Water (HP/ATK) 18',hp:0.12, atk:0.06, def:0   , img:IMG_WaterHorn18},
-  {n:'Horn of Water (HP/DEF) 18',hp:0.12, atk:0,    def:0.06, img:IMG_WaterHorn18},
-  {n:'Horn of Fire (ATK/HP) 18',hp:0.06, atk:0.12, def:0   , img:IMG_Fire18},
-  {n:'Horn of Fire (ATK/DEF) 18',hp:0,    atk:0.12, def:0.06, img:IMG_Fire18},
-  {n:'Horn of Earth (DEF/HP) 18',hp:0.06, atk:0,    def:0.12, img:IMG_EarthHorn18},
-  {n:'Horn of Earth (DEF/ATK) 18',hp:0,    atk:0.06, def:0.12, img:IMG_EarthHorn18},
-  {n:'Horn of Wind (HP/DEF) 18',hp:0.09, atk:0,    def:0.09, img:IMG_WindHorn18},
-  {n:'Horn of Wind (ATK/HP) 18',hp:0.09, atk:0.09, def:0   , img:IMG_WindHorn18},
-  {n:'Horn of Wind (ATK/DEF) 18',hp:0,    atk:0.09, def:0.09, img:IMG_WindHorn18},
+  {n:'Nightmare Orb +18 (HP)',hp:0.18, atk:0,    def:0   , img:IMG_악보18},
+  {n:'Dusk Orb +18 (ATK)',hp:0,    atk:0.18, def:0   , img:IMG_황보18},
+  {n:'Dawn Orb +18 (DEF)',hp:0,    atk:0,    def:0.18, img:IMG_여보18},
+  {n:'Horn of water +18 (HP/ATK)',hp:0.12, atk:0.06, def:0   , img:IMG_물18},
+  {n:'Horn of water +18 (HP/DEF)',hp:0.12, atk:0,    def:0.06, img:IMG_물18},
+  {n:'Horn of fire +18 (ATK/HP)',hp:0.06, atk:0.12, def:0   , img:IMG_불18},
+  {n:'Horn of fire +18 (ATK/DEF)',hp:0,    atk:0.12, def:0.06, img:IMG_불18},
+  {n:'Horn of earth +18 (DEF/HP)',hp:0.06, atk:0,    def:0.12, img:IMG_땅18},
+  {n:'Horn of earth +18 (DEF/ATK)',hp:0,    atk:0.06, def:0.12, img:IMG_땅18},
+  {n:'Horn of wind +18 (HP/DEF)',hp:0.09, atk:0,    def:0.09, img:IMG_바람18},
+  {n:'Horn of wind +18 (ATK/HP)',hp:0.09, atk:0.09, def:0   , img:IMG_바람18},
+  {n:'Horn of wind +18 (ATK/DEF)',hp:0,    atk:0.09, def:0.09, img:IMG_바람18},
 
-  {n:'Nightmare Orb (HP) 19',hp:0.19, atk:0,    def:0   , img:IMG_NOrb19},
-  {n:'Dusk Orb (ATK) 19',hp:0,    atk:0.19, def:0   , img:IMG_DOrb19},
-  {n:'Dawn Orb (DEF) 19',hp:0,    atk:0,    def:0.19, img:IMG_DaOrb19},
-  {n:'Horn of Water (HP/ATK) 19',hp:0.13, atk:0.06, def:0   , img:IMG_WaterHorn19},
-  {n:'Horn of Water (HP/DEF) 19',hp:0.13, atk:0,    def:0.06, img:IMG_WaterHorn19},
-  {n:'Horn of Fire (ATK/HP) 19',hp:0.06, atk:0.13, def:0   , img:IMG_Fire19},
-  {n:'Horn of Fire (ATK/DEF) 19',hp:0,    atk:0.13, def:0.06, img:IMG_Fire19},
-  {n:'Horn of Earth (DEF/HP) 19',hp:0.06, atk:0,    def:0.13, img:IMG_EarthHorn19},
-  {n:'Horn of Earth (DEF/ATK) 19',hp:0,    atk:0.06, def:0.13, img:IMG_EarthHorn19},
-  {n:'Horn of Wind (HP/DEF) 19',hp:0.1,  atk:0,    def:0.09, img:IMG_WindHorn19},
-  {n:'Horn of Wind (ATK/HP) 19',hp:0.09, atk:0.1,  def:0   , img:IMG_WindHorn19},
-  {n:'Horn of Wind (ATK/DEF) 19',hp:0,    atk:0.1,  def:0.09, img:IMG_WindHorn19},
+  {n:'Nightmare Orb +19 (HP)',hp:0.19, atk:0,    def:0   , img:IMG_악보19},
+  {n:'Dusk Orb +19 (ATK)',hp:0,    atk:0.19, def:0   , img:IMG_황보19},
+  {n:'Dawn Orb +19 (DEF)',hp:0,    atk:0,    def:0.19, img:IMG_여보19},
+  {n:'Horn of water +19 (HP/ATK)',hp:0.13, atk:0.06, def:0   , img:IMG_물19},
+  {n:'Horn of water +19 (HP/DEF)',hp:0.13, atk:0,    def:0.06, img:IMG_물19},
+  {n:'Horn of fire +19 (ATK/HP)',hp:0.06, atk:0.13, def:0   , img:IMG_불19},
+  {n:'Horn of fire +19 (ATK/DEF)',hp:0,    atk:0.13, def:0.06, img:IMG_불19},
+  {n:'Horn of earth +19 (DEF/HP)',hp:0.06, atk:0,    def:0.13, img:IMG_땅19},
+  {n:'Horn of earth +19 (DEF/ATK)',hp:0,    atk:0.06, def:0.13, img:IMG_땅19},
+  {n:'Horn of wind +19 (HP/DEF)',hp:0.1,  atk:0,    def:0.09, img:IMG_바람19},
+  {n:'Horn of wind +19 (ATK/HP)',hp:0.09, atk:0.1,  def:0   , img:IMG_바람19},
+  {n:'Horn of wind +19 (ATK/DEF)',hp:0,    atk:0.1,  def:0.09, img:IMG_바람19},
 
-  {n:'Nightmare Orb (HP) 20',hp:0.2,  atk:0,    def:0   , img:IMG_NOrb20},
-  {n:'Dusk Orb (ATK) 20',hp:0,    atk:0.2,  def:0   , img:IMG_DOrb20},
-  {n:'Dawn Orb (DEF) 20',hp:0,    atk:0,    def:0.2 , img:IMG_DaOrb20},
-  {n:'Horn of Water (HP/ATK) 20',hp:0.14, atk:0.06, def:0   , img:IMG_WaterHorn20},
-  {n:'Horn of Water (HP/DEF) 20',hp:0.14, atk:0,    def:0.06, img:IMG_WaterHorn20},
-  {n:'Horn of Fire (ATK/HP) 20',hp:0.06, atk:0.14, def:0   , img:IMG_Fire20},
-  {n:'Horn of Fire (ATK/DEF) 20',hp:0,    atk:0.14, def:0.06, img:IMG_Fire20},
-  {n:'Horn of Earth (DEF/HP) 20',hp:0.06, atk:0,    def:0.14, img:IMG_EarthHorn20},
-  {n:'Horn of Earth (DEF/ATK) 20',hp:0,    atk:0.06, def:0.14, img:IMG_EarthHorn20},
-  {n:'Horn of Wind (HP/DEF) 20',hp:0.1, atk:0,    def:0.1, img:IMG_WindHorn20},
-  {n:'Horn of Wind (ATK/HP) 20',hp:0.1, atk:0.1, def:0   , img:IMG_WindHorn20},
-  {n:'Horn of Wind (ATK/DEF) 20',hp:0,    atk:0.1, def:0.1, img:IMG_WindHorn20},
+  {n:'Nightmare Orb +20 (HP)',hp:0.2,  atk:0,    def:0   , img:IMG_악보20},
+  {n:'Dusk Orb +20 (ATK)',hp:0,    atk:0.2,  def:0   , img:IMG_황보20},
+  {n:'Dawn Orb +20 (DEF)',hp:0,    atk:0,    def:0.2 , img:IMG_여보20},
+  {n:'Horn of water +20 (HP/ATK)',hp:0.14, atk:0.06, def:0   , img:IMG_물20},
+  {n:'Horn of water +20 (HP/DEF)',hp:0.14, atk:0,    def:0.06, img:IMG_물20},
+  {n:'Horn of fire +20 (ATK/HP)',hp:0.06, atk:0.14, def:0   , img:IMG_불20},
+  {n:'Horn of fire +20 (ATK/DEF)',hp:0,    atk:0.14, def:0.06, img:IMG_불20},
+  {n:'Horn of earth +20 (DEF/HP)',hp:0.06, atk:0,    def:0.14, img:IMG_땅20},
+  {n:'Horn of earth +20 (DEF/ATK)',hp:0,    atk:0.06, def:0.14, img:IMG_땅20},
+  {n:'Horn of wind +20 (HP/DEF)',hp:0.1, atk:0,    def:0.1, img:IMG_바뿔20},
+  {n:'Horn of wind +20 (ATK/HP)',hp:0.1, atk:0.1, def:0   , img:IMG_바뿔20},
+  {n:'Horn of wind +20 (ATK/DEF)',hp:0,    atk:0.1, def:0.1, img:IMG_바뿔20},
 ];
+const ACC_NAME_KR2EN={
+  '빛뿔 (크/체) 18':'Horn of light +18 (Crit/HP)',
+  '빛뿔 (크/공) 18':'Horn of light +18 (Crit/ATK)',
+  '빛뿔 (크/방) 18':'Horn of light +18 (Crit/DEF)',
+  '빛뿔 (크/체) 20':'Horn of light +20 (Crit/HP)',
+  '빛뿔 (크/공) 20':'Horn of light +20 (Crit/ATK)',
+  '빛뿔 (크/방) 20':'Horn of light +20 (Crit/DEF)',
+  '악몽 수호자의 보주 (악보) 16':'Nightmare Orb +16 (HP)',
+  '황혼 수호자의 보주 (황보) 16':'Dusk Orb +16 (ATK)',
+  '여명 수호자의 보주 (여보) 16':'Dawn Orb +16 (DEF)',
+  '물뿔 (체/공) 16':'Horn of water +16 (HP/ATK)',
+  '물뿔 (체/방) 16':'Horn of water +16 (HP/DEF)',
+  '불뿔 (공/체) 16':'Horn of fire +16 (ATK/HP)',
+  '불뿔 (공/방) 16':'Horn of fire +16 (ATK/DEF)',
+  '대뿔 (방/체) 16':'Horn of earth +16 (DEF/HP)',
+  '대뿔 (방/공) 16':'Horn of earth +16 (DEF/ATK)',
+  '바뿔 (체/방) 16':'Horn of wind +16 (HP/DEF)',
+  '바뿔 (공/체) 16':'Horn of wind +16 (ATK/HP)',
+  '바뿔 (공/방) 16':'Horn of wind +16 (ATK/DEF)',
+  '악몽 수호자의 보주 (악보) 17':'Nightmare Orb +17 (HP)',
+  '황혼 수호자의 보주 (황보) 17':'Dusk Orb +17 (ATK)',
+  '여명 수호자의 보주 (여보) 17':'Dawn Orb +17 (DEF)',
+  '물뿔 (체/공) 17':'Horn of water +17 (HP/ATK)',
+  '물뿔 (체/방) 17':'Horn of water +17 (HP/DEF)',
+  '불뿔 (공/체) 17':'Horn of fire +17 (ATK/HP)',
+  '불뿔 (공/방) 17':'Horn of fire +17 (ATK/DEF)',
+  '대뿔 (방/체) 17':'Horn of earth +17 (DEF/HP)',
+  '대뿔 (방/공) 17':'Horn of earth +17 (DEF/ATK)',
+  '바뿔 (체/방) 17':'Horn of wind +17 (HP/DEF)',
+  '바뿔 (공/체) 17':'Horn of wind +17 (ATK/HP)',
+  '바뿔 (공/방) 17':'Horn of wind +17 (ATK/DEF)',
+  '악몽 수호자의 보주 (악보) 18':'Nightmare Orb +18 (HP)',
+  '황혼 수호자의 보주 (황보) 18':'Dusk Orb +18 (ATK)',
+  '여명 수호자의 보주 (여보) 18':'Dawn Orb +18 (DEF)',
+  '물뿔 (체/공) 18':'Horn of water +18 (HP/ATK)',
+  '물뿔 (체/방) 18':'Horn of water +18 (HP/DEF)',
+  '불뿔 (공/체) 18':'Horn of fire +18 (ATK/HP)',
+  '불뿔 (공/방) 18':'Horn of fire +18 (ATK/DEF)',
+  '대뿔 (방/체) 18':'Horn of earth +18 (DEF/HP)',
+  '대뿔 (방/공) 18':'Horn of earth +18 (DEF/ATK)',
+  '바뿔 (체/방) 18':'Horn of wind +18 (HP/DEF)',
+  '바뿔 (공/체) 18':'Horn of wind +18 (ATK/HP)',
+  '바뿔 (공/방) 18':'Horn of wind +18 (ATK/DEF)',
+  '악몽 수호자의 보주 (악보) 19':'Nightmare Orb +19 (HP)',
+  '황혼 수호자의 보주 (황보) 19':'Dusk Orb +19 (ATK)',
+  '여명 수호자의 보주 (여보) 19':'Dawn Orb +19 (DEF)',
+  '물뿔 (체/공) 19':'Horn of water +19 (HP/ATK)',
+  '물뿔 (체/방) 19':'Horn of water +19 (HP/DEF)',
+  '불뿔 (공/체) 19':'Horn of fire +19 (ATK/HP)',
+  '불뿔 (공/방) 19':'Horn of fire +19 (ATK/DEF)',
+  '대뿔 (방/체) 19':'Horn of earth +19 (DEF/HP)',
+  '대뿔 (방/공) 19':'Horn of earth +19 (DEF/ATK)',
+  '바뿔 (체/방) 19':'Horn of wind +19 (HP/DEF)',
+  '바뿔 (공/체) 19':'Horn of wind +19 (ATK/HP)',
+  '바뿔 (공/방) 19':'Horn of wind +19 (ATK/DEF)',
+  '악몽 수호자의 보주 (악보) 20':'Nightmare Orb +20 (HP)',
+  '황혼 수호자의 보주 (황보) 20':'Dusk Orb +20 (ATK)',
+  '여명 수호자의 보주 (여보) 20':'Dawn Orb +20 (DEF)',
+  '물뿔 (체/공) 20':'Horn of water +20 (HP/ATK)',
+  '물뿔 (체/방) 20':'Horn of water +20 (HP/DEF)',
+  '불뿔 (공/체) 20':'Horn of fire +20 (ATK/HP)',
+  '불뿔 (공/방) 20':'Horn of fire +20 (ATK/DEF)',
+  '대뿔 (방/체) 20':'Horn of earth +20 (DEF/HP)',
+  '대뿔 (방/공) 20':'Horn of earth +20 (DEF/ATK)',
+  '바뿔 (체/방) 20':'Horn of wind +20 (HP/DEF)',
+  '바뿔 (공/체) 20':'Horn of wind +20 (ATK/HP)',
+  '바뿔 (공/방) 20':'Horn of wind +20 (ATK/DEF)'
+};
+function normalizeAccName(name){
+  if(!name)return name;
+  if(ACC_DB.some(a=>a.n===name))return name;
+  return ACC_NAME_KR2EN[name]||name;
+}
 
-// new Accessory Input at Sort judge by
-const ACC_TYPE_ORDER=['Nightmare Orb','Dusk Orb','Dawn Orb','Horn of Water','FireHorn','Horn of Earth','Horn of Wind','LightHorn'];
+// 신규 Accessory 입력 시 정렬 판단 기준
+const ACC_TYPE_ORDER=['Nightmare Orb','Dusk Orb','Dawn Orb','Horn of water','Horn of fire','Horn of earth','Horn of wind','Horn of light'];
 const ENC_ORDER={hp:0,atk:1,def:2,none:3}
 
-// DefaultStat DB (GradeStar × TypeStar)
+// 기본Stat DB (등급별 × Type별)
 const BASE={
-  '7.0':{HPtype:{hp:1252,atk:176,def:176},ATKtype:{hp:876,atk:285,def:161},DEFtype:{hp:788,atk:185,def:283},ATKDEFtype:{hp:720,atk:242,def:243},HPATKtype:{hp:1080,atk:262,def:133},HPDEFtype:{hp:1080,atk:133,def:262}},
-  '8.0':{HPtype:{hp:1332,atk:176,def:176},ATKtype:{hp:876,atk:305,def:161},DEFtype:{hp:788,atk:185,def:303},ATKDEFtype:{hp:720,atk:252,def:253},HPATKtype:{hp:1120,atk:272,def:133},HPDEFtype:{hp:1120,atk:133,def:272}},
-  '9.0':{HPtype:{hp:1412,atk:176,def:176},ATKtype:{hp:876,atk:325,def:161},DEFtype:{hp:788,atk:185,def:323},ATKDEFtype:{hp:720,atk:262,def:263},HPATKtype:{hp:1160,atk:282,def:133},HPDEFtype:{hp:1160,atk:133,def:282}},
+  '7.0':{체력형:{hp:1252,atk:176,def:176},공격형:{hp:876,atk:285,def:161},방어형:{hp:788,atk:185,def:283},공방형:{hp:720,atk:242,def:243},체공형:{hp:1080,atk:262,def:133},체방형:{hp:1080,atk:133,def:262}},
+  '8.0':{체력형:{hp:1332,atk:176,def:176},공격형:{hp:876,atk:305,def:161},방어형:{hp:788,atk:185,def:303},공방형:{hp:720,atk:252,def:253},체공형:{hp:1120,atk:272,def:133},체방형:{hp:1120,atk:133,def:272}},
+  '9.0':{체력형:{hp:1412,atk:176,def:176},공격형:{hp:876,atk:325,def:161},방어형:{hp:788,atk:185,def:323},공방형:{hp:720,atk:262,def:263},체공형:{hp:1160,atk:282,def:133},체방형:{hp:1160,atk:133,def:282}},
 };
 
-// gem DB (StageStar HP/ATK/DEF Count)
-const GEM={37:{hp:148,atk:37,def:37},38:{hp:152,atk:38,def:38},39:{hp:156,atk:39,def:39},40:{hp:160,atk:40,def:40}};
+// Gem DB (단계별 체/공/방 수치)
+const GEM={36:{hp:144,atk:36,def:36},37:{hp:152,atk:38,def:38},38:{hp:160,atk:40,def:40},39:{hp:168,atk:42,def:42},40:{hp:176,atk:44,def:44}};
+const GEM_NAME={36:36,37:38,38:40,39:42,40:44}; // storage key (old tier) -> display name (new tier)
+const FALLBACK_GEM_LV=36;
+const FALLBACK_GEM_COUNT=999;
 
-// Spirit DB: +opt Count (Stat×opt num), %opt Count (opt num), Bonus Count
+// Spirit DB: +opt 수치 (Stat×opt번호), %opt 수치 (opt번호), Spirit type 수치
 const SP_PLUS={hp:{1:216,2:240,3:264,4:480},atk:{1:54,2:60,3:66,4:120},def:{1:54,2:60,3:66,4:120}};
 const SP_PCT={1:0.24,2:0.28,3:0.32,4:0.40};
 const SP_BONUS={hp:40,atk:10,def:10};
 const SP_PRESETS=[
   {id:'custom',name:'Custom',types:['','','','']},
-  {id:'last_plus',name:'Last+',types:['%','%','%','+']},
+  {id:'last_plus',name:'Ult+',types:['%','%','%','+']},
+  {id:'first_one_plus',name:'1st+',types:['+','%','%','%']},
   {id:'all_pct',name:'All%',types:['%','%','%','%']},
-  {id:'one_four_plus',name:'1&4+',types:['+','%','%','+']},
-  {id:'first_plus',name:'2&4+',types:['%','+','%','+']}
+  {id:'one_four_plus',name:'14+',types:['+','%','%','+']},
+  {id:'three_four_plus',name:'34+',types:['%','%','+','+']},
+  {id:'first_plus',name:'24+',types:['%','+','%','+']}
 ];
 
-const DTYPES=['HP Type','ATK Type','DEF Type','HP-ATK Type','HP-DEF Type','ATK-DEF Type'];
-const DCOLORS={'HP Type':'#fbbf24','ATK Type':'#f87171','DEF Type':'#60a5fa','HP-ATK Type':'#f59e4a','HP-DEF Type':'#90d97f','ATK-DEF Type':'#c084fc'};
+const DTYPES=['체력형','공격형','방어형','체공형','체방형','공방형'];
+const T_TYPE={'체력형':'HP Type','공격형':'ATK Type','방어형':'DEF Type','공방형':'ATK/DEF Type','체공형':'HP/ATK Type','체방형':'HP/DEF Type'};
+const T_PEND={'태양':'Sun','달':'Moon','별':'Star'};
+const T_TYPE_S={'체력형':'HP','공격형':'ATK','방어형':'DEF','공방형':'ATK/DEF','체공형':'HP/ATK','체방형':'HP/DEF'};
+const DCOLORS={체력형:'#fbbf24',공격형:'#f87171',방어형:'#60a5fa',체공형:'#f59e4a',체방형:'#90d97f',공방형:'#c084fc'};
 const SK={hp:'HP',atk:'ATK',def:'DEF'};
 const SKEYS=['hp','atk','def'];
 
 // ================================================================
-// state manage (LocalStorage)
+// 상태 관리 (LocalStorage)
 // ================================================================
 const mkState=()=>({
   accCards:[],
@@ -542,15 +560,15 @@ let S=mkState();
 let simGrade='9.0', simBuf=2;
 
 const 
-SAVE_KEY='dv1sim_'+location.pathname.split('/').pop().replace(/\.[^.]+$/,'');
+SAVE_KEY='dv1simEN_'+location.pathname.split('/').pop().replace(/\.[^.]+$/,'');
 
 function doLoad(){
   try{
     const r=localStorage.getItem(SAVE_KEY);
-    // ── My Stats auto Apply ──
+    // ── My Spec 자동 적용 ──
     (function(){
       try{
-        const _sr=localStorage.getItem('dv1sim_spec');
+        const _sr=localStorage.getItem('dv1simEN_spec');
         if(!_sr)return;
         const _sp=JSON.parse(_sr);
         if(_sp.accCards)S.accCards=_sp.accCards;
@@ -563,10 +581,10 @@ function doLoad(){
     const p=JSON.parse(r);
     S={...mkState(),...p,accCards:p.accCards||[],gems:{...mkState().gems,...(p.gems||{})},spirit:{...mkState().spirit,...(p.spirit||{})},coll:{...mkState().coll,...(p.coll||{})}};
     while(S.spirit.opts.length<4)S.spirit.opts.push({stat:'',type:''});
-    // ── My Stats auto Apply ──
+    // ── My Spec 자동 적용 ──
     (function(){
       try{
-        const _sr=localStorage.getItem('dv1sim_spec');
+        const _sr=localStorage.getItem('dv1simEN_spec');
         if(!_sr)return;
         const _sp=JSON.parse(_sr);
         if(_sp.accCards)S.accCards=_sp.accCards;
@@ -576,6 +594,7 @@ function doLoad(){
       }catch(_e){}
     })();
   }catch(e){console.error(e);}
+  if(typeof renderSpecView==="function"){try{renderSpecView();}catch(e){}}
 }
 
 let saveT=null;
@@ -583,19 +602,19 @@ function doSave(){
   clearTimeout(saveT);
   localStorage.setItem(SAVE_KEY,JSON.stringify(S));
   const el=document.getElementById('save-msg');
-  if(el){el.textContent='✓ Save';setTimeout(()=>el.textContent='',2000);}
+  if(el){el.textContent='✓ Saved';setTimeout(()=>el.textContent='',2000);}
 }
 function qSave(){clearTimeout(saveT);saveT=setTimeout(doSave,1200);}
 function resetAll(){
-  if(!confirm('All Input  sim Result Reset.(Collection Incl.)'))return;
+  if(!confirm('All inputs and sim results will be reset (including collection).'))return;
   S=mkState();
   const chk=document.getElementById('chk-stat-only');
   if(chk)chk.checked=true;
-  renderAcc();
-  populateGems();
-  renderPends();
-  renderSpirit();
-  populateColl();
+  try{renderAcc();}catch(e){}
+  try{populateGems();}catch(e){}
+  try{renderPends();}catch(e){}
+  try{renderSpirit();}catch(e){}
+  try{populateColl();}catch(e){}
   resetSimResult();
   qSave();
 }
@@ -610,7 +629,7 @@ function resetSimResult(){
 }
 
 function getAccNum(name){
-  const m=name.match(/(\d+)\s*$/);
+  const m=name.match(/\+(\d+)/)||name.match(/(\d+)\s*$/);
   return m?parseInt(m[1]):0;
 }
 function getAccType(name){
@@ -633,9 +652,9 @@ function sortAccCards(){
   });
   S.accCards=S.accCards.map(({_idx,...c})=>c);
 }
-function getPendOrder(type){return type==='Sun'?0:type==='Moon'?1:2;}
+function getPendOrder(type){return type==='태양'?0:type==='달'?1:2;}
 function getPendSum(p){
-  const mo=p.type==='Sun'?3:p.type==='Moon'?2:1;
+  const mo=p.type==='태양'?3:p.type==='달'?2:1;
   return p.options.slice(0,mo).reduce((s,o)=>s+(o.val||0),0);
 }
 function sortPendants(){
@@ -651,7 +670,7 @@ function sortPendants(){
 }
 
 // ================================================================
-// UI - Accessory section
+// UI - Accessory 섹션
 // ================================================================
 function fmtAccSt(a){
   if(!a)return'';
@@ -659,7 +678,7 @@ function fmtAccSt(a){
   if(a.hp>0)p.push(`<span style="color:var(--hpc)">HP${(a.hp*100).toFixed(0)}%</span>`);
   if(a.atk>0)p.push(`<span style="color:var(--atc)">ATK${(a.atk*100).toFixed(0)}%</span>`);
   if(a.def>0)p.push(`<span style="color:var(--dfc)">DEF${(a.def*100).toFixed(0)}%</span>`);
-  return p.length?p.join(' '):'<span style="color:var(--dimmer)">Crit/Evade</span>';
+  return p.length?p.join(' '):'<span style="color:var(--dimmer)">CRI/AVD</span>';
 }
 
 function applyEncColor(sel){
@@ -671,17 +690,18 @@ function renderAcc(){
   const list=document.getElementById('acc-list');
   if(!list)return;
   if(!S.accCards.length){
-    list.innerHTML='<div style="color:var(--dimmer);font-size:13px">Owned Accessory None</div>';
+    list.innerHTML='<div style="color:var(--dimmer);font-size:13px">No accessories</div>';
     return;
   }
   let html='';
   S.accCards.forEach((card,ci)=>{
-    const a=ACC_DB.find(x=>x.n===card.name);
+    const dispName=normalizeAccName(card.name);
+    const a=ACC_DB.find(x=>x.n===dispName);
     const stHtml=a?fmtAccSt(a):'<span style="color:var(--dimmer)">-</span>';
     html+=`<div class="acc-card">
       <div class="acc-card-row">
         <div class="acc-search-wrap" id="acc-wrap-${ci}">
-          <input class="acc-search-input" id="acc-inp-${ci}" value="${card.name||''}" placeholder="Accessory Search..."
+          <input class="acc-search-input" id="acc-inp-${ci}" value="${dispName||''}" placeholder="Search accessory..."
             oninput="filterAccDrop(${ci},this.value)"
             onfocus="openAccDrop(${ci})"
             onblur="setTimeout(()=>closeAccDrop(${ci},this),150)"
@@ -692,7 +712,7 @@ function renderAcc(){
         <span style="font-size:11px;min-width:80px">${stHtml}</span>
         <span style="font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.3px;font-weight:700;flex-shrink:0">Enchant</span>
         <select style="font-size:12px" onchange="onAccEnc(${ci},this.value);applyEncColor(this)">
-          <option value="none" ${card.enchant==='none'?'selected':''}>Enchant X</option>
+          <option value="none" ${card.enchant==='none'?'selected':''}>Any enchant</option>
           <option value="hp"   ${card.enchant==='hp'?'selected':''}>HP +21%</option>
           <option value="atk"  ${card.enchant==='atk'?'selected':''}>ATK +21%</option>
           <option value="def"  ${card.enchant==='def'?'selected':''}>DEF +21%</option>
@@ -762,7 +782,7 @@ function filterAccDrop(ci,q){
   if(!drop)return;
   const kw=q.toLowerCase().trim();
   const statOnly=document.getElementById('chk-stat-only')?.checked;
-  let filtered=statOnly?ACC_DB.filter(a=>!a.n.startsWith('LightHorn')):ACC_DB;
+  let filtered=statOnly?ACC_DB.filter(a=>!a.n.startsWith('Horn of light')):ACC_DB;
   if(kw)filtered=filtered.filter(a=>a.n.toLowerCase().includes(kw));
   drop.innerHTML=filtered.slice(0,30).map(a=>
     `<div class="acc-drop-item" onmousedown="selectAcc(${ci},'${a.n.replace(/'/g,"\'")}')">
@@ -785,20 +805,20 @@ function addAcc(){
   renderAcc();qSave();
 }
 
-//Accessory StageStar bulk Add
+//Accessory 단계별 일괄 추가
 function addAccBulk(lv){
   const statOnly=document.getElementById('chk-stat-only')?.checked;
-  const targets=ACC_DB.filter(a=>getAccNum(a.n)===lv&&(!statOnly||!a.n.startsWith('LightHorn')));
+  const targets=ACC_DB.filter(a=>getAccNum(a.n)===lv&&(!statOnly||!a.n.startsWith('Horn of light')));
   if(!targets.length){
-    alert(`${lv} Accessory find Count not found.`);
+    alert(`${lv} Accessory not found.`);
     return;
   }
   targets.forEach(a=>S.accCards.unshift({name:a.n,enchant:'none'}));
   sortAccCards();
-  renderAcc();
+  try{renderAcc();}catch(e){}
   resetSimResult();
   qSave();
-  alert(`${lv} Accessory 1set Add.`);
+  alert(`${lv} accessory set added.`);
 }
 
 function delAcc(ci){
@@ -807,9 +827,9 @@ function delAcc(ci){
 }
 
 function resetAcc(){
-  if(!confirm('Input opt  Reset.'))return;
+  if(!confirm('All entered option values will be reset.'))return;
   S.accCards=[];
-  renderAcc();
+  try{renderAcc();}catch(e){}
   qSave();
 }
 
@@ -819,7 +839,7 @@ function onAccEnc(ci,enc){
 }
 
 // ================================================================
-// UI - gem section
+// UI - Gem 섹션
 // ================================================================
 function populateGems(){
   for(const s of SKEYS)for(const lv of [37,38,39,40]){
@@ -829,9 +849,9 @@ function populateGems(){
 }
 
 function resetGems(){
-  if(!confirm('Input opt  Reset.'))return;
+  if(!confirm('All entered option values will be reset.'))return;
   S.gems={hp:{37:0,38:0,39:0,40:0},atk:{37:0,38:0,39:0,40:0},def:{37:0,38:0,39:0,40:0}};
-  populateGems();
+  try{populateGems();}catch(e){}
   qSave();
 }
 
@@ -843,18 +863,18 @@ function onGem(stat,lv,val,el){
 }
 
 // ================================================================
-// UI - Pendant section
+// UI - Pendant 섹션
 // ================================================================
 function renderPends(){
   const el=document.getElementById('pend-list');
   if(!el)return;
   if(!S.pendants.length){
-    el.innerHTML='<div style="color:var(--dimmer);font-size:13px">No pendants (not applied in sim)</div>';
+    el.innerHTML='<div style="color:var(--dimmer);font-size:13px">No pendants (pendant effect not applied in sim)</div>';
     return;
   }
   let html='';
   S.pendants.forEach((p,pi)=>{
-    const mo=p.type==='Sun'?3:p.type==='Moon'?2:1;
+    const mo=p.type==='태양'?3:p.type==='달'?2:1;
     let opts='';
     for(let oi=0;oi<mo;oi++){
       const o=p.options[oi]||{stat:'hp',val:1};
@@ -874,9 +894,9 @@ function renderPends(){
     html+=`<div class="pcard">
       <div class="pcard-hd">
         <select onchange="onPType(${pi},this.value)" style="width:100px">
-          <option value="Sun" ${p.type==='Sun'?'selected':''}>Sun (3 opts)</option>
-          <option value="Moon"   ${p.type==='Moon'?'selected':''}>Moon (2 opts)</option>
-          <option value="Star"   ${p.type==='Star'?'selected':''}>Star (1 opt)</option>
+          <option value="태양" ${p.type==='태양'?'selected':''}>Sun (3 opts)</option>
+          <option value="달"   ${p.type==='달'?'selected':''}>Moon (2 opts)</option>
+          <option value="별"   ${p.type==='별'?'selected':''}>Star (1 opt)</option>
         </select>
         <img src="${IMG_PEND[p.type]||''}" style="width:36px;height:36px;object-fit:contain;border-radius:4px">
         <span id="pend-summ-${pi}" style="color:var(--dim);font-size:12px">(${summ})</span>
@@ -890,7 +910,7 @@ function renderPends(){
 
 function getPendSummary(p){
   if(!p)return'';
-  const mo=p.type==='Sun'?3:p.type==='Moon'?2:1;
+  const mo=p.type==='태양'?3:p.type==='달'?2:1;
   return p.options.slice(0,mo).map(o=>`${SK[o.stat]||'?'}${o.val||0}%`).join('/');
 }
 
@@ -901,22 +921,22 @@ function updatePendSummary(pi){
 }
 
 function addPendant(){
-  S.pendants.unshift({type:'Moon',options:[{stat:'hp',val:1},{stat:'hp',val:1}]});
+  S.pendants.unshift({type:'달',options:[{stat:'hp',val:1},{stat:'hp',val:1}]});
   renderPends();qSave();
 }
 
 function delPend(i){S.pendants.splice(i,1);renderPends();qSave();}
 
 function resetPend(){
-  if(!confirm('Input opt  Reset.'))return;
+  if(!confirm('All entered option values will be reset.'))return;
   S.pendants=[];
-  renderPends();
+  try{renderPends();}catch(e){}
   qSave();
 }
 
 function onPType(pi,type){
   S.pendants[pi].type=type;
-  const max=type==='Sun'?3:type==='Moon'?2:1;
+  const max=type==='태양'?3:type==='달'?2:1;
   while(S.pendants[pi].options.length<max)S.pendants[pi].options.push({stat:'hp',val:1});
   S.pendants[pi].options=S.pendants[pi].options.slice(0,max);
   renderPends();qSave();
@@ -925,7 +945,7 @@ function onPType(pi,type){
 function validatePOpt(el,pi,oi){
   const n=parseInt(el.value);
   if(el.value===''||isNaN(n)||n<1||n>6){
-    alert('1~6 between Count Input.');
+    alert('1~6 please enter an integer between.');
     el.value='';
     return;
   }
@@ -941,7 +961,7 @@ function onPOpt(pi,oi,field,val){
 }
 
 // ================================================================
-// UI - Spirit section
+// UI - Spirit 섹션
 // ================================================================
 function spPresetLabel(type){
   return type==='%'?'%':type==='+'?'+':'-';
@@ -961,7 +981,7 @@ function applySpiritPreset(id){
     stat:S.spirit.opts[i]?.stat||'',
     type
   }));
-  renderSpirit();
+  try{renderSpirit();}catch(e){}
   resetSimResult();
   qSave();
 }
@@ -1003,7 +1023,7 @@ function renderSpirit(){
   el.innerHTML=`
     <div class="sp-preset-grid">${presets}</div>
     <div class="sp-opts">${opts}</div>
-    <div class="fg"><label>Bonus</label>
+    <div class="fg"><label>Spirit type</label>
       <select onchange="onSpBonus(this.value)">
         <option value=""    ${!sp.bonus?'selected':''}>None</option>
         <option value="hp"  ${sp.bonus==='hp'?'selected':''}>HP (+40)</option>
@@ -1014,9 +1034,9 @@ function renderSpirit(){
 }
 
 function resetSpirit(){
-  if(!confirm('Input opt sim Result Reset.'))return;
+  if(!confirm('Entered option values and sim results will be reset.'))return;
   S.spirit={level:1,maxLvl:false,opts:[{stat:'',type:''},{stat:'',type:''},{stat:'',type:''},{stat:'',type:''}],bonus:''};
-  renderSpirit();
+  try{renderSpirit();}catch(e){}
   resetSimResult();
   qSave();
 }
@@ -1028,14 +1048,14 @@ function fmtSpVal(n,stat,type){
 
 function onSpOpt(idx,field,val){
   S.spirit.opts[idx][field]=val;
-  renderSpirit();
+  try{renderSpirit();}catch(e){}
   resetSimResult();
   qSave();
 }
 
 function onSpBonus(val){
   S.spirit.bonus=val;
-  renderSpirit();
+  try{renderSpirit();}catch(e){}
   resetSimResult();
   qSave();
 }
@@ -1053,15 +1073,111 @@ function onColl(stat,val,el){const n=Math.max(0,parseInt(val)||0);S.coll[stat]=n
 
 function setFullCollection(){
   S.coll={hp:240,atk:60,def:60};
-  populateColl();
+  try{populateColl();}catch(e){}
   resetSimResult();
   qSave();
 }
 
 // ================================================================
-// Tab / sim Settings control
+// 탭 / 시뮬 설정 컨트롤
 // ================================================================
+
+// ── 스펙 View only 렌더 ──────────────────────────────────────
+function renderSpecView(){
+  const el=document.getElementById('spec-view-wrap');
+  if(!el)return;
+  const ENC_COL={atk:'#f87171',hp:'#fbbf24',def:'#60a5fa',balance:'#a78bfa'};
+  const ENC_LBL={atk:'ATK',hp:'HP',def:'DEF',balance:'BAL'};
+  const PEND_LBL={달:'Pendant of Moon',태양:'Pendant of Sun',별:'Pendant of Star'};
+  const PEND_IMG={달:'1336',태양:'1337',별:'1335'};
+  const IB='https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main';
+  // Gem
+  let gemRows='';
+  for(const lv of [40,39,38,37]){
+    const hp=S.gems?.hp?.[lv]||0,atk=S.gems?.atk?.[lv]||0,def=S.gems?.def?.[lv]||0;
+    if(hp||atk||def) gemRows+=`<tr><td style="color:var(--dim);font-weight:700">${GEM_NAME[lv]||lv}Gem <span style="color:var(--dimmer);font-weight:400;font-size:10px">(old ${lv})</span></td><td class="sv-gem-hp">${hp||'-'}</td><td class="sv-gem-atk">${atk||'-'}</td><td class="sv-gem-def">${def||'-'}</td></tr>`;
+  }
+  const t={hp:0,atk:0,def:0};
+  for(const s of ['hp','atk','def'])for(const lv of [37,38,39,40])t[s]+=(S.gems?.[s]?.[lv]||0);
+  if(gemRows)gemRows+=`<tr style="border-top:2px solid var(--bd)"><td style="color:var(--dim);font-size:10px">Total</td><td class="sv-gem-hp">${t.hp||'-'}</td><td class="sv-gem-atk">${t.atk||'-'}</td><td class="sv-gem-def">${t.def||'-'}</td></tr>`;
+  const gemH=gemRows?`<table class="sv-gem-table"><thead><tr><th></th><th class="sv-gem-hp">HP</th><th class="sv-gem-atk">ATK</th><th class="sv-gem-def">DEF</th></tr></thead><tbody>${gemRows}</tbody></table>`:`<div class="sv-empty">No gems</div>`;
+  // Accessory
+  const accs=S.accCards||[];
+  const accH=accs.length?accs.map(c=>{
+    const dispName=normalizeAccName(c.name);
+    const a=(typeof ACC_DB!=='undefined')?ACC_DB.find(x=>x.n===dispName):null;
+    const img=a&&a.img?`<img class="sv-item-img" src="${a.img}" onerror="this.style.display='none'">`:`<div style="width:28px;height:28px;flex-shrink:0"></div>`;
+    const enc=c.enchant&&c.enchant!=='none'?`<span class="sv-enc" style="color:${ENC_COL[c.enchant]||'var(--dim)'};border-color:${ENC_COL[c.enchant]||'var(--bd)'}">${ENC_LBL[c.enchant]||c.enchant}</span>`:'';
+    return `<div class="sv-item">${img}<span class="sv-item-name">${dispName||'<span style="color:var(--dimmer)">Not selected</span>'}</span>${enc}</div>`;
+  }).join(''):`<div class="sv-empty">No accessories</div>`;
+  // Pendant
+  const pends=S.pendants||[];
+  const pendH=pends.length?pends.map(p=>{
+    if(!p.type)return'';
+    const imgN=PEND_IMG[p.type]||'1335';
+    const mo=p.type==='태양'?3:p.type==='달'?2:1;
+    const opts=(p.options||[]).slice(0,mo).filter(o=>o&&o.stat).map(o=>`<span style="color:${o.stat==='hp'?'#fbbf24':o.stat==='atk'?'#f87171':'#60a5fa'}">${o.stat==='hp'?'HP':o.stat==='atk'?'ATK':'DEF'}${o.val||0}%</span>`).join('<span style="color:var(--dim)"> / </span>');
+    return `<div class="sv-item"><img class="sv-item-img" src="${IB}/item/${imgN}.png" onerror="this.style.display='none'"><div><div style="font-size:12px;font-weight:700">${PEND_LBL[p.type]||p.type}</div><div style="font-size:11px;color:var(--dim)">${opts||'No options'}</div></div></div>`;
+  }).filter(Boolean).join(''):`<div class="sv-empty">No pendant</div>`;
+  // Collection
+  const col=S.coll||{hp:0,atk:0,def:0};
+  const colP=[];
+  if(col.hp)colP.push(`<span class="sv-gem-hp">HP +${col.hp}</span>`);
+  if(col.atk)colP.push(`<span class="sv-gem-atk">ATK +${col.atk}</span>`);
+  if(col.def)colP.push(`<span class="sv-gem-def">DEF +${col.def}</span>`);
+  const colH=colP.length?colP.join('<span style="color:var(--dim)"> · </span>'):`<span class="sv-empty">0</span>`;
+
+  el.innerHTML=`<div class="sv-header"><div style="display:flex;align-items:center;gap:10px"><span style="font-size:15px;font-weight:800">📋 My Spec</span><span class="sv-badge">View only</span></div><a href="./my.html" class="sv-edit-btn">✏️ Edit in my spec →</a></div>
+  <div class="sv-grid">
+    <div>
+      <div class="sv-sec"><div class="sv-sec-hd">💎 Gems Owned</div><div class="sv-sec-bd">${gemH}</div></div>
+      <div class="sv-sec"><div class="sv-sec-hd">📚 Collection</div><div class="sv-sec-bd"><div class="sv-coll-row">${colH}</div></div></div>
+    </div>
+    <div>
+      <div class="sv-sec"><div class="sv-sec-hd">💍 Accessory (${accs.length} )</div><div class="sv-sec-bd" style="max-height:260px;overflow-y:auto">${accH}</div></div>
+      <div class="sv-sec"><div class="sv-sec-hd">🌙 Pendant (${pends.length} )</div><div class="sv-sec-bd" style="max-height:220px;overflow-y:auto">${pendH}</div></div>
+    </div>
+  </div>`;
+}
+
+// ── 시뮬 탭 스펙 요약 ────────────────────────────────────────
+function renderSpecSummary(targetId){
+  const el=document.getElementById(targetId);
+  if(!el)return;
+  const SKC={hp:'ss-gem-hp',atk:'ss-gem-atk',def:'ss-gem-def'};
+  const SKL={hp:'HP',atk:'ATK',def:'DEF'};
+  let gemP=[];
+  for(const stat of ['hp','atk','def']){
+    const g=S.gems?.[stat]||{};
+    const lvs=[40,39,38,37].filter(lv=>(g[lv]||0)>0).flatMap(lv=>Array(g[lv]).fill(lv));
+    if(lvs.length)gemP.push(`<span class="${SKC[stat]}">${SKL[stat]}${lvs.length}(${lvs.map(l=>GEM_NAME[l]||l).join(',')})</span>`);
+  }
+  const accs=S.accCards||[];
+  const ENC_LBL={atk:'ATK',hp:'HP',def:'DEF',balance:'BAL'};
+  const byAcc={};
+  accs.forEach(c=>{if(!c.name)return;const dn=normalizeAccName(c.name);const k=dn+(c.enchant&&c.enchant!=='none'?'['+ENC_LBL[c.enchant]+']':'');byAcc[k]=(byAcc[k]||0)+1;});
+  const accP=Object.entries(byAcc).map(([k,n])=>n>1?`${k} ×${n}`:k);
+  const pends=S.pendants||[];
+  const PEND_LBL2={달:'Moon',태양:'Sun',별:'Star'};
+  const byPend={};
+  pends.forEach(p=>{
+    if(!p.type)return;
+    const mo=p.type==='태양'?3:p.type==='달'?2:1;
+    const opts=(p.options||[]).slice(0,mo).filter(o=>o&&o.stat).map(o=>`${o.stat==='hp'?'HP':o.stat==='atk'?'ATK':'DEF'}${o.val||0}%`).join('/');
+    const k=(PEND_LBL2[p.type]||p.type)+(opts?` (${opts})`:'');
+    byPend[k]=(byPend[k]||0)+1;
+  });
+  const pendP=Object.entries(byPend).map(([k,n])=>n>1?`${k} ×${n}`:k);
+  const col=S.coll||{hp:0,atk:0,def:0};
+  const colP2=[];
+  if(col.hp)colP2.push(`<span class="ss-gem-hp">HP+${col.hp}</span>`);
+  if(col.atk)colP2.push(`<span class="ss-gem-atk">ATK+${col.atk}</span>`);
+  if(col.def)colP2.push(`<span class="ss-gem-def">DEF+${col.def}</span>`);
+  el.innerHTML=`<div class="spec-summary"><div class="spec-summary-hd"><span>📋 Current Spec</span><button class="ss-edit-btn" onclick="switchTab('spec')">✏️ Edit Spec</button></div><div class="spec-summary-bd"><div class="ss-row"><span class="ss-lbl">💎 Gem</span><span class="ss-val">${gemP.length?gemP.join(' '):'<span class="ss-empty">None</span>'}</span></div><div class="ss-row"><span class="ss-lbl">💍 Accessory</span><span class="ss-val">${accP.length?accP.join('<br>'):'<span class="ss-empty">None</span>'}</span></div><div class="ss-row"><span class="ss-lbl">🌙 Pendant</span><span class="ss-val">${pendP.length?pendP.join('<br>'):'<span class="ss-empty">None</span>'}</span></div><div class="ss-row"><span class="ss-lbl">📚 Collection</span><span class="ss-val">${colP2.length?colP2.join(' · '):'<span class="ss-empty">0</span>'}</span></div></div></div>`;
+}
+
 function switchTab(t){
+  if(t==='spec'){renderSpecView();}
   ['spec','sim'].forEach(x=>{
     document.getElementById(`tab-${x}`).classList.toggle('active',x===t);
     document.getElementById(`tab-btn-${x}`).classList.toggle('active',x===t);
@@ -1075,24 +1191,28 @@ function setGrade(g){
 
 function setBuf(b){
   simBuf=b;
-  document.querySelectorAll('#buf-grp button').forEach(btn=>btn.classList.toggle('active',btn.textContent===b+'Buff'));
+  document.querySelectorAll('#buf-grp button').forEach(btn=>btn.classList.toggle('active',btn.textContent==='Buff '+b));
 }
 
 // ================================================================
-// Simulation engine
+// 시뮬레이션 엔진
 // ================================================================
 
-// Owned gem full(pool) convert. each element: {s:Stat, lv:Stage, cnt:OwnedCount, h:HPcontribution, a:ATKcontribution, d:DEFcontribution}
+// 보유 Gem을 풀(pool)로 변환. 각 원소: {s:Stat, lv:단계, cnt:보유수, h:체기여, a:공기여, d:방기여}
 function buildPool(){
   const pool=[];
   for(const s of SKEYS)for(const lv of [37,38,39,40]){
     const cnt=S.gems[s]?.[lv]||0;
     if(cnt>0)pool.push({s,lv,cnt,h:s==='hp'?GEM[lv].hp:0,a:s==='atk'?GEM[lv].atk:0,d:s==='def'?GEM[lv].def:0});
   }
+  for(const s of SKEYS){
+    const lv=FALLBACK_GEM_LV;
+    pool.push({s,lv,cnt:FALLBACK_GEM_COUNT,h:s==='hp'?GEM[lv].hp:0,a:s==='atk'?GEM[lv].atk:0,d:s==='def'?GEM[lv].def:0});
+  }
   return pool;
 }
 
-// 5Slot gem  case Count enumerate (backtracking). return: [[each full element Use Count], ...]
+// 5슬롯 Gem Allocation 경우의 수 열거 (백트래킹). 반환: [[각 풀 원소 사용 개수], ...]
 function genAllocs(pool,slots){
   const total=pool.reduce((s,g)=>s+g.cnt,0);
   const maxS=Math.min(slots,total);
@@ -1108,7 +1228,7 @@ function genAllocs(pool,slots){
 }
 
 /*
- * FinalStat Calc ATK ( Count as-is INT = Math.floor):
+ * 최종Stat 계산 공식 (게임 수식 그대로 INT = Math.floor):
  *   A = base + gem + potion
  *   B = INT(A * (1 + acc% + enc%))
  *   C = INT(B * (1 + spirit%))
@@ -1127,7 +1247,7 @@ function calcStat(B,G,P,AP,SP,PP,SL,SB,C,BU){
   return c+d+e+C+BU;
 }
 
-// Spirit state StatStar + / % / Bonus contribution convert
+// Spirit 상태를 Stat별 + / % / Spirit type 기여로 변환
 function procSpirit(){
   const sp=S.spirit;
   const lv=5;
@@ -1144,7 +1264,7 @@ function procSpirit(){
 }
 
 function getBufCombos(bufLv){
-  if(bufLv===0)return[{h:0,a:0,d:0,w:1,label:'Buff None'}];
+  if(bufLv===0)return[{h:0,a:0,d:0,w:1,label:'No buff'}];
   if(bufLv===1)return[
     {h:1,a:0,d:0,w:1/3,label:'HP'},
     {h:0,a:1,d:0,w:1/3,label:'ATK'},
@@ -1172,16 +1292,16 @@ function runSim(){
   const accSeen=new Set();
   const ownedAcc=S.accCards
     .filter(c=>c.name)
-    .map(c=>({...ACC_DB.find(a=>a.n===c.name),_enc:encMode==='infinite'?'none':c.enchant}))
+    .map(c=>({...ACC_DB.find(a=>a.n===normalizeAccName(c.name)),_enc:encMode==='infinite'?'none':c.enchant}))
     .filter(a=>{
       if(!a.n)return false;
       const key=encMode==='fixed'?`${a.n}|${a._enc||'none'}`:a.n;
       if(accSeen.has(key))return false;
       accSeen.add(key);return true;
     });
-  if(!ownedAcc.length){alert('My Stats Tab Accessory 1 above Addplease.');return;}
+  if(!ownedAcc.length){alert('Add at least one accessory in the My Spec tab.');return;}
   const btn=document.getElementById('sim-btn');
-  btn.disabled=true;btn.textContent='⏳ Calc ...';
+  btn.disabled=true;btn.textContent='⏳ Calculating...';
   setTimeout(()=>{
     try{
       const bufCombos=getBufCombos(simBuf);
@@ -1199,11 +1319,11 @@ function runSim(){
 
 function getPends(excSun){
   const raw=S.pendants.length?S.pendants:[null];
-  const filtered=excSun?raw.filter(p=>!p||p.type!=='Sun'):raw;
+  const filtered=excSun?raw.filter(p=>!p||p.type!=='태양'):raw;
   const seen=new Set();
   const deduped=filtered.filter(p=>{
     if(!p)return true;
-    const mo=p.type==='Sun'?3:p.type==='Moon'?2:1;
+    const mo=p.type==='태양'?3:p.type==='달'?2:1;
     const opts=p.options
       .slice(0,mo)
       .map(o=>`${o.stat}:${o.val||0}`)
@@ -1219,7 +1339,7 @@ function getPends(excSun){
 function calcPendPct(pend){
   let pH=0,pA=0,pD=0;
   if(pend){
-    const mo=pend.type==='Sun'?3:pend.type==='Moon'?2:1;
+    const mo=pend.type==='태양'?3:pend.type==='달'?2:1;
     pend.options.slice(0,mo).forEach(o=>{
       if(!o||!o.stat)return;
       const v=(o.val||0)/100;
@@ -1277,7 +1397,7 @@ function doSimTop(ownedAcc,bufCombos,excSun){
   return top10;
 }
 
-//Simulation Run related
+//Run Simulation 관련
 function doSimAvg(ownedAcc,bufCombos,excSun){
   const {plus:sP,pct:sPct,bonus:sB}=procSpirit();
   const pool=buildPool();
@@ -1342,17 +1462,17 @@ function doSimAvg(ownedAcc,bufCombos,excSun){
 
 const STAT_COL={HP:'#fbbf24',ATK:'#f87171',DEF:'#60a5fa'};
 function fmtBufLabel(label){
-  if(label==='Buff None')return`<span style="color:var(--dim)">Buff None</span>`;
+  if(label==='No buff')return`<span style="color:var(--dim)">No buff</span>`;
   return label.split('+').map((s,i)=>{
     const trimmed=s.trim();
     const col=STAT_COL[trimmed]||'#fff';
-    return(i>0?`<span style="color:#fff">+</span>`:'')
+    return(i>0?`<span style="color:var(--text)">+</span>`:'')
       +`<span style="color:${col};font-weight:700">${trimmed}</span>`;
   }).join('');
 }
 
 function fmtAccName(name){
-  return name.replace(/[HPATKDEF]/g,s=>{
+  return name.replace(/HP|ATK|DEF/g,s=>{
     const col=s==='HP'?'#fbbf24':s==='ATK'?'#f87171':'#60a5fa';
     return`<span style="color:${col}">${s}</span>`;
   });
@@ -1365,7 +1485,7 @@ function fmtAccEnc(enc){
   return`<span class="enc-b" style="border-color:${col};color:${col}">${lbl} +21%</span>`;
 }
 
-//best BV Result 
+//최고 B-Val 결과 출력
 function mkMobCard(rank,dc,dt,accImg,accName,enc,gems,pendMob,buf,fH,fA,fD,bv){
   const dtBadge=dt?`<span class="dtype-b" style="color:${dc};border-color:${dc};font-size:11px">${dt}</span>`:'';
   const bufBadge=buf?`<div style="font-size:11px;color:var(--dim);margin-bottom:2px">${buf}</div>`:'';
@@ -1396,39 +1516,39 @@ function mkMobCard(rank,dc,dt,accImg,accName,enc,gems,pendMob,buf,fH,fA,fD,bv){
 
 function fmtPendMob(pend){
   if(!pend)return'<span style="color:var(--dimmer);font-size:11px">None</span>';
-  const mo=pend.type==='Sun'?3:pend.type==='Moon'?2:1;
+  const mo=pend.type==='태양'?3:pend.type==='달'?2:1;
   const opts=pend.options.slice(0,mo).filter(o=>o&&o.stat).map(o=>{
     const col=o.stat==='hp'?'#fbbf24':o.stat==='atk'?'#f87171':'#60a5fa';
     return`<span style="color:${col}">${SK[o.stat]}</span><span>${o.val||0}%</span>`;
-  }).join('<span style="color:#aab4cc">/</span>');
-  const shortTypeMap={'Moon':'Moon Pend','Sun':'Sun Pend','Star':'Star Pend'};
+  }).join('<span style="color:var(--dim)">/</span>');
+  const shortTypeMap={'달':'Moon','태양':'Sun','별':'Star'};
   const pimg=IMG_PEND[pend.type]?`<img src="${IMG_PEND[pend.type]}" style="width:26px;height:26px;object-fit:contain;border-radius:3px">`:'';
   return`<div style="display:flex;align-items:center;gap:6px;flex:1;min-width:0">${pimg}<span style="font-size:11px;color:var(--dim)">${shortTypeMap[pend.type]||pend.type} <small>(${opts})</small></span></div>`;
 }
 
 function renderResTop(top10){
   const el=document.getElementById('res-body-top');
-  if(!top10.length){el.innerHTML='<div style="padding:30px;text-align:center;color:var(--dim)">Result None</div>';return;}
+  if(!top10.length){el.innerHTML='<div style="padding:30px;text-align:center;color:var(--dim)">No results</div>';return;}
   const medals=['🥇','🥈','🥉'];
-  // dragon 
+  // 모바일용 카드
   let mobHtml='<div class="mob-only">';
-  // PCdragon 
+  // PC용 테이블
   let pcHtml=`<table class="rtbl pc-only"><thead><tr>
-    <th>Ranking</th><th>Type</th><th>Accessory / Enchant</th>
-    <th>gem </th><th>Pendant</th><th>Buff</th><th>HP / ATK / DEF</th><th>BV</th>
+    <th>Rank</th><th>Type</th><th>Accessory / Enchant</th>
+    <th>Gem Allocation</th><th>Pendant</th><th>Buff</th><th>HP / ATK / DEF</th><th>B-Val</th>
   </tr></thead><tbody>`;
   top10.forEach((r,i)=>{
     const rank=i<3?medals[i]:`<span class="rank-n">${i+1}</span>`;
     const dc=DCOLORS[r.dt];
     const a=ACC_DB.find(x=>x.n===r.accN);
     const aImg=a&&a.img?`<img src="${a.img}" style="width:38px;height:38px;object-fit:contain;border-radius:5px">`:'';
-    mobHtml+=mkMobCard(rank,dc,r.dt,aImg,fmtAccName(r.accN),fmtAccEnc(r.enc),
+    mobHtml+=mkMobCard(rank,dc,T_TYPE_S[r.dt]||r.dt,aImg,fmtAccName(r.accN),fmtAccEnc(r.enc),
       fmtGem(r.alloc),fmtPendMob(r.pend),fmtBufLabel(r.buf.label),
       r.fH.toLocaleString('ko-KR'),r.fA.toLocaleString('ko-KR'),r.fD.toLocaleString('ko-KR'),
       (r.bv/1e6).toFixed(1));
     pcHtml+=`<tr>
       <td>${rank}</td>
-      <td><span class="dtype-b" style="color:${dc};border-color:${dc}">${r.dt}</span></td>
+      <td><span class="dtype-b" style="color:${dc};border-color:${dc}">${T_TYPE_S[r.dt]||r.dt}</span></td>
       <td>
         <div style="display:flex;align-items:center;gap:8px">
           ${a&&a.img?`<img src="${a.img}" style="width:36px;height:36px;object-fit:contain;border-radius:4px">`:''}
@@ -1449,18 +1569,18 @@ function renderResTop(top10){
   el.innerHTML=mobHtml+'</div>'+pcHtml+'</tbody></table>';
 }
 
-//Avg BV Result 
+//Average B-Val 결과 출력
 function renderResAvg(results){
   const el=document.getElementById('res-body-avg');
-  if(!results.length){el.innerHTML='<div style="padding:30px;text-align:center;color:var(--dim)">Result None</div>';return;}
+  if(!results.length){el.innerHTML='<div style="padding:30px;text-align:center;color:var(--dim)">No results</div>';return;}
   let html=`<table class="rtbl"><thead><tr>
-    <th class="pc-only">Type</th><th class="pc-only">peak</th><th class="pc-only">low</th><th class="pc-only">Avg BV</th>
-    <th class="pc-only" style="color:#fff">Final Count
+    <th class="pc-only">Type</th><th class="pc-only">High</th><th class="pc-only">Low</th><th class="pc-only">Average B-Val</th>
+    <th class="pc-only" style="color:var(--text)">Final Score
       <span style="display:inline-block;width:16px;height:16px;background:#fff;color:#000;border-radius:50%;font-size:11px;font-weight:800;text-align:center;line-height:16px;cursor:help;margin-left:4px;position:relative"
         onmouseenter="document.getElementById('score-tip').style.display='block'"
         onmouseleave="document.getElementById('score-tip').style.display='none'">?</span>
-      <div id="score-tip" style="display:none;position:absolute;background:#222;color:#fff;font-size:12px;font-weight:400;padding:7px 11px;border-radius:6px;border:1px solid var(--bd);white-space:nowrap;z-index:999;margin-top:4px">
-        Avg, peak, low all  type Count.<br><br>Calc: AvgBV×0.5 + low×0.3 + peak×0.2
+      <div id="score-tip" style="display:none;position:absolute;background:var(--sf2);color:var(--text);font-size:12px;font-weight:400;padding:7px 11px;border-radius:6px;border:1px solid var(--bd);white-space:nowrap;z-index:999;margin-top:4px">
+        A composite value considering the weighted average, high and low.<br><br>Formula: weighted-avg B-Val ×0.5 + low ×0.3 + high ×0.2
       </div>
     </th>
   </tr></thead><tbody>`;
@@ -1470,8 +1590,8 @@ function renderResAvg(results){
     const bottom=r.bufResults[r.bufResults.length-1];
     html+=`<tr style="cursor:pointer" onclick="toggleAvgDetail(${i})">
       <td class="pc-only">
-        <span class="dtype-b" style="color:${dc};border-color:${dc}">${r.dt}</span>
-        <span class="avg-arrow" id="avg-arrow-${i}" style="color:#fff;font-size:10px;margin-left:6px">▼</span>
+        <span class="dtype-b" style="color:${dc};border-color:${dc}">${T_TYPE_S[r.dt]||r.dt}</span>
+        <span class="avg-arrow" id="avg-arrow-${i}" style="color:var(--text);font-size:10px;margin-left:6px">▼</span>
       </td>
       <td class="pc-only"><span class="bv-cell">${(peak.bestBV/1e6).toFixed(1)}</span> (${fmtBufLabel(peak.label)})</td>
       <td class="pc-only"><span class="bv-cell">${(bottom.bestBV/1e6).toFixed(1)}</span> (${fmtBufLabel(bottom.label)})</td>
@@ -1480,14 +1600,14 @@ function renderResAvg(results){
       <td class="mob-only" style="padding:10px 14px">
         <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px">
           <div>
-            <span class="dtype-b" style="color:${dc};border-color:${dc}">${r.dt}</span>
-            <span class="avg-arrow" id="avg-arrow-${i}" style="color:#fff;font-size:10px;margin-left:6px">▼</span>
+            <span class="dtype-b" style="color:${dc};border-color:${dc}">${T_TYPE_S[r.dt]||r.dt}</span>
+            <span class="avg-arrow" id="avg-arrow-${i}" style="color:var(--text);font-size:10px;margin-left:6px">▼</span>
           </div>
           <div style="display:flex;gap:12px;flex-wrap:wrap;font-size:12px">
-            <span><span style="color:var(--dim);font-size:10px">peak </span><span class="bv-cell">${(peak.bestBV/1e6).toFixed(1)}</span></span>
-            <span><span style="color:var(--dim);font-size:10px">low </span><span class="bv-cell">${(bottom.bestBV/1e6).toFixed(1)}</span></span>
+            <span><span style="color:var(--dim);font-size:10px">High </span><span class="bv-cell">${(peak.bestBV/1e6).toFixed(1)}</span></span>
+            <span><span style="color:var(--dim);font-size:10px">Low </span><span class="bv-cell">${(bottom.bestBV/1e6).toFixed(1)}</span></span>
             <span><span style="color:var(--dim);font-size:10px">Avg </span><span class="bv-cell">${(r.avgBV/1e6).toFixed(1)}</span></span>
-            <span><span style="color:var(--dim);font-size:10px">Count </span><span class="bv-cell" style="color:var(--gold)">${(r.score/1e6).toFixed(1)}</span></span>
+            <span><span style="color:var(--dim);font-size:10px">Score </span><span class="bv-cell" style="color:var(--gold)">${(r.score/1e6).toFixed(1)}</span></span>
           </div>
         </div>
       </td>
@@ -1517,7 +1637,7 @@ function renderAvgDetail(r){
     mobHtml+=`<div style="margin-bottom:10px"><div style="font-size:12px;font-weight:800;margin:0 14px 6px">${label}</div>`;
     pcHtml+=`<div style="margin-bottom:14px"><div style="font-size:12px;font-weight:800;margin-bottom:6px">${label}</div>
       <table class="rtbl" style="min-width:0"><thead><tr>
-        <th>Ranking</th><th>Accessory / Enchant</th><th>gem </th><th>Pendant</th><th>HP / ATK / DEF</th><th>BV</th>
+        <th>Rank</th><th>Accessory / Enchant</th><th>Gem Allocation</th><th>Pendant</th><th>HP / ATK / DEF</th><th>B-Val</th>
       </tr></thead><tbody>`;
     buf.top5.forEach((item,j)=>{
       const rank=j<3?medals[j]:`<span class="rank-n">${j+1}</span>`;
@@ -1547,7 +1667,7 @@ function renderAvgDetail(r){
   return mobHtml+'</div>'+pcHtml+'</div>';
 }
 
-// gem  "HP2(40,40) ATK1(39) DEF2(40,38)" format format
+// Gem Allocation을 "체2(40,40) 공1(39) 방2(40,38)" 형식으로 포맷
 function fmtGem(alloc){
   if(!alloc||!alloc.length)return'<span style="color:var(--dimmer)">None</span>';
   const bySt={hp:[],atk:[],def:[]};
@@ -1556,37 +1676,37 @@ function fmtGem(alloc){
   const parts=[];
   for(const s of SKEYS){
     const lvs=bySt[s].sort((a,b)=>b-a);
-    if(lvs.length)parts.push(`<span class="gem-tag" style="color:${cols[s]}">${SK[s]}${lvs.length}(${lvs.join(',')})</span>`);
+    if(lvs.length)parts.push(`<span class="gem-tag" style="color:${cols[s]}">${SK[s]}${lvs.length}(${lvs.map(l=>GEM_NAME[l]||l).join(',')})</span>`);
   }
   return parts.length?parts.join(''):'<span style="color:var(--dimmer)">None</span>';
 }
 
-// Pendant format "Sun Pendant (HP6%/ATK4%/DEF3%)"
+// Pendant 포맷 "태양의 Pendant (체6%/공4%/방3%)"
 function fmtPend(p){
   if(!p)return'<span style="color:var(--dimmer)">None</span>';
-  const mo=p.type==='Sun'?3:p.type==='Moon'?2:1;
+  const mo=p.type==='태양'?3:p.type==='달'?2:1;
   const opts=p.options.slice(0,mo).filter(o=>o&&o.stat).map(o=>{
     const col=o.stat==='hp'?'#fbbf24':o.stat==='atk'?'#f87171':'#60a5fa';
-    return`<span style="color:${col}">${SK[o.stat]}</span><span style="color:#fff">${o.val||0}%</span>`;
-  }).join('<span style="color:#aab4cc">/</span>');
+    return`<span style="color:${col}">${SK[o.stat]}</span><span style="color:var(--text)">${o.val||0}%</span>`;
+  }).join('<span style="color:var(--dim)">/</span>');
   const img=IMG_PEND[p.type]?`<img src="${IMG_PEND[p.type]}" style="width:36px;height:36px;object-fit:contain;border-radius:4px">`:'';
-  const shortTypeMap={'Moon':'Moon Pend','Sun':'Sun Pend','Star':'Star Pend'};
+  const shortTypeMap={'달':'Moon','태양':'Sun','별':'Star'};
   const shortType=shortTypeMap[p.type]||p.type;
-  return`<div style="display:flex;align-items:center;gap:8px">${img}<div style="color:var(--text)"><span class="pend-name-full">${p.type} Pendant</span><span class="pend-name-short">${shortType}</span><br><small>(${opts})</small></div></div>`;
+  return`<div style="display:flex;align-items:center;gap:8px">${img}<div style="color:var(--text)"><span class="pend-name-full">Pendant of ${T_PEND[p.type]||p.type}</span><span class="pend-name-short">${shortType}</span><br><small>(${opts})</small></div></div>`;
 }
 
 // ================================================================
-// Reset
+// 초기화
 // ================================================================
 function init(){
-  doLoad();
-  renderAcc();
-  populateGems();
-  renderPends();
-  renderSpirit();
-  populateColl();
+  try{doLoad();}catch(e){console.error('doLoad',e);}
+  try{renderAcc();}catch(e){}
+  try{populateGems();}catch(e){}
+  try{renderPends();}catch(e){}
+  try{renderSpirit();}catch(e){}
+  try{populateColl();}catch(e){}
 }
-document.addEventListener('DOMContentLoaded',init);
+document.addEventListener('DOMContentLoaded',function(){init();try{renderSpecView();}catch(e){console.error('renderSpecView',e);}});
 </script>
 <script>
 (function(){
@@ -1603,5 +1723,7 @@ document.addEventListener('DOMContentLoaded',init);
   new MutationObserver(sync).observe(document.head,{childList:true,subtree:true,characterData:true});
 })();
 </script>
+<script src="../sb_config.js"></script>
+<script src="../spec_sync.js"></script>
 </body>
 </html>

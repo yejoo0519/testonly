@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>챔피언대전 수동 계산기</title>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
+<script src="./dragon-data.js"></script>
+<script src="./cham-data.js"></script>
+<link id="theme-css" rel="stylesheet" href="./theme-dark.css">
+<script src="./theme.js"></script>
+<style>
+[data-theme="dark"]{
+  --bg:#0e1116;--bg2:#161a22;--bg3:#1c212c;
+  --border:#23293a;--border2:#1b1f2a;--border3:#2d3447;
+  --text:#eaecf2;--text2:#b3b9c7;--text3:#7d8597;--text4:#565d6e;
+  --accent:#7aa2f7;--accent-bg:rgba(122,162,247,0.12);--accent-border:rgba(122,162,247,0.30);
+}
+[data-theme="light"]{
+  --bg:#f7f7f8;--bg2:#ffffff;--bg3:#f1f2f4;
+  --border:#e6e7ea;--border2:#eeeff2;--border3:#d4d6db;
+  --text:#15171c;--text2:#4a4d57;--text3:#71757f;--text4:#9aa0aa;
+  --accent:#2f6fed;--accent-bg:rgba(47,111,237,0.10);--accent-border:rgba(47,111,237,0.32);
+}
+[data-theme="beige"]{
+  --bg:#f3ecdd;--bg2:#faf3e2;--bg3:#ebe0c7;
+  --border:#d8caa8;--border2:#e1d4b3;--border3:#c0ad84;
+  --text:#2a2316;--text2:#5a4e34;--text3:#837553;--text4:#a99971;
+  --accent:#b06a1e;--accent-bg:rgba(176,106,30,0.10);--accent-border:rgba(176,106,30,0.32);
+}
+:root{
+  --sf:var(--bg2);--sf2:var(--bg3);--bd:var(--border);
+  --gold:var(--accent);--dim:var(--text3);--dimmer:var(--text4);
+  --red:#f87171;--green:#4ade80;
+  --hpc:#fbbf24;--atc:#f87171;--dfc:#60a5fa;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nanum Gothic',-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;padding-bottom:60px}
+.hd{display:flex;align-items:center;gap:14px;padding:12px 20px;background:var(--sf);border-bottom:2px solid var(--gold);position:sticky;top:0;z-index:100}
+.hd-back{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;border:1px solid var(--bd);background:var(--sf2);color:var(--text2);text-decoration:none;font-size:16px;flex-shrink:0}
+.hd-icon{font-size:26px}.hd-t{font-size:15px;font-weight:800;color:var(--gold)}.hd-s{font-size:11px;color:var(--dim);margin-top:2px}
+.wrap{max-width:1240px;margin:0 auto;padding:14px 20px}
+.sec{background:var(--sf);border:1px solid var(--bd);border-radius:8px;margin-bottom:14px;overflow:hidden}
+.sec-hd{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 16px;background:var(--sf2);border-bottom:1px solid var(--bd);font-size:12px;font-weight:800;color:var(--gold)}
+.sec-bd{padding:12px 16px}
+select,input[type=number]{background:var(--sf2);border:1px solid var(--bd);color:var(--text);padding:5px 7px;border-radius:5px;font-family:inherit;font-size:13px;min-width:0}
+select:focus,input:focus{outline:none;border-color:var(--gold)}
+input[type=number]{width:100%}
+.btn{background:none;border:1px solid var(--gold);color:var(--gold);padding:5px 12px;border-radius:5px;cursor:pointer;font-family:inherit;font-size:12px;font-weight:700}
+.btn-red{background:none;border:1px solid var(--red);color:var(--red);padding:5px 12px;border-radius:5px;cursor:pointer;font-family:inherit;font-size:12px;font-weight:700}
+.common-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:760px){.common-grid{grid-template-columns:1fr}}
+.lbl{font-size:11px;color:var(--dim);margin-bottom:5px;font-weight:700}
+.row3{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.row3 label{display:flex;flex-direction:column;gap:3px;font-size:11px;font-weight:800}
+.c-hp{color:var(--hpc)}.c-atk{color:var(--atc)}.c-def{color:var(--dfc)}
+
+.team-tabs{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.team-tab{flex:1;min-width:90px;padding:10px 8px;background:var(--sf);border:1px solid var(--bd);border-radius:8px;color:var(--dim);font-family:inherit;font-size:13px;font-weight:800;cursor:pointer;text-align:center;line-height:1.35}
+.team-tab small{display:block;font-size:10px;font-weight:700;opacity:.8}
+.team-tab.on{border-color:var(--gold);color:var(--gold);background:var(--accent-bg)}
+
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media(max-width:1000px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:680px){.cards{grid-template-columns:1fr}}
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+.card-hd{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--sf2);border-bottom:1px solid var(--bd)}
+.card-img{width:44px;height:44px;object-fit:contain;border-radius:8px;background:var(--sf);flex-shrink:0}
+.card-name{font-size:14px;font-weight:800;line-height:1.3;word-break:keep-all}
+.card-sub{font-size:11px;color:var(--dim);margin-top:2px}
+.card-slot{margin-left:auto;font-size:11px;color:var(--dim);font-weight:800;white-space:nowrap}
+.card-bd{padding:10px 12px;display:flex;flex-direction:column;gap:10px}
+.grp{border-top:1px dashed var(--bd);padding-top:9px}
+.grp:first-child{border-top:none;padding-top:0}
+.grp-t{font-size:11px;font-weight:800;color:var(--gold);margin-bottom:6px;display:flex;justify-content:space-between;gap:6px}
+.grp-t span{color:var(--dim);font-weight:700}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.f1{display:grid;grid-template-columns:1fr;gap:6px}
+.gem-row,.sp-row{display:grid;grid-template-columns:40px 1fr 1fr;gap:6px;align-items:center;margin-bottom:5px}
+.sp-row{grid-template-columns:40px 1fr 1fr 58px}
+.gem-row .k,.sp-row .k{font-size:11px;color:var(--dim);font-weight:700}
+.sp-row .v{font-size:11px;color:var(--text2);text-align:right;font-weight:700}
+.ds-wrap{position:relative}
+.ds-in{width:100%;background:var(--sf2);border:1px solid var(--bd);color:var(--text);padding:5px 7px;border-radius:5px;font-family:inherit;font-size:13px}
+.ds-in:focus{outline:none;border-color:var(--gold)}
+.ds-drop{display:none;position:absolute;left:0;right:0;top:100%;margin-top:2px;max-height:240px;overflow:auto;background:var(--sf2);border:1px solid var(--gold);border-radius:6px;z-index:50;box-shadow:0 6px 18px rgba(0,0,0,.35)}
+.ds-drop.open{display:block}
+.ds-item{display:flex;align-items:center;gap:8px;padding:6px 8px;cursor:pointer;font-size:12px;border-bottom:1px solid var(--bd)}
+.ds-item:last-child{border-bottom:none}
+.ds-item:hover{background:var(--accent-bg)}
+.ds-item img{width:26px;height:26px;object-fit:contain;border-radius:5px;flex-shrink:0}
+.ds-item .m{margin-left:auto;font-size:10px;color:var(--dim);white-space:nowrap}
+.ds-empty{padding:8px;font-size:12px;color:var(--dim);text-align:center}
+.base-line{display:flex;gap:10px;font-size:12px;font-weight:800;flex-wrap:wrap}
+.skill{font-size:10px;padding:1px 6px;border-radius:8px;border:1px solid var(--bd);color:var(--dim);margin-left:4px;font-weight:700}
+.result{margin-top:auto;border-top:1px solid var(--bd);background:var(--sf2);padding:10px 12px}
+.res-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;text-align:center}
+.res-stats div{background:var(--sf);border:1px solid var(--bd);border-radius:6px;padding:6px 2px}
+.res-stats b{display:block;font-size:16px}
+.res-stats small{font-size:10px;color:var(--dim);font-weight:800}
+.res-sum{display:flex;justify-content:space-between;gap:8px;margin-top:8px;font-size:12px;color:var(--dim);flex-wrap:wrap}
+.res-sum b{color:var(--text)}
+.buff-badge{display:inline-block;font-size:10px;font-weight:800;padding:1px 6px;border-radius:8px;border:1px solid var(--gold);color:var(--gold);margin-left:3px}
+.empty-note{font-size:12px;color:var(--dim);text-align:center;padding:4px 0}
+
+.sum-table{width:100%;border-collapse:collapse;font-size:12px}
+.sum-table th{font-size:11px;color:var(--dim);padding:6px;border-bottom:1px solid var(--bd);text-align:center;white-space:nowrap}
+.sum-table td{padding:6px;border-bottom:1px solid var(--bd);text-align:center}
+.sum-table td.nm{text-align:left;font-weight:700}
+.sum-table tr.team-sep td{background:var(--sf2);color:var(--gold);font-weight:800;text-align:left;font-size:11px}
+.sum-scroll{overflow-x:auto}
+.save-msg{font-size:11px;color:var(--green);margin-left:auto;white-space:nowrap}
+</style>
+</head>
+<body>
+<div class="hd">
+  <a class="hd-back" href="./index.html?tab=calculator">←</a>
+  <div class="hd-icon">🏆</div>
+  <div><div class="hd-t">챔피언대전 수동 계산기</div><div class="hd-s">팀별 드래곤 최종 스탯 · EVAL · 비벨</div></div>
+  <button class="btn" style="margin-left:auto;font-size:12px;white-space:nowrap" onclick="sendToAuto()" id="t-send-auto"></button>
+  <span class="save-msg" id="save-msg" style="margin-left:8px"></span>
+</div>
+
+<div class="wrap">
+  <div class="sec">
+    <div class="sec-hd"><span id="t-common"></span><button class="btn-red" onclick="resetAll()" id="t-reset"></button></div>
+    <div class="sec-bd">
+      <div class="lbl" id="t-buff"></div>
+      <div class="row3" style="max-width:560px" id="buff-row"></div>
+    </div>
+  </div>
+
+  <div class="team-tabs" id="team-tabs"></div>
+  <div class="cards" id="cards"></div>
+
+  <div class="sec" style="margin-top:14px">
+    <div class="sec-hd"><span id="t-summary"></span></div>
+    <div class="sec-bd sum-scroll"><table class="sum-table" id="sum-table"></table></div>
+  </div>
+</div>
+
+<script>
+'use strict';
+const L={lang:'ko',
+ saved:'✓ 저장됨',data_missing_t:'데이터 파일을 불러오지 못했어요',data_missing_d:'계산기에 필요한 cham-data.js 파일이 없어요. 사이트 루트에 이 파일이 있는지 확인해주세요.',send_auto:'자동 계산기로 보내기',send_none:'입력된 드래곤이 없어요.',send_confirm:n=>'입력한 드래곤 '+n+'마리를 자동 계산기의 [내 드래곤]에 추가할까요?',send_dup:'추가할 새 드래곤이 없어요. (이미 등록돼 있어요)',send_fail:'저장 실패: ',send_done:n=>n+'마리를 추가했어요. 자동 계산기로 이동할까요?',common:'공통 설정',reset:'↺ 전체 초기화',buff:'속성 버프 (해당 속성 드래곤에 적용) · 컬렉션은 풀컬(240/60/60) 고정',summary:'전체 결과',
+ none:'없음',pick_attr:'속성 선택',pick_dragon:'드래곤 선택',pick_type:'타입 선택',no_dragon:'드래곤 미선택',search_ph:'드래곤 이름 검색',type_fixed:'드래곤에 따라 자동 설정',no_result:'검색 결과 없음',
+ team:n=>n+'팀',kind_gang:'강림 드래곤',kind_grade:lv=>'등급용 '+lv+'레벨',slot:n=>n+'번',
+ dragon:'드래곤',gems:'젬',gem:'젬',gem_lv:l=>l+'단계',pendant:'펜던트',acc:'장신구',potion_enc:'물약 · 인첸트',enc:'인첸트',enc_none:'인첸트 없음',
+ spirit:'정령',spirit_note:'챔대 50% 적용',opt:n=>n+'옵',bonus:'부가옵',bv:'비벨',need_dragon:'드래곤을 선택하면 계산돼요',
+ reset_confirm:'모든 팀의 입력값이 초기화됩니다. 계속할까요?',
+ stat:{hp:'체력',atk:'공격',def:'방어'},skill:{boom:'폭스',def:'방확'},attr:{},dtype:{}};
+const D=window.CHAM_DATA;
+if(!D){
+  // cham-data.js를 못 불러온 경우 (파일 누락/경로 오류)
+  document.addEventListener('DOMContentLoaded',()=>{
+    document.body.innerHTML='<div style="max-width:560px;margin:80px auto;padding:24px;font-family:sans-serif;line-height:1.8;color:#eaecf2;background:#161a22;border:1px solid #2d3447;border-radius:12px">'
+      +'<div style="font-size:16px;font-weight:800;color:#f87171;margin-bottom:10px">'+L.data_missing_t+'</div>'
+      +'<div style="font-size:13px;color:#b3b9c7">'+L.data_missing_d+'</div>'
+      +'<div style="font-size:12px;color:#7d8597;margin-top:14px">cham-data.js</div></div>';
+  });
+  throw new Error('cham-data.js not loaded');
+}
+const IS_EN=L.lang==='en';
+const ASSET='./';
+const SAVE_KEY='dv1sim_cham_manual';
+const ATTRS=['땅','물','불','바람','빛','어둠','황혼','여명','악몽'];
+const STATS=['hp','atk','def'];
+const DTYPES=['체력형','공격형','방어형','체공형','체방형','공방형'];
+const GRADES=['7.0','8.0','9.0'];
+// 젬 (표시 단계 → 수치)
+const GEM={36:{hp:144,atk:36,def:36},38:{hp:152,atk:38,def:38},40:{hp:160,atk:40,def:40},42:{hp:168,atk:42,def:42},44:{hp:176,atk:44,def:44}};
+const GEM_LVS=[44,42,40,38,36];
+// 정령
+const SP_PLUS={hp:{1:216,2:240,3:264,4:480},atk:{1:54,2:60,3:66,4:120},def:{1:54,2:60,3:66,4:120}};
+const SP_PCT={1:0.24,2:0.28,3:0.32,4:0.40};
+const SP_BONUS={hp:40,atk:10,def:10};
+// 팀: 1팀 강림, 2팀 등급용 21, 3팀 등급용 45
+const TEAMS=[{kind:'gang'},{kind:'grade',lv:21},{kind:'grade',lv:45}];
+const SPIRIT_W=0.5; // 챔대 정령 적용 비율
+
+const ELEM_ALIAS={'Earth':'땅','Water':'물','Fire':'불','Wind':'바람','Light':'빛','Dark':'어둠','Dusk':'황혼','Dawn':'여명','Nightmare':'악몽'};
+D.GRADE.forEach(g=>{g.elem=ELEM_ALIAS[g.elem]||g.elem;});
+// '고귀한(Noble) X'는 원본과 스탯이 같은 중복이라 목록에서 제외
+D.GRADE=D.GRADE.filter(g=>!/^고귀한\s/.test(g.ko));
+
+// ── 이름/타입 조회 ────────────────────────────────────────────
+const nm=o=>o?(IS_EN?o.en:o.ko):'';
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function normName(n){return String(n||'').replace(/ 드래곤$/,'').replace(/\s+/g,'').toLowerCase();}
+function findType(name){
+  const DB=window.DRAGON_TYPE_DB||{};const key=normName(name);if(!key)return'';
+  for(const [t,list] of Object.entries(DB)){
+    if(!Array.isArray(list)||!DTYPES.includes(t))continue;
+    for(const e of list){
+      const names=typeof e==='string'?[e]:[e&&e.name,...((e&&e.aliases)||[])];
+      if(names.some(x=>x&&normName(x)===key))return t;
+    }
+  }
+  return'';
+}
+function gangList(attr){return D.GANG[attr]||[];}
+function gangOf(slot){return gangList(slot.attr).find(d=>d.ko===slot.name)||null;}
+function gradeList(attr,lv){return D.GRADE.filter(g=>g.elem===attr&&g.lv===lv).sort((a,b)=>b.ev-a.ev);}
+function gradeOf(slot,lv){return D.GRADE.find(g=>g.ko===slot.name&&g.lv===lv&&g.elem===slot.attr)||null;}
+function imgUrl(n,stage){return n?`${ASSET}dragon/${n}/profile/${stage||8}.png`:'';} // 강림 8번, 등급용은 4번까지만 존재
+
+// ── 상태 ─────────────────────────────────────────────────────
+const mkSlot=()=>({attr:'',name:'',dtype:'',grade:'9.0',
+  gems:Array.from({length:5},()=>({stat:'',lv:44})),
+  pend:{hp:0,atk:0,def:0},acc:'',potion:'',enc:{stat:'',val:21},
+  sp:Array.from({length:4},()=>({stat:'',type:''})),bonus:''});
+const COLL={hp:240,atk:60,def:60}; // 컬렉션 고정값
+const mkState=()=>({buff:{hp:'',atk:'',def:''},tab:0,teams:TEAMS.map(()=>[mkSlot(),mkSlot(),mkSlot()])});
+let S=mkState();
+function load(){
+  try{
+    const r=localStorage.getItem(SAVE_KEY);if(!r)return;
+    const p=JSON.parse(r);const base=mkState();
+    S={...base,...p,buff:{...base.buff,...(p.buff||{})},
+      teams:base.teams.map((t,ti)=>t.map((s,si)=>{
+        const q=(p.teams&&p.teams[ti]&&p.teams[ti][si])||{};
+        return {...s,...q,pend:{...s.pend,...(q.pend||{})},enc:{...s.enc,...(q.enc||{})},
+          gems:s.gems.map((g,i)=>({...g,...((q.gems||[])[i]||{})})),
+          sp:s.sp.map((o,i)=>({...o,...((q.sp||[])[i]||{})}))};
+      }))};
+    if(!(S.tab>=0&&S.tab<3))S.tab=0;
+  }catch(e){console.warn(e);}
+}
+let saveT=null;
+function save(){
+  clearTimeout(saveT);
+  saveT=setTimeout(()=>{
+    try{localStorage.setItem(SAVE_KEY,JSON.stringify(S));
+      const el=document.getElementById('save-msg');el.textContent=L.saved;clearTimeout(el._t);el._t=setTimeout(()=>el.textContent='',1500);}catch(e){}
+  },500);
+}
+
+// ── 계산 (엑셀 최종계산(챔대용) 공식) ─────────────────────────
+const INT=x=>Math.floor(x+1e-9);
+function baseOf(ti,slot){
+  if(TEAMS[ti].kind==='gang'){
+    if(!gangOf(slot)||!slot.dtype||!D.BASE[slot.grade])return null;
+    return D.BASE[slot.grade][slot.dtype]||null;
+  }
+  const g=gradeOf(slot,TEAMS[ti].lv);
+  return g?{hp:g.hp,atk:g.atk,def:g.def}:null;
+}
+function calcSlot(ti,slot){
+  const base=baseOf(ti,slot);
+  if(!base)return null;
+  const acc=D.ACC.find(a=>a.ko===slot.acc);
+  const pot=D.POTION.find(p=>p.ko===slot.potion);
+  const out={buffs:[]};
+  STATS.forEach(st=>{
+    const gem=slot.gems.reduce((s,g)=>s+(g.stat===st&&GEM[g.lv]?GEM[g.lv][st]:0),0);
+    const statSum=base[st]+gem;
+    const potion=pot?pot[st]:0;
+    const accP=acc?acc[st]:0;
+    const encP=slot.enc.stat===st?(Number(slot.enc.val)||0)/100:0;
+    const pendP=(Number(slot.pend[st])||0)/100;
+    let spP=0,spF=0;
+    slot.sp.forEach((o,i)=>{
+      if(o.stat!==st)return;
+      if(o.type==='%')spP+=SP_PCT[i+1];
+      else if(o.type==='+')spF+=SP_PLUS[st][i+1];
+    });
+    const bonus=slot.bonus===st?SP_BONUS[st]:0;
+    const coll=COLL[st];
+    const buffP=(S.buff[st]&&S.buff[st]===slot.attr)?(st==='def'?0.5:0.4):0;
+    if(buffP)out.buffs.push(st);
+    const s1=INT((statSum+potion)*(1+accP+encP));
+    const s2=s1*(1+SPIRIT_W*spP)+(SPIRIT_W*spF)*(1+SPIRIT_W*spP);
+    const s3=INT(s2*(1+pendP)+bonus+coll);
+    out[st]=INT(s3*(1+buffP));
+  });
+  out.eval=out.hp+out.atk*4+out.def*4;
+  out.bv=out.hp*out.atk*out.def;
+  return out;
+}
+
+// ── 렌더 ─────────────────────────────────────────────────────
+const attrLbl=a=>IS_EN?(L.attr[a]||a):a;
+const typeLbl=t=>IS_EN?(L.dtype[t]||t):t;
+const statLbl=s=>L.stat[s];
+const opt=(v,label,cur)=>`<option value="${esc(v)}"${String(v)===String(cur)?' selected':''}>${esc(label)}</option>`;
+const statOpts=cur=>opt('','—',cur)+STATS.map(s=>opt(s,statLbl(s),cur)).join('');
+const attrOpts=cur=>opt('',L.pick_attr,cur)+ATTRS.map(a=>opt(a,attrLbl(a),cur)).join('');
+const fmt=n=>Number(n).toLocaleString();
+
+function renderCommon(){
+  const b=document.getElementById('buff-row');
+  b.innerHTML=STATS.map(st=>`<label class="c-${st}">${statLbl(st)} ${st==='def'?'50%':'40%'}
+    <select onchange="S.buff.${st}=this.value;onChange()">${opt('',L.none,S.buff[st])}${ATTRS.map(a=>opt(a,attrLbl(a),S.buff[st])).join('')}</select></label>`).join('');
+}
+function renderTabs(){
+  document.getElementById('team-tabs').innerHTML=TEAMS.map((t,i)=>
+    `<button class="team-tab${S.tab===i?' on':''}" onclick="setTab(${i})">${esc(L.team(i+1))}<small>${esc(t.kind==='gang'?L.kind_gang:L.kind_grade(t.lv))}</small></button>`).join('');
+}
+function setTab(i){S.tab=i;renderTabs();renderCards();save();}
+
+function cardHtml(ti,si){
+  const slot=S.teams[ti][si];const team=TEAMS[ti];
+  let img='',title=L.no_dragon,sub='',skill='';
+  let pick='';
+  if(team.kind==='gang'){
+    const g=gangOf(slot);
+    if(g){img=imgUrl(g.img);title=nm(g);sub=[attrLbl(slot.attr),slot.dtype?typeLbl(slot.dtype):'',slot.grade].filter(Boolean).join(' · ');}
+    pick=`<div class="f2">
+        <select onchange="setAttr(${ti},${si},this.value)">${attrOpts(slot.attr)}</select>
+        ${searchBox(ti,si,g?nm(g):'')}
+        ${g&&slot.dtype
+          ?`<select disabled title="${esc(L.type_fixed)}"><option>${esc(typeLbl(slot.dtype))}</option></select>`
+          :`<select onchange="S.teams[${ti}][${si}].dtype=this.value;onChange(true)" ${g?'':'disabled'}>${opt('',L.pick_type,slot.dtype)}${DTYPES.map(t=>opt(t,typeLbl(t),slot.dtype)).join('')}</select>`}
+        <select onchange="S.teams[${ti}][${si}].grade=this.value;onChange(true)">${GRADES.map(x=>opt(x,x,slot.grade)).join('')}</select>
+      </div>`;
+  }else{
+    const g=gradeOf(slot,team.lv);
+    if(g){img=imgUrl(g.did,4);title=nm(g);sub=attrLbl(slot.attr)+' · Lv.'+team.lv;if(g.sk)skill=`<span class="skill">${esc(L.skill[g.sk]||g.sk)}</span>`;}
+    pick=`<div class="f1">
+        <select onchange="setAttr(${ti},${si},this.value)">${attrOpts(slot.attr)}</select>
+        ${searchBox(ti,si,g?nm(g):'')}
+      </div>`;
+  }
+  const base=baseOf(ti,slot);
+  const baseLine=base?`<div class="base-line"><span class="c-hp">${statLbl('hp')} ${base.hp}</span><span class="c-atk">${statLbl('atk')} ${base.atk}</span><span class="c-def">${statLbl('def')} ${base.def}</span></div>`:'';
+
+  const gems=slot.gems.map((g,i)=>`<div class="gem-row"><span class="k">${L.gem} ${i+1}</span>
+      <select onchange="S.teams[${ti}][${si}].gems[${i}].stat=this.value;onChange()">${statOpts(g.stat)}</select>
+      <select onchange="S.teams[${ti}][${si}].gems[${i}].lv=+this.value;onChange()">${GEM_LVS.map(l=>opt(l,L.gem_lv(l),g.lv)).join('')}</select></div>`).join('');
+
+  const pend=`<div class="row3">${STATS.map(st=>`<label class="c-${st}">${statLbl(st)} %<input type="number" min="0" step="1" value="${Number(slot.pend[st])||0}" oninput="S.teams[${ti}][${si}].pend.${st}=Math.max(0,parseFloat(this.value)||0);onChange()"></label>`).join('')}</div>`;
+
+  const acc=D.ACC.find(a=>a.ko===slot.acc);
+  const accInfo=acc?STATS.filter(st=>acc[st]).map(st=>statLbl(st)+' '+Math.round(acc[st]*100)+'%').join(' · '):'';
+  const accSel=`<select style="width:100%" onchange="S.teams[${ti}][${si}].acc=this.value;onChange(true)">${opt('',L.none,slot.acc)}${D.ACC.map(a=>opt(a.ko,nm(a),slot.acc)).join('')}</select>`;
+  const potSel=`<select onchange="S.teams[${ti}][${si}].potion=this.value;onChange()">${opt('',L.none,slot.potion)}${D.POTION.map(p=>opt(p.ko,nm(p),slot.potion)).join('')}</select>`;
+  const enc=`<div class="f2" style="grid-template-columns:1fr 1fr 64px">${potSel}
+      <select onchange="S.teams[${ti}][${si}].enc.stat=this.value;onChange()">${opt('',L.enc_none,slot.enc.stat)}${STATS.map(s=>opt(s,L.enc+' '+statLbl(s),slot.enc.stat)).join('')}</select>
+      <input type="number" min="0" step="1" value="${Number(slot.enc.val)||0}" title="%" oninput="S.teams[${ti}][${si}].enc.val=Math.max(0,parseFloat(this.value)||0);onChange()"></div>`;
+
+  const sp=slot.sp.map((o,i)=>{
+    const v=o.stat&&o.type?(o.type==='%'?'+'+Math.round(SP_PCT[i+1]*100)+'%':'+'+SP_PLUS[o.stat][i+1]):'';
+    return `<div class="sp-row"><span class="k">${L.opt(i+1)}</span>
+      <select onchange="S.teams[${ti}][${si}].sp[${i}].stat=this.value;onChange(true)">${statOpts(o.stat)}</select>
+      <select onchange="S.teams[${ti}][${si}].sp[${i}].type=this.value;onChange(true)">${opt('','—',o.type)}${opt('+','(+)',o.type)}${opt('%','(%)',o.type)}</select>
+      <span class="v">${v}</span></div>`;
+  }).join('');
+  const bonus=`<div class="sp-row" style="grid-template-columns:40px 1fr"><span class="k">${L.bonus}</span>
+      <select onchange="S.teams[${ti}][${si}].bonus=this.value;onChange()">${opt('','—',slot.bonus)}${STATS.map(s=>opt(s,statLbl(s)+' (+'+SP_BONUS[s]+')',slot.bonus)).join('')}</select></div>`;
+
+  return `<div class="card">
+    <div class="card-hd">
+      ${img?`<img class="card-img" src="${esc(img)}" onerror="this.style.visibility='hidden'" alt="">`:`<div class="card-img"></div>`}
+      <div><div class="card-name">${esc(title)}${skill}</div><div class="card-sub">${esc(sub)}</div></div>
+      <div class="card-slot">${L.slot(si+1)}</div>
+    </div>
+    <div class="card-bd">
+      <div class="grp"><div class="grp-t">${L.dragon}</div>${pick}${baseLine?'<div style="margin-top:6px">'+baseLine+'</div>':''}</div>
+      <div class="grp"><div class="grp-t">${L.gems}</div>${gems}</div>
+      <div class="grp"><div class="grp-t">${L.pendant}</div>${pend}</div>
+      <div class="grp"><div class="grp-t">${L.acc}<span>${esc(accInfo)}</span></div>${accSel}</div>
+      <div class="grp"><div class="grp-t">${L.potion_enc}</div>${enc}</div>
+      <div class="grp"><div class="grp-t">${L.spirit}<span>${L.spirit_note}</span></div>${sp}${bonus}</div>
+    </div>
+    <div class="result" id="res-${ti}-${si}"></div>
+  </div>`;
+}
+function resultHtml(ti,si){
+  const r=calcSlot(ti,S.teams[ti][si]);
+  if(!r)return `<div class="empty-note">${L.need_dragon}</div>`;
+  const badge=st=>r.buffs.includes(st)?`<span class="buff-badge">${st==='def'?'+50%':'+40%'}</span>`:'';
+  return `<div class="res-stats">${STATS.map(st=>`<div><small class="c-${st}">${statLbl(st)}${badge(st)}</small><b class="c-${st}">${fmt(r[st])}</b></div>`).join('')}</div>
+    <div class="res-sum"><span>EVAL <b>${fmt(r.eval)}</b></span><span>${L.bv} <b>${fmt(r.bv)}</b></span></div>`;
+}
+function renderCards(){
+  const ti=S.tab;
+  document.getElementById('cards').innerHTML=[0,1,2].map(si=>cardHtml(ti,si)).join('');
+  renderResults();
+}
+function renderResults(){
+  const ti=S.tab;
+  [0,1,2].forEach(si=>{const el=document.getElementById(`res-${ti}-${si}`);if(el)el.innerHTML=resultHtml(ti,si);});
+  renderSummary();
+}
+function renderSummary(){
+  let html=`<tr><th style="text-align:left">${L.dragon}</th><th class="c-hp">${statLbl('hp')}</th><th class="c-atk">${statLbl('atk')}</th><th class="c-def">${statLbl('def')}</th><th>EVAL</th><th>${L.bv}</th></tr>`;
+  TEAMS.forEach((t,ti)=>{
+    html+=`<tr class="team-sep"><td colspan="6">${esc(L.team(ti+1))} · ${esc(t.kind==='gang'?L.kind_gang:L.kind_grade(t.lv))}</td></tr>`;
+    S.teams[ti].forEach((slot,si)=>{
+      const r=calcSlot(ti,slot);
+      const d=t.kind==='gang'?gangOf(slot):gradeOf(slot,t.lv);
+      const name=d?nm(d):'—';
+      html+=r?`<tr><td class="nm">${esc(name)}</td><td class="c-hp">${fmt(r.hp)}</td><td class="c-atk">${fmt(r.atk)}</td><td class="c-def">${fmt(r.def)}</td><td>${fmt(r.eval)}</td><td>${fmt(r.bv)}</td></tr>`
+        :`<tr><td class="nm" style="color:var(--dim)">${L.slot(si+1)} —</td><td colspan="5" style="color:var(--dim)">—</td></tr>`;
+    });
+  });
+  document.getElementById('sum-table').innerHTML=html;
+}
+
+// ── 드래곤 검색 ───────────────────────────────────────────────
+function searchBox(ti,si,val){
+  return `<div class="ds-wrap"><input class="ds-in" id="ds-in-${ti}-${si}" value="${esc(val)}" placeholder="${esc(L.search_ph)}" autocomplete="off"
+      onfocus="this.dataset.d='';this.select();dsFilter(${ti},${si},this.value)" oninput="this.dataset.d='1';dsFilter(${ti},${si},this.value)" onblur="dsBlur(${ti},${si},this)" onkeydown="if(event.key==='Escape')this.blur()">
+    <div class="ds-drop" id="ds-${ti}-${si}"></div></div>`;
+}
+function dsCandidates(ti,si,q){
+  const team=TEAMS[ti];const slot=S.teams[ti][si];const key=normName(q);
+  const attrs=slot.attr?[slot.attr]:ATTRS;
+  const hit=(d,extra)=>{if(!key)return true;const names=[d.ko,d.en,...(extra||[])];return names.some(n=>n&&normName(n).includes(key));};
+  let list=[];
+  if(team.kind==='gang'){
+    const DB=window.DRAGON_TYPE_DB||{};
+    const aliasOf=name=>{for(const l of Object.values(DB)){if(!Array.isArray(l))continue;for(const e of l){if(e&&typeof e==='object'&&normName(e.name)===normName(name))return e.aliases||[];}}return[];};
+    attrs.forEach(a=>gangList(a).forEach(d=>{if(hit(d,aliasOf(d.ko)))list.push({d,attr:a,img:imgUrl(d.img),meta:attrLbl(a)});}));
+  }else{
+    attrs.forEach(a=>gradeList(a,team.lv).forEach(d=>{if(hit(d))list.push({d,attr:a,img:imgUrl(d.did,4),meta:attrLbl(a)+' · '+d.ev});}));
+  }
+  return list.slice(0,40);
+}
+function dsFilter(ti,si,q){
+  const drop=document.getElementById(`ds-${ti}-${si}`);if(!drop)return;
+  const list=dsCandidates(ti,si,q);
+  drop.innerHTML=list.length?list.map(x=>`<div class="ds-item" onmousedown="event.preventDefault();dsPick(${ti},${si},'${esc(x.attr)}','${esc(x.d.ko).replace(/'/g,"\\'")}')">
+      <img src="${esc(x.img)}" onerror="this.style.visibility='hidden'" alt=""><span>${esc(nm(x.d))}</span><span class="m">${esc(x.meta)}</span></div>`).join('')
+    :`<div class="ds-empty">${L.no_result}</div>`;
+  drop.classList.add('open');
+}
+let _dsLock=false;
+function dsBlur(ti,si,el){
+  const drop=document.getElementById(`ds-${ti}-${si}`);if(drop)drop.classList.remove('open');
+  if(_dsLock)return; // 드롭다운 선택 처리 중
+  const inp=el||document.getElementById(`ds-in-${ti}-${si}`);const slot=S.teams[ti][si];
+  const d=TEAMS[ti].kind==='gang'?gangOf(slot):gradeOf(slot,TEAMS[ti].lv);
+  if(inp){
+    // 사용자가 이 포커스 동안 직접 지운 경우에만 선택 해제
+    if(inp.dataset.d&&inp.value.trim()===''&&slot.name){slot.name='';slot.dtype='';onChange(true);return;}
+    inp.value=d?nm(d):'';
+    inp.dataset.d='';
+  }
+}
+function dsPick(ti,si,attr,name){
+  _dsLock=true;
+  const s=S.teams[ti][si];
+  s.attr=attr;s.name=name;
+  s.dtype=TEAMS[ti].kind==='gang'?findType(name):'';
+  // 재렌더로 요소가 바뀐 자리에 이어지는 click/mouseup이 닿지 않게 한 번 삼킴
+  const swallow=e=>{e.stopPropagation();e.preventDefault();};
+  ['click','mouseup'].forEach(t=>document.addEventListener(t,swallow,{capture:true,once:true}));
+  setTimeout(()=>{['click','mouseup'].forEach(t=>document.removeEventListener(t,swallow,{capture:true}));_dsLock=false;},250);
+  onChange(true);
+}
+
+// ── 입력 ─────────────────────────────────────────────────────
+function onChange(rerender){
+  if(rerender)renderCards();else renderResults();
+  save();
+}
+function setAttr(ti,si,v){
+  const s=S.teams[ti][si];
+  if(s.attr===v)return;
+  s.attr=v;s.name='';s.dtype='';
+  onChange(true);
+}
+function setGang(ti,si,v){
+  const s=S.teams[ti][si];
+  s.name=v;s.dtype=v?findType(v):'';
+  onChange(true);
+}
+function setGrade(ti,si,v){S.teams[ti][si].name=v;onChange(true);}
+function resetAll(){
+  if(!confirm(L.reset_confirm))return;
+  const tab=S.tab;S=mkState();S.tab=tab;
+  renderCommon();renderTabs();renderCards();save();
+}
+
+// ── 자동 계산기로 보내기 ───────────────────────────────────
+const AUTO_KEY=SAVE_KEY.replace('_cham_manual','_cham_auto');
+function sendToAuto(){
+  const rows=[];
+  S.teams.forEach((team,ti)=>team.forEach(slot=>{
+    if(!slot.attr||!slot.name)return;
+    if(!calcSlot(ti,slot))return;
+    rows.push({ti,slot});
+  }));
+  if(!rows.length){alert(L.send_none);return;}
+  if(!confirm(L.send_confirm(rows.length)))return;
+  let A=null;
+  try{A=JSON.parse(localStorage.getItem(AUTO_KEY)||'null');}catch(e){}
+  if(!A||typeof A!=='object')A={};
+  if(!Array.isArray(A.teams)||A.teams.length!==3)A.teams=[[],[],[]];
+  let added=0;
+  rows.forEach(({ti,slot})=>{
+    const list=A.teams[ti]=Array.isArray(A.teams[ti])?A.teams[ti]:[];
+    if(list.some(en=>en&&en.attr===slot.attr&&en.name===slot.name))return;
+    list.push({uid:'m'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),
+      attr:slot.attr,name:slot.name,
+      dtype:TEAMS[ti].kind==='gang'?slot.dtype:'',grade:slot.grade||'9.0',
+      sp:(slot.sp||[]).slice(0,4).map((o,k)=>({stat:o&&o.stat||'',type:(o&&(o.type==='+'||o.type==='%'))?o.type:(k===3?'+':'%')})),
+      bonus:slot.bonus||''});
+    added++;
+  });
+  if(!added){alert(L.send_dup);return;}
+  // 버프도 함께 넘김 (자동 계산기의 현재 라운드에 반영)
+  if(Array.isArray(A.rounds)&&A.rounds[A.round>=0?A.round:0]){
+    A.rounds[A.round>=0?A.round:0].buff={...S.buff};
+  }
+  try{localStorage.setItem(AUTO_KEY,JSON.stringify(A));}catch(e){alert(L.send_fail+e.message);return;}
+  if(confirm(L.send_done(added)))location.href='./cham_auto.html';
+}
+
+// ── 시작 ─────────────────────────────────────────────────────
+function applyTexts(){
+  document.getElementById('t-common').textContent=L.common;
+  document.getElementById('t-reset').textContent=L.reset;
+  document.getElementById('t-buff').textContent=L.buff;
+  document.getElementById('t-summary').textContent=L.summary;
+  document.getElementById('t-send-auto').textContent=L.send_auto;
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  load();applyTexts();renderCommon();renderTabs();renderCards();
+});
+</script>
+<script>
+(function(){
+  var link=document.getElementById('theme-css');
+  if(!link)return;
+  var sync=function(){
+    var c=document.getElementById('custom-theme-style');
+    if(c&&c.textContent&&c.textContent.length>0){document.documentElement.removeAttribute('data-theme');return;}
+    var m=String(link.href||'').match(/theme-(dark|light|beige)\.css/);
+    document.documentElement.setAttribute('data-theme',m?m[1]:'dark');
+  };
+  sync();
+  new MutationObserver(sync).observe(link,{attributes:true,attributeFilter:['href']});
+  new MutationObserver(sync).observe(document.head,{childList:true,subtree:true,characterData:true});
+})();
+</script>
+</body>
+</html>

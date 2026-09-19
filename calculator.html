@@ -70,11 +70,11 @@ select:disabled,input:disabled{opacity:.3;cursor:not-allowed}
 .sp-preset-btn:hover{border-color:var(--gold);background:rgba(232,184,75,.08)}
 .sp-preset-btn.active{border-color:var(--gold);background:rgba(232,184,75,.14)}
 .sp-preset-name{display:inline;font-size:12px;font-weight:800;color:var(--gold)}
-.sp-preset-desc{display:inline;font-size:11px;color:#fff;margin-left:5px}
+.sp-preset-desc{display:inline;font-size:11px;color:var(--text);margin-left:5px}
 .coll-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .coll-g label{display:block;font-size:12px;color:var(--dim);margin-bottom:4px}
 .coll-g input{width:100%;text-align:center}
-.btn-white{background:none;border:1px solid #fff;color:#fff;padding:6px 13px;border-radius:5px;cursor:pointer;font-family:'Nanum Gothic',sans-serif;font-size:13px;font-weight:700}
+.btn-white{background:none;border:1px solid var(--text);color:var(--text);padding:6px 13px;border-radius:5px;cursor:pointer;font-family:'Nanum Gothic',sans-serif;font-size:13px;font-weight:700}
 .btn-white:hover{background:rgba(255,255,255,.1)}
 .btn-gold{background:none;border:1px solid var(--gold);color:var(--gold);padding:6px 13px;border-radius:5px;cursor:pointer;font-family:'Nanum Gothic',sans-serif;font-size:13px;font-weight:700}
 .btn-gold:hover{background:rgba(232,184,75,.1)}
@@ -180,6 +180,40 @@ input[type=number]{-moz-appearance:textfield}
   --red:#f87171;--green:#4ade80;--blue:#60a5fa;
   --hpc:#fbbf24;--atc:#f87171;--dfc:#60a5fa;
 }
+
+/* ── 스펙 보기 전용 ── */
+.sv-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px}
+.sv-badge{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(100,200,100,.12);color:#4ade80;border:1px solid rgba(74,222,128,.25);font-weight:800}
+.sv-edit-btn{background:none;border:1px solid var(--gold);color:var(--gold);padding:7px 16px;border-radius:6px;cursor:pointer;font-family:inherit;font-size:13px;font-weight:700;text-decoration:none;display:inline-block;transition:background .15s}
+.sv-edit-btn:hover{background:var(--accent-bg)}
+.sv-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.sv-sec{background:var(--sf);border:1px solid var(--bd);border-radius:8px;overflow:hidden;margin-bottom:14px}
+.sv-sec-hd{padding:9px 14px;background:var(--sf2);border-bottom:1px solid var(--bd);font-size:11px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:.5px}
+.sv-sec-bd{padding:12px 14px}
+.sv-gem-table{width:100%;border-collapse:collapse;font-size:13px}
+.sv-gem-table th{font-size:10px;color:var(--dim);padding:4px 8px;text-align:center;border-bottom:1px solid var(--bd)}
+.sv-gem-table td{padding:5px 8px;text-align:center;border-bottom:1px solid var(--bd);font-size:12px}
+.sv-gem-table tr:last-child td{border-bottom:none}
+.sv-gem-hp{color:#fbbf24}.sv-gem-atk{color:#f87171}.sv-gem-def{color:#60a5fa}
+.sv-item{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--bd);font-size:12px}
+.sv-item:last-child{border-bottom:none}
+.sv-item-img{width:28px;height:28px;object-fit:contain;border-radius:3px;flex-shrink:0}
+.sv-item-name{flex:1}
+.sv-enc{font-size:10px;padding:1px 6px;border-radius:3px;border:1px solid;font-weight:800}
+.sv-coll-row{display:flex;justify-content:space-around;padding:8px 0;font-size:13px;font-weight:700}
+.sv-empty{color:var(--dimmer);font-style:italic;font-size:12px;padding:8px 0;text-align:center}
+/* 스펙 요약 (시뮬 탭) */
+.spec-summary{background:var(--sf);border:1px solid var(--bd);border-radius:8px;margin-bottom:14px;overflow:hidden}
+.spec-summary-hd{display:flex;align-items:center;justify-content:space-between;padding:9px 16px;background:var(--sf2);border-bottom:1px solid var(--bd);font-size:11px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:.5px}
+.spec-summary-bd{padding:12px 16px;display:flex;flex-direction:column;gap:8px}
+.ss-row{display:flex;align-items:flex-start;gap:8px;font-size:12px;line-height:1.7}
+.ss-lbl{color:var(--dim);flex-shrink:0;width:52px;font-size:11px;font-weight:700;padding-top:1px}
+.ss-val{color:var(--text);flex:1;word-break:break-all}
+.ss-empty{color:var(--dimmer);font-style:italic}
+.ss-gem-hp{color:#fbbf24}.ss-gem-atk{color:#f87171}.ss-gem-def{color:#60a5fa}
+.ss-edit-btn{background:none;border:1px solid var(--gold);color:var(--gold);padding:4px 12px;border-radius:5px;cursor:pointer;font-family:inherit;font-size:12px;font-weight:700;white-space:nowrap;transition:background .15s}
+.ss-edit-btn:hover{background:var(--accent-bg)}
+@media(max-width:700px){.sv-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -188,7 +222,7 @@ input[type=number]{-moz-appearance:textfield}
   <a href="./index.html?tab=calculator" style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;border:1px solid var(--bd);background:var(--sf2);color:var(--text2);text-decoration:none;font-size:16px;flex-shrink:0;transition:all 0.15s" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--text)'" onmouseout="this.style.borderColor='var(--bd)';this.style.color='var(--text2)'">←</a>
   <div class="hd-icon">🐉</div>
   <div><div class="hd-t">드래곤빌리지1 정령 시뮬레이터</div><div class="hd-s">비밸(체력 × 공격 × 방어) 최적화</div></div>
-  <div style="margin-left:auto;font-size:12px;color:#fff;text-align:right">Made by 리레프<br>
+  <div style="margin-left:auto;font-size:12px;color:var(--text);text-align:right">Made by 리레프<br>
 </div>
 </div>
 
@@ -197,116 +231,19 @@ input[type=number]{-moz-appearance:textfield}
   <button class="tab-btn" id="tab-btn-sim" onclick="switchTab('sim')">시뮬레이터</button>
 </div>
 
-<!-- ■ 내 스펙 탭 -->
+<!-- ■ 내 스펙 탭 (보기 전용) -->
 <div id="tab-spec" class="tc active"><div class="ti">
-  <div class="save-row" style="margin-bottom:10px">
-    <span class="save-msg" id="save-msg"></span>
-    <button class="btn-reset" onclick="resetAll()">↺ 전체 초기화</button>
-    <button class="btn-save" onclick="doSave()">💾 저장</button>
-  </div>
-  <div class="spec-layout">
-
-    <!-- 상단: 정령 (전체 너비) -->
-    <div class="spec-spirit">
-      <div class="sec">
-        <div class="sec-hd">
-          <span>✨ 정령</span>
-          <button class="btn-reset" onclick="resetSpirit()">↺</button>
-        </div>
-        <div class="sec-bd" id="sp-bd"></div>
+  <div class="spec-spirit" id="spec-spirit-wrap">
+    <div class="sec">
+      <div class="sec-hd">
+        <span>✨ 정령</span>
+        <button class="btn-reset" onclick="resetSpirit()">↺</button>
       </div>
-    </div>
- <!-- 하단: 3열 그리드 -->
-    <div class="spec-grid">
-
-      <!-- 1구역: 젬 + 컬렉션 -->
-      <div class="spec-col">
-        <div class="sec">
-          <div class="sec-hd">
-            <span>💎 젬 보유량</span>
-            <button class="btn-reset" onclick="resetGems()">↺</button>
-          </div>
-          <div class="sec-bd">
-            <div class="gem-grid">
-              <div class="gem-hdr"></div>
-              <div class="gem-hdr" style="color:var(--hpc)">체</div>
-              <div class="gem-hdr" style="color:var(--atc)">공</div>
-              <div class="gem-hdr" style="color:var(--dfc)">방</div>
-              <div class="gem-lbl">37젬</div>
-              <input type="number" id="gem-hp-37" min="0" value="0" oninput="onGem('hp',37,this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()">
-              <input type="number" id="gem-atk-37" min="0" value="0" oninput="onGem('atk',37,this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()">
-              <input type="number" id="gem-def-37" min="0" value="0" oninput="onGem('def',37,this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()">
-              <div class="gem-lbl">38젬</div>
-              <input type="number" id="gem-hp-38" min="0" value="0" oninput="onGem('hp',38,this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()">
-              <input type="number" id="gem-atk-38" min="0" value="0" oninput="onGem('atk',38,this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()">
-              <input type="number" id="gem-def-38" min="0" value="0" oninput="onGem('def',38,this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()">
-              <div class="gem-lbl">39젬</div>
-              <input type="number" id="gem-hp-39" min="0" value="0" oninput="onGem('hp',39,this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()">
-              <input type="number" id="gem-atk-39" min="0" value="0" oninput="onGem('atk',39,this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()">
-              <input type="number" id="gem-def-39" min="0" value="0" oninput="onGem('def',39,this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()">
-              <div class="gem-lbl">40젬</div>
-              <input type="number" id="gem-hp-40" min="0" value="0" oninput="onGem('hp',40,this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()">
-              <input type="number" id="gem-atk-40" min="0" value="0" oninput="onGem('atk',40,this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()">
-              <input type="number" id="gem-def-40" min="0" value="0" oninput="onGem('def',40,this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()">
-            </div>
-          </div>
-        </div>
-        <div class="sec">
-          <div class="sec-hd">
-            <span>📚 컬렉션 스탯</span>
-            <button class="btn-white" onclick="setFullCollection()">풀컬</button>
-          </div>
-          <div class="sec-bd">
-            <div class="coll-grid">
-              <div class="coll-g"><label>체력</label><input type="number" id="coll-hp" min="0" value="0" oninput="onColl('hp',this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()"></div>
-              <div class="coll-g"><label>공격</label><input type="number" id="coll-atk" min="0" value="0" oninput="onColl('atk',this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()"></div>
-              <div class="coll-g"><label>방어</label><input type="number" id="coll-def" min="0" value="0" oninput="onColl('def',this.value,this)" onfocus="if(this.value==='0')this.value=''" onblur="if(this.value==='')this.value=0" onkeydown="if(event.key==='Enter')this.blur()"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 2구역: 장신구 -->
-      <div class="spec-col">
-        <div class="sec">
-          <div class="sec-hd">
-            <span>⚒ 장신구 &nbsp;&nbsp;<label style="font-size:11px;font-weight:400;color:#fff;cursor:pointer">스탯장신구만 &nbsp;<input type="checkbox" id="chk-stat-only" checked onchange="renderAcc()" style="accent-color:var(--gold);margin-right:5px"></label></span>
-            <div style="display:flex;gap:6px">
-              <button class="btn-reset" onclick="resetAcc()">↺</button>
-              <button class="btn-gold" onclick="sortAccCards();renderAcc();qSave()">정렬</button>
-              <button class="btn-white" onclick="addAcc()">+ 추가</button>
-            </div>
-          </div>
-          <div class="acc-preset-row">
-            <button class="btn-white" onclick="addAccBulk(16)">16</button>
-            <button class="btn-white" onclick="addAccBulk(17)">17</button>
-            <button class="btn-white" onclick="addAccBulk(18)">18</button>
-            <button class="btn-white" onclick="addAccBulk(19)">19</button>
-            <button class="btn-white" onclick="addAccBulk(20)">20</button>
-          </div>
-          <div class="sec-bd"><div id="acc-list"><div style="color:var(--dimmer);font-size:13px">보유 장신구 없음</div></div></div>
-        </div>
-      </div>
-
-      <!-- 3구역: 펜던트 -->
-      <div class="spec-col">
-        <div class="sec">
-          <div class="sec-hd">
-            <span>🌙 펜던트</span>
-            <div style="display:flex;gap:6px">
-              <button class="btn-reset" onclick="resetPend()">↺</button>
-              <button class="btn-gold" onclick="sortPendants();renderPends();qSave()">정렬</button>
-              <button class="btn-white" onclick="addPendant()">+ 추가</button>
-            </div>
-          </div>
-          <div class="sec-bd"><div id="pend-list"><div style="color:var(--dimmer);font-size:13px">보유 펜던트 없음 (시뮬 시 펜던트 효과 미적용)</div></div></div>
-        </div>
-      </div>
-
+      <div class="sec-bd" id="sp-bd"></div>
     </div>
   </div>
+  <div id="spec-view-wrap"><!-- renderSpecView()로 채워짐 --></div>
 </div></div>
-   
 
 <!-- ■ 시뮬레이터 탭 -->
 <div id="tab-sim" class="tc"><div class="ti ti-sim">
@@ -508,7 +445,10 @@ const BASE={
 };
 
 // 젬 DB (단계별 체/공/방 수치)
-const GEM={37:{hp:148,atk:37,def:37},38:{hp:152,atk:38,def:38},39:{hp:156,atk:39,def:39},40:{hp:160,atk:40,def:40}};
+const GEM={36:{hp:144,atk:36,def:36},37:{hp:152,atk:38,def:38},38:{hp:160,atk:40,def:40},39:{hp:168,atk:42,def:42},40:{hp:176,atk:44,def:44}};
+const GEM_NAME={36:36,37:38,38:40,39:42,40:44}; // 저장키(구 단계) → 표시명(신 단계)
+const FALLBACK_GEM_LV=36;
+const FALLBACK_GEM_COUNT=999;
 
 // 정령 DB: +옵 수치 (스탯×옵번호), %옵 수치 (옵번호), 부가옵 수치
 const SP_PLUS={hp:{1:216,2:240,3:264,4:480},atk:{1:54,2:60,3:66,4:120},def:{1:54,2:60,3:66,4:120}};
@@ -544,6 +484,84 @@ let simGrade='9.0', simBuf=2;
 const 
 SAVE_KEY='dv1sim_'+location.pathname.split('/').pop().replace(/\.[^.]+$/,'');
 
+// ── [일회성 마이그레이션 v2] EN 키(dv1simEN_) 데이터 복구 + 드래곤 셋팅 보존/복원 ──
+(function(){
+  try{
+    var MIG_ACC={'Horn of light +18 (Crit/HP)':'빛뿔 (크/체) 18','Horn of light +18 (Crit/ATK)':'빛뿔 (크/공) 18','Horn of light +18 (Crit/DEF)':'빛뿔 (크/방) 18','Horn of light +20 (Crit/HP)':'빛뿔 (크/체) 20','Horn of light +20 (Crit/ATK)':'빛뿔 (크/공) 20','Horn of light +20 (Crit/DEF)':'빛뿔 (크/방) 20','Nightmare Orb +16 (HP)':'악몽 수호자의 보주 (악보) 16','Dusk Orb +16 (ATK)':'황혼 수호자의 보주 (황보) 16','Dawn Orb +16 (DEF)':'여명 수호자의 보주 (여보) 16','Horn of water +16 (HP/ATK)':'물뿔 (체/공) 16','Horn of water +16 (HP/DEF)':'물뿔 (체/방) 16','Horn of fire +16 (ATK/HP)':'불뿔 (공/체) 16','Horn of fire +16 (ATK/DEF)':'불뿔 (공/방) 16','Horn of earth +16 (DEF/HP)':'대뿔 (방/체) 16','Horn of earth +16 (DEF/ATK)':'대뿔 (방/공) 16','Horn of wind +16 (HP/DEF)':'바뿔 (체/방) 16','Horn of wind +16 (ATK/HP)':'바뿔 (공/체) 16','Horn of wind +16 (ATK/DEF)':'바뿔 (공/방) 16','Nightmare Orb +17 (HP)':'악몽 수호자의 보주 (악보) 17','Dusk Orb +17 (ATK)':'황혼 수호자의 보주 (황보) 17','Dawn Orb +17 (DEF)':'여명 수호자의 보주 (여보) 17','Horn of water +17 (HP/ATK)':'물뿔 (체/공) 17','Horn of water +17 (HP/DEF)':'물뿔 (체/방) 17','Horn of fire +17 (ATK/HP)':'불뿔 (공/체) 17','Horn of fire +17 (ATK/DEF)':'불뿔 (공/방) 17','Horn of earth +17 (DEF/HP)':'대뿔 (방/체) 17','Horn of earth +17 (DEF/ATK)':'대뿔 (방/공) 17','Horn of wind +17 (HP/DEF)':'바뿔 (체/방) 17','Horn of wind +17 (ATK/HP)':'바뿔 (공/체) 17','Horn of wind +17 (ATK/DEF)':'바뿔 (공/방) 17','Nightmare Orb +18 (HP)':'악몽 수호자의 보주 (악보) 18','Dusk Orb +18 (ATK)':'황혼 수호자의 보주 (황보) 18','Dawn Orb +18 (DEF)':'여명 수호자의 보주 (여보) 18','Horn of water +18 (HP/ATK)':'물뿔 (체/공) 18','Horn of water +18 (HP/DEF)':'물뿔 (체/방) 18','Horn of fire +18 (ATK/HP)':'불뿔 (공/체) 18','Horn of fire +18 (ATK/DEF)':'불뿔 (공/방) 18','Horn of earth +18 (DEF/HP)':'대뿔 (방/체) 18','Horn of earth +18 (DEF/ATK)':'대뿔 (방/공) 18','Horn of wind +18 (HP/DEF)':'바뿔 (체/방) 18','Horn of wind +18 (ATK/HP)':'바뿔 (공/체) 18','Horn of wind +18 (ATK/DEF)':'바뿔 (공/방) 18','Nightmare Orb +19 (HP)':'악몽 수호자의 보주 (악보) 19','Dusk Orb +19 (ATK)':'황혼 수호자의 보주 (황보) 19','Dawn Orb +19 (DEF)':'여명 수호자의 보주 (여보) 19','Horn of water +19 (HP/ATK)':'물뿔 (체/공) 19','Horn of water +19 (HP/DEF)':'물뿔 (체/방) 19','Horn of fire +19 (ATK/HP)':'불뿔 (공/체) 19','Horn of fire +19 (ATK/DEF)':'불뿔 (공/방) 19','Horn of earth +19 (DEF/HP)':'대뿔 (방/체) 19','Horn of earth +19 (DEF/ATK)':'대뿔 (방/공) 19','Horn of wind +19 (HP/DEF)':'바뿔 (체/방) 19','Horn of wind +19 (ATK/HP)':'바뿔 (공/체) 19','Horn of wind +19 (ATK/DEF)':'바뿔 (공/방) 19','Nightmare Orb +20 (HP)':'악몽 수호자의 보주 (악보) 20','Dusk Orb +20 (ATK)':'황혼 수호자의 보주 (황보) 20','Dawn Orb +20 (DEF)':'여명 수호자의 보주 (여보) 20','Horn of water +20 (HP/ATK)':'물뿔 (체/공) 20','Horn of water +20 (HP/DEF)':'물뿔 (체/방) 20','Horn of fire +20 (ATK/HP)':'불뿔 (공/체) 20','Horn of fire +20 (ATK/DEF)':'불뿔 (공/방) 20','Horn of earth +20 (DEF/HP)':'대뿔 (방/체) 20','Horn of earth +20 (DEF/ATK)':'대뿔 (방/공) 20','Horn of wind +20 (HP/DEF)':'바뿔 (체/방) 20','Horn of wind +20 (ATK/HP)':'바뿔 (공/체) 20','Horn of wind +20 (ATK/DEF)':'바뿔 (공/방) 20'};
+    var MIG_DRG={'Hydra Dragon':'히드라곤','Power Dragon':'파워 드래곤','Underground Dragon':'지하땅굴 드래곤','Egg Dragon':'에그 드래곤','Mustard Hammer':'머스타드해머','Scorpion Dragon':'스콜피온 드래곤','Python':'파이썬','Collosus':'콜로서스','Layers':'레이어스','Daros':'다로스','Earthquake':'지진','Zimon':'즈믄','Liberte':'리베티','Kanthaka':'칸타카','Appleche Dragon':'애플칙','Astarte':'아스타테','Leo Vector':'레오벡터','Aldebaran':'알데바란','Pachy':'파키','Quetzalcoatl':'케찰코아틀','Eggmayong':'에그마용','Heimdallr':'헤임달','Non':'논','Acaia':'아카이아','Chroma Acaia':'크로마 아카이아','Vaska':'바스카','Popon':'포폰','Poison River':'포이즌리버','Frost Dragon':'빙하고룡','Water Dragon':'수룡','Fairy Dragon':'페어리 드래곤','Shark Dragon':'샤크곤','IceDrake':'아이스 드레이크','Withme':'위드미','Secreta':'세크레타','Venom Dragon':'베놈 드래곤','Luminesce':'루미네스','Blizzard':'블리자드','Vritra':'브리트라','Tropheus':'트로페우스','Frozen':'프로즌','Myosotis':'마소티스','Bernhard':'베른하르트','Regulus':'레굴루스','Chroma Regulus':'크로마 레굴루스','Portunus':'폴투누스','Rudra':'루드라','Rusalka':'루살카','Yurqa':'유르카','Octa':'옥타','Chroma Octa':'크로마 옥타','Skat':'스카트','Alresch':'알레샤','Chroma Alresch':'크로마 알레샤','Loki':'로키','Volva':'볼바','Fishing Tail Dragon':'피싱테일 드래곤','Natron':'나트론','Swamp Dragon':'스왐프 드래곤','Undine':'운디네','Chroma Undine':'크로마 운디네','Fire Dragon':'파이어 드래곤','Lightning Dragon':'번개고룡','Phoenix':'피닉스','Red Wybern':'레드와이번','Iron':'아이언 드래곤','Jaryong':'자룡','Garuda':'가루다','Futurum':'푸투룸','Wild Dragon':'와일드 드래곤','Rugar Dragon':'루가르 드래곤','Popomo':'포포모','Evil Dragon':'마룡','Mneia':'므네이아','Burnesce':'번네스','Igna':'이그나','Sura Dragon':'수라 드래곤','Enturath':'엔투라스','Hwa gui Dragon':'화귀 드래곤','Yeomhwa Dragon':'염화룡','Tanatos':'타나토스','Thoth':'토트','Lancenti':'라센티','Firetail':'불나래','Chroma Firetail':'크로마 불나래','Blaze Dragon':'블레이즈 드래곤','Figar':'파이거','Chroma Figar':'크로마 파이거','Scartooth':'스카투스','Chroma Scartooth':'크로마 스카투스','Red Horse Dragon':'적마룡','Wind Dragon':'윈드 드래곤','Six Legged Dragon':'식스 레그 혼 드래곤','Blue Dragon':'청룡','Spring Dragon':'태엽 드래곤','Chaos':'카오스','Striker':'스트라이커','Asti Dragon':'아스티','Steelwing':'스틸윙','Graytan':'그레이탄','Araca':'아라카','Empire':'엠파이어','Gust':'거스트 드래곤','Centura':'센투라','Etoile Dragon':'에트왈 드래곤','Kigal':'키갈','Boreas':'보레아스','Tyr':'티르','Pitaya':'피타야','Blue Thunder':'블루썬더','Chroma Blue Thunder':'크로마 블루썬더','Litio':'리티오','Chroma Litio':'크로마 리티오','Thor':'토르','Lulu':'루루','Chroma Lulu':'크로마 루루','Zephyros':'제피로스','Spirit':'혼','God Dragon':'고대신룡','Angel Dragon':'엔젤 드래곤','Morika Dragon':'모리카 드래곤','Siamese Dragon':'샴 드래곤','Knight Dragon':'나이트 드래곤','Spicy':'스파이시','Rafael':'라파엘','White Dragon':'백룡','God Jr.':'고대 주니어','Argo Dragon':'아르고 드래곤','Citael':'시타엘','Bar\'rah':'바르라아','Asili':'아실리','Roloce':'로루스','Haze':'헤이즈','Ordo':'오르도','Star Ace':'스타에이스','Teddy Dragon':'테디 드래곤','Artemis Dragon':'아르테미스 드래곤','Whitethunder':'화이트썬더 드래곤','Karura':'카루라','Minas Dragon':'미나스 드래곤','Aton':'아톤','Talissah':'탈릿사','Angel Jr.':'엔젤주니어','Sword':'스워드','Gautling-gon':'개틀링곤','Amanta':'아만타','Shah':'샤흐','Vargr':'바르그','Solucanis':'솔루카니스','Atlus':'알투스','Protect Dragon':'프로텍트 드래곤','Chroma Protect Dragon':'크로마 프로텍트 드래곤','Yajnir':'야즈니르','Merak':'메라크','Sola':'솔라','Berna':'베르나','Seraphim':'세라핌','Venezie':'베네지','Baal':'바알','Dark Nix':'다크닉스','Sigma Dragon':'시그마 드래곤','Black Tear Dragon':'블랙티어 드래곤','Black Armor Dragon':'블랙아머 드래곤','Kuroy Dragon':'쿠로이 드래곤','Time Machine':'타임머신','Wonder Dragon':'원더 드래곤','Black Jindo':'블랙찡또','Moon Light':'문라이트','Marbas':'마르바스','Universe':'유니버스','Behemoth':'베히모스','Maloden':'말로단','Karna':'카르나','Dark Fal':'다크폴','Dark Knight':'다크나이트','Kubera':'쿠베라','Azak':'아자크','Makara':'마카라','Lichmond':'리치몬드','Chroma Lichmond':'크로마 리치몬드','Goat':'고트','Magnas':'마그나스','Porta':'포르타','Vetala':'베타라','Chroma Vetala':'크로마 베타라','Caslux':'카스룩스','Fides':'피데스','Jormungandr':'요르문간드','Tiamat':'티아매트','Obex':'오벡스','Cthulhu':'크툴루','Chroma Cthulhu':'크로마 크툴루','Hatshya':'하트샤','Dragon Slayer':'드래곤 슬레이어','Black Dragon':'흑룡','Harleybell':'할리벨','Taabire':'타아비레','Hapla':'합라','Selmasa':'셀마사','Berith':'베리스','Eligos':'엘리고스','Mimir':'미미르','Amdusias':'암두시아스','Nebia':'네비아','Wrath':'라스','Amaltheia':'아말테아','Harmonious Dragon':'조화룡','Cortus':'코르투스','Rukbat':'루크바트','Ullr':'울르','Aphrodite':'아프로디테','Janus':'야누스','Freyja':'프레이야','Kinder Dragon':'킨더 드래곤','Reward Dragon':'보상이용','Ballack':'발라크','Vefal':'베팔','Characen':'카라선','Rexton':'렉스톤','Pomekle':'포메쿨','Tilki':'틸키','Rekmall Reverse':'렉몰 리버스','Harika':'하리카','Deathlock':'데스락','Eclipse':'이클립스','Nebula':'네뷸라','Seere':'세에레','Pride':'프라이드','Chachawung':'차차웅','Epit':'에피트','Tempios':'템피오스','Inverso':'인베르소','Manus':'마누스','Hresvelgr':'흐레스벨그','Reginleif':'레긴레이프','Chroma Reginleif':'크로마 레긴레이프','Dantalion':'단탈리온','Jagan':'자간','Animala':'애니마라','Rude Ore':'루드오어','Beleth':'벨레드','Longinus':'롱기누스','Mysfit':'미스핏','Mastema':'마스테마','Nemus':'네무스','Crevasse':'크레바스','Chroma Beleth':'크로마 벨레드','Slosi':'쉴로시','Curse Reaper':'커스리퍼','Jin':'진','Corrupted Jormungandr':'잠식된 요르문간드','Lemures':'레무레스','Valefor':'발레포르','Chroma Valefor':'크로마 발레포르','Vlad':'블라드','Dimension Dragon':'디멘션 드래곤','Mangtaegon':'망태곤'};
+    var MIG_PAGE_HAS_DRAGONS=false;
+    function migName(map,n){return (n&&map[n])?map[n]:n;}
+    function migState(p){
+      if(p&&p.accCards)p.accCards.forEach(function(c){if(c)c.name=migName(MIG_ACC,c.name);});
+      if(p&&p.dragonCards)Object.keys(p.dragonCards).forEach(function(cat){
+        (p.dragonCards[cat]||[]).forEach(function(c){if(c)c.name=migName(MIG_DRG,c.name);});
+      });
+      return p;
+    }
+    function hasDragons(p){
+      if(!p||!p.dragonCards)return false;
+      return Object.keys(p.dragonCards).some(function(cat){
+        return (p.dragonCards[cat]||[]).some(function(d){return d&&d.name;});
+      });
+    }
+    // [1단계] EN 키 → KR 키 (최초 1회). 덮어쓰기 전 백업, EN쪽 드래곤이 비었으면 기존 KR 드래곤 유지
+    var pageFlag='dv1sim_mig_'+SAVE_KEY;
+    if(!localStorage.getItem(pageFlag)){
+      var enKey='dv1simEN_'+SAVE_KEY.replace(/^dv1sim_/,'');
+      var enRaw=localStorage.getItem(enKey);
+      if(enRaw){
+        var krRaw=localStorage.getItem(SAVE_KEY);
+        if(krRaw&&!localStorage.getItem('dv1sim_bak_'+SAVE_KEY))localStorage.setItem('dv1sim_bak_'+SAVE_KEY,krRaw);
+        var enP=migState(JSON.parse(enRaw));
+        if(MIG_PAGE_HAS_DRAGONS&&!hasDragons(enP)&&krRaw){
+          try{var krP=JSON.parse(krRaw);if(hasDragons(krP))enP.dragonCards=krP.dragonCards;}catch(_e2){}
+        }
+        localStorage.setItem(SAVE_KEY,JSON.stringify(enP));
+      }
+      localStorage.setItem(pageFlag,'1');
+    }
+    // 스펙: EN spec을 병합(필드 보존). 드래곤은 비어있는 쪽이 이기지 않음
+    if(!localStorage.getItem('dv1sim_mig_spec')){
+      var enSpec=localStorage.getItem('dv1simEN_spec');
+      if(enSpec){
+        var krSpecRaw=localStorage.getItem('dv1sim_spec');
+        if(krSpecRaw&&!localStorage.getItem('dv1sim_bak_spec'))localStorage.setItem('dv1sim_bak_spec',krSpecRaw);
+        var enSp=migState(JSON.parse(enSpec));
+        var krSp={};try{krSp=krSpecRaw?JSON.parse(krSpecRaw):{};}catch(_e3){}
+        var merged=Object.assign({},krSp,enSp);
+        if(!hasDragons(enSp)&&hasDragons(krSp))merged.dragonCards=krSp.dragonCards;
+        localStorage.setItem('dv1sim_spec',JSON.stringify(merged));
+      }
+      localStorage.setItem('dv1sim_mig_spec','1');
+    }
+    // [2단계 v2 복구] v1 초기버전을 거친 사용자 포함 전원 1회:
+    // (a) KR 키 안의 영어 이름 정규화(멱등) (b) 페이지 드래곤이 비었으면 spec → 백업 순으로 복원
+    if(!localStorage.getItem('dv1sim_mig2_'+SAVE_KEY)){
+      ['dv1sim_spec',SAVE_KEY].forEach(function(k){
+        try{var r0=localStorage.getItem(k);if(r0)localStorage.setItem(k,JSON.stringify(migState(JSON.parse(r0))));}catch(_e4){}
+      });
+      if(MIG_PAGE_HAS_DRAGONS){
+        try{
+          var curRaw=localStorage.getItem(SAVE_KEY);
+          var cur=curRaw?JSON.parse(curRaw):null;
+          if(cur&&!hasDragons(cur)){
+            var srcs=['dv1sim_spec','dv1sim_bak_'+SAVE_KEY];
+            for(var i=0;i<srcs.length;i++){
+              var sRaw=localStorage.getItem(srcs[i]);if(!sRaw)continue;
+              try{
+                var sP=migState(JSON.parse(sRaw));
+                if(hasDragons(sP)){cur.dragonCards=sP.dragonCards;localStorage.setItem(SAVE_KEY,JSON.stringify(cur));break;}
+              }catch(_e6){}
+            }
+          }
+        }catch(_e5){}
+      }
+      localStorage.setItem('dv1sim_mig2_'+SAVE_KEY,'1');
+    }
+  }catch(_e){console.warn('migration skip:',_e);}
+})();
+
+
 function doLoad(){
   try{
     const r=localStorage.getItem(SAVE_KEY);
@@ -576,6 +594,7 @@ function doLoad(){
       }catch(_e){}
     })();
   }catch(e){console.error(e);}
+  if(typeof renderSpecView==="function"){try{renderSpecView();}catch(e){}}
 }
 
 let saveT=null;
@@ -591,11 +610,11 @@ function resetAll(){
   S=mkState();
   const chk=document.getElementById('chk-stat-only');
   if(chk)chk.checked=true;
-  renderAcc();
-  populateGems();
-  renderPends();
-  renderSpirit();
-  populateColl();
+  try{renderAcc();}catch(e){}
+  try{populateGems();}catch(e){}
+  try{renderPends();}catch(e){}
+  try{renderSpirit();}catch(e){}
+  try{populateColl();}catch(e){}
   resetSimResult();
   qSave();
 }
@@ -795,7 +814,7 @@ function addAccBulk(lv){
   }
   targets.forEach(a=>S.accCards.unshift({name:a.n,enchant:'none'}));
   sortAccCards();
-  renderAcc();
+  try{renderAcc();}catch(e){}
   resetSimResult();
   qSave();
   alert(`${lv} 장신구 1세트가 추가되었습니다.`);
@@ -809,7 +828,7 @@ function delAcc(ci){
 function resetAcc(){
   if(!confirm('입력한 옵션값이 전부 초기화됩니다.'))return;
   S.accCards=[];
-  renderAcc();
+  try{renderAcc();}catch(e){}
   qSave();
 }
 
@@ -831,7 +850,7 @@ function populateGems(){
 function resetGems(){
   if(!confirm('입력한 옵션값이 전부 초기화됩니다.'))return;
   S.gems={hp:{37:0,38:0,39:0,40:0},atk:{37:0,38:0,39:0,40:0},def:{37:0,38:0,39:0,40:0}};
-  populateGems();
+  try{populateGems();}catch(e){}
   qSave();
 }
 
@@ -910,7 +929,7 @@ function delPend(i){S.pendants.splice(i,1);renderPends();qSave();}
 function resetPend(){
   if(!confirm('입력한 옵션값이 전부 초기화됩니다.'))return;
   S.pendants=[];
-  renderPends();
+  try{renderPends();}catch(e){}
   qSave();
 }
 
@@ -961,7 +980,7 @@ function applySpiritPreset(id){
     stat:S.spirit.opts[i]?.stat||'',
     type
   }));
-  renderSpirit();
+  try{renderSpirit();}catch(e){}
   resetSimResult();
   qSave();
 }
@@ -1016,7 +1035,7 @@ function renderSpirit(){
 function resetSpirit(){
   if(!confirm('입력한 옵션값과 시뮬 결과가 초기화됩니다.'))return;
   S.spirit={level:1,maxLvl:false,opts:[{stat:'',type:''},{stat:'',type:''},{stat:'',type:''},{stat:'',type:''}],bonus:''};
-  renderSpirit();
+  try{renderSpirit();}catch(e){}
   resetSimResult();
   qSave();
 }
@@ -1028,14 +1047,14 @@ function fmtSpVal(n,stat,type){
 
 function onSpOpt(idx,field,val){
   S.spirit.opts[idx][field]=val;
-  renderSpirit();
+  try{renderSpirit();}catch(e){}
   resetSimResult();
   qSave();
 }
 
 function onSpBonus(val){
   S.spirit.bonus=val;
-  renderSpirit();
+  try{renderSpirit();}catch(e){}
   resetSimResult();
   qSave();
 }
@@ -1053,7 +1072,7 @@ function onColl(stat,val,el){const n=Math.max(0,parseInt(val)||0);S.coll[stat]=n
 
 function setFullCollection(){
   S.coll={hp:240,atk:60,def:60};
-  populateColl();
+  try{populateColl();}catch(e){}
   resetSimResult();
   qSave();
 }
@@ -1061,7 +1080,102 @@ function setFullCollection(){
 // ================================================================
 // 탭 / 시뮬 설정 컨트롤
 // ================================================================
+
+// ── 스펙 보기 전용 렌더 ──────────────────────────────────────
+function renderSpecView(){
+  const el=document.getElementById('spec-view-wrap');
+  if(!el)return;
+  const ENC_COL={atk:'#f87171',hp:'#fbbf24',def:'#60a5fa',balance:'#a78bfa'};
+  const ENC_LBL={atk:'공',hp:'체',def:'방',balance:'균'};
+  const PEND_LBL={달:'달의 펜던트',태양:'태양의 펜던트',별:'별의 펜던트'};
+  const PEND_IMG={달:'1336',태양:'1337',별:'1335'};
+  const IB='https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main';
+  // 젬
+  let gemRows='';
+  for(const lv of [40,39,38,37]){
+    const hp=S.gems?.hp?.[lv]||0,atk=S.gems?.atk?.[lv]||0,def=S.gems?.def?.[lv]||0;
+    if(hp||atk||def) gemRows+=`<tr><td style="color:var(--dim);font-weight:700">${GEM_NAME[lv]||lv}젬 <span style="color:var(--dimmer);font-weight:400;font-size:10px">(기존 ${lv})</span></td><td class="sv-gem-hp">${hp||'-'}</td><td class="sv-gem-atk">${atk||'-'}</td><td class="sv-gem-def">${def||'-'}</td></tr>`;
+  }
+  const t={hp:0,atk:0,def:0};
+  for(const s of ['hp','atk','def'])for(const lv of [37,38,39,40])t[s]+=(S.gems?.[s]?.[lv]||0);
+  if(gemRows)gemRows+=`<tr style="border-top:2px solid var(--bd)"><td style="color:var(--dim);font-size:10px">합계</td><td class="sv-gem-hp">${t.hp||'-'}</td><td class="sv-gem-atk">${t.atk||'-'}</td><td class="sv-gem-def">${t.def||'-'}</td></tr>`;
+  const gemH=gemRows?`<table class="sv-gem-table"><thead><tr><th></th><th class="sv-gem-hp">체</th><th class="sv-gem-atk">공</th><th class="sv-gem-def">방</th></tr></thead><tbody>${gemRows}</tbody></table>`:`<div class="sv-empty">젬 없음</div>`;
+  // 장신구
+  const accs=S.accCards||[];
+  const accH=accs.length?accs.map(c=>{
+    const a=(typeof ACC_DB!=='undefined')?ACC_DB.find(x=>x.n===c.name):null;
+    const img=a&&a.img?`<img class="sv-item-img" src="${a.img}" onerror="this.style.display='none'">`:`<div style="width:28px;height:28px;flex-shrink:0"></div>`;
+    const enc=c.enchant&&c.enchant!=='none'?`<span class="sv-enc" style="color:${ENC_COL[c.enchant]||'var(--dim)'};border-color:${ENC_COL[c.enchant]||'var(--bd)'}">${ENC_LBL[c.enchant]||c.enchant}</span>`:'';
+    return `<div class="sv-item">${img}<span class="sv-item-name">${c.name||'<span style="color:var(--dimmer)">미선택</span>'}</span>${enc}</div>`;
+  }).join(''):`<div class="sv-empty">장신구 없음</div>`;
+  // 펜던트
+  const pends=S.pendants||[];
+  const pendH=pends.length?pends.map(p=>{
+    if(!p.type)return'';
+    const imgN=PEND_IMG[p.type]||'1335';
+    const mo=p.type==='태양'?3:p.type==='달'?2:1;
+    const opts=(p.options||[]).slice(0,mo).filter(o=>o&&o.stat).map(o=>`<span style="color:${o.stat==='hp'?'#fbbf24':o.stat==='atk'?'#f87171':'#60a5fa'}">${o.stat==='hp'?'체':o.stat==='atk'?'공':'방'}${o.val||0}%</span>`).join('<span style="color:var(--dim)"> / </span>');
+    return `<div class="sv-item"><img class="sv-item-img" src="${IB}/item/${imgN}.png" onerror="this.style.display='none'"><div><div style="font-size:12px;font-weight:700">${PEND_LBL[p.type]||p.type}</div><div style="font-size:11px;color:var(--dim)">${opts||'옵션 없음'}</div></div></div>`;
+  }).filter(Boolean).join(''):`<div class="sv-empty">펜던트 없음</div>`;
+  // 콜렉션
+  const col=S.coll||{hp:0,atk:0,def:0};
+  const colP=[];
+  if(col.hp)colP.push(`<span class="sv-gem-hp">체 +${col.hp}</span>`);
+  if(col.atk)colP.push(`<span class="sv-gem-atk">공 +${col.atk}</span>`);
+  if(col.def)colP.push(`<span class="sv-gem-def">방 +${col.def}</span>`);
+  const colH=colP.length?colP.join('<span style="color:var(--dim)"> · </span>'):`<span class="sv-empty">0</span>`;
+
+  el.innerHTML=`<div class="sv-header"><div style="display:flex;align-items:center;gap:10px"><span style="font-size:15px;font-weight:800">📋 내 스펙</span><span class="sv-badge">보기 전용</span></div><a href="./my.html" class="sv-edit-btn">✏️ my.html에서 수정 →</a></div>
+  <div class="sv-grid">
+    <div>
+      <div class="sv-sec"><div class="sv-sec-hd">💎 젬 보유량</div><div class="sv-sec-bd">${gemH}</div></div>
+      <div class="sv-sec"><div class="sv-sec-hd">📚 콜렉션</div><div class="sv-sec-bd"><div class="sv-coll-row">${colH}</div></div></div>
+    </div>
+    <div>
+      <div class="sv-sec"><div class="sv-sec-hd">💍 장신구 (${accs.length}개)</div><div class="sv-sec-bd" style="max-height:260px;overflow-y:auto">${accH}</div></div>
+      <div class="sv-sec"><div class="sv-sec-hd">🌙 펜던트 (${pends.length}개)</div><div class="sv-sec-bd" style="max-height:220px;overflow-y:auto">${pendH}</div></div>
+    </div>
+  </div>`;
+}
+
+// ── 시뮬 탭 스펙 요약 ────────────────────────────────────────
+function renderSpecSummary(targetId){
+  const el=document.getElementById(targetId);
+  if(!el)return;
+  const SKC={hp:'ss-gem-hp',atk:'ss-gem-atk',def:'ss-gem-def'};
+  const SKL={hp:'체',atk:'공',def:'방'};
+  let gemP=[];
+  for(const stat of ['hp','atk','def']){
+    const g=S.gems?.[stat]||{};
+    const lvs=[40,39,38,37].filter(lv=>(g[lv]||0)>0).flatMap(lv=>Array(g[lv]).fill(lv));
+    if(lvs.length)gemP.push(`<span class="${SKC[stat]}">${SKL[stat]}${lvs.length}(${lvs.map(l=>GEM_NAME[l]||l).join(',')})</span>`);
+  }
+  const accs=S.accCards||[];
+  const ENC_LBL={atk:'공',hp:'체',def:'방',balance:'균'};
+  const byAcc={};
+  accs.forEach(c=>{if(!c.name)return;const k=c.name+(c.enchant&&c.enchant!=='none'?'['+ENC_LBL[c.enchant]+']':'');byAcc[k]=(byAcc[k]||0)+1;});
+  const accP=Object.entries(byAcc).map(([k,n])=>n>1?`${k} ×${n}`:k);
+  const pends=S.pendants||[];
+  const PEND_LBL2={달:'달펜',태양:'태양펜',별:'별펜'};
+  const byPend={};
+  pends.forEach(p=>{
+    if(!p.type)return;
+    const mo=p.type==='태양'?3:p.type==='달'?2:1;
+    const opts=(p.options||[]).slice(0,mo).filter(o=>o&&o.stat).map(o=>`${o.stat==='hp'?'체':o.stat==='atk'?'공':'방'}${o.val||0}%`).join('/');
+    const k=(PEND_LBL2[p.type]||p.type)+(opts?` (${opts})`:'');
+    byPend[k]=(byPend[k]||0)+1;
+  });
+  const pendP=Object.entries(byPend).map(([k,n])=>n>1?`${k} ×${n}`:k);
+  const col=S.coll||{hp:0,atk:0,def:0};
+  const colP2=[];
+  if(col.hp)colP2.push(`<span class="ss-gem-hp">체+${col.hp}</span>`);
+  if(col.atk)colP2.push(`<span class="ss-gem-atk">공+${col.atk}</span>`);
+  if(col.def)colP2.push(`<span class="ss-gem-def">방+${col.def}</span>`);
+  el.innerHTML=`<div class="spec-summary"><div class="spec-summary-hd"><span>📋 현재 스펙</span><button class="ss-edit-btn" onclick="switchTab('spec')">✏️ 스펙 수정</button></div><div class="spec-summary-bd"><div class="ss-row"><span class="ss-lbl">💎 젬</span><span class="ss-val">${gemP.length?gemP.join(' '):'<span class="ss-empty">없음</span>'}</span></div><div class="ss-row"><span class="ss-lbl">💍 장신구</span><span class="ss-val">${accP.length?accP.join('<br>'):'<span class="ss-empty">없음</span>'}</span></div><div class="ss-row"><span class="ss-lbl">🌙 펜던트</span><span class="ss-val">${pendP.length?pendP.join('<br>'):'<span class="ss-empty">없음</span>'}</span></div><div class="ss-row"><span class="ss-lbl">📚 콜렉션</span><span class="ss-val">${colP2.length?colP2.join(' · '):'<span class="ss-empty">0</span>'}</span></div></div></div>`;
+}
+
 function switchTab(t){
+  if(t==='spec'){renderSpecView();}
   ['spec','sim'].forEach(x=>{
     document.getElementById(`tab-${x}`).classList.toggle('active',x===t);
     document.getElementById(`tab-btn-${x}`).classList.toggle('active',x===t);
@@ -1088,6 +1202,10 @@ function buildPool(){
   for(const s of SKEYS)for(const lv of [37,38,39,40]){
     const cnt=S.gems[s]?.[lv]||0;
     if(cnt>0)pool.push({s,lv,cnt,h:s==='hp'?GEM[lv].hp:0,a:s==='atk'?GEM[lv].atk:0,d:s==='def'?GEM[lv].def:0});
+  }
+  for(const s of SKEYS){
+    const lv=FALLBACK_GEM_LV;
+    pool.push({s,lv,cnt:FALLBACK_GEM_COUNT,h:s==='hp'?GEM[lv].hp:0,a:s==='atk'?GEM[lv].atk:0,d:s==='def'?GEM[lv].def:0});
   }
   return pool;
 }
@@ -1346,7 +1464,7 @@ function fmtBufLabel(label){
   return label.split('+').map((s,i)=>{
     const trimmed=s.trim();
     const col=STAT_COL[trimmed]||'#fff';
-    return(i>0?`<span style="color:#fff">+</span>`:'')
+    return(i>0?`<span style="color:var(--text)">+</span>`:'')
       +`<span style="color:${col};font-weight:700">${trimmed}</span>`;
   }).join('');
 }
@@ -1400,7 +1518,7 @@ function fmtPendMob(pend){
   const opts=pend.options.slice(0,mo).filter(o=>o&&o.stat).map(o=>{
     const col=o.stat==='hp'?'#fbbf24':o.stat==='atk'?'#f87171':'#60a5fa';
     return`<span style="color:${col}">${SK[o.stat]}</span><span>${o.val||0}%</span>`;
-  }).join('<span style="color:#aab4cc">/</span>');
+  }).join('<span style="color:var(--dim)">/</span>');
   const shortTypeMap={'달':'달펜','태양':'태양펜','별':'별펜'};
   const pimg=IMG_PEND[pend.type]?`<img src="${IMG_PEND[pend.type]}" style="width:26px;height:26px;object-fit:contain;border-radius:3px">`:'';
   return`<div style="display:flex;align-items:center;gap:6px;flex:1;min-width:0">${pimg}<span style="font-size:11px;color:var(--dim)">${shortTypeMap[pend.type]||pend.type} <small>(${opts})</small></span></div>`;
@@ -1455,11 +1573,11 @@ function renderResAvg(results){
   if(!results.length){el.innerHTML='<div style="padding:30px;text-align:center;color:var(--dim)">결과 없음</div>';return;}
   let html=`<table class="rtbl"><thead><tr>
     <th class="pc-only">타입</th><th class="pc-only">고점</th><th class="pc-only">저점</th><th class="pc-only">평균 비밸</th>
-    <th class="pc-only" style="color:#fff">최종 점수
+    <th class="pc-only" style="color:var(--text)">최종 점수
       <span style="display:inline-block;width:16px;height:16px;background:#fff;color:#000;border-radius:50%;font-size:11px;font-weight:800;text-align:center;line-height:16px;cursor:help;margin-left:4px;position:relative"
         onmouseenter="document.getElementById('score-tip').style.display='block'"
         onmouseleave="document.getElementById('score-tip').style.display='none'">?</span>
-      <div id="score-tip" style="display:none;position:absolute;background:#222;color:#fff;font-size:12px;font-weight:400;padding:7px 11px;border-radius:6px;border:1px solid var(--bd);white-space:nowrap;z-index:999;margin-top:4px">
+      <div id="score-tip" style="display:none;position:absolute;background:var(--sf2);color:var(--text);font-size:12px;font-weight:400;padding:7px 11px;border-radius:6px;border:1px solid var(--bd);white-space:nowrap;z-index:999;margin-top:4px">
         가중평균, 고점, 저점을 모두 고려한 종합 수치입니다.<br><br>계산식: 가중평균비밸×0.5 + 저점×0.3 + 고점×0.2
       </div>
     </th>
@@ -1471,7 +1589,7 @@ function renderResAvg(results){
     html+=`<tr style="cursor:pointer" onclick="toggleAvgDetail(${i})">
       <td class="pc-only">
         <span class="dtype-b" style="color:${dc};border-color:${dc}">${r.dt}</span>
-        <span class="avg-arrow" id="avg-arrow-${i}" style="color:#fff;font-size:10px;margin-left:6px">▼</span>
+        <span class="avg-arrow" id="avg-arrow-${i}" style="color:var(--text);font-size:10px;margin-left:6px">▼</span>
       </td>
       <td class="pc-only"><span class="bv-cell">${(peak.bestBV/1e6).toFixed(1)}</span> (${fmtBufLabel(peak.label)})</td>
       <td class="pc-only"><span class="bv-cell">${(bottom.bestBV/1e6).toFixed(1)}</span> (${fmtBufLabel(bottom.label)})</td>
@@ -1481,7 +1599,7 @@ function renderResAvg(results){
         <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px">
           <div>
             <span class="dtype-b" style="color:${dc};border-color:${dc}">${r.dt}</span>
-            <span class="avg-arrow" id="avg-arrow-${i}" style="color:#fff;font-size:10px;margin-left:6px">▼</span>
+            <span class="avg-arrow" id="avg-arrow-${i}" style="color:var(--text);font-size:10px;margin-left:6px">▼</span>
           </div>
           <div style="display:flex;gap:12px;flex-wrap:wrap;font-size:12px">
             <span><span style="color:var(--dim);font-size:10px">고점 </span><span class="bv-cell">${(peak.bestBV/1e6).toFixed(1)}</span></span>
@@ -1556,7 +1674,7 @@ function fmtGem(alloc){
   const parts=[];
   for(const s of SKEYS){
     const lvs=bySt[s].sort((a,b)=>b-a);
-    if(lvs.length)parts.push(`<span class="gem-tag" style="color:${cols[s]}">${SK[s]}${lvs.length}(${lvs.join(',')})</span>`);
+    if(lvs.length)parts.push(`<span class="gem-tag" style="color:${cols[s]}">${SK[s]}${lvs.length}(${lvs.map(l=>GEM_NAME[l]||l).join(',')})</span>`);
   }
   return parts.length?parts.join(''):'<span style="color:var(--dimmer)">없음</span>';
 }
@@ -1567,8 +1685,8 @@ function fmtPend(p){
   const mo=p.type==='태양'?3:p.type==='달'?2:1;
   const opts=p.options.slice(0,mo).filter(o=>o&&o.stat).map(o=>{
     const col=o.stat==='hp'?'#fbbf24':o.stat==='atk'?'#f87171':'#60a5fa';
-    return`<span style="color:${col}">${SK[o.stat]}</span><span style="color:#fff">${o.val||0}%</span>`;
-  }).join('<span style="color:#aab4cc">/</span>');
+    return`<span style="color:${col}">${SK[o.stat]}</span><span style="color:var(--text)">${o.val||0}%</span>`;
+  }).join('<span style="color:var(--dim)">/</span>');
   const img=IMG_PEND[p.type]?`<img src="${IMG_PEND[p.type]}" style="width:36px;height:36px;object-fit:contain;border-radius:4px">`:'';
   const shortTypeMap={'달':'달펜','태양':'태양펜','별':'별펜'};
   const shortType=shortTypeMap[p.type]||p.type;
@@ -1579,14 +1697,14 @@ function fmtPend(p){
 // 초기화
 // ================================================================
 function init(){
-  doLoad();
-  renderAcc();
-  populateGems();
-  renderPends();
-  renderSpirit();
-  populateColl();
+  try{doLoad();}catch(e){console.error('doLoad',e);}
+  try{renderAcc();}catch(e){}
+  try{populateGems();}catch(e){}
+  try{renderPends();}catch(e){}
+  try{renderSpirit();}catch(e){}
+  try{populateColl();}catch(e){}
 }
-document.addEventListener('DOMContentLoaded',init);
+document.addEventListener('DOMContentLoaded',function(){init();try{renderSpecView();}catch(e){console.error('renderSpecView',e);}});
 </script>
 <script>
 (function(){
@@ -1603,5 +1721,7 @@ document.addEventListener('DOMContentLoaded',init);
   new MutationObserver(sync).observe(document.head,{childList:true,subtree:true,characterData:true});
 })();
 </script>
+<script src="./sb_config.js"></script>
+<script src="./spec_sync.js"></script>
 </body>
 </html>

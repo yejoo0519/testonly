@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>회원가입</title>
-<link id="theme-css" rel="stylesheet" href="./theme-dark.css">
-<script src="./theme.js"></script>
+<title>Sign up</title>
+<link id="theme-css" rel="stylesheet" href="../theme-dark.css">
+<script src="../theme.js"></script>
 <style>
 /* ── 테마 팔레트 (index.html과 동일) ── */
 [data-theme="dark"]{
@@ -54,41 +54,41 @@ body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--tex
 </head>
 <body>
 <div class="box" id="reg-box">
-  <h2>회원가입</h2>
+  <h2>Sign up</h2>
   <div class="field">
-    <label>아이디</label>
-    <input id="username" type="text" placeholder="아이디 입력">
+    <label>ID</label>
+    <input id="username" type="text" placeholder="Enter ID">
   </div>
   <div class="field">
-    <label>닉네임</label>
-    <input id="nickname" type="text" placeholder="닉네임 입력" oninput="checkNickname()">
-    <div class="field-hint" id="nickname-hint">게시판에 표시되는 이름입니다.</div>
+    <label>Nickname</label>
+    <input id="nickname" type="text" placeholder="Enter nickname" oninput="checkNickname()">
+    <div class="field-hint" id="nickname-hint">Name shown on the board.</div>
   </div>
   <div class="field">
-    <label>비밀번호</label>
-    <input id="password" type="password" placeholder="비밀번호 입력">
+    <label>Password</label>
+    <input id="password" type="password" placeholder="Enter password">
   </div>
   <div class="field">
-    <label>비밀번호 확인</label>
-    <input id="password2" type="password" placeholder="비밀번호 재입력">
+    <label>Confirm password</label>
+    <input id="password2" type="password" placeholder="Re-enter password">
   </div>
-  <button class="btn" onclick="register()">가입하기</button>
+  <button class="btn" onclick="register()">Sign up</button>
   <div class="msg" id="msg"></div>
-  <div class="link"><a href="./login.html">이미 계정이 있어요</a></div>
-  <div class="link" style="margin-top:8px"><a href="./account.html">아이디 · 비밀번호 찾기 / 닉네임 변경</a></div>
+  <div class="link"><a href="./login.html">Already have an account</a></div>
+  <div class="link" style="margin-top:8px"><a href="./account.html">Find ID/password / Change nickname</a></div>
 </div>
 
 <div class="box" id="rec-box" style="display:none">
-  <h2>🔐 복구 코드</h2>
-  <div class="rec-desc">비밀번호를 잊었을 때 <b>아이디 찾기 · 비밀번호 변경</b>에 쓰는 코드예요.<br>이 화면을 벗어나면 <b>다시 확인할 수 없어요.</b></div>
+  <h2>🔐 Recovery code</h2>
+  <div class="rec-desc">Use this code to <b>find your ID or reset your password</b>.<br>Once you leave this screen, <b>it can't be shown again.</b></div>
   <div class="rec-code" id="rec-code">-</div>
-  <button type="button" class="rec-copy" id="rec-copy" onclick="copyRecovery()">📋 복사</button>
-  <div class="rec-warn">⚠ 캡처하거나 메모장에 꼭 저장해두세요. 이 코드가 없으면 계정을 되찾을 수 없어요.</div>
-  <label class="rec-check"><input type="checkbox" id="rec-ok" onchange="document.getElementById('rec-go').disabled=!this.checked"> 복구 코드를 저장했어요</label>
-  <button class="btn" id="rec-go" disabled onclick="goLogin()">로그인하러 가기</button>
+  <button type="button" class="rec-copy" id="rec-copy" onclick="copyRecovery()">📋 Copy</button>
+  <div class="rec-warn">⚠ Take a screenshot or save it somewhere safe. Without this code, your account cannot be recovered.</div>
+  <label class="rec-check"><input type="checkbox" id="rec-ok" onchange="document.getElementById('rec-go').disabled=!this.checked"> I saved my recovery code</label>
+  <button class="btn" id="rec-go" disabled onclick="goLogin()">Go to login</button>
 </div>
 
-<script src="./sb_config.js"></script>
+<script src="../sb_config.js"></script>
 <script>
 let nicknameValid = false;
 let nicknameTimer = null;
@@ -101,13 +101,13 @@ async function checkNickname() {
 
   if(nickname.length === 0) {
     hint.className = 'field-hint';
-    hint.textContent = '게시판에 표시되는 이름입니다.';
+    hint.textContent = 'Name shown on the board.';
     nicknameValid = false;
     return;
   }
   if(nickname.length < 2) {
     hint.className = 'field-hint error';
-    hint.textContent = '닉네임은 2자 이상이어야 합니다.';
+    hint.textContent = 'Nickname must be at least 2 characters.';
     nicknameValid = false;
     return;
   }
@@ -118,11 +118,11 @@ async function checkNickname() {
       const rows = await supabase('GET', 'users', null, `?nickname=eq.${encodeURIComponent(nickname)}&select=id`);
       if(rows && rows.length > 0) {
         hint.className = 'field-hint error';
-        hint.textContent = '이미 사용 중인 닉네임입니다.';
+        hint.textContent = 'This nickname is already taken.';
         nicknameValid = false;
       } else {
         hint.className = 'field-hint success';
-        hint.textContent = '사용 가능한 닉네임입니다.';
+        hint.textContent = 'Nickname is available.';
         nicknameValid = true;
       }
     } catch(e) {
@@ -143,7 +143,7 @@ function genRecoveryCode(){
 function fmtRecovery(c){return c.replace(/(.{4})(?=.)/g,'$1-');}
 async function copyRecovery(){
   const btn=document.getElementById('rec-copy');
-  try{await navigator.clipboard.writeText(fmtRecovery(recoveryPlain));btn.textContent='✓ 복사됨!';}
+  try{await navigator.clipboard.writeText(fmtRecovery(recoveryPlain));btn.textContent='✓ Copied!';}
   catch(e){const r=document.createRange();r.selectNodeContents(document.getElementById('rec-code'));const sel=getSelection();sel.removeAllRanges();sel.addRange(r);}
 }
 function goLogin(){
@@ -162,12 +162,12 @@ async function register() {
   const password2 = document.getElementById('password2').value;
   const msg = document.getElementById('msg');
 
-  if(!username || !password) { msg.className='msg error'; msg.textContent='아이디와 비밀번호를 입력해주세요.'; return; }
-  if(!nickname) { msg.className='msg error'; msg.textContent='닉네임을 입력해주세요.'; return; }
-  if(!nicknameValid) { msg.className='msg error'; msg.textContent='닉네임을 확인해주세요.'; return; }
-  if(username.length < 2) { msg.className='msg error'; msg.textContent='아이디는 2자 이상이어야 합니다.'; return; }
-  if(password.length < 4) { msg.className='msg error'; msg.textContent='비밀번호는 4자 이상이어야 합니다.'; return; }
-  if(password !== password2) { msg.className='msg error'; msg.textContent='비밀번호가 일치하지 않습니다.'; return; }
+  if(!username || !password) { msg.className='msg error'; msg.textContent='Please enter your ID and password.'; return; }
+  if(!nickname) { msg.className='msg error'; msg.textContent='Please enter a nickname.'; return; }
+  if(!nicknameValid) { msg.className='msg error'; msg.textContent='Please check your nickname.'; return; }
+  if(username.length < 2) { msg.className='msg error'; msg.textContent='ID must be at least 2 characters.'; return; }
+  if(password.length < 4) { msg.className='msg error'; msg.textContent='Password must be at least 4 characters.'; return; }
+  if(password !== password2) { msg.className='msg error'; msg.textContent='Passwords do not match.'; return; }
 
   try {
     const hashed = await hashPassword(password);
@@ -176,13 +176,13 @@ async function register() {
     // friend_code는 보내지 않음 (빈 문자열은 UNIQUE 충돌)
     await supabase('POST', 'users', { username, nickname, password: hashed, recovery_code });
     recoveryPlain = code;
-    msg.className='msg success'; msg.textContent='가입 완료!';
+    msg.className='msg success'; msg.textContent='Registered!';
     document.getElementById('rec-code').textContent = fmtRecovery(code);
     document.getElementById('reg-box').style.display='none';
     document.getElementById('rec-box').style.display='';
   } catch(e) {
-    if(e.message.includes('unique') || e.message.includes('duplicate')) msg.textContent='이미 사용 중인 아이디입니다.';
-    else msg.textContent = '오류가 발생했습니다: ' + e.message;
+    if(e.message.includes('unique') || e.message.includes('duplicate')) msg.textContent='This ID is already taken.';
+    else msg.textContent = 'An error occurred: ' + e.message;
     msg.className='msg error';
   }
 }
