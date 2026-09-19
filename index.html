@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>종합 정보사이트 made by 닉스</title>
+<meta name="robots" content="noindex, nofollow">
+<title>[TEST] 종합 정보사이트 · 테스트 서버</title>
 <meta property="og:title" content="종합 정보사이트 made by 닉스">
 <meta property="og:description" content="드래곤빌리지 종합 정보사이트 - 초월 등급표, 도감, 레이드, 공략, 길드">
 <meta property="og:image" content="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/main.jpg">
@@ -119,6 +120,14 @@
   .main-column { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 22px; }
   .category { display: none; flex-direction: column; gap: 22px; }
   .category.active { display: flex; }
+  .test-badge { display:inline-block; margin-left:10px; padding:2px 9px; border-radius:5px;
+    background:#f87171; color:#fff; font-size:12px; font-weight:800; vertical-align:middle; letter-spacing:.5px; }
+  .test-note { display:flex; gap:11px; align-items:flex-start; margin:0 0 18px;
+    padding:13px 16px; border:1px solid #f87171; border-radius:11px; background:rgba(248,113,113,.08); }
+  .test-note b { color:#f87171; font-size:13px; }
+  .test-note p { font-size:12.5px; color:var(--text2); line-height:1.75; margin-top:4px; }
+  .test-note a { color:#f87171; font-weight:700; }
+  .live-btn { background:rgba(248,113,113,.10) !important; border-color:#f87171 !important; color:#f87171 !important; }
   .cat-head { display: flex; align-items: center; gap: 10px; white-space: nowrap; }
   .cat-head-inner { display: flex; align-items: baseline; gap: 10px; }
   .cat-head-row { display: flex; align-items: center; justify-content: space-between; width: 100%; }
@@ -327,6 +336,7 @@
       <span class="mobile-logo-text">종합 정보사이트</span>
     </div>
     <div class="mobile-actions">
+      <a href="https://yejoo0519.github.io/dogam/index.html" class="icon-btn live-btn" title="실서버로 이동">↗</a>
       <a href="./en/index.html" class="icon-btn">🌐</a>
       <button class="icon-btn" onclick="openThemeModal()">🎨</button>
       <button class="icon-btn" id="mob-auth-icon" onclick="handleMobAuth()">👤</button>
@@ -335,6 +345,7 @@
 
   <!-- PC 헤더 액션 -->
   <div class="header-actions pc-only">
+    <a href="https://yejoo0519.github.io/dogam/index.html" class="pill-btn live-btn">↗ 실서버</a>
     <a href="./en/index.html" class="pill-btn">🌐 EN</a>
     <button class="pill-btn" onclick="openThemeModal()">🎨 테마</button>
     <div id="pc-auth" style="display:flex;gap:6px;align-items:center;margin-left:4px"></div>
@@ -346,7 +357,7 @@
       <span class="line"></span>
       <span class="h-section">made by 닉스</span>
     </div>
-    <h1 class="h-display">종합 정보사이트</h1>
+    <h1 class="h-display">종합 정보사이트<span class="test-badge">TEST</span></h1>
     <p class="hero-desc">드래곤빌리지 초월 등급표, 도감, 레이드, 공략, 길드, 자동 계산기까지 — 한 페이지에서.</p>
     <div class="stats-strip" id="stats-strip">
       <span>오늘 <strong id="s-today">-</strong></span>
@@ -354,6 +365,15 @@
       <span>회원 <strong id="s-members">-</strong></span>
     </div>
   </header>
+
+  <div class="test-note">
+    <span style="font-size:18px;line-height:1.2">⚠</span>
+    <div>
+      <b>여기는 테스트 서버예요</b>
+      <p>실서버에 올리기 전에 먼저 확인하는 곳이라 기능이 중간에 바뀌거나 깨져 있을 수 있어요.
+         실제 셋팅은 <a href="https://yejoo0519.github.io/dogam/index.html">실서버</a>에서 관리해주세요.</p>
+    </div>
+  </div>
 
   <!-- 탭 바 -->
   <nav class="tab-bar" data-scroll-x>
@@ -440,7 +460,7 @@
 
       <section class="category" id="cat-calculator">
         <div class="cat-head cat-head-row">
-          <div class="cat-head-inner"><h3>계산기</h3><span class="meta">· 4개 메뉴</span></div>
+          <div class="cat-head-inner"><h3>계산기</h3><span class="meta">· 5개 메뉴</span></div>
           <a href="./my.html" class="my-spec-btn">👤 내 스펙 →</a>
         </div>
         <div class="cards tri">
@@ -470,6 +490,13 @@
             <div class="card-body">
               <div class="card-title">챔피언대전 계산기<br>(수동)</div>
               <div class="card-desc">3팀 × 3마리 · 최종 스탯 · EVAL · 비벨</div>
+            </div>
+          </a>
+          <a href="./cham_auto.html?from=calculator" class="card">
+            <span class="icon-tile rose">챔대</span>
+            <div class="card-body">
+              <div class="card-title">챔피언대전 계산기<br>(자동)</div>
+              <div class="card-desc">장신구·젬·펜던트·정령 자동 배분 · 9마리 최적셋팅</div>
             </div>
           </a>
         </div>
