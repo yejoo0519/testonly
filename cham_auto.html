@@ -131,6 +131,17 @@ input[type=number]{width:100%}
 .run-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:12px}
 .btn-run{background:var(--accent-bg);border:1px solid var(--gold);color:var(--gold);padding:10px 26px;border-radius:8px;cursor:pointer;font-family:inherit;font-size:14px;font-weight:800}
 .btn-run:disabled{opacity:.5;cursor:not-allowed}
+.min-box{display:flex;flex-direction:column;gap:8px;margin-top:7px;padding:10px 12px;border:1px solid var(--bd);border-radius:8px;background:var(--sf2)}
+.min-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.min-row .k{font-size:11px;font-weight:800;color:var(--text2);min-width:104px}
+.min-row .tg{font-size:10.5px;font-weight:800;padding:3px 9px;border-radius:5px;border:1px solid var(--bd);background:var(--sf);color:var(--dim);cursor:pointer;font-family:inherit}
+.min-row .tg.on{border-color:var(--gold);background:var(--accent-bg);color:var(--gold)}
+.min-row .f{display:flex;align-items:center;gap:4px}
+.min-row .f span{font-size:10.5px;font-weight:800}
+.min-row input{width:72px;padding:4px 7px;border:1px solid var(--bd);border-radius:5px;background:var(--sf);color:var(--text);font-family:inherit;font-size:12px;text-align:right}
+.min-row input:focus{outline:none;border-color:var(--gold)}
+.min-row.off .f{opacity:.4}
+.min-row.off input{pointer-events:none}
 .prog{width:100%;height:6px;border-radius:99px;background:var(--bd);overflow:hidden;margin-top:2px}
 .prog i{display:block;height:100%;width:0;background:var(--gold);transition:width .1s linear}
 .own-bar{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin:7px 0 8px}
@@ -292,6 +303,10 @@ input[type=number]{width:100%}
         <div id="round-bar"></div>
         <div class="row3" id="buff-row"></div>
         <div style="height:12px"></div>
+        <div class="lbl" id="t-min"></div>
+        <div class="min-box" id="min-box"></div>
+        <div class="run-note" id="t-min-note" style="margin-top:6px"></div>
+        <div style="height:12px"></div>
         <div class="lbl" id="t-metric"></div>
         <div class="metric-bar" id="metric-bar"></div>
         <div class="run-row">
@@ -347,7 +362,7 @@ const L={lang:'ko',
  saved:'✓ 저장됨',data_missing_t:'데이터 파일을 불러오지 못했어요',data_missing_d:'계산기에 필요한 cham-data.js 파일이 없어요. 사이트 루트에 이 파일이 있는지 확인해주세요.',cloud_saving:'클라우드 저장 중…',cloud_saved:'✓ 클라우드 저장됨',cloud_fail:'⚠ 클라우드 저장 실패',cloud_loading:'클라우드에서 불러오는 중…',cloud_loaded:'✓ 클라우드에서 불러옴',cloud_none:'클라우드에 저장된 챔대 셋팅이 없어요.',cloud_refresh:'🔄 새로고침',cloud_refresh_confirm:'아직 올라가는 중인 수정사항이 있어요. 그래도 새로고침할까요?',round_names:['32강','16강','8강','4강','결승'],round_rename:'라운드 이름',send_manual:'📋 수동 계산기로 보내기',export_img:'🖼 이미지로 저장',snap_save:'📌 비교용으로 담기',advise:'💡 다음 투자처 분석',img_title:'챔피언대전 셋팅',img_footer:'드래곤빌리지1 도감 · 챔피언대전 자동 계산기',img_fail:'이미지를 만들지 못했어요.',cmp_item:'항목',cmp_diff:'차이',cmp_title:n=>'결과 비교 ('+n+'개)',cmp_clear:'비우기',cmp_note1:'다른 설정으로 다시 계산한 뒤 [비교용으로 담기]를 한 번 더 누르면 두 결과를 비교해요.',cmp_note2:'왼쪽이 먼저 담은 결과예요. 새로 담으면 오래된 것부터 밀려나요.',adv_running_p:(i,n)=>'분석 중… ('+i+'/'+n+')',adv_running:'분석 중… (여러 번 다시 계산하느라 몇 초 걸려요)',adv_title:m=>'다음 투자처 ('+m+' 기준)',adv_item:'추가했을 때',adv_gain:'증가량',adv_gem:(st,lv)=>st+' 젬 '+lv+'단계 1개',adv_acc:n=>'장신구 1개 ('+n+')',adv_pend:'태양 펜던트 1개 (9/9/9)',adv_note:'지금 셋팅에 하나씩 더 넣어보고 전체 합계가 얼마나 오르는지 계산한 값이에요. 실제 획득 난이도는 고려하지 않아요.',send_manual_confirm:'수동 계산기의 현재 입력값을 이 결과로 덮어쓸까요?',import_manual:'수동 계산기에서 가져오기',import_none:'수동 계산기에 저장된 드래곤이 없어요.',import_none2:'가져올 새 드래곤이 없어요. (이미 등록됐거나 비어 있어요)',import_done:n=>n+'마리를 가져왔어요.',tab_dragon:'🐉 내 드래곤',tab_calc:'⚙ 자동 계산',tab_sim:'✨ 정령·버프',tab_spx:'🔮 정령 배분',spx_fold:'접기',spx_unfold:'펼치기',spx_add:'정령 추가',spx_set:'배분 설정',spx_title:(ok,n)=>'보유 정령 '+ok+'개'+(n>ok?' (미입력 '+(n-ok)+')':''),spx_note:'가지고 있는 정령을 전부 입력하면 어느 드래곤에 넣는 게 좋은지 장비와 함께 자동으로 배분해서 보여줘요. 결과는 미리보기라 내 드래곤 탭에는 저장되지 않아요. (입력한 정령 목록은 저장돼요)',spx_memo_ph:'메모 (구분용, 선택)',spx_empty:'등록된 정령이 없어요. [＋ 정령 추가]로 보유 정령을 입력해주세요.',spx_no:n=>'정령 '+n,spx_target:'배분 대상 드래곤',spx_mine:'내 드래곤',spx_all:'전체 드래곤',spx_mine_note:dn=>'내 드래곤 탭에 등록한 드래곤 ('+dn.join(' / ')+'마리)에 넣어봐요. 카드에 입력한 정령은 무시하고 보유 정령으로 대체해요.',spx_all_note2:(a,b,c)=>'보유 드래곤으로 고른 1팀 '+a+'종 · 2팀 '+b+'종 · 3팀 '+c+'종 중에서 골라요. (0종인 구역은 전체에서 골라요)',spx_all_note:'1팀은 강림 드래곤 전체, 2·3팀은 SSS Lv.21 / 45 전체에서 골라요. 버프·정령 기준 상위 드래곤만 추려서 계산해요.',own_t:'보유 드래곤',own_gang:'강림',own_pick:'모아보기',own_clear:'모두 해제',own_q:'드래곤 이름 검색',own_cnt:n=>n+'종',own_unit:n=>n+'마리',own_note:'가지고 있는 드래곤을 눌러서 골라주세요. 누를 때마다 1 → 2 → 3마리 → 해제 순서로 바뀌고, 고른 수만큼 한 팀에 중복 편성돼요.',own_note2:'한 마리도 안 고른 구역은 예전처럼 전체 드래곤을 후보로 써요.',own_none:'고른 드래곤이 없어요. 강림 · Lv.21 · Lv.45 탭에서 보유한 드래곤을 눌러주세요.',own_empty:'조건에 맞는 드래곤이 없어요.',own_sum:(a,b,c)=>'강림 '+a+' · Lv.21 '+b+' · Lv.45 '+c,spx_grade:'1팀 강림 등급',spx_run:'🔮 정령 배분 미리보기',spx_run_note:'각 정령은 한 드래곤에만 들어가요. 장신구·젬·펜던트는 내 스펙 값을 겹치지 않게 배분하고, 인첸트는 무한 인첸트 기준이에요.',spx_w_sp:'입력된 정령이 없어요. 옵션을 하나 이상 고른 정령이 있어야 해요.',spx_nosp:'정령 없음',spx_left:n=>'남은 정령 '+n+'개',spx_apply:'✅ 이대로 내 드래곤에 적용',spx_apply_confirm:'배분된 정령을 [내 드래곤] 탭에 적용할까요? 해당 드래곤의 기존 정령 입력은 덮어써져요.',spx_apply_done:(a,b2)=>'정령 '+a+'마리 적용, 새 드래곤 '+b2+'마리 추가했어요.',spx_undo:'↩ 적용 되돌리기',spx_undo_done:'적용 전 상태로 되돌렸어요.',spx_left_none:'모든 정령이 배분됐어요.',sim_in:'정령 · 버프 입력',sim_lv:'대상 드래곤',sim_sort:'정렬 기준',sim_gear:'장비 적용',det_base:'기본 스탯',det_final:'최종 스탯',det_potion:'크리•회피',det_potion_lbl:'물약',det_buff:'속성 버프',det_coll:'컬렉션',det_skill:'스킬',sim_gear_on:'내 스펙 장비 적용',sim_gear_off:'정령만 (장비 없이)',sim_gear_none:'내 스펙에 장신구가 없어서 장비 없이 계산해요.',all:'전체',dragon:'드래곤',sim_title:lv=>'SSS Lv.'+lv+' 장착 결과',sim_count:n=>n+'마리',sim_more:n=>'▾ '+n+'마리 더 보기',sim_all:'전체 보기',sim_note:'드래곤마다 내 스펙에서 가장 좋은 장신구·인첸트·젬·펜던트를 끼웠을 때의 값이에요 (드래곤별로 따로 계산해서 자원이 겹칠 수 있어요). 물약 크리•회피(24/6/6)와 풀컬(240/60/60) 포함, 버프 받는 드래곤은 강조 표시돼요.',
  dragon_note:'챔피언대전에 쓸 드래곤을 팀별로 등록해두는 곳이에요. 길드전 계산기와는 <b>별도로 저장</b>되고, 정령 옵션과 부가옵까지 입력해두면 자동 계산에 그대로 반영돼요.',
  t_setting:'자동 계산 설정',t_goto_my:'👤 내 스펙 →',t_spec:'보유 현황 (장신구·젬·펜던트는 내 스펙 페이지 값을 사용해요)',
- t_buff:'속성 버프 (해당 속성 드래곤에 적용)',t_metric:'최적화 기준',
+ t_buff:'속성 버프 (해당 속성 드래곤에 적용)',t_min:'최소 스탯',min_off:'사용 안 함',min_on:'사용',min_team:(n,s)=>n+'팀 · '+s,min_note:'각 팀에서 이 값보다 낮은 스탯이 나오는 셋팅은 후보에서 빼요. 켜지 않으면 제한 없이 계산해요.',team_min:'최소 스탯 조건을 만족하는 셋팅이 3마리만큼 안 나와요. 값을 낮추거나 꺼주세요.',t_metric:'최적화 기준',
  t_note:'물약은 크리•회피(24/6/6), 인첸트는 무한 인첸트(스탯 자동 선택) 21%, 컬렉션은 풀컬(240/60/60) 고정이에요.\n각 팀에 등록한 드래곤 중 3마리씩 골라 장신구·젬·펜던트를 겹치지 않게 배분해요.',
  run:'🐉 자동 계산 실행',running_p:p=>'⏳ 계산 중... '+p+'%',running:'⏳ 계산 중...',err:'오류: ',
  none:'없음',team:n=>n+'팀',kind_gang:'강림 드래곤 (7.0~9.0)',kind_grade:lv=>'등급용 '+lv+'레벨',
@@ -451,11 +466,20 @@ function normOwn(raw){
   });
   return out;
 }
+// 팀별 최소 스탯 (기본 꺼짐)
+const mkMin=()=>[0,1,2].map(()=>({on:0,hp:0,atk:0,def:0}));
+const minClamp=v=>Math.max(0,Math.min(9999999,parseInt(v)||0));
+function minOf(ti){const m=(S.minst||[])[ti];return m&&m.on?m:null;}
+function minOk(ti,r){const m=minOf(ti);return !m||(r.hp>=m.hp&&r.atk>=m.atk&&r.def>=m.def);}
+function normMin(raw){const out=mkMin();(Array.isArray(raw)?raw:[]).forEach((q,i)=>{if(i>2||!q)return;
+  out[i].on=q.on?1:0;STATS.forEach(st=>{out[i][st]=minClamp(q[st]);});});return out;}
+function setMinOn(ti){S.minst[ti].on=S.minst[ti].on?0:1;renderSetting();save();}
+function setMinVal(ti,st,v){S.minst[ti][st]=minClamp(v);save();}
 const mkSpx=()=>({list:[],target:'mine',grade:'9.0',fold:false,osec:'21',oattr:'',own:{gang:{},21:{},45:{}}});
 const ROUND_N=5;
 const mkRounds=()=>L.round_names.map(n=>({name:n,buff:{hp:'',atk:'',def:''}}));
 const mkSpirit=()=>({uid:newUid(),memo:'',sp:Array.from({length:4},(_,k)=>({stat:'',type:SP_DEF_TYPE(k)})),bonus:''});
-const mkState=()=>({page:'dragon',dteam:0,round:0,rounds:mkRounds(),metric:'bv',teams:[[],[],[]],sim:mkSim(),spx:mkSpx()});
+const mkState=()=>({minst:mkMin(),page:'dragon',dteam:0,round:0,rounds:mkRounds(),metric:'bv',teams:[[],[],[]],sim:mkSim(),spx:mkSpx()});
 let S=mkState();
 (function(){
   const p=rd(SAVE_KEY);if(!p)return;
@@ -469,6 +493,7 @@ let S=mkState();
   if(p.buff&&!p.rounds)S.rounds[0].buff={...S.rounds[0].buff,...p.buff};
   if(!(S.round>=0&&S.round<ROUND_N))S.round=0;
   delete S.buff;
+  S.minst=normMin(p.minst);
   if(S.metric!=='eval')S.metric='bv';
   if(!['calc','sim','spx'].includes(S.page))S.page='dragon';
   {const q=p.spx||{};
@@ -495,7 +520,7 @@ let S=mkState();
 const PRESET_KEY=PRE+'_spec_presets';
 function user(){try{return (typeof getUser==='function')?getUser():null;}catch(e){return null;}}
 function canCloud(){return !!user()&&typeof supabase==='function';}
-function chamData(){return {teams:S.teams,spx:{list:S.spx.list,target:S.spx.target,grade:S.spx.grade,own:S.spx.own},rounds:S.rounds,round:S.round,metric:S.metric,sim:S.sim};}
+function chamData(){return {minst:S.minst,teams:S.teams,spx:{list:S.spx.list,target:S.spx.target,grade:S.spx.grade,own:S.spx.own},rounds:S.rounds,round:S.round,metric:S.metric,sim:S.sim};}
 function applyCham(d){
   if(!d)return false;
   const base=mkState();
@@ -509,6 +534,8 @@ function applyCham(d){
     S.spx.target=d.spx.target==='all'?'all':'mine';
     S.spx.grade=GRADES.includes(d.spx.grade)?d.spx.grade:'9.0';
     S.spx.own=normOwn(d.spx.own);
+  }
+  if(d.minst!==undefined){S.minst=normMin(d.minst);
   }
   if(Array.isArray(d.rounds))S.rounds=base.rounds.map((r,i)=>{
     const q=d.rounds[i]||{};return {name:String(q.name||r.name).slice(0,12),buff:{...r.buff,...(q.buff||{})}};
@@ -789,7 +816,7 @@ function diversifyOpts(opts,n){
 }
 
 // ── 팀 3마리 최적 조합 ────────────────────────────────────────
-function bestTeamDeck(sets,used,optCap){
+function bestTeamDeck(sets,used,optCap,mTi){
   const gemLeft={hp:INV.tot.hp-used.gem.hp,atk:INV.tot.atk-used.gem.atk,def:INV.tot.def-used.gem.def};
   const S3=sets
     .filter(s=>!used.slot.has(s.cand.id))
@@ -834,14 +861,14 @@ function bestTeamDeck(sets,used,optCap){
   const picked=[];
   for(const s of pool){
     if(picked.length>=3)break;
-    const o=(s.opts||[]).find(x=>fits(x,tmp))||bestFeasibleOption(s.cand,tmp);
+    const o=(s.opts||[]).find(x=>fits(x,tmp)&&minOk(mTi,x.r))||bestFeasibleOption(s.cand,tmp,mTi);
     if(!o)continue;
     picked.push(o);consume(o,tmp);
   }
   return picked.length===3?picked:null;
 }
 // 남은 자원만으로 그 드래곤의 최적 셋팅을 그 자리에서 계산 (폴백용)
-function bestFeasibleOption(cand,used){
+function bestFeasibleOption(cand,used,mTi){
   const left={hp:INV.tot.hp-used.gem.hp,atk:INV.tot.atk-used.gem.atk,def:INV.tot.def-used.gem.def};
   const pends=[null,...SPEC.pendants.map(p=>({...p,_pct:calcPendPct(p)}))].filter(p=>!p||!used.pend.has(p._id));
   const accs=ACCV.filter(a=>!used.acc.has(a._id));
@@ -851,6 +878,7 @@ function bestFeasibleOption(cand,used){
       const dMax=Math.min(5-h-a,left.def);
       for(let d=0;d<=dMax;d++){
         const r=calcOption(cand,acc,pend,{hp:topGemSum('hp',h),atk:topGemSum('atk',a),def:topGemSum('def',d)});
+        if(!minOk(mTi,r))continue;
         if(!best||r.m>best.m)best={cand,acc,pend,sh:{h,a,d},r,m:r.m};
       }
     }
@@ -1059,6 +1087,13 @@ async function solve(makeSets,optCap,onProg){
       setsByTeam.push(arr);
     }
   }
+  // 자동 계산에서만 팀별 최소 스탯을 적용한다 (정령 배분은 제외)
+  const useMin=!makeSets;
+  if(useMin)setsByTeam=setsByTeam.map((arr,ti)=>{
+    if(!minOf(ti))return arr;
+    return arr.map(s=>({...s,opts:s.opts.filter(o=>minOk(ti,o.r))})).filter(s=>s.opts.length);
+  });
+  const mti=ti=>useMin?ti:-1;
   P(63);await tick();
   const orders=[[0,1,2],[2,1,0]];
   let best=null;
@@ -1068,7 +1103,7 @@ async function solve(makeSets,optCap,onProg){
     const used={acc:new Set(),pend:new Set(),gem:{hp:0,atk:0,def:0},slot:new Set(),sp:new Set()};
     let decks=[null,null,null];
     for(const ti of order){
-      const deck=bestTeamDeck(setsByTeam[ti],used,optCap);
+      const deck=bestTeamDeck(setsByTeam[ti],used,optCap,mti(ti));
       decks[ti]=deck;
       if(deck)deck.forEach(o=>consume(o,used));
       await bump();
@@ -1076,7 +1111,7 @@ async function solve(makeSets,optCap,onProg){
     for(let r=0;r<2;r++){
       for(let ti=0;ti<3;ti++){
         if(decks[ti])decks[ti].forEach(o=>release(o,used));
-        const deck=bestTeamDeck(setsByTeam[ti],used,optCap);
+        const deck=bestTeamDeck(setsByTeam[ti],used,optCap,mti(ti));
         const oldM=decks[ti]?decks[ti].reduce((s,o)=>s+o.m,0):-1;
         const newM=deck?deck.reduce((s,o)=>s+o.m,0):-1;
         decks[ti]=newM>=oldM?deck:decks[ti];
@@ -1170,7 +1205,7 @@ function renderResult(best,ms,elId,reasonFn){
     const deck=best.decks[ti];
     html+=`<div class="team-block"><div class="team-title">${esc(L.team(ti+1))}<small>${esc(t.kind==='gang'?L.kind_gang:L.kind_grade(t.lv))}</small></div>`;
     if(!deck){
-      const reason=reasonFn?reasonFn(ti):(teamCandidates(ti).length<3?L.team_need3:L.team_fail);
+      const reason=reasonFn?reasonFn(ti):(teamCandidates(ti).length<3?L.team_need3:(minOf(ti)?L.team_min:L.team_fail));
       html+=`<div class="sec"><div class="sec-bd empty-note">${reason}</div></div></div>`;return;
     }
     deck.sort((a,b)=>b.m-a.m);
@@ -1407,6 +1442,13 @@ function renderSetting(){
   document.getElementById('round-bar').innerHTML=roundBarHtml();
   document.getElementById('buff-row').innerHTML=STATS.map(st=>`<label class="c-${st}">${statLbl(st)} ${st==='def'?'50%':'40%'}
     <select onchange="setBuff('${st}',this.value)"><option value="">${L.none}</option>${ATTRS.map(a=>`<option value="${a}"${curBuff()[st]===a?' selected':''}>${attrLbl(a)}</option>`).join('')}</select></label>`).join('');
+  document.getElementById('min-box').innerHTML=TEAMS.map((t,ti)=>{
+    const m=S.minst[ti]||{},on=!!m.on;
+    return `<div class="min-row${on?'':' off'}"><span class="k">${esc(L.min_team(ti+1,t.kind==='gang'?L.kind_gang:'Lv.'+t.lv))}</span>
+      <button type="button" class="tg${on?' on':''}" onclick="setMinOn(${ti})">${on?L.min_on:L.min_off}</button>
+      ${STATS.map(st=>`<label class="f"><span class="c-${st}">${statLbl(st)}</span>
+        <input type="number" min="0" step="1" value="${minClamp(m[st])||''}" placeholder="0"
+          oninput="setMinVal(${ti},'${st}',this.value)"></label>`).join('')}</div>`;}).join('');
   document.getElementById('metric-bar').innerHTML=[['bv',L.bv_full],['eval','EVAL']].map(([m,lb])=>
     `<button class="metric-btn${S.metric===m?' on':''}" onclick="S.metric='${m}';save();renderSetting()">${lb}</button>`).join('');
 }
@@ -2179,7 +2221,8 @@ document.addEventListener('DOMContentLoaded',()=>{
   document.getElementById('t-sim-in').textContent=L.sim_in;
   document.getElementById('t-sim-note').textContent=L.sim_note;
   document.getElementById('t-dragon-note').innerHTML=L.dragon_note;
-  ['t-setting','t-spec','t-buff','t-metric','t-note','t-goto-my'].forEach(id=>{
+  document.getElementById('t-min-note').textContent=L.min_note;
+  ['t-setting','t-spec','t-buff','t-min','t-metric','t-note','t-goto-my'].forEach(id=>{
     document.getElementById(id).textContent=L[id.replace(/-/g,'_')];
   });
   document.getElementById('run-btn').textContent=L.run;
