@@ -264,6 +264,12 @@ body.u{--panel:var(--bg2);--panel-2:var(--bg3);--line:var(--border);
  .dragon-row.on .nm { color: var(--accent); font-weight: 700; }
  @media (prefers-reduced-motion: reduce) { .dragon-row { transition: none; } }
 
+
+@media(max-width:760px){
+  /* 2열이라 이름이 갈라집니다 — 한 열로 펴서 이름을 한 줄에 */
+  #dragonGrid{grid-template-columns:1fr}
+  .dragon-row .nm{font-size:12.5px;line-height:1.35}
+}
 </style>
 </head>
 <body class="u">

@@ -300,6 +300,13 @@ input[type=number]{width:100%}
 .sp-chip.none{border:1px dashed var(--border3);color:var(--text4)}
 .sp-chip.bn{border:1px solid currentColor;background:none}
 
+.dr-addbar{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:12px;border-top:1px solid var(--bd)}
+.dr-addbar .t{font-size:12px;color:var(--dim);margin-right:2px}
+.dr-addchip{display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border:1px dashed var(--border3);
+  border-radius:99px;background:transparent;color:var(--text2);font-family:inherit;font-size:12.5px;cursor:pointer}
+.dr-addchip:hover{border-style:solid;border-color:var(--gold);color:var(--gold)}
+.dr-addchip img{width:16px;height:16px;object-fit:contain;max-width:none}
+
 /* 모바일 목록 + 편집 시트 */
 .dr-mo{display:none}
 .mo-grp{display:flex;align-items:center;gap:8px;padding:8px 11px;margin:12px 0 7px;border-radius:8px;background:var(--sf2)}
@@ -1579,6 +1586,12 @@ function renderDragonTeams(){
     });
     body=`<table class="dr-tbl"><tbody>${rows}</tbody></table>`;
   }
+  // 전체 보기에서도 아직 안 쓴 속성에 바로 등록할 수 있게
+  const rest=ATTRS.filter(a=>!shown.includes(a));
+  const restAdd=rest.length?`<div class="dr-addbar"><span class="t">다른 속성에 추가</span>
+    ${rest.map(a=>`<button type="button" class="dr-addchip" onclick="addEntry(${ti},'${a}')">
+      <img src="${esc(elIcon(a))}" onerror="this.style.visibility='hidden'" alt="">${esc(attrLbl(a))}</button>`).join('')}</div>`:'';
+  body+=restAdd;
 
   // 모바일 목록
   let mo='';
@@ -1604,6 +1617,7 @@ function renderDragonTeams(){
       }).join('')+`</div>`;
     });
   }
+  mo+=restAdd;
 
   // 모바일 편집 시트
   let sheet='';

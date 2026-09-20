@@ -86,6 +86,10 @@ body.u{margin:0;font-family:var(--u-sans);font-size:15px;line-height:1.6;
 .u-hp{color:var(--hp)} .u-atk{color:var(--atk)} .u-def{color:var(--def)}
 .u-ok{color:var(--ok)} .u-bad{color:var(--bad)} .u-dim{color:var(--dim)}
 .u th,.u button,.u .u-btn{white-space:nowrap}
+/* 한국어 줄바꿈 — 낱말 중간에서 끊기지 않게, 대신 아주 긴 낱말은 넘치지 않게 */
+.u{word-break:keep-all;overflow-wrap:break-word}
+/* 두 줄로 넘어가더라도 한 덩어리로 읽히도록 */
+.u td,.u th,.u label,.u .u-btn,.u button,.u select,.u option{line-height:1.35}
 .u-hide{display:none !important}
 
 /* ── 3. 셸: 세로 내비 + 본문 ───────────────────────────── */
@@ -308,7 +312,7 @@ a.u-card:hover,.u-card.click:hover{border-color:var(--gold);background:var(--acc
 }
 @media (max-width:980px){
   .u-content{flex-direction:column}
-  .u-setpane{width:auto;position:static;max-height:none;border-right:0;
+  .u-setpane{width:auto;align-self:stretch;position:static;max-height:none;border-right:0;
     border-bottom:1px solid var(--bd);padding:20px 22px}
 }
 @media (max-width:760px){

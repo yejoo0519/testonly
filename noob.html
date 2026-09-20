@@ -334,6 +334,13 @@ input[type=number]{appearance:textfield;-moz-appearance:textfield}
 .sp-chip.none{border:1px dashed var(--border3);color:var(--text4)}
 .sp-chip.bn{border:1px solid currentColor;background:none}
 
+.dr-addbar{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:12px;border-top:1px solid var(--bd)}
+.dr-addbar .t{font-size:12px;color:var(--dim);margin-right:2px}
+.dr-addchip{display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border:1px dashed var(--border3);
+  border-radius:99px;background:transparent;color:var(--text2);font-family:inherit;font-size:12.5px;cursor:pointer}
+.dr-addchip:hover{border-style:solid;border-color:var(--gold);color:var(--gold)}
+.dr-addchip img{width:16px;height:16px;object-fit:contain;max-width:none}
+
 .dr-mo{display:none}
 .mo-grp{display:flex;align-items:center;gap:8px;padding:8px 11px;margin:12px 0 7px;border-radius:8px;background:var(--sf2)}
 .mo-grp .bar{width:3px;height:16px;border-radius:2px;flex-shrink:0}
@@ -393,6 +400,10 @@ input[type=number]{appearance:textfield;-moz-appearance:textfield}
 .u-setpane .sec-hd{padding:0 0 10px;border-bottom:1px solid var(--bd);margin-bottom:12px}
 .u-setpane .sec-bd{padding:0}
 .u-setpane .sim-cfg{display:flex;flex-direction:column;gap:16px}
+/* 좁은 설정 패널에서는 버프·디버프를 위아래로 (가로로 두면 글자가 잘립니다) */
+.u-setpane .buff-setting-grid{grid-template-columns:1fr}
+.u-setpane .buff-setting-cell select{max-width:none}
+.u-setpane .radio-opts label{display:flex;align-items:flex-start;gap:7px;word-break:keep-all}
 .u-setpane .btn-sim{width:100%;margin:0}
 .u-main .ti,.u-main .ti-sim,.u-main .ti-dragon{max-width:none;margin:0;padding:0}
 .u-main #res-sec{margin-top:0}
@@ -2149,13 +2160,21 @@ function renderDragonInfo(){
       });
     });
   }
-  const table=total?`<table class="dr-tbl"><tbody>${rows}</tbody></table>`
-                   :`<div class="dr-empty">등록된 용이 없어요. 왼쪽에서 속성을 고르고 [＋ 추가]를 눌러주세요.</div>`;
+  // 전체 보기에서도 아직 안 쓴 속성에 바로 추가할 수 있게
+  const restAdd=(()=>{
+    const rest=DRAGON_CATS.filter(c=>!shown.includes(c));
+    if(!rest.length)return '';
+    return `<div class="dr-addbar"><span class="t">다른 속성에 추가</span>
+      ${rest.map(c=>`<button type="button" class="dr-addchip" onclick="addDragonCard('${c}',event)">
+        <img src="${elIcon(c)}" onerror="this.style.visibility='hidden'" alt="">${c}</button>`).join('')}</div>`;
+  })();
+  const table=(total?`<table class="dr-tbl"><tbody>${rows}</tbody></table>`
+                   :`<div class="dr-empty">등록된 용이 없어요. 아래에서 속성을 골라 추가해주세요.</div>`)+restAdd;
 
   // 모바일 목록
   let mo='';
   if(!total){
-    mo=`<div class="dr-empty">등록된 용이 없어요. 아래 [용 추가]로 등록해주세요.</div>`;
+    mo=`<div class="dr-empty">등록된 용이 없어요. 아래에서 속성을 골라 추가해주세요.</div>`;
   }else{
     shown.forEach(cat=>{
       const cards=S.dragonCards[cat]||[];
@@ -2176,6 +2195,7 @@ function renderDragonInfo(){
       }).join('')+'</div>';
     });
   }
+  mo+=restAdd;
 
   // 모바일 편집 시트
   let sheet='';

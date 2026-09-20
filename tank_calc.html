@@ -92,6 +92,17 @@ select:focus,input:focus{outline:none;border-color:var(--gold)}
  .res-cell.wide{grid-column:span 1}
 }
 .info-box{font-size:13px;line-height:1.9;color:var(--text2)}
+
+@media(max-width:760px){
+  .btn-grp button,.seg button{padding-left:6px;padding-right:6px;font-size:12px;letter-spacing:-.02em}
+  .sp-preset-btn{padding-left:6px;padding-right:6px}
+}
+@media(max-width:400px){
+  /* 작은 화면에서는 글자가 잘리지 않게 한 단계 더 */
+  .btn-grp button,.seg button,.sp-preset-btn{font-size:11.5px;padding-left:5px;padding-right:5px;letter-spacing:-.03em}
+  /* 한 줄에 셋을 넣으면 긴 이름이 잘리므로 둘씩 내려 씁니다 */
+  .btn-grp button{min-width:92px}
+}
 </style>
 </head>
 <body class="u">
