@@ -5,99 +5,72 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SSS / SS 랭킹</title>
 <link id="theme-css" rel="stylesheet" href="./theme-dark.css">
+<link rel="stylesheet" href="./ui.css">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="./theme.js"></script>
 <style>
-/* ── 테마 팔레트 (index.html과 동일) ──────────────── */
-[data-theme="dark"]{
-  --bg:#0e1116;--bg2:#161a22;--bg3:#1c212c;
-  --border:#23293a;--border2:#1b1f2a;--border3:#2d3447;
-  --text:#eaecf2;--text2:#b3b9c7;--text3:#7d8597;--text4:#565d6e;
-  --accent:#7aa2f7;--accent-bg:rgba(122,162,247,0.12);--accent-border:rgba(122,162,247,0.30);
-  --hp:#6cc487;--atk:#ef6a63;--def:#5dcff5;--ev:#f5c842;--ev-bar:rgba(245,200,66,0.16);
-}
-[data-theme="light"]{
-  --bg:#f7f7f8;--bg2:#ffffff;--bg3:#f1f2f4;
-  --border:#e6e7ea;--border2:#eeeff2;--border3:#d4d6db;
-  --text:#15171c;--text2:#4a4d57;--text3:#71757f;--text4:#9aa0aa;
-  --accent:#2f6fed;--accent-bg:rgba(47,111,237,0.10);--accent-border:rgba(47,111,237,0.32);
-  --hp:#2e8b57;--atk:#c62828;--def:#1565c0;--ev:#a97400;--ev-bar:rgba(169,116,0,0.14);
-}
-[data-theme="beige"]{
-  --bg:#f3ecdd;--bg2:#faf3e2;--bg3:#ebe0c7;
-  --border:#d8caa8;--border2:#e1d4b3;--border3:#c0ad84;
-  --text:#2a2316;--text2:#5a4e34;--text3:#837553;--text4:#a99971;
-  --accent:#b06a1e;--accent-bg:rgba(176,106,30,0.10);--accent-border:rgba(176,106,30,0.32);
-  --hp:#3f7d4f;--atk:#b03a30;--def:#2a6496;--ev:#96650f;--ev-bar:rgba(150,101,15,0.16);
-}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--text);padding:12px}
 
 /* ── 상단 탭바 (다른 페이지와 동일) ── */
-#tab-bar{display:flex;gap:0;margin-bottom:18px;border-bottom:2px solid var(--border);align-items:flex-end}
-#tab-bar a{text-decoration:none}
-#site-title{display:flex;flex-direction:column;align-items:center;justify-content:center;text-decoration:none;margin-right:16px;margin-bottom:6px;border:1.5px solid var(--border3);border-radius:20px;padding:10px 18px;transition:border-color 0.15s;flex-shrink:0}
-#site-title:hover{border-color:var(--accent)}
-#site-title .title-main{font-size:16px;font-weight:700;color:var(--text2);line-height:1.4}
 
 /* ── 페이지 헤더 ── */
 #page-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:14px}
-#page-head h1{font-size:22px;font-weight:700;color:var(--text);letter-spacing:-0.01em}
-#count{font-size:12px;color:var(--text3);font-variant-numeric:tabular-nums}
+#page-head h1{font-size:21px;font-weight:700;color:var(--text);letter-spacing:-0.01em}
+#count{font-size:13px;color:var(--text3);font-variant-numeric:tabular-nums}
 
 /* ── 컨트롤 ── */
 #controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:10px}
-.seg{display:inline-flex;background:var(--bg3);border:1px solid var(--border3);border-radius:10px;padding:3px;gap:2px}
-.seg button{padding:6px 16px;border:none;border-radius:7px;background:none;color:var(--text3);font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;transition:color 0.12s,background 0.12s;letter-spacing:0.01em}
+.seg{display:inline-flex;background:var(--sf2);border:1px solid var(--bd2);border-radius:8px;padding:3px;gap:2px}
+.seg button{padding:8px 17px;border:none;border-radius:7px;background:none;color:var(--text3);font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;transition:color 0.12s,background 0.12s;letter-spacing:0.01em}
 .seg button:hover{color:var(--text2)}
-.seg button.active{background:var(--bg2);color:var(--accent);box-shadow:0 1px 2px rgba(0,0,0,0.10)}
+.seg button.active{background:var(--sf);color:var(--gold);box-shadow:none}
 .seg button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 
 #elem-row{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
-.etag{display:inline-flex;align-items:center;gap:5px;padding:4px 11px 4px 6px;border-radius:20px;font-size:11px;font-weight:500;border:1px solid var(--border3);background:var(--bg3);color:var(--text2);cursor:pointer;font-family:inherit;transition:border-color 0.12s,color 0.12s}
-#e-all{padding:4px 12px}
+.etag{display:inline-flex;align-items:center;gap:5px;padding:6px 12px 6px 7px;border-radius:6px;font-size:12.5px;font-weight:600;border:1px solid var(--bd2);background:var(--sf);color:var(--dim);cursor:pointer;font-family:inherit;transition:border-color 0.12s,color 0.12s}
+#e-all{padding:6px 13px}
 .etag:hover{border-color:var(--accent-border);color:var(--text)}
-.etag .eic{width:16px;height:16px;border-radius:4px;object-fit:cover;flex-shrink:0}
-.etag.active{background:var(--accent-bg);border-color:var(--accent-border);color:var(--text)}
+.etag .eic{width:18px;height:18px;max-width:none;border-radius:4px;object-fit:cover;flex-shrink:0}
+.etag.active{background:var(--accent-bg);border-color:var(--gold);color:var(--gold)}
 .etag:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 
 /* ── 표 ── */
-#tbl-wrap{border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--bg2)}
+#tbl-wrap{border:1px solid var(--bd);border-radius:10px;overflow:hidden;background:var(--sf)}
 #tbl-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
-table{width:100%;border-collapse:collapse;font-size:12px;min-width:660px}
-thead th{background:var(--bg3);padding:9px 10px;font-size:11px;font-weight:600;color:var(--text3);text-align:center;white-space:nowrap;border-bottom:1px solid var(--border)}
+table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:700px}
+thead th{background:var(--sf2);padding:10px;font-size:11.5px;font-weight:600;color:var(--dimmer);text-align:center;white-space:nowrap;border-bottom:1px solid var(--border)}
 thead th.left{text-align:left}
-tbody td{padding:9px 10px;text-align:center;color:var(--text);border-bottom:1px solid var(--border2);vertical-align:middle;font-variant-numeric:tabular-nums}
+tbody td{padding:10px;text-align:center;color:var(--text);border-bottom:1px solid var(--border2);vertical-align:middle;font-variant-numeric:tabular-nums}
 tbody tr:last-child td{border-bottom:none}
 tbody tr{border-left:3px solid var(--el,transparent)}
 tbody tr:hover td{background:var(--bg3)}
 td.left{text-align:left;white-space:nowrap}
 
-.rk{font-size:12px;font-weight:700;color:var(--text3)}
-.rk.top{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;padding:0 5px;border-radius:11px;background:var(--accent-bg);color:var(--accent)}
-.dragon-img{width:34px;height:34px;border-radius:7px;object-fit:cover;display:block;margin:0 auto;background:var(--bg3)}
-.img-placeholder{width:34px;height:34px;border-radius:7px;background:var(--bg3);border:1px dashed var(--border3);margin:0 auto}
-.dname{font-size:12px;font-weight:600;color:var(--text)}
-.skill-ic{width:16px;height:16px;margin-left:5px;vertical-align:-3px}
-.elem-ic{width:22px;height:22px;border-radius:5px;object-fit:cover;display:block;margin:0 auto}
-.elem-ic-none{width:22px;height:22px;border-radius:5px;background:var(--bg3);margin:0 auto}
+.rk{font-size:13px;font-weight:700;color:var(--dimmer)}
+.rk.top{display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:24px;padding:0 6px;border-radius:12px;background:var(--accent-bg);color:var(--gold)}
+.dragon-img{width:38px;height:38px;max-width:none;border-radius:7px;object-fit:cover;display:block;margin:0 auto;background:var(--sf2)}
+.img-placeholder{width:38px;height:38px;border-radius:7px;background:var(--bg3);border:1px dashed var(--border3);margin:0 auto}
+.dname{font-size:13.5px;font-weight:600;color:var(--text)}
+.skill-ic{width:18px;height:18px;max-width:none;margin-left:5px;vertical-align:-3px}
+.elem-ic{width:24px;height:24px;max-width:none;border-radius:5px;object-fit:cover;display:block;margin:0 auto}
+.elem-ic-none{width:24px;height:24px;border-radius:5px;background:var(--bg3);margin:0 auto}
 .s-hp{color:var(--hp)}
 .s-atk{color:var(--atk)}
 .s-def{color:var(--def)}
-.lv{font-size:11px;color:var(--text3)}
-.raw{font-size:11px;color:var(--text3);white-space:nowrap}
+.lv{font-size:12px;color:var(--dim)}
+.raw{font-size:12px;color:var(--dim);white-space:nowrap}
 
 /* Eval — 이 표에서 유일하게 강조하는 열. 막대 길이 = 1위 대비 비율 */
 td.ev-cell{padding:0;width:118px}
-.ev{position:relative;display:flex;align-items:center;justify-content:flex-end;height:34px;padding:0 10px;margin:0 6px;border-radius:6px;overflow:hidden}
+.ev{position:relative;display:flex;align-items:center;justify-content:flex-end;height:36px;padding:0 10px;margin:0 6px;border-radius:6px;overflow:hidden}
 .ev::before{content:"";position:absolute;left:0;top:0;bottom:0;width:var(--w,0%);background:var(--ev-bar);border-radius:6px}
-.ev span{position:relative;font-size:13px;font-weight:700;color:var(--ev)}
+.ev span{position:relative;font-size:14px;font-weight:700;color:var(--ev)}
 
-#empty{padding:48px 16px;text-align:center;color:var(--text3);font-size:13px}
+#empty{padding:48px 16px;text-align:center;color:var(--dim);font-size:14px}
 
 /* ── 모바일 ── */
 .m-only{display:none}
 @media(max-width:640px){
-  body{padding:10px}
+
   #page-head h1{font-size:19px}
   table{min-width:0}
   thead{display:none}
@@ -106,23 +79,21 @@ td.ev-cell{padding:0;width:118px}
   .m-only{display:block}
   .m-top{display:flex;align-items:center;gap:9px;margin-bottom:8px}
   .m-top .dragon-img,.m-top .img-placeholder{margin:0;flex-shrink:0}
-  .m-name{flex:1;min-width:0;font-size:13px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .m-rank{min-width:26px;font-size:12px;font-weight:700;color:var(--text3);font-variant-numeric:tabular-nums}
+  .m-name{flex:1;min-width:0;font-size:14px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .m-rank{min-width:28px;font-size:13px;font-weight:700;color:var(--text3);font-variant-numeric:tabular-nums}
   .m-rank.top{display:inline-flex;align-items:center;justify-content:center;height:22px;border-radius:11px;background:var(--accent-bg);color:var(--accent)}
-  .m-stats{display:flex;gap:0;background:var(--bg3);border-radius:8px;padding:6px 0}
+  .m-stats{display:flex;gap:0;background:var(--sf2);border-radius:8px;padding:6px 0}
   .m-cell{flex:1;text-align:center;font-variant-numeric:tabular-nums}
-  .m-cell b{display:block;font-size:9px;font-weight:500;color:var(--text4);letter-spacing:0.02em}
-  .m-cell span{display:block;font-size:12px;font-weight:600;margin-top:1px}
-  .m-raw{margin-top:6px;font-size:10px;color:var(--text4);text-align:center;font-variant-numeric:tabular-nums}
+  .m-cell b{display:block;font-size:10.5px;font-weight:500;color:var(--text4);letter-spacing:0.02em}
+  .m-cell span{display:block;font-size:13.5px;font-weight:600;margin-top:1px}
+  .m-raw{margin-top:7px;font-size:11.5px;color:var(--text4);text-align:center;font-variant-numeric:tabular-nums}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
-<body>
-<div id="tab-bar">
-  <a href="./index.html" id="site-title"><span class="title-main">메인화면 이동</span></a>
-</div>
-
+<body class="u">
+<div class="u-app">
+<main class="u-wrap full">
 <div id="page-head">
   <h1>SSS / SS 랭킹</h1>
   <span id="count"></span>
@@ -1779,5 +1750,9 @@ render();
   new MutationObserver(sync).observe(document.head,{childList:true,subtree:true,characterData:true});
 })();
 </script>
+</main>
+</div>
+<script src="./ui.js"></script>
+<script>UI.shell({page:'sss',title:'SSS / SS 랭킹',sub:'Lv.45 / Lv.21 · 속성 필터'});</script>
 </body>
 </html>

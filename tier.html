@@ -5,179 +5,163 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>초월 등급표</title>
 <link id="theme-css" rel="stylesheet" href="./theme-dark.css">
+<link rel="stylesheet" href="./ui.css">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="./theme.js"></script>
 <style>
+/* ── tier.html 고유 스타일 (공통은 ui.css) ───────────────── */
 
-/* ── 테마 팔레트 (index.html과 동일) ── */
-[data-theme="dark"] {
-  --bg:#0e1116;--bg2:#161a22;--bg3:#1c212c;
-  --border:#23293a;--border2:#1b1f2a;--border3:#2d3447;
-  --text:#eaecf2;--text2:#b3b9c7;--text3:#7d8597;--text4:#565d6e;
-  --accent:#7aa2f7;--accent-bg:rgba(122,162,247,0.12);--accent-border:rgba(122,162,247,0.30);
-}
-[data-theme="light"] {
-  --bg:#f7f7f8;--bg2:#ffffff;--bg3:#f1f2f4;
-  --border:#e6e7ea;--border2:#eeeff2;--border3:#d4d6db;
-  --text:#15171c;--text2:#4a4d57;--text3:#71757f;--text4:#9aa0aa;
-  --accent:#2f6fed;--accent-bg:rgba(47,111,237,0.10);--accent-border:rgba(47,111,237,0.32);
-}
-[data-theme="beige"] {
-  --bg:#f3ecdd;--bg2:#faf3e2;--bg3:#ebe0c7;
-  --border:#d8caa8;--border2:#e1d4b3;--border3:#c0ad84;
-  --text:#2a2316;--text2:#5a4e34;--text3:#837553;--text4:#a99971;
-  --accent:#b06a1e;--accent-bg:rgba(176,106,30,0.10);--accent-border:rgba(176,106,30,0.32);
-}
+/* 속성 색 — 패널 머리와 뱃지가 같이 씁니다 */
+.panel-땅{--e:#c07a2e}  .panel-물{--e:#3d86d6}  .panel-불{--e:#d65450}
+.panel-바람{--e:#4a9e5c} .panel-빛{--e:#d99a30}  .panel-어둠{--e:#8a6fd0}
+.panel-황혼{--e:#c96393} .panel-여명{--e:#a58164} .panel-악몽{--e:#9b6ac4}
 
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Malgun Gothic',sans-serif;background:var(--bg);color:var(--text);padding:12px}
-#site-header{display:flex;align-items:center;gap:0;margin-bottom:0}
-#tab-bar{display:flex;gap:0;margin-bottom:16px;border-bottom:2px solid var(--border);align-items:flex-end}
-#site-title{display:flex;flex-direction:column;align-items:center;justify-content:center;text-decoration:none;margin-right:16px;margin-bottom:6px;border:1.5px solid var(--border3);border-radius:20px;padding:10px 18px;transition:border-color 0.15s;flex-shrink:0}
-#site-title:hover{border-color:var(--accent)}
-#site-title .title-main{font-size:16px;font-weight:700;color:var(--text2);line-height:1.4}
-#site-title .title-sub{font-size:12px;color:var(--text4);line-height:1.4}
-.tab-btn{padding:10px 20px;font-size:13px;font-weight:500;background:none;border:none;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px}
-.tab-btn:hover{color:var(--text2)}
-.tab-btn.active{color:var(--accent);border-bottom:2px solid var(--accent)}
-@media(max-width:600px){.tab-btn{display:none}}
-.tab-content{display:none}
-.tab-content.active{display:block}
-#top{margin-bottom:12px}
-#search-bar{display:flex;gap:8px;margin-bottom:8px}
-#search-bar input{flex:1;padding:16px 20px;border:1px solid var(--border3);border-radius:8px;font-size:16px;background:var(--bg3);color:var(--text)}
-#search-bar input::placeholder{color:var(--text4)}
-#filter-row{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:6px}
-.ftag{padding:4px 10px;border-radius:20px;font-size:11px;border:1px solid var(--border3);cursor:pointer;background:var(--bg3);color:var(--text2)}
-.ftag.active{background:#4a90d9;color:#fff;border-color:#4a90d9}
-#count{font-size:12px;color:var(--text3);margin-bottom:8px}
-#panels{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
-.panel{border-radius:10px;overflow:hidden;border:1px solid var(--border)}
-.panel-header{display:flex;align-items:center;gap:10px;padding:10px 14px;font-size:15px;font-weight:700}
-.panel-header .elem-icon{width:36px;height:36px;border-radius:6px;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:20px;background:rgba(0,0,0,0.2)}
-.panel-header .elem-icon img{width:100%;height:100%;object-fit:cover}
-.panel-땅 .panel-header{background:linear-gradient(90deg,#b5651d,#d4863a)}
-.panel-물 .panel-header{background:linear-gradient(90deg,#1565c0,#1e88e5)}
-.panel-불 .panel-header{background:linear-gradient(90deg,#b71c1c,#e53935)}
-.panel-바람 .panel-header{background:linear-gradient(90deg,#1b5e20,#388e3c)}
-.panel-빛 .panel-header{background:linear-gradient(90deg,#e65100,#fb8c00)}
-.panel-어둠 .panel-header{background:linear-gradient(90deg,#311b92,#5e35b1)}
-.panel-황혼 .panel-header{background:linear-gradient(90deg,#880e4f,#c2185b)}
-.panel-여명 .panel-header{background:linear-gradient(90deg,#4e342e,#795548)}
-.panel-악몽 .panel-header{background:linear-gradient(90deg,#4a148c,#7b1fa2)}
-.panel table{width:100%;border-collapse:collapse;font-size:12px;background:var(--bg2);min-width:0}
-.panel thead tr{background:var(--bg3)}
-.panel th{padding:6px 8px;text-align:center;font-weight:500;color:var(--text2);border-bottom:1px solid var(--border);white-space:nowrap;font-size:11px}
+#top{margin-bottom:16px}
+#search-bar{margin-bottom:10px}
+#search-bar input{padding:13px 16px;font-size:16px}
+#filter-row{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px}
+.ftag{padding:7px 13px;border-radius:6px;font-size:12.5px;font-weight:600;
+  border:1px solid var(--bd2);background:var(--sf);color:var(--dim);cursor:pointer;white-space:nowrap}
+.ftag:hover{color:var(--text)}
+.ftag.active{border-color:var(--gold);background:var(--accent-bg);color:var(--gold)}
+#count{font-size:12.5px;color:var(--dimmer);margin-bottom:10px}
+#grade-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:8px}
+#grade-row .gl{font-size:12px;color:var(--dimmer);font-weight:600;margin-right:2px}
+#grade-row input{width:84px;padding:7px 10px;border:1px solid var(--bd2);border-radius:6px;
+  background:var(--sf);color:var(--text);font-family:var(--u-mono);font-size:13px;text-align:right}
+#grade-row input:focus{outline:none;border-color:var(--gold)}
+#grade-row .tilde{color:var(--dimmer);font-size:12px}
+#grade-row .gsep{width:1px;height:18px;background:var(--bd);margin:0 4px}
+
+#panels{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px}
+.panel{border:1px solid var(--bd);border-radius:10px;overflow:hidden;background:var(--sf)}
+.panel-header{display:flex;align-items:center;gap:10px;padding:12px 15px;
+  font-size:15px;font-weight:700;color:var(--text);
+  background:var(--sf2);border-bottom:1px solid var(--bd)}
+.panel-header .elem-icon{width:34px;height:34px;border-radius:7px;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;font-size:19px;
+  background:var(--bg);flex-shrink:0}
+.panel-header .elem-icon img{width:100%;height:100%;max-width:none;object-fit:cover}
+
+.panel table{width:100%;border-collapse:collapse;font-size:13.5px;background:transparent}
+.panel thead tr{background:transparent}
+.panel th{padding:9px 8px;text-align:center;font-weight:600;font-size:11.5px;
+  letter-spacing:.05em;color:var(--dimmer);border-bottom:1px solid var(--bd2);white-space:nowrap}
 .panel th.left{text-align:left}
-.panel td{padding:5px 8px;border-bottom:0.5px solid var(--border2);vertical-align:middle;color:var(--text)}
+.panel td{padding:8px 8px;border-bottom:1px solid var(--border2);vertical-align:middle;color:var(--text)}
 .panel td.center{text-align:center}
-.panel tr:hover td{background:var(--bg3)}
-.rank{font-size:11px;color:var(--text3);text-align:center;width:24px}
-.dragon-img{width:36px;height:36px;border-radius:6px;object-fit:cover;display:block}
-.img-placeholder{width:36px;height:36px;border-radius:6px;background:var(--bg3);border:1px dashed var(--border3);display:flex;align-items:center;justify-content:center;color:var(--text4);font-size:10px}
-.badge-type{font-size:10px;padding:2px 5px;border-radius:6px;background:var(--bg3);color:var(--text2);white-space:nowrap}
-.lv-o{color:#66bb6a;font-weight:700}
-.lv-x{color:#ef5350;font-weight:700}
-.t-blue{color:#5dcff5 !important;font-weight:700;font-size:13px;text-shadow:0 0 6px rgba(93,207,245,0.6)}
-.t-gold{color:#f5c842 !important;font-weight:700;font-size:13px;text-shadow:0 0 6px rgba(245,200,66,0.5)}
-.t-silver{color:#a8b4c0 !important;font-weight:700;font-size:13px;text-shadow:0 0 4px rgba(168,180,192,0.4)}
-.t-pink{color:#c4879e !important;font-weight:700;font-size:13px;text-shadow:0 0 4px rgba(196,135,158,0.4)}
-.t-neg{color:#ef5350 !important;font-weight:700;font-size:13px}
-.no-data td{text-align:center;padding:1rem;color:var(--text4)}
-.panel-땅 tr.ex-true{background:linear-gradient(90deg,rgba(181,101,29,0.25) 0%,transparent 30%)}
-.panel-물 tr.ex-true{background:linear-gradient(90deg,rgba(21,101,192,0.25) 0%,transparent 30%)}
-.panel-불 tr.ex-true{background:linear-gradient(90deg,rgba(183,28,28,0.25) 0%,transparent 30%)}
-.panel-바람 tr.ex-true{background:linear-gradient(90deg,rgba(27,94,32,0.25) 0%,transparent 30%)}
-.panel-빛 tr.ex-true{background:linear-gradient(90deg,rgba(230,81,0,0.25) 0%,transparent 30%)}
-.panel-어둠 tr.ex-true{background:linear-gradient(90deg,rgba(49,27,146,0.25) 0%,transparent 30%)}
-.panel-황혼 tr.ex-true{background:linear-gradient(90deg,rgba(136,14,79,0.25) 0%,transparent 30%)}
-.panel-여명 tr.ex-true{background:linear-gradient(90deg,rgba(78,52,46,0.3) 0%,transparent 30%)}
-.panel-악몽 tr.ex-true{background:linear-gradient(90deg,rgba(74,20,140,0.25) 0%,transparent 30%)}
-h1{font-size:24px;margin-bottom:12px;color:var(--text2)}
-#filter-area{margin-bottom:10px}
-#dex-search-bar{display:flex;gap:8px;margin-bottom:8px}
-#dex-search-bar input{flex:1;padding:10px 14px;border:1px solid var(--border3);border-radius:8px;font-size:14px;background:var(--bg3);color:var(--text)}
-#dex-search-bar input::placeholder{color:var(--text4)}
-.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.panel tr:hover td{background:var(--sf2)}
+.rank{font-family:var(--u-mono);font-size:12px;color:var(--dimmer);text-align:center;width:26px}
+.dragon-img{width:36px;height:36px;max-width:none;border-radius:6px;object-fit:cover;display:block;margin:0 auto}
+.img-placeholder{width:36px;height:36px;max-width:none;margin:0 auto;border-radius:6px;background:var(--sf2);
+  border:1px dashed var(--bd2);display:flex;align-items:center;justify-content:center;
+  color:var(--dimmer);font-size:10px}
+.badge-type{font-size:11px;padding:3px 7px;border-radius:4px;background:var(--sf2);
+  color:var(--dim);font-weight:700;white-space:nowrap}
+.no-data td{text-align:center;padding:24px;color:var(--dimmer);font-size:13px}
+
+/* 초월 보유 행 — 왼쪽 가는 선만 */
+tr.ex-true td:first-child{box-shadow:inset 2px 0 0 var(--e,var(--gold))}
+
+/* 등급 글자색 — 네온 글로우 제거 */
+.lv-o,.chk-y{color:var(--ok) !important;font-weight:700}
+.lv-x,.chk-n{color:var(--bad) !important;font-weight:700}
+.t-blue{color:#5aa9d8 !important;font-weight:700;font-size:14px}
+.t-gold{color:var(--gold) !important;font-weight:700;font-size:14px}
+.t-silver{color:var(--text2) !important;font-weight:700;font-size:14px}
+.t-pink{color:#c4879e !important;font-weight:700;font-size:14px}
+.t-neg{color:var(--bad) !important;font-weight:700;font-size:14px}
+.cd-yes{color:var(--ok);font-size:12px;font-weight:600}
+.cd-no{color:var(--bad);font-size:12px;font-weight:600}
+.cd-cs{color:var(--gold);font-size:12px;font-weight:600}
+
+/* 속성 뱃지 — 파스텔 배경 대신 테마에 맞는 톤 */
+.badge-elem{font-size:11px;padding:3px 8px;border-radius:4px;font-weight:700;white-space:nowrap}
+.e-땅{background:rgba(192,122,46,.16);color:#c07a2e}
+.e-물{background:rgba(61,134,214,.16);color:#3d86d6}
+.e-불{background:rgba(214,84,80,.16);color:#d65450}
+.e-바람{background:rgba(74,158,92,.16);color:#4a9e5c}
+.e-빛{background:rgba(217,154,48,.16);color:#d99a30}
+.e-어둠{background:rgba(138,111,208,.16);color:#8a6fd0}
+.e-황혼{background:rgba(201,99,147,.16);color:#c96393}
+.e-여명{background:rgba(165,129,100,.16);color:#a58164}
+.e-악몽{background:rgba(155,106,196,.16);color:#9b6ac4}
+
+/* 넓은 표 (도감 탭) */
+.tbl-wrap table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:560px}
+.tbl-wrap thead tr{background:transparent}
+.tbl-wrap th{padding:9px 8px;text-align:center;font-weight:600;font-size:11.5px;
+  letter-spacing:.05em;color:var(--dimmer);border-bottom:1px solid var(--bd2);white-space:nowrap}
+.tbl-wrap th.left{text-align:left}
+.tbl-wrap td{padding:10px 8px;border-bottom:1px solid var(--border2);
+  vertical-align:middle;color:var(--text);text-align:center}
+.tbl-wrap td.left{text-align:left;white-space:nowrap}
+.tbl-wrap tr:hover td{background:var(--sf2)}
+.dex-elem-icon{width:28px;height:28px;max-width:none;border-radius:4px;object-fit:cover;display:block;margin:0 auto}
+.dex-elem-icon-placeholder{width:28px;height:28px;border-radius:4px;background:var(--sf2);
+  border:1px dashed var(--bd);margin:0 auto}
+.detail-btn{font-size:11.5px;padding:5px 11px;border-radius:4px;border:1px solid var(--bd2);
+  background:var(--sf);color:var(--dim);cursor:pointer;font-weight:600}
+.detail-btn:hover{border-color:var(--gold);color:var(--gold)}
 .td-pc{display:table-cell}
 .td-mobile{display:none}
-@media(max-width:600px){
-  .tbl-wrap table{min-width:0!important}
-  .tbl-wrap thead{display:none}
-  .tbl-wrap tbody tr{display:block;padding:8px;border-bottom:1px solid var(--border2)}
-  .td-pc{display:none!important}
-  .td-mobile{display:flex!important}
-  .row1{align-items:center;gap:8px;margin-bottom:6px}
-  .row2{gap:0;justify-content:space-around;background:var(--bg3);border-radius:6px;padding:5px 0}
-  .row2-cell{text-align:center;flex:1}
-  .row2-cell .r2-label{font-size:10px;color:var(--text3);display:block}
-  .row2-cell .r2-val{font-size:11px;display:block}
-}
-.tbl-wrap table{width:100%;border-collapse:collapse;font-size:12px;background:transparent;min-width:520px}
-.tbl-wrap thead tr{background:var(--bg3)}
-.tbl-wrap th{padding:7px 8px;text-align:center;font-weight:500;color:var(--text2);border-bottom:1px solid var(--border);white-space:nowrap;font-size:11px}
-.tbl-wrap th.left{text-align:left}
-.tbl-wrap td{padding:10px 8px;border-bottom:0.5px solid var(--border2);vertical-align:middle;color:var(--text);text-align:center;background:transparent}
-.tbl-wrap td.left{text-align:left;white-space:nowrap}
-.tbl-wrap tr:hover td{background:var(--bg3)!important}
-.tbl-wrap tbody{background:var(--bg2)}
-.badge-elem{font-size:10px;padding:2px 6px;border-radius:6px;font-weight:500;white-space:nowrap}
-.chk-y{color:#66bb6a !important;font-weight:700;font-size:13px}
-.chk-n{color:#ef5350 !important;font-weight:700;font-size:13px}
-.cd-yes{color:#66bb6a;font-size:11px;font-weight:500}
-.cd-no{color:#ef5350;font-size:11px;font-weight:500}
-.cd-cs{color:#f5c842;font-size:11px;font-weight:500}
-.dex-elem-icon{width:24px;height:24px;border-radius:4px;object-fit:cover;display:block;margin:0 auto}
-.dex-elem-icon-placeholder{width:24px;height:24px;border-radius:4px;background:var(--bg3);border:1px dashed var(--border);margin:0 auto}
-.detail-btn{font-size:10px;padding:2px 8px;border-radius:4px;border:1px solid var(--border3);background:var(--bg3);color:var(--text2);cursor:pointer}
-.detail-btn:hover{background:var(--border);color:var(--text)}
-#modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:1000;align-items:center;justify-content:center}
-#modal-overlay.open{display:flex}
-#modal{background:var(--bg2);border:1px solid var(--border3);border-radius:12px;padding:24px;min-width:280px;max-width:90vw;position:relative}
-#modal-close{position:absolute;top:12px;right:14px;background:none;border:none;color:var(--text2);font-size:18px;cursor:pointer}
-#modal-close:hover{color:var(--text)}
-#modal-title{font-size:16px;font-weight:700;color:var(--text);margin-bottom:16px}
-#modal-body{font-size:13px;color:var(--text2);line-height:1.8}
-.e-땅{background:#fff3e0;color:#e65100}
-.e-물{background:#e3f2fd;color:#1565c0}
-.e-불{background:#fce4ec;color:#b71c1c}
-.e-바람{background:#e8f5e9;color:#1b5e20}
-.e-빛{background:#fffde7;color:#f57f17}
-.e-어둠{background:#ede7f6;color:#4a148c}
-.e-황혼{background:#fdf2f8;color:#880e4f}
-.e-여명{background:#fff8e1;color:#6d4c41}
-.e-악몽{background:#f3e5f5;color:#6a1b9a}
-tr.e-row-땅{background:linear-gradient(90deg,rgba(181,101,29,0.12) 0%,transparent 20%)}
-tr.e-row-물{background:linear-gradient(90deg,rgba(21,101,192,0.12) 0%,transparent 20%)}
-tr.e-row-불{background:linear-gradient(90deg,rgba(183,28,28,0.12) 0%,transparent 20%)}
-tr.e-row-바람{background:linear-gradient(90deg,rgba(27,94,32,0.12) 0%,transparent 20%)}
-tr.e-row-빛{background:linear-gradient(90deg,rgba(230,81,0,0.12) 0%,transparent 20%)}
-tr.e-row-어둠{background:linear-gradient(90deg,rgba(49,27,146,0.12) 0%,transparent 20%)}
-tr.e-row-황혼{background:linear-gradient(90deg,rgba(136,14,79,0.12) 0%,transparent 20%)}
-tr.e-row-여명{background:linear-gradient(90deg,rgba(78,52,46,0.15) 0%,transparent 20%)}
-tr.e-row-악몽{background:linear-gradient(90deg,rgba(74,20,140,0.12) 0%,transparent 20%)}
-tr:hover td{background:var(--bg3)!important}
-#tab-bar a{text-decoration:none}
+.tab-content{display:none}
+.tab-content.active{display:block}
 
+/* 모달 */
+#modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);
+  z-index:1000;align-items:center;justify-content:center;padding:16px}
+#modal-overlay.open{display:flex}
+#modal{background:var(--sf);border:1px solid var(--bd2);border-radius:12px;padding:24px;
+  min-width:280px;max-width:min(90vw,460px);position:relative}
+#modal-close{position:absolute;top:10px;right:12px;background:none;border:none;
+  color:var(--dim);font-size:18px;cursor:pointer;line-height:1;padding:4px 8px}
+#modal-close:hover{color:var(--text)}
+#modal-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:14px}
+#modal-body{font-size:13px;color:var(--text2);line-height:1.8}
+
+@media(max-width:900px){
+  #panels{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+}
+@media(max-width:620px){
+  #panels{grid-template-columns:1fr;gap:12px}
+}
+@media(max-width:600px){
+  .tbl-wrap table{min-width:0 !important}
+  .tbl-wrap thead{display:none}
+  .tbl-wrap tbody tr{display:block;padding:10px 0;border-bottom:1px solid var(--bd)}
+  .tbl-wrap tbody tr:hover td{background:transparent}
+  .tbl-wrap td{border:0;padding:0}
+  .td-pc{display:none !important}
+  .td-mobile{display:flex !important}
+  .row1{align-items:center;gap:9px;margin-bottom:7px}
+  .row2{gap:0;justify-content:space-around;background:var(--sf2);border-radius:6px;padding:7px 0}
+  .row2-cell{text-align:center;flex:1}
+  .row2-cell .r2-label{font-size:11px;color:var(--dim);display:block}
+  .row2-cell .r2-val{font-size:13px;display:block;margin-top:2px}
+}
 </style>
 </head>
-<body>
-<div id="tab-bar">
-  <a href="./index.html" id="site-title">
-  <span class="title-main">메인화면 이동</span>
-</a>
-
-  
-</div>
+<body class="u">
+<div class="u-app">
+<main class="u-wrap full">
+<div class="u-page-t"><h1>초월 등급표</h1><span class="s">속성별 초월 드래곤 등급 · 보유 표시</span></div>
+<div id="tab-bar" class="u-tabs" style="margin-bottom:16px"></div>
 <div id="top">
   
   <div id="search-bar">
     <input id="q" type="text" placeholder="드래곤 이름 검색..." oninput="render()">
   </div>
   <div id="filter-row"></div>
+  <div id="grade-row"></div>
   <div id="count"></div>
 </div>
 
 <div id="panels"></div>
+</main>
+</div>
+<script src="./ui.js"></script>
+<script>UI.shell({page:'tier',title:'초월 등급표',sub:'속성별 등급 · 보유 표시'});</script>
 <script>
 /* ===== 속성 설정 =====
    icon: 속성 아이콘 이미지 경로. 없으면 "" 로 두면 텍스트로 표시 */
@@ -555,8 +539,44 @@ function buildFilters(){
   });
 }
 
+let gMin=null,gMax=null;
+
+function setGrade(mn,mx){
+  gMin=mn;gMax=mx;
+  const a=document.getElementById("g-min"),b=document.getElementById("g-max");
+  if(a)a.value=mn==null?"":mn;
+  if(b)b.value=mx==null?"":mx;
+  render();
+}
+function readGrade(){
+  const a=document.getElementById("g-min"),b=document.getElementById("g-max");
+  const p=v=>{v=String(v).trim();if(!v)return null;const n=parseFloat(v);return isNaN(n)?null:n;};
+  gMin=p(a?a.value:"");gMax=p(b?b.value:"");
+  render();
+}
+function buildGradeRow(){
+  const r=document.getElementById("grade-row");
+  if(!r)return;
+  // 데이터에 있는 등급 범위
+  const all=data.map(d=>d.g).filter(g=>typeof g==="number"&&g>0);
+  const lo=all.length?Math.min(...all):0, hi=all.length?Math.max(...all):7;
+  const presets=[[7,null,"7.0 이상"],[6.5,null,"6.5 이상"],[6,null,"6.0 이상"],[5,5.999,"5점대"],[null,null,"전체"]];
+  const on=(mn,mx)=>gMin===mn&&gMax===mx;
+  r.innerHTML=
+    '<span class="gl">등급</span>'+
+    '<input id="g-min" type="number" step="0.025" min="'+lo+'" max="'+hi+'" placeholder="최소" '+
+      'value="'+(gMin==null?"":gMin)+'" oninput="readGrade()" aria-label="최소 등급">'+
+    '<span class="tilde">~</span>'+
+    '<input id="g-max" type="number" step="0.025" min="'+lo+'" max="'+hi+'" placeholder="최대" '+
+      'value="'+(gMax==null?"":gMax)+'" oninput="readGrade()" aria-label="최대 등급">'+
+    '<span class="gsep"></span>'+
+    presets.map(p=>'<button class="ftag'+(on(p[0],p[1])?" active":"")+'" '+
+      'onclick="setGrade('+(p[0]==null?"null":p[0])+','+(p[1]==null?"null":p[1])+')">'+p[2]+'</button>').join("");
+}
+
 function render(){
   buildFilters();
+  buildGradeRow();
   const q=document.getElementById("q").value.trim();
   const panels=document.getElementById("panels");
   panels.innerHTML="";
@@ -567,6 +587,8 @@ function render(){
     let list=data.filter(d=>d.e===elem);
     if(tTFilters.size>0) list=list.filter(d=>tTFilters.has(d.t));
     if(q) list=list.filter(d=>d.n.includes(q));
+    if(gMin!=null) list=list.filter(d=>d.g>=gMin-1e-9);
+    if(gMax!=null) list=list.filter(d=>d.g<=gMax+1e-9);
     if(!list.length) return;
     list=list.slice().sort((a,b)=>b.g-a.g);
     total+=list.length;
@@ -590,9 +612,9 @@ function render(){
         :`<div class="img-placeholder"></div>`;
       rows+=`<tr class="${d.ex?'ex-true':'ex-false'}">`+`
         <td class="center rank">${i+1}</td>
-        <td class="center" style="width:42px">${imgCell}</td>
+        <td class="center" style="width:52px">${imgCell}</td>
         <td class="center"><span class="badge-type">${d.t}</span></td>
-        <td style="font-size:12px;font-weight:500">${d.n}</td>
+        <td style="font-size:13.5px;font-weight:500">${d.n}</td>
         <td class="center ${d.lv==='O'?'lv-o':'lv-x'}">${d.lv}</td>
         <td class="center ${tierClass(d.g)}">${Number.isInteger(d.g)?d.g.toFixed(1):d.g}</td>
       </tr>`;
@@ -617,7 +639,9 @@ function render(){
     panels.appendChild(panel);
   });
 
-  document.getElementById("count").textContent=`${total}마리`;
+  const rng=(gMin!=null||gMax!=null)
+    ? ` · 등급 ${gMin!=null?gMin:"처음"} ~ ${gMax!=null?gMax:"끝"}` : "";
+  document.getElementById("count").textContent=`${total}마리${rng}`;
 }
 
 render();

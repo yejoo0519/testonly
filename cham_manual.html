@@ -8,40 +8,16 @@
 <script src="./dragon-data.js"></script>
 <script src="./cham-data.js"></script>
 <link id="theme-css" rel="stylesheet" href="./theme-dark.css">
+<link rel="stylesheet" href="./ui.css">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="./theme.js"></script>
 <style>
-[data-theme="dark"]{
-  --bg:#0e1116;--bg2:#161a22;--bg3:#1c212c;
-  --border:#23293a;--border2:#1b1f2a;--border3:#2d3447;
-  --text:#eaecf2;--text2:#b3b9c7;--text3:#7d8597;--text4:#565d6e;
-  --accent:#7aa2f7;--accent-bg:rgba(122,162,247,0.12);--accent-border:rgba(122,162,247,0.30);
-}
-[data-theme="light"]{
-  --bg:#f7f7f8;--bg2:#ffffff;--bg3:#f1f2f4;
-  --border:#e6e7ea;--border2:#eeeff2;--border3:#d4d6db;
-  --text:#15171c;--text2:#4a4d57;--text3:#71757f;--text4:#9aa0aa;
-  --accent:#2f6fed;--accent-bg:rgba(47,111,237,0.10);--accent-border:rgba(47,111,237,0.32);
-}
-[data-theme="beige"]{
-  --bg:#f3ecdd;--bg2:#faf3e2;--bg3:#ebe0c7;
-  --border:#d8caa8;--border2:#e1d4b3;--border3:#c0ad84;
-  --text:#2a2316;--text2:#5a4e34;--text3:#837553;--text4:#a99971;
-  --accent:#b06a1e;--accent-bg:rgba(176,106,30,0.10);--accent-border:rgba(176,106,30,0.32);
-}
-:root{
-  --sf:var(--bg2);--sf2:var(--bg3);--bd:var(--border);
-  --gold:var(--accent);--dim:var(--text3);--dimmer:var(--text4);
-  --red:#f87171;--green:#4ade80;
-  --hpc:#fbbf24;--atc:#f87171;--dfc:#60a5fa;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Nanum Gothic',-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;padding-bottom:60px}
-.hd{display:flex;align-items:center;gap:14px;padding:12px 20px;background:var(--sf);border-bottom:2px solid var(--gold);position:sticky;top:0;z-index:100}
+
 .hd-back{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;border:1px solid var(--bd);background:var(--sf2);color:var(--text2);text-decoration:none;font-size:16px;flex-shrink:0}
 .hd-icon{font-size:26px}.hd-t{font-size:15px;font-weight:800;color:var(--gold)}.hd-s{font-size:11px;color:var(--dim);margin-top:2px}
-.wrap{max-width:1240px;margin:0 auto;padding:14px 20px}
+.wrap{max-width:none;margin:0;padding:0}
 .sec{background:var(--sf);border:1px solid var(--bd);border-radius:8px;margin-bottom:14px;overflow:hidden}
-.sec-hd{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 16px;background:var(--sf2);border-bottom:1px solid var(--bd);font-size:12px;font-weight:800;color:var(--gold)}
+.sec-hd{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:11px 15px;background:transparent;border-bottom:1px solid var(--bd);font-size:13.5px;font-weight:600;color:var(--text)}
 .sec-bd{padding:12px 16px}
 select,input[type=number]{background:var(--sf2);border:1px solid var(--bd);color:var(--text);padding:5px 7px;border-radius:5px;font-family:inherit;font-size:13px;min-width:0}
 select:focus,input:focus{outline:none;border-color:var(--gold)}
@@ -110,25 +86,42 @@ input[type=number]{width:100%}
 .sum-table tr.team-sep td{background:var(--sf2);color:var(--gold);font-weight:800;text-align:left;font-size:11px}
 .sum-scroll{overflow-x:auto}
 .save-msg{font-size:11px;color:var(--green);margin-left:auto;white-space:nowrap}
+
+/* ── 콘솔 레이아웃 보정 ── */
+.pane-top{display:flex;align-items:center;gap:8px;justify-content:flex-end;min-height:20px;margin-bottom:6px}
+.pane-top .save-msg{margin-left:0}
+.u-setpane .sec{background:none;border:0;border-radius:0;margin-bottom:20px;overflow:visible}
+.u-setpane .sec-hd{padding:0 0 10px;border-bottom:1px solid var(--bd);margin-bottom:12px}
+.u-setpane .sec-bd{padding:0}
+.u-setpane .set-blk>.sec:last-child{margin-bottom:0}
+.u-setpane .btn-run,.u-setpane .btn{width:100%}
+.u-setpane .row3{max-width:none}
+.u-main #result:empty::after,.u-main #spx-result:empty::after{
+  content:attr(data-empty);display:block;padding:70px 20px;text-align:center;
+  font-size:13.5px;color:var(--text4);line-height:1.9}
+/* 좁은 화면에서 정령 옵션 줄이 눌리지 않도록 */
+@media(max-width:1180px){
+  .u-setpane .sp2-row{grid-template-columns:26px repeat(3,1fr) 36px 44px;gap:3px}
+  .u-setpane .sp2-row .chip{padding:5px 4px}
+}
+@media(max-width:980px){.u-setpane .sec{margin-bottom:16px}}
 </style>
 </head>
-<body>
-<div class="hd">
-  <a class="hd-back" href="./index.html?tab=calculator">←</a>
-  <div class="hd-icon">🏆</div>
-  <div><div class="hd-t">챔피언대전 수동 계산기</div><div class="hd-s">팀별 드래곤 최종 스탯 · EVAL · 비벨</div></div>
-  <button class="btn" style="margin-left:auto;font-size:12px;white-space:nowrap" onclick="sendToAuto()" id="t-send-auto"></button>
-  <span class="save-msg" id="save-msg" style="margin-left:8px"></span>
-</div>
-
-<div class="wrap">
-  <div class="sec">
+<body class="u">
+<div class="u-app">
+<div class="u-content">
+<aside class="u-setpane" id="setpane">
+<div class="sec">
     <div class="sec-hd"><span id="t-common"></span><button class="btn-red" onclick="resetAll()" id="t-reset"></button></div>
     <div class="sec-bd">
       <div class="lbl" id="t-buff"></div>
       <div class="row3" style="max-width:560px" id="buff-row"></div>
     </div>
   </div>
+  <button class="btn" style="margin-top:4px" onclick="sendToAuto()" id="t-send-auto"></button>
+</aside>
+<main class="u-main" id="mainpane">
+<div class="pane-top"><span class="save-msg" id="save-msg"></span></div>
 
   <div class="team-tabs" id="team-tabs"></div>
   <div class="cards" id="cards"></div>
@@ -137,12 +130,13 @@ input[type=number]{width:100%}
     <div class="sec-hd"><span id="t-summary"></span></div>
     <div class="sec-bd sum-scroll"><table class="sum-table" id="sum-table"></table></div>
   </div>
+</main>
 </div>
 
 <script>
 'use strict';
 const L={lang:'ko',
- saved:'✓ 저장됨',data_missing_t:'데이터 파일을 불러오지 못했어요',data_missing_d:'계산기에 필요한 cham-data.js 파일이 없어요. 사이트 루트에 이 파일이 있는지 확인해주세요.',send_auto:'자동 계산기로 보내기',send_none:'입력된 드래곤이 없어요.',send_confirm:n=>'입력한 드래곤 '+n+'마리를 자동 계산기의 [내 드래곤]에 추가할까요?',send_dup:'추가할 새 드래곤이 없어요. (이미 등록돼 있어요)',send_fail:'저장 실패: ',send_done:n=>n+'마리를 추가했어요. 자동 계산기로 이동할까요?',common:'공통 설정',reset:'↺ 전체 초기화',buff:'속성 버프 (해당 속성 드래곤에 적용) · 컬렉션은 풀컬(240/60/60) 고정',summary:'전체 결과',
+ saved:'저장됨',data_missing_t:'데이터 파일을 불러오지 못했어요',data_missing_d:'계산기에 필요한 cham-data.js 파일이 없어요. 사이트 루트에 이 파일이 있는지 확인해주세요.',send_auto:'자동 계산기로 보내기',send_none:'입력된 드래곤이 없어요.',send_confirm:n=>'입력한 드래곤 '+n+'마리를 자동 계산기의 [내 드래곤]에 추가할까요?',send_dup:'추가할 새 드래곤이 없어요. (이미 등록돼 있어요)',send_fail:'저장 실패: ',send_done:n=>n+'마리를 추가했어요. 자동 계산기로 이동할까요?',common:'공통 설정',reset:'전체 초기화',buff:'속성 버프 (해당 속성 드래곤에 적용) · 컬렉션은 풀컬(240/60/60) 고정',summary:'전체 결과',
  none:'없음',pick_attr:'속성 선택',pick_dragon:'드래곤 선택',pick_type:'타입 선택',no_dragon:'드래곤 미선택',search_ph:'드래곤 이름 검색',type_fixed:'드래곤에 따라 자동 설정',no_result:'검색 결과 없음',
  team:n=>n+'팀',kind_gang:'강림 드래곤',kind_grade:lv=>'등급용 '+lv+'레벨',slot:n=>n+'번',
  dragon:'드래곤',gems:'젬',gem:'젬',gem_lv:l=>l+'단계',pendant:'펜던트',acc:'장신구',potion_enc:'물약 · 인첸트',enc:'인첸트',enc_none:'인첸트 없음',
@@ -535,5 +529,8 @@ document.addEventListener('DOMContentLoaded',()=>{
   new MutationObserver(sync).observe(document.head,{childList:true,subtree:true,characterData:true});
 })();
 </script>
+</div>
+<script src="./ui.js"></script>
+<script>UI.shell({page:'cham_manual',title:'챔피언대전',sub:'수동 계산기'});</script>
 </body>
 </html>

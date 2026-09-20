@@ -6,12 +6,11 @@
 <title>드래곤빌리지1 비밸 시뮬레이터</title>
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
 <link id="theme-css" rel="stylesheet" href="./theme-dark.css">
+<link rel="stylesheet" href="./ui.css">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="./theme.js"></script>
 <style>
 
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Nanum Gothic',-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px}
-.hd{display:flex;align-items:center;gap:14px;padding:12px 20px;background:var(--sf);border-bottom:2px solid var(--gold);position:sticky;top:0;z-index:100}
 .hd-icon{font-size:26px}.hd-t{font-size:15px;font-weight:800;color:var(--gold)}.hd-s{font-size:11px;color:var(--dim);margin-top:2px}
 .tabs{display:flex;background:var(--sf);border-bottom:1px solid var(--bd);position:sticky;top:50px;z-index:99}
 .tab-btn{flex:1;padding:12px 20px;background:none;border:none;border-bottom:3px solid transparent;color:var(--dim);font-family:'Nanum Gothic',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .15s}
@@ -19,7 +18,7 @@ body{font-family:'Nanum Gothic',-apple-system,sans-serif;background:var(--bg);co
 .tc{display:none}.tc.active{display:block}
 .ti{max-width:100%;padding:14px 24px}.ti-sim{max-width:1200px;margin:0 auto;padding:14px 24px}
 .sec{background:var(--sf);border:1px solid var(--bd);border-radius:8px;margin-bottom:14px;overflow:hidden}
-.sec-hd{display:flex;align-items:center;justify-content:space-between;padding:9px 16px;background:var(--sf2);border-bottom:1px solid var(--bd);font-size:11px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:.5px}
+.sec-hd{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:11px 15px;background:transparent;border-bottom:1px solid var(--bd);font-size:13.5px;font-weight:600;color:var(--text)}
 .sec-bd{padding:14px 16px}
 select,input[type=number],input[type=text]{background:var(--sf2);border:1px solid var(--bd);color:var(--text);padding:5px 9px;border-radius:5px;font-family:'Nanum Gothic',sans-serif;font-size:13px}
 select:focus,input:focus{outline:none;border-color:var(--gold)}
@@ -92,7 +91,7 @@ select:disabled,input:disabled{opacity:.3;cursor:not-allowed}
 .btn-grp button.active{background:rgba(232,184,75,.12);border-color:var(--gold);color:var(--gold)}
 .radio-opts label{display:flex;align-items:center;gap:7px;cursor:pointer;font-size:13px;margin-bottom:5px}
 .radio-opts input[type=radio]{accent-color:var(--gold)}
-.btn-sim{width:100%;padding:14px;background:linear-gradient(135deg,var(--gold2),var(--gold));border:none;border-radius:8px;color:#0a0c18;font-family:'Nanum Gothic',sans-serif;font-size:16px;font-weight:800;cursor:pointer;margin:12px 0;letter-spacing:-.5px;transition:opacity .15s,transform .1s}
+.btn-sim{width:100%;padding:14px;background:var(--gold);border:none;border-radius:8px;color:#12151c;font-family:'Nanum Gothic',sans-serif;font-size:16px;font-weight:800;cursor:pointer;margin:12px 0;letter-spacing:-.5px;transition:opacity .15s,transform .1s}
 .btn-sim:hover{opacity:.92}.btn-sim:active{transform:scale(.99)}.btn-sim:disabled{opacity:.5;cursor:not-allowed}
 .res-wrap{overflow-x:auto}
 table.rtbl{width:100%;border-collapse:collapse;min-width:640px}
@@ -154,33 +153,7 @@ input[type=number]{-moz-appearance:textfield}
 .res-tab-btn{padding:9px 18px;background:none;border:none;border-bottom:3px solid transparent;color:var(--dim);font-family:'Nanum Gothic',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s}
 .res-tab-btn.active{color:var(--gold);border-bottom-color:var(--gold)}
 
-[data-theme="dark"]{
-  --bg:#0e1116;--bg2:#161a22;--bg3:#1c212c;
-  --border:#23293a;--border2:#1b1f2a;--border3:#2d3447;
-  --text:#eaecf2;--text2:#b3b9c7;--text3:#7d8597;--text4:#565d6e;
-  --accent:#7aa2f7;--accent-bg:rgba(122,162,247,0.12);--accent-border:rgba(122,162,247,0.30);
-}
-[data-theme="light"]{
-  --bg:#f7f7f8;--bg2:#ffffff;--bg3:#f1f2f4;
-  --border:#e6e7ea;--border2:#eeeff2;--border3:#d4d6db;
-  --text:#15171c;--text2:#4a4d57;--text3:#71757f;--text4:#9aa0aa;
-  --accent:#2f6fed;--accent-bg:rgba(47,111,237,0.10);--accent-border:rgba(47,111,237,0.32);
-}
-[data-theme="beige"]{
-  --bg:#f3ecdd;--bg2:#faf3e2;--bg3:#ebe0c7;
-  --border:#d8caa8;--border2:#e1d4b3;--border3:#c0ad84;
-  --text:#2a2316;--text2:#5a4e34;--text3:#837553;--text4:#a99971;
-  --accent:#b06a1e;--accent-bg:rgba(176,106,30,0.10);--accent-border:rgba(176,106,30,0.32);
-}
 /* spec 커스텀 변수 → 테마 변수로 매핑 */
-:root{
-  --sf:var(--bg2);--sf2:var(--bg3);--bd:var(--border);
-  --gold:var(--accent);--gold2:var(--accent);
-  --dim:var(--text3);--dimmer:var(--text4);
-  --red:#f87171;--green:#4ade80;--blue:#60a5fa;
-  --hpc:#fbbf24;--atc:#f87171;--dfc:#60a5fa;
-}
-
 /* ── 스펙 보기 전용 ── */
 .sv-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px}
 .sv-badge{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(100,200,100,.12);color:#4ade80;border:1px solid rgba(74,222,128,.25);font-weight:800}
@@ -214,42 +187,23 @@ input[type=number]{-moz-appearance:textfield}
 .ss-edit-btn{background:none;border:1px solid var(--gold);color:var(--gold);padding:4px 12px;border-radius:5px;cursor:pointer;font-family:inherit;font-size:12px;font-weight:700;white-space:nowrap;transition:background .15s}
 .ss-edit-btn:hover{background:var(--accent-bg)}
 @media(max-width:700px){.sv-grid{grid-template-columns:1fr}}
+
+/* ── 콘솔 레이아웃 보정 ── */
+.u-setpane .sec{background:none;border:0;border-radius:0;margin-bottom:18px;overflow:visible}
+.u-setpane .sec-hd{padding:0 0 10px;border-bottom:1px solid var(--bd);margin-bottom:12px}
+.u-setpane .sec-bd{padding:0}
+.u-setpane .sim-cfg{display:flex;flex-direction:column;gap:16px}
+.u-setpane .btn-sim{width:100%;margin:0}
+.u-main .ti,.u-main .ti-sim,.u-main .ti-dragon{max-width:none;margin:0;padding:0}
+.u-main #res-sec{margin-top:0}
 </style>
 </head>
-<body>
-
-<div class="hd">
-  <a href="./index.html?tab=calculator" style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;border:1px solid var(--bd);background:var(--sf2);color:var(--text2);text-decoration:none;font-size:16px;flex-shrink:0;transition:all 0.15s" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--text)'" onmouseout="this.style.borderColor='var(--bd)';this.style.color='var(--text2)'">←</a>
-  <div class="hd-icon">🐉</div>
-  <div><div class="hd-t">드래곤빌리지1 정령 시뮬레이터</div><div class="hd-s">비밸(체력 × 공격 × 방어) 최적화</div></div>
-  <div style="margin-left:auto;font-size:12px;color:var(--text);text-align:right">Made by 리레프<br>
-</div>
-</div>
-
-<div class="tabs">
-  <button class="tab-btn active" id="tab-btn-spec" onclick="switchTab('spec')">내 스펙</button>
-  <button class="tab-btn" id="tab-btn-sim" onclick="switchTab('sim')">시뮬레이터</button>
-</div>
-
-<!-- ■ 내 스펙 탭 (보기 전용) -->
-<div id="tab-spec" class="tc active"><div class="ti">
-  <div class="spec-spirit" id="spec-spirit-wrap">
-    <div class="sec">
-      <div class="sec-hd">
-        <span>✨ 정령</span>
-        <button class="btn-reset" onclick="resetSpirit()">↺</button>
-      </div>
-      <div class="sec-bd" id="sp-bd"></div>
-    </div>
-  </div>
-  <div id="spec-view-wrap"><!-- renderSpecView()로 채워짐 --></div>
-</div></div>
-
-<!-- ■ 시뮬레이터 탭 -->
-<div id="tab-sim" class="tc"><div class="ti ti-sim">
-
-  <div class="sec">
-    <div class="sec-hd">⚙ 시뮬레이션 설정</div>
+<body class="u">
+<div class="u-app">
+<div class="u-content">
+<aside class="u-setpane" id="setpane">
+<div class="sec">
+    <div class="sec-hd">시뮬레이션 설정</div>
     <div class="sec-bd">
       <div class="sim-cfg">
         <div>
@@ -284,10 +238,27 @@ input[type=number]{-moz-appearance:textfield}
     <input type="checkbox" id="exc-sun-pend" style="accent-color:var(--gold)"> 태펜 제외
   </label>
   </div>
-  <button class="btn-sim" id="sim-btn" onclick="runSim()">🐉 시뮬레이션 실행</button>
+<button class="btn-sim" id="sim-btn" onclick="runSim()">시뮬레이션 실행</button>
+</aside>
+<main class="u-main" id="mainpane">
+<!-- ■ 내 스펙 탭 (보기 전용) -->
+<div id="tab-spec" class="tc active"><div class="ti">
+  <div class="spec-spirit" id="spec-spirit-wrap">
+    <div class="sec">
+      <div class="sec-hd">
+        <span>정령</span>
+        <button class="btn-reset" onclick="resetSpirit()">초기화</button>
+      </div>
+      <div class="sec-bd" id="sp-bd"></div>
+    </div>
+  </div>
+  <div id="spec-view-wrap"><!-- renderSpecView()로 채워짐 --></div>
+</div></div>
 
-  <div class="sec" id="res-sec" style="display:none">
-  <div class="sec-hd">🏆 시뮬레이션 결과 — TOP 10</div>
+<!-- ■ 시뮬레이터 탭 -->
+<div id="tab-sim" class="tc"><div class="ti ti-sim">
+<div class="sec" id="res-sec" style="display:none">
+  <div class="sec-hd">시뮬레이션 결과 — TOP 10</div>
   <div style="display:flex;border-bottom:1px solid var(--bd)">
     <button class="res-tab-btn" id="res-tab-btn-avg" onclick="switchResTab('avg')">최종 점수</button>
     <button class="res-tab-btn" id="res-tab-btn-top" onclick="switchResTab('top')">최고 B-Val</button>
@@ -602,7 +573,7 @@ function doSave(){
   clearTimeout(saveT);
   localStorage.setItem(SAVE_KEY,JSON.stringify(S));
   const el=document.getElementById('save-msg');
-  if(el){el.textContent='✓ 저장됨';setTimeout(()=>el.textContent='',2000);}
+  if(el){el.textContent='저장됨';setTimeout(()=>el.textContent='',2000);}
 }
 function qSave(){clearTimeout(saveT);saveT=setTimeout(doSave,1200);}
 function resetAll(){
@@ -1125,15 +1096,15 @@ function renderSpecView(){
   if(col.def)colP.push(`<span class="sv-gem-def">방 +${col.def}</span>`);
   const colH=colP.length?colP.join('<span style="color:var(--dim)"> · </span>'):`<span class="sv-empty">0</span>`;
 
-  el.innerHTML=`<div class="sv-header"><div style="display:flex;align-items:center;gap:10px"><span style="font-size:15px;font-weight:800">📋 내 스펙</span><span class="sv-badge">보기 전용</span></div><a href="./my.html" class="sv-edit-btn">✏️ my.html에서 수정 →</a></div>
+  el.innerHTML=`<div class="sv-header"><div style="display:flex;align-items:center;gap:10px"><span style="font-size:15px;font-weight:800">내 스펙</span><span class="sv-badge">보기 전용</span></div><a href="./my.html" class="sv-edit-btn">my.html에서 수정 →</a></div>
   <div class="sv-grid">
     <div>
-      <div class="sv-sec"><div class="sv-sec-hd">💎 젬 보유량</div><div class="sv-sec-bd">${gemH}</div></div>
-      <div class="sv-sec"><div class="sv-sec-hd">📚 콜렉션</div><div class="sv-sec-bd"><div class="sv-coll-row">${colH}</div></div></div>
+      <div class="sv-sec"><div class="sv-sec-hd">젬 보유량</div><div class="sv-sec-bd">${gemH}</div></div>
+      <div class="sv-sec"><div class="sv-sec-hd">콜렉션</div><div class="sv-sec-bd"><div class="sv-coll-row">${colH}</div></div></div>
     </div>
     <div>
-      <div class="sv-sec"><div class="sv-sec-hd">💍 장신구 (${accs.length}개)</div><div class="sv-sec-bd" style="max-height:260px;overflow-y:auto">${accH}</div></div>
-      <div class="sv-sec"><div class="sv-sec-hd">🌙 펜던트 (${pends.length}개)</div><div class="sv-sec-bd" style="max-height:220px;overflow-y:auto">${pendH}</div></div>
+      <div class="sv-sec"><div class="sv-sec-hd">장신구 (${accs.length}개)</div><div class="sv-sec-bd" style="max-height:260px;overflow-y:auto">${accH}</div></div>
+      <div class="sv-sec"><div class="sv-sec-hd">펜던트 (${pends.length}개)</div><div class="sv-sec-bd" style="max-height:220px;overflow-y:auto">${pendH}</div></div>
     </div>
   </div>`;
 }
@@ -1171,15 +1142,18 @@ function renderSpecSummary(targetId){
   if(col.hp)colP2.push(`<span class="ss-gem-hp">체+${col.hp}</span>`);
   if(col.atk)colP2.push(`<span class="ss-gem-atk">공+${col.atk}</span>`);
   if(col.def)colP2.push(`<span class="ss-gem-def">방+${col.def}</span>`);
-  el.innerHTML=`<div class="spec-summary"><div class="spec-summary-hd"><span>📋 현재 스펙</span><button class="ss-edit-btn" onclick="switchTab('spec')">✏️ 스펙 수정</button></div><div class="spec-summary-bd"><div class="ss-row"><span class="ss-lbl">💎 젬</span><span class="ss-val">${gemP.length?gemP.join(' '):'<span class="ss-empty">없음</span>'}</span></div><div class="ss-row"><span class="ss-lbl">💍 장신구</span><span class="ss-val">${accP.length?accP.join('<br>'):'<span class="ss-empty">없음</span>'}</span></div><div class="ss-row"><span class="ss-lbl">🌙 펜던트</span><span class="ss-val">${pendP.length?pendP.join('<br>'):'<span class="ss-empty">없음</span>'}</span></div><div class="ss-row"><span class="ss-lbl">📚 콜렉션</span><span class="ss-val">${colP2.length?colP2.join(' · '):'<span class="ss-empty">0</span>'}</span></div></div></div>`;
+  el.innerHTML=`<div class="spec-summary"><div class="spec-summary-hd"><span>현재 스펙</span><button class="ss-edit-btn" onclick="switchTab('spec')">스펙 수정</button></div><div class="spec-summary-bd"><div class="ss-row"><span class="ss-lbl">젬</span><span class="ss-val">${gemP.length?gemP.join(' '):'<span class="ss-empty">없음</span>'}</span></div><div class="ss-row"><span class="ss-lbl">장신구</span><span class="ss-val">${accP.length?accP.join('<br>'):'<span class="ss-empty">없음</span>'}</span></div><div class="ss-row"><span class="ss-lbl">펜던트</span><span class="ss-val">${pendP.length?pendP.join('<br>'):'<span class="ss-empty">없음</span>'}</span></div><div class="ss-row"><span class="ss-lbl">콜렉션</span><span class="ss-val">${colP2.length?colP2.join(' · '):'<span class="ss-empty">0</span>'}</span></div></div></div>`;
 }
 
 function switchTab(t){
-  if(t==='spec'){renderSpecView();}
-  ['spec','sim'].forEach(x=>{
-    document.getElementById(`tab-${x}`).classList.toggle('active',x===t);
-    document.getElementById(`tab-btn-${x}`).classList.toggle('active',x===t);
+  if(t==='spec'){try{renderSpecView();}catch(e){}}
+  ['spec','dragon','sim'].forEach(x=>{
+    const c=document.getElementById('tab-'+x); if(c)c.classList.toggle('active',x===t);
+    const bt=document.getElementById('tab-btn-'+x); if(bt)bt.classList.toggle('active',x===t);
   });
+  const pane=document.getElementById('setpane');
+  if(pane)pane.style.display=(t==='sim')?'':'none';
+  if(window.UI&&UI.task&&!switchTab._q){switchTab._q=1;UI.task(t);switchTab._q=0;}
 }
 
 function setGrade(g){
@@ -1311,7 +1285,7 @@ function runSim(){
       switchResTab('avg');
       rs.scrollIntoView({behavior:'smooth',block:'start'});
     }catch(e){console.error(e);alert('오류: '+e.message);}
-    btn.disabled=false;btn.textContent='🐉 시뮬레이션 실행';
+    btn.disabled=false;btn.textContent='시뮬레이션 실행';
   },20);
 }
 
@@ -1527,7 +1501,7 @@ function fmtPendMob(pend){
 function renderResTop(top10){
   const el=document.getElementById('res-body-top');
   if(!top10.length){el.innerHTML='<div style="padding:30px;text-align:center;color:var(--dim)">결과 없음</div>';return;}
-  const medals=['🥇','🥈','🥉'];
+  const medals=['','',''];
   // 모바일용 카드
   let mobHtml='<div class="mob-only">';
   // PC용 테이블
@@ -1627,7 +1601,7 @@ function toggleAvgDetail(i){
 }
 
 function renderAvgDetail(r){
-  const medals=['🥇','🥈','🥉'];
+  const medals=['','',''];
   let mobHtml='<div class="mob-only" style="padding:10px 0;background:var(--sf2)">';
   let pcHtml='<div class="pc-only" style="padding:10px 16px;background:var(--sf2)">';
   r.bufResults.forEach(buf=>{
@@ -1723,5 +1697,16 @@ document.addEventListener('DOMContentLoaded',function(){init();try{renderSpecVie
 </script>
 <script src="./sb_config.js"></script>
 <script src="./spec_sync.js"></script>
+</main>
+</div>
+</div>
+<script src="./ui.js"></script>
+<script>
+UI.shell({page:'calculator',title:'정령 시뮬레이터',sub:'비벨(체력 × 공격 × 방어) 최적화',foot:'<div style="font-size:11.5px;color:var(--text4)">Made by 리레프</div>',tasks:{
+  on:'spec', items:[['spec','내 스펙'],['sim','시뮬레이터']],
+  go:function(k){ if(typeof switchTab==='function') switchTab(k); }
+}});
+if(typeof switchTab==='function') switchTab('spec');
+</script>
 </body>
 </html>

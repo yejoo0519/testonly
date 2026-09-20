@@ -7,13 +7,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
 <script src="./dragon-data.js"></script>
 <link id="theme-css" rel="stylesheet" href="./theme-dark.css">
+<link rel="stylesheet" href="./ui.css">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="./theme.js"></script>
 <script src="./sb_config.js"></script>
 <style>
 
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Nanum Gothic',-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px}
-.hd{display:flex;align-items:center;gap:14px;padding:12px 20px;background:var(--sf);border-bottom:2px solid var(--gold);position:sticky;top:0;z-index:100}
 .hd-icon{font-size:26px}.hd-t{font-size:15px;font-weight:800;color:var(--gold)}.hd-s{font-size:11px;color:var(--dim);margin-top:2px}
 .tabs{display:flex;background:var(--sf);border-bottom:1px solid var(--bd);position:sticky;top:50px;z-index:99}
 .tab-btn{flex:1;padding:12px 20px;background:none;border:none;border-bottom:3px solid transparent;color:var(--dim);font-family:'Nanum Gothic',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .15s}
@@ -22,7 +21,7 @@ body{font-family:'Nanum Gothic',-apple-system,sans-serif;background:var(--bg);co
 .ti{max-width:100%;padding:14px 24px}.ti-sim{max-width:1200px;margin:0 auto;padding:14px 24px}
 .ti-dragon{max-width:1240px;margin:0 auto;padding:14px 24px}
 .sec{background:var(--sf);border:1px solid var(--bd);border-radius:8px;margin-bottom:14px;overflow:hidden}
-.sec-hd{display:flex;align-items:center;justify-content:space-between;padding:9px 16px;background:var(--sf2);border-bottom:1px solid var(--bd);font-size:11px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:.5px}
+.sec-hd{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:11px 15px;background:transparent;border-bottom:1px solid var(--bd);font-size:13.5px;font-weight:600;color:var(--text)}
 .sec-bd{padding:14px 16px}
 select,input[type=number],input[type=text]{background:var(--sf2);border:1px solid var(--bd);color:var(--text);padding:5px 9px;border-radius:5px;font-family:'Nanum Gothic',sans-serif;font-size:13px}
 select:focus,input:focus{outline:none;border-color:var(--gold)}
@@ -109,7 +108,7 @@ select:disabled,input:disabled{opacity:.3;cursor:not-allowed}
 .buff-setting-lbl{font-size:11px;color:var(--text);font-weight:800}
 .buff-setting-cell select{width:100%;max-width:150px;text-align:center}
 .buff-attr-icon{width:48px;height:48px;object-fit:contain}
-.btn-sim{width:100%;padding:14px;background:linear-gradient(135deg,var(--gold2),var(--gold));border:none;border-radius:8px;color:#0a0c18;font-family:'Nanum Gothic',sans-serif;font-size:16px;font-weight:800;cursor:pointer;margin:12px 0;letter-spacing:-.5px;transition:opacity .15s,transform .1s}
+.btn-sim{width:100%;padding:14px;background:var(--gold);border:none;border-radius:8px;color:#12151c;font-family:'Nanum Gothic',sans-serif;font-size:16px;font-weight:800;cursor:pointer;margin:12px 0;letter-spacing:-.5px;transition:opacity .15s,transform .1s}
 .btn-sim:hover{opacity:.92}.btn-sim:active{transform:scale(.99)}.btn-sim:disabled{opacity:.5;cursor:not-allowed}
 .res-wrap{overflow-x:auto}
 table.rtbl{width:100%;border-collapse:collapse;min-width:640px}
@@ -254,33 +253,7 @@ input[type=number]{appearance:textfield;-moz-appearance:textfield}
 .res-tab-btn{padding:9px 18px;background:none;border:none;border-bottom:3px solid transparent;color:var(--dim);font-family:'Nanum Gothic',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s}
 .res-tab-btn.active{color:var(--gold);border-bottom-color:var(--gold)}
 
-[data-theme="dark"]{
-  --bg:#0e1116;--bg2:#161a22;--bg3:#1c212c;
-  --border:#23293a;--border2:#1b1f2a;--border3:#2d3447;
-  --text:#eaecf2;--text2:#b3b9c7;--text3:#7d8597;--text4:#565d6e;
-  --accent:#7aa2f7;--accent-bg:rgba(122,162,247,0.12);--accent-border:rgba(122,162,247,0.30);
-}
-[data-theme="light"]{
-  --bg:#f7f7f8;--bg2:#ffffff;--bg3:#f1f2f4;
-  --border:#e6e7ea;--border2:#eeeff2;--border3:#d4d6db;
-  --text:#15171c;--text2:#4a4d57;--text3:#71757f;--text4:#9aa0aa;
-  --accent:#2f6fed;--accent-bg:rgba(47,111,237,0.10);--accent-border:rgba(47,111,237,0.32);
-}
-[data-theme="beige"]{
-  --bg:#f3ecdd;--bg2:#faf3e2;--bg3:#ebe0c7;
-  --border:#d8caa8;--border2:#e1d4b3;--border3:#c0ad84;
-  --text:#2a2316;--text2:#5a4e34;--text3:#837553;--text4:#a99971;
-  --accent:#b06a1e;--accent-bg:rgba(176,106,30,0.10);--accent-border:rgba(176,106,30,0.32);
-}
 /* spec 커스텀 변수 → 테마 변수로 매핑 */
-:root{
-  --sf:var(--bg2);--sf2:var(--bg3);--bd:var(--border);
-  --gold:var(--accent);--gold2:var(--accent);
-  --dim:var(--text3);--dimmer:var(--text4);
-  --red:#f87171;--green:#4ade80;--blue:#60a5fa;
-  --hpc:#fbbf24;--atc:#f87171;--dfc:#60a5fa;
-}
-
 .sv-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px}
 .sv-badge{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(100,200,100,.12);color:#4ade80;border:1px solid rgba(74,222,128,.25);font-weight:800}
 .sv-edit-btn{background:none;border:1px solid var(--gold);color:var(--gold);padding:7px 16px;border-radius:6px;cursor:pointer;font-family:inherit;font-size:13px;font-weight:700;text-decoration:none;display:inline-block;transition:background .15s}
@@ -301,24 +274,158 @@ input[type=number]{appearance:textfield;-moz-appearance:textfield}
 .sv-coll-row{display:flex;justify-content:space-around;padding:8px 0;font-size:13px;font-weight:700}
 .sv-empty{color:var(--dimmer);font-style:italic;font-size:12px;padding:8px 0;text-align:center}
 @media(max-width:700px){.sv-grid{grid-template-columns:1fr}}
+
+/* ── 내 용 정보: 레일 + 속성 그룹 표 ──────────────────────── */
+.dr-split{display:flex;gap:0;border:1px solid var(--bd);border-radius:10px;background:var(--sf);overflow:hidden}
+.dr-rail{width:186px;flex-shrink:0;border-right:1px solid var(--bd);padding:14px 10px;display:flex;flex-direction:column;gap:2px}
+.dr-rail-t{font-size:11px;letter-spacing:.1em;color:var(--dimmer);font-weight:600;padding:0 8px 7px}
+.dr-rail-i{display:flex;align-items:center;gap:8px;padding:7px 9px;border:0;border-radius:7px;background:transparent;
+  color:var(--text);font-family:inherit;font-size:13px;cursor:pointer;text-align:left;width:100%}
+.dr-rail-i img{width:17px;height:17px;object-fit:contain;flex-shrink:0;max-width:none}
+.dr-rail-i .n{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--dim)}
+.dr-rail-i:hover{background:var(--sf2)}
+.dr-rail-i.off{color:var(--text4)}
+.dr-rail-i.off .n{color:var(--text4)}
+.dr-rail-i.on{background:var(--accent-bg);color:var(--gold);font-weight:600}
+.dr-main{flex-grow:1;min-width:0}
+.dr-empty{padding:40px 16px;text-align:center;color:var(--dim);font-size:13px}
+
+.dr-tbl{width:100%;border-collapse:collapse}
+.dr-tbl td{padding:9px 12px;border-bottom:1px solid var(--border2);vertical-align:middle;font-size:13.5px}
+.dr-tbl tr:last-child td{border-bottom:0}
+.dr-tbl .c-bar{width:5px;padding:0}
+.dr-tbl .grp-row td{padding:0;border-bottom:1px solid var(--bd)}
+.grp-bar{display:flex;align-items:center;gap:9px;padding:8px 12px;background:var(--sf2);border-top:1px solid var(--bd)}
+.grp-bar .bar{width:3px;height:17px;border-radius:2px;flex-shrink:0}
+.grp-bar img{width:20px;height:20px;object-fit:contain;flex-shrink:0;max-width:none}
+.grp-bar .nm{font-size:13px;font-weight:600;color:var(--text)}
+.grp-bar .cnt{font-size:11.5px;color:var(--dim)}
+.grp-bar .acts{margin-left:auto;display:flex;gap:6px}
+.grp-bar .acts button{padding:3px 10px;font-size:11.5px}
+.dr-tbl .dr-row{cursor:pointer}
+.dr-tbl .dr-row:hover td{background:var(--sf2)}
+.dr-tbl .dr-row.on td{background:var(--accent-bg)}
+.dr-tbl .c-name{min-width:0}
+.dr-tbl .c-name .nw{display:flex;align-items:center;gap:10px;min-width:0}
+.dr-tbl .c-name .dr-img{width:34px;height:34px;object-fit:contain;flex-shrink:0;max-width:none;display:block}
+.dr-tbl .c-name .t{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dr-tbl .dupe-i{flex-shrink:0;padding:2px 7px;border:1px solid var(--bd);border-radius:5px;font-size:11px;color:var(--dim)}
+.dr-tbl .c-sub{width:210px;color:var(--text2);font-size:12.5px;white-space:nowrap}
+.dr-tbl .c-sp{white-space:nowrap}
+.dr-tbl .c-act{width:40px;white-space:nowrap}
+.dr-tbl .c-act .icon-btn{display:inline-flex;vertical-align:middle}
+.dr-tbl .c-caret{width:26px;color:var(--dimmer);font-size:11px;text-align:center}
+.dr-tbl .dim{color:var(--text4)}
+.dr-tbl .warn-i{margin-left:8px;font-size:11.5px;color:var(--red)}
+.dr-tbl .dr-editrow>td{background:var(--bg);padding:0}
+.dr-tbl .dr-editrow .dragon-card{margin:0;border:0;border-radius:0;background:transparent}
+
+.icon-btn{background:none;border:1px solid var(--bd);color:var(--dim);width:26px;height:26px;border-radius:6px;
+  cursor:pointer;font-size:12px;font-family:inherit;display:flex;align-items:center;justify-content:center;padding:0}
+.icon-btn:hover{border-color:var(--gold);color:var(--gold)}
+.icon-btn.red:hover{border-color:var(--red);color:var(--red)}
+
+.sp-chips{display:inline-flex;gap:3px;align-items:center}
+.sp-chip{min-width:26px;height:22px;padding:0 5px;display:inline-flex;align-items:center;justify-content:center;
+  border-radius:5px;font-size:11px;font-weight:600}
+.sp-chip.hp{background:rgba(251,191,36,.14);color:var(--hpc)}
+.sp-chip.atk{background:rgba(248,113,113,.14);color:var(--atc)}
+.sp-chip.def{background:rgba(96,165,250,.14);color:var(--dfc)}
+.sp-chip.none{border:1px dashed var(--border3);color:var(--text4)}
+.sp-chip.bn{border:1px solid currentColor;background:none}
+
+.dr-mo{display:none}
+.mo-grp{display:flex;align-items:center;gap:8px;padding:8px 11px;margin:12px 0 7px;border-radius:8px;background:var(--sf2)}
+.mo-grp .bar{width:3px;height:16px;border-radius:2px;flex-shrink:0}
+.mo-grp img{width:19px;height:19px;object-fit:contain;flex-shrink:0;max-width:none}
+.mo-grp .nm{font-size:13px;font-weight:600}
+.mo-grp .cnt{font-size:11.5px;color:var(--dim)}
+.mo-grp .btn{margin-left:auto;padding:4px 12px;font-size:13px;background:none;border:1px solid var(--bd);
+  border-radius:6px;color:var(--text);font-family:inherit;cursor:pointer}
+.mo-list{display:flex;flex-direction:column;gap:6px}
+.mo-row{display:flex;align-items:center;gap:9px;width:100%;padding:11px 12px 11px 0;border:1px solid var(--bd);
+  border-radius:10px;background:var(--sf);color:var(--text);font-family:inherit;text-align:left;cursor:pointer;overflow:hidden}
+.mo-row .bar{width:4px;align-self:stretch;flex-shrink:0}
+.mo-row .dr-img{width:34px;height:34px;object-fit:contain;flex-shrink:0;max-width:none}
+.mo-row .tx{flex-grow:1;min-width:0}
+.mo-row .tx .t{display:block;font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mo-row .tx .s{display:block;font-size:11.5px;color:var(--dim);margin-top:2px}
+.dr-scrim{display:none;position:fixed;inset:0;background:rgba(6,8,11,.62);z-index:90}
+.dr-sheet{display:none;position:fixed;left:0;right:0;bottom:0;max-height:88vh;z-index:91;flex-direction:column;
+  background:var(--sf);border-top:1px solid var(--border3);border-radius:18px 18px 0 0}
+.dr-sheet-grab{align-self:center;width:38px;height:4px;border-radius:99px;background:var(--border3);margin:9px 0 4px}
+.dr-sheet-hd{display:flex;align-items:center;gap:10px;padding:8px 16px 13px;border-bottom:1px solid var(--bd)}
+.dr-sheet-hd .dr-img{width:38px;height:38px;object-fit:contain;flex-shrink:0;max-width:none}
+.dr-sheet-hd .t{font-size:15.5px;font-weight:600}
+.dr-sheet-hd .s{font-size:11.5px;color:var(--dim);margin-top:1px}
+.dr-sheet-hd .icon-btn{margin-left:auto}
+.dr-sheet-bd{flex-grow:1;min-height:0;overflow-y:auto}
+.dr-sheet-bd .dragon-card{margin:0;border:0;border-radius:0;background:transparent}
+.dr-sheet-ft{padding:11px 16px calc(14px + env(safe-area-inset-bottom));border-top:1px solid var(--bd)}
+.dr-sheet-ft .btn-sim{width:100%;margin:0}
+
+@media(max-width:900px){.dr-tbl .c-sub{width:auto}}
+@media(max-width:760px){
+  .dr-split{display:none}
+  .dr-mo{display:block}
+  .dr-scrim{display:block}
+  .dr-sheet{display:flex}
+  /* 섹션 머리의 버튼들이 한 줄에 다 안 들어가므로 접어 내립니다 */
+  .sec-hd{flex-wrap:wrap;row-gap:8px}
+  .sec-hd>span:first-child{flex-basis:100%}
+  .sec-hd>div{display:flex;flex-wrap:wrap;gap:6px}
+  .sec-hd .dragon-view-toggle,.sec-hd .btn-white,.sec-hd .btn-reset{flex:0 0 auto}
+  /* 시트 안 입력줄 */
+  .dr-sheet .dragon-card-hd{display:flex;flex-wrap:wrap;gap:8px}
+  .dr-sheet .dragon-card-hd .dragon-name-cell{width:100%}
+  .dr-sheet .dragon-card-hd .dragon-dupe-check{margin-left:0}
+  .dr-sheet .dragon-card-hd .readonly-field,.dr-sheet .dragon-card-hd select{flex:1;min-width:88px}
+  .dr-sheet .dragon-card-hd .dragon-delete-btn{width:100%}
+  .dr-sheet .dragon-preset-row{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px}
+  .dr-sheet .dragon-preset-row>*{flex:0 0 auto}
+  .dr-sheet .dragon-spirit-grid{display:grid;grid-template-columns:1fr;gap:7px}
+  .dr-sheet .sp-ocard{display:grid;grid-template-columns:38px 1fr 1fr 52px;gap:6px;align-items:center}
+  .dr-sheet .sp-ocard select{padding:11px 8px;font-size:13.5px}
+}
+
+/* ── 콘솔 레이아웃 보정 ── */
+.u-setpane .sec{background:none;border:0;border-radius:0;margin-bottom:18px;overflow:visible}
+.u-setpane .sec-hd{padding:0 0 10px;border-bottom:1px solid var(--bd);margin-bottom:12px}
+.u-setpane .sec-bd{padding:0}
+.u-setpane .sim-cfg{display:flex;flex-direction:column;gap:16px}
+.u-setpane .btn-sim{width:100%;margin:0}
+.u-main .ti,.u-main .ti-sim,.u-main .ti-dragon{max-width:none;margin:0;padding:0}
+.u-main #res-sec{margin-top:0}
 </style>
 </head>
-<body>
-
-<div class="hd">
-  <a href="./index.html?tab=calculator" style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:8px;border:1px solid var(--bd);background:var(--sf2);color:var(--text2);text-decoration:none;font-size:16px;flex-shrink:0;transition:all 0.15s" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--text)'" onmouseout="this.style.borderColor='var(--bd)';this.style.color='var(--text2)'">←</a>
-  <div class="hd-icon">🐉</div>
-  <div><div class="hd-t">(뉴비용)길드전 시뮬레이터</div><div class="hd-s">비밸(체력 × 공격 × 방어) 최적화</div></div>
-  <div style="margin-left:auto;font-size:12px;color:var(--text);text-align:right">Made by 리레프<br>
-</div>
-</div>
-
-<div class="tabs">
-  <button class="tab-btn active" id="tab-btn-spec" onclick="switchTab('spec')">내 스펙</button>
-  <button class="tab-btn" id="tab-btn-dragon" onclick="switchTab('dragon')">내 용 정보</button>
-  <button class="tab-btn" id="tab-btn-sim" onclick="switchTab('sim')">3vs3 세팅</button>
-</div>
-
+<body class="u">
+<div class="u-app">
+<div class="u-content">
+<aside class="u-setpane" id="setpane">
+<div class="sec">
+    <div class="sec-hd">시뮬레이션 설정</div>
+    <div class="sec-bd">
+      <div id="setting-buffs"></div>
+      <div class="sim-cfg">
+        <div>
+          <div class="cfg-lbl">인챈트 옵션</div>
+          <div class="radio-opts">
+            <label><input type="radio" name="enc-mode" value="fixed"> 내 장신구+인챈트 사용</label>
+            <label><input type="radio" name="enc-mode" value="infinite" checked> 내 장신구만 사용(승계가 가능한 경우)</label>
+          </div>
+        </div>
+        <div>
+          <div class="cfg-lbl">디버프 설정</div>
+          <div class="radio-opts">
+            <label><input type="checkbox" id="include-debuff"> 디버프 대상도 결과에 포함</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<button class="btn-sim" id="sim-btn" onclick="runSim()">시뮬레이션 실행</button>
+</aside>
+<main class="u-main" id="mainpane">
 <!-- ■ 내 스펙 탭 (보기 전용) -->
 <div id="tab-spec" class="tc active"><div class="ti">
   <div id="spec-view-wrap"><!-- renderSpecView()로 채워짐 --></div>
@@ -341,17 +448,7 @@ input[type=number]{appearance:textfield;-moz-appearance:textfield}
     </div>
     <div class="sec-bd">
       <div id="dragon-form-view">
-      <div class="dragon-cats">
-        <details class="dragon-cat"><summary><span class="dragon-cat-title"><img class="dragon-cat-icon" src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/11.png" alt="">땅 <span class="dragon-cat-count" data-dragon-count="땅">(0마리)</span></span><span class="dragon-cat-actions"><button class="btn-red" onclick="clearDragonCat('땅',event)">일괄 삭제</button><button class="btn-white" onclick="addDragonCard('땅',event)">추가</button></span></summary><div class="dragon-cat-body" data-dragon-list="땅"></div></details>
-        <details class="dragon-cat"><summary><span class="dragon-cat-title"><img class="dragon-cat-icon" src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/12.png" alt="">물 <span class="dragon-cat-count" data-dragon-count="물">(0마리)</span></span><span class="dragon-cat-actions"><button class="btn-red" onclick="clearDragonCat('물',event)">일괄 삭제</button><button class="btn-white" onclick="addDragonCard('물',event)">추가</button></span></summary><div class="dragon-cat-body" data-dragon-list="물"></div></details>
-        <details class="dragon-cat"><summary><span class="dragon-cat-title"><img class="dragon-cat-icon" src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/13.png" alt="">불 <span class="dragon-cat-count" data-dragon-count="불">(0마리)</span></span><span class="dragon-cat-actions"><button class="btn-red" onclick="clearDragonCat('불',event)">일괄 삭제</button><button class="btn-white" onclick="addDragonCard('불',event)">추가</button></span></summary><div class="dragon-cat-body" data-dragon-list="불"></div></details>
-        <details class="dragon-cat"><summary><span class="dragon-cat-title"><img class="dragon-cat-icon" src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/14.png" alt="">바람 <span class="dragon-cat-count" data-dragon-count="바람">(0마리)</span></span><span class="dragon-cat-actions"><button class="btn-red" onclick="clearDragonCat('바람',event)">일괄 삭제</button><button class="btn-white" onclick="addDragonCard('바람',event)">추가</button></span></summary><div class="dragon-cat-body" data-dragon-list="바람"></div></details>
-        <details class="dragon-cat"><summary><span class="dragon-cat-title"><img class="dragon-cat-icon" src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/84.png" alt="">빛 <span class="dragon-cat-count" data-dragon-count="빛">(0마리)</span></span><span class="dragon-cat-actions"><button class="btn-red" onclick="clearDragonCat('빛',event)">일괄 삭제</button><button class="btn-white" onclick="addDragonCard('빛',event)">추가</button></span></summary><div class="dragon-cat-body" data-dragon-list="빛"></div></details>
-        <details class="dragon-cat"><summary><span class="dragon-cat-title"><img class="dragon-cat-icon" src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/87.png" alt="">어둠 <span class="dragon-cat-count" data-dragon-count="어둠">(0마리)</span></span><span class="dragon-cat-actions"><button class="btn-red" onclick="clearDragonCat('어둠',event)">일괄 삭제</button><button class="btn-white" onclick="addDragonCard('어둠',event)">추가</button></span></summary><div class="dragon-cat-body" data-dragon-list="어둠"></div></details>
-        <details class="dragon-cat"><summary><span class="dragon-cat-title"><img class="dragon-cat-icon" src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/486.png" alt="">여명 <span class="dragon-cat-count" data-dragon-count="여명">(0마리)</span></span><span class="dragon-cat-actions"><button class="btn-red" onclick="clearDragonCat('여명',event)">일괄 삭제</button><button class="btn-white" onclick="addDragonCard('여명',event)">추가</button></span></summary><div class="dragon-cat-body" data-dragon-list="여명"></div></details>
-        <details class="dragon-cat"><summary><span class="dragon-cat-title"><img class="dragon-cat-icon" src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/487.png" alt="">황혼 <span class="dragon-cat-count" data-dragon-count="황혼">(0마리)</span></span><span class="dragon-cat-actions"><button class="btn-red" onclick="clearDragonCat('황혼',event)">일괄 삭제</button><button class="btn-white" onclick="addDragonCard('황혼',event)">추가</button></span></summary><div class="dragon-cat-body" data-dragon-list="황혼"></div></details>
-        <details class="dragon-cat"><summary><span class="dragon-cat-title"><img class="dragon-cat-icon" src="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/488.png" alt="">악몽 <span class="dragon-cat-count" data-dragon-count="악몽">(0마리)</span></span><span class="dragon-cat-actions"><button class="btn-red" onclick="clearDragonCat('악몽',event)">일괄 삭제</button><button class="btn-white" onclick="addDragonCard('악몽',event)">추가</button></span></summary><div class="dragon-cat-body" data-dragon-list="악몽"></div></details>
-      </div>
+      <div id="dragon-split"></div>
       </div><!-- /dragon-form-view -->
       <div id="dragon-gallery">
         <!-- JS로 채움 -->
@@ -373,42 +470,17 @@ input[type=number]{appearance:textfield;-moz-appearance:textfield}
   </div>
   <div class="gp-rows" id="gp-rows"></div>
   <div class="gp-opts" id="gp-opts"></div>
-  <button class="gp-edit-btn" id="gp-edit-btn" onclick="goEditDragon()">✏️ 수정하기</button>
+  <button class="gp-edit-btn" id="gp-edit-btn" onclick="goEditDragon()">수정하기</button>
 </div>
 
 <!-- ■ 시뮬레이터 탭 -->
 <div id="tab-sim" class="tc"><div class="ti ti-sim">
-
-  <div class="sec">
-    <div class="sec-hd">⚙ 시뮬레이션 설정</div>
-    <div class="sec-bd">
-      <div id="setting-buffs"></div>
-      <div class="sim-cfg">
-        <div>
-          <div class="cfg-lbl">인챈트 옵션</div>
-          <div class="radio-opts">
-            <label><input type="radio" name="enc-mode" value="fixed"> 내 장신구+인챈트 사용</label>
-            <label><input type="radio" name="enc-mode" value="infinite" checked> 내 장신구만 사용(승계가 가능한 경우)</label>
-          </div>
-        </div>
-        <div>
-          <div class="cfg-lbl">디버프 설정</div>
-          <div class="radio-opts">
-            <label><input type="checkbox" id="include-debuff"> 디버프 대상도 결과에 포함</label>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <button class="btn-sim" id="sim-btn" onclick="runSim()">🐉 시뮬레이션 실행</button>
-
-  <div class="sec" id="res-sec" style="display:none">
-  <div class="sec-hd">🏆 시뮬레이션 결과 — 최강 3마리</div>
+<div class="sec" id="res-sec" style="display:none">
+  <div class="sec-hd">시뮬레이션 결과 — 최강 3마리</div>
   <div class="res-wrap"><div id="res-body-avg"></div></div>
   <div id="guild-send-wrap" style="display:none;padding:12px 16px;border-top:1px solid var(--bd);align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
     <span id="guild-send-label" style="font-size:12px;color:var(--dim)"></span>
-    <button class="btn-gold" id="guild-send-btn" onclick="sendToGuild()">📤 이번 주 셋팅 전송</button>
+    <button class="btn-gold" id="guild-send-btn" onclick="sendToGuild()">이번 주 셋팅 전송</button>
   </div>
 </div>
 
@@ -1275,7 +1347,7 @@ function saveDragonToSpec(){
     localStorage.setItem('dv1sim_dragon_pending','1');
     const t=document.createElement('div');
     t.style.cssText='position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--gold);color:#0a0c18;padding:10px 24px;border-radius:8px;font-weight:800;font-size:14px;z-index:9999;transition:opacity .3s';
-    t.textContent='✓ 내 스펙에 드래곤 셋팅이 저장됐어요!';
+    t.textContent='내 스펙에 드래곤 셋팅이 저장됐어요!';
     document.body.appendChild(t);
     setTimeout(()=>{t.style.opacity='0';setTimeout(()=>t.remove(),300);},2200);
   }catch(e){console.error(e);}
@@ -1286,7 +1358,7 @@ function doSave(){
   clearTimeout(saveT);
   localStorage.setItem(SAVE_KEY,JSON.stringify(S));
   const el=document.getElementById('save-msg');
-  if(el){el.textContent='✓ 저장됨';setTimeout(()=>el.textContent='',2000);}
+  if(el){el.textContent='저장됨';setTimeout(()=>el.textContent='',2000);}
 }
 function qSave(){clearTimeout(saveT);saveT=setTimeout(doSave,1200);}
 function resetAll(){
@@ -1923,14 +1995,10 @@ function renderDragonCounts(){
   });
 }
 
-function renderDragonInfo(){
-  normalizeDragonCards();
-  renderDragonCounts();
-  DRAGON_CATS.forEach(cat=>{
-    const el=document.querySelector(`[data-dragon-list="${cat}"]`);
-    if(!el)return;
-    const cards=S.dragonCards[cat];
-    el.innerHTML=cards.map((card,ci)=>{
+function gCardHtml(cat,ci){
+  const card=(S.dragonCards[cat]||[])[ci];
+  if(!card)return '';
+
       const presets=SP_PRESETS.map(p=>{
         const desc=p.types.map(spPresetLabel).join('');
         return `<button class="sp-preset-btn ${isDragonSpiritPresetActive(card,p)?'active':''}" onclick="applyDragonSpiritPreset('${cat}',${ci},'${p.id}')">
@@ -1976,7 +2044,7 @@ function renderDragonInfo(){
           </div>
           <div class="dragon-preset-row">
             ${presets}
-            <button class="btn-reset dragon-reset-btn" onclick="resetDragonCard('${cat}',${ci})">↺</button>
+            <button class="btn-reset dragon-reset-btn" onclick="resetDragonCard('${cat}',${ci})"></button>
           </div>
           <div class="dragon-spirit-grid">${opts}</div>
           <div class="dragon-bonus-row">
@@ -1991,8 +2059,147 @@ function renderDragonInfo(){
             </div>
           </div>
         </div>`;
-    }).join('');
+
+}
+// ── 내 용 정보: 속성 레일 + 그룹 표 ─────────────────────────
+const EL_ICON={'땅':11,'물':12,'불':13,'바람':14,'빛':84,'어둠':87,'황혼':487,'여명':486,'악몽':488};
+const EL_DOT={'땅':'#a3956b','물':'#5b9bd5','불':'#e0776f','바람':'#6fbf8e','빛':'#e8d07a',
+              '어둠':'#9b8bc4','황혼':'#c9836b','여명':'#7fb3d5','악몽':'#8f7ab0'};
+const EL_IMG_BASE='https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/';
+function elIcon(attr){return EL_IMG_BASE+(EL_ICON[attr]||11)+'.png';}
+let G_ATTR='';    // 레일에서 고른 속성
+let G_EDIT=null;  // {cat, ci}
+function setGAttr(a){G_ATTR=(G_ATTR===a)?'':a;renderDragonInfo();}
+function gOpenEdit(cat,ci){
+  const same=G_EDIT&&G_EDIT.cat===cat&&G_EDIT.ci===ci;
+  G_EDIT=same?null:{cat:cat,ci:ci};
+  renderDragonInfo();
+}
+function gCloseEdit(){G_EDIT=null;renderDragonInfo();}
+// 정령 옵션 요약 칩
+function gSpChips(card){
+  const M={hp:'체',atk:'공',def:'방'};
+  const out=(card.opts||[]).map(o=>{
+    if(!o.stat)return '<span class="sp-chip none">·</span>';
+    return `<span class="sp-chip ${o.stat}">${M[o.stat]||''}${o.type==='+'?'+':'%'}</span>`;
   });
+  if(card.bonus)out.push(`<span class="sp-chip ${card.bonus} bn">부가</span>`);
+  return `<span class="sp-chips">${out.join('')}</span>`;
+}
+
+function renderDragonInfo(){
+  normalizeDragonCards();
+  renderDragonCounts();
+  const host=document.getElementById('dragon-split');
+  if(!host)return;
+
+  const total=DRAGON_CATS.reduce((n,c)=>n+(S.dragonCards[c]||[]).length,0);
+  const shown=G_ATTR?[G_ATTR]:DRAGON_CATS.filter(c=>(S.dragonCards[c]||[]).length);
+
+  const rail=`<div class="dr-rail">
+    <div class="dr-rail-t">속성</div>
+    <button class="dr-rail-i${G_ATTR?'':' on'}" onclick="setGAttr('')">전체<span class="n">${total}</span></button>
+    ${DRAGON_CATS.map(c=>{
+      const n=(S.dragonCards[c]||[]).length;
+      return `<button class="dr-rail-i${G_ATTR===c?' on':''}${n?'':' off'}" onclick="setGAttr('${c}')">
+        <img src="${elIcon(c)}" onerror="this.style.visibility='hidden'" alt="">${c}
+        <span class="n">${n||'—'}</span></button>`;
+    }).join('')}
+  </div>`;
+
+  const grpBar=(cat,n,mobile)=>`
+    <div class="grp-bar">
+      <span class="bar" style="background:${EL_DOT[cat]}"></span>
+      <img src="${elIcon(cat)}" onerror="this.style.visibility='hidden'" alt="">
+      <span class="nm">${cat}</span><span class="cnt">${n}마리</span>
+      <span class="acts">
+        <button class="btn-red" onclick="event.stopPropagation();clearDragonCat('${cat}',event)">일괄 삭제</button>
+        <button class="btn-white" onclick="event.stopPropagation();addDragonCard('${cat}',event)">＋ 추가</button>
+      </span>
+    </div>`;
+
+  // PC 표
+  let rows='';
+  if(!total){
+    rows='';
+  }else{
+    shown.forEach(cat=>{
+      const cards=S.dragonCards[cat]||[];
+      rows+=`<tr class="grp-row"><td colspan="6">${grpBar(cat,cards.length)}</td></tr>`;
+      cards.forEach((card,ci)=>{
+        const open=G_EDIT&&G_EDIT.cat===cat&&G_EDIT.ci===ci;
+        const url=getDragonImgUrl(card.name);
+        const nameTxt=card.name||'용 미선택';
+        const sub=[card.dtype||'', card.growth||'', (card.growth==='강림(축복)'?card.grade:'')].filter(Boolean).join(' · ');
+        rows+=`<tr class="dr-row${open?' on':''}" onclick="gOpenEdit('${cat}',${ci})">
+          <td class="c-bar" style="background:${EL_DOT[cat]}"></td>
+          <td class="c-name"><span class="nw">
+            ${url?`<img class="dr-img" src="${url}" onerror="this.style.visibility='hidden'" alt="">`:'<span class="dr-img"></span>'}
+            <span class="t">${escHtml(nameTxt)}</span>
+            ${card.dupe?'<span class="dupe-i">중복</span>':''}
+          </span></td>
+          <td class="c-sub">${escHtml(sub)||'<span class="dim">—</span>'}</td>
+          <td class="c-sp">${gSpChips(card)}${card.name&&!card.dtype?'<span class="warn-i">타입을 골라야 계산돼요</span>':''}</td>
+          <td class="c-act">
+            <button class="icon-btn red" title="삭제" onclick="event.stopPropagation();delDragonCard('${cat}',${ci})">✕</button>
+          </td>
+          <td class="c-caret">${open?'▴':'▾'}</td>
+        </tr>`;
+        if(open)rows+=`<tr class="dr-editrow"><td class="c-bar" style="background:${EL_DOT[cat]}"></td><td colspan="5">${gCardHtml(cat,ci)}</td></tr>`;
+      });
+    });
+  }
+  const table=total?`<table class="dr-tbl"><tbody>${rows}</tbody></table>`
+                   :`<div class="dr-empty">등록된 용이 없어요. 왼쪽에서 속성을 고르고 [＋ 추가]를 눌러주세요.</div>`;
+
+  // 모바일 목록
+  let mo='';
+  if(!total){
+    mo=`<div class="dr-empty">등록된 용이 없어요. 아래 [용 추가]로 등록해주세요.</div>`;
+  }else{
+    shown.forEach(cat=>{
+      const cards=S.dragonCards[cat]||[];
+      mo+=`<div class="mo-grp"><span class="bar" style="background:${EL_DOT[cat]}"></span>
+        <img src="${elIcon(cat)}" onerror="this.style.visibility='hidden'" alt="">
+        <span class="nm">${cat}</span><span class="cnt">${cards.length}마리</span>
+        <button class="btn" onclick="addDragonCard('${cat}',event)">＋</button></div>`;
+      mo+='<div class="mo-list">'+cards.map((card,ci)=>{
+        const url=getDragonImgUrl(card.name);
+        const sub=[card.dtype||'', card.growth||''].filter(Boolean).join(' · ');
+        return `<button type="button" class="mo-row" onclick="gOpenEdit('${cat}',${ci})">
+          <span class="bar" style="background:${EL_DOT[cat]}"></span>
+          ${url?`<img class="dr-img" src="${url}" onerror="this.style.visibility='hidden'" alt="">`:'<span class="dr-img"></span>'}
+          <span class="tx"><span class="t">${escHtml(card.name||'용 미선택')}</span>
+            <span class="s">${escHtml(sub)||'타입을 골라야 계산돼요'}</span></span>
+          ${gSpChips(card)}
+        </button>`;
+      }).join('')+'</div>';
+    });
+  }
+
+  // 모바일 편집 시트
+  let sheet='';
+  if(G_EDIT){
+    const {cat,ci}=G_EDIT;
+    const card=(S.dragonCards[cat]||[])[ci];
+    if(card){
+      const url=getDragonImgUrl(card.name);
+      sheet=`<div class="dr-scrim" onclick="gCloseEdit()"></div>
+        <div class="dr-sheet">
+          <div class="dr-sheet-grab"></div>
+          <div class="dr-sheet-hd">
+            ${url?`<img class="dr-img" src="${url}" onerror="this.style.visibility='hidden'" alt="">`:'<span class="dr-img"></span>'}
+            <div><div class="t">${escHtml(card.name||'용 미선택')}</div><div class="s">${cat}</div></div>
+            <button class="icon-btn red" title="삭제" onclick="delDragonCard('${cat}',${ci});gCloseEdit()">✕</button>
+          </div>
+          <div class="dr-sheet-bd">${gCardHtml(cat,ci)}</div>
+          <div class="dr-sheet-ft"><button class="btn-sim" onclick="gCloseEdit()">확인</button></div>
+        </div>`;
+    }
+  }
+
+  host.innerHTML=`<div class="dr-split">${rail}<div class="dr-main">${table}</div></div>`
+    +`<div class="dr-mo">${mo}</div>`+sheet;
 }
 
 function addDragonCard(cat,ev){
@@ -2204,11 +2411,14 @@ function setFullCollection(){
 // 탭 / 시뮬 설정 컨트롤
 // ================================================================
 function switchTab(t){
-  if(t==='spec'){renderSpecView();}
+  if(t==='spec'){try{renderSpecView();}catch(e){}}
   ['spec','dragon','sim'].forEach(x=>{
-    document.getElementById(`tab-${x}`).classList.toggle('active',x===t);
-    document.getElementById(`tab-btn-${x}`).classList.toggle('active',x===t);
+    const c=document.getElementById('tab-'+x); if(c)c.classList.toggle('active',x===t);
+    const bt=document.getElementById('tab-btn-'+x); if(bt)bt.classList.toggle('active',x===t);
   });
+  const pane=document.getElementById('setpane');
+  if(pane)pane.style.display=(t==='sim')?'':'none';
+  if(window.UI&&UI.task&&!switchTab._q){switchTab._q=1;UI.task(t);switchTab._q=0;}
 }
 
 function setGrade(g){
@@ -2503,7 +2713,7 @@ function runSim(){
       rs.scrollIntoView({behavior:'smooth',block:'start'});
       afterSimComplete(deck);
     }catch(e){console.error(e);alert('오류: '+e.message);}
-    btn.disabled=false;btn.textContent='🐉 시뮬레이션 실행';
+    btn.disabled=false;btn.textContent='시뮬레이션 실행';
   },20);
 }
 
@@ -2863,7 +3073,7 @@ function fmtAccEnc(enc){
 function renderResTop(top10){
   const el=document.getElementById('res-body-top');
   if(!top10.length){el.innerHTML='<div style="padding:30px;text-align:center;color:var(--dim)">결과 없음</div>';return;}
-  const medals=['🥇','🥈','🥉'];
+  const medals=['','',''];
   let html=`<table class="rtbl"><thead><tr>
     <th>순위</th><th>타입</th><th>장신구 / 인챈트</th>
     <th>젬 배분</th><th>펜던트</th><th>버프</th><th>체 / 공 / 방</th><th>비밸</th>
@@ -2921,7 +3131,7 @@ function renderResDeck(results,excludedCount){
     <th>순위</th><th>용</th><th>속성 / 타입</th><th>장신구 / 인챈트</th>
     <th>젬 배분</th><th>펜던트</th><th>버프</th><th>체 / 공 / 방</th><th>비밸</th>
   </tr></thead><tbody>`;
-  const medals=['🥇','🥈','🥉'];
+  const medals=['','',''];
   results.forEach((r,i)=>{
     const dc=DCOLORS[r.dragon.dtype];
     const rank=i<3?medals[i]:`<span class="rank-n">${i+1}</span>`;
@@ -3059,7 +3269,7 @@ function renderAvgDetail(r){
       <table class="rtbl" style="min-width:0"><thead><tr>
         <th>순위</th><th>장신구 / 인챈트</th><th>젬 배분</th><th>펜던트</th><th>체 / 공 / 방</th><th>비밸</th>
       </tr></thead><tbody>`;
-    const medals=['🥇','🥈','🥉'];
+    const medals=['','',''];
     buf.top5.forEach((item,j)=>{
       const rank=j<3?medals[j]:`<span class="rank-n">${j+1}</span>`;
       const a=ACC_DB.find(x=>x.n===item.accN);
@@ -3169,15 +3379,15 @@ function renderSpecView(){
   if(col.atk)colP.push(`<span class="sv-gem-atk">공 +${col.atk}</span>`);
   if(col.def)colP.push(`<span class="sv-gem-def">방 +${col.def}</span>`);
   const colH=colP.length?colP.join('<span style="color:var(--dim)"> · </span>'):`<span class="sv-empty">0</span>`;
-  el.innerHTML=`<div class="sv-header"><div style="display:flex;align-items:center;gap:10px"><span style="font-size:15px;font-weight:800">📋 내 스펙</span><span class="sv-badge">보기 전용</span></div><a href="./my.html" class="sv-edit-btn">✏️ my.html에서 수정 →</a></div>
+  el.innerHTML=`<div class="sv-header"><div style="display:flex;align-items:center;gap:10px"><span style="font-size:15px;font-weight:800">내 스펙</span><span class="sv-badge">보기 전용</span></div><a href="./my.html" class="sv-edit-btn">my.html에서 수정 →</a></div>
   <div class="sv-grid">
     <div>
-      <div class="sv-sec"><div class="sv-sec-hd">💎 젬 보유량</div><div class="sv-sec-bd">${gemH}</div></div>
-      <div class="sv-sec"><div class="sv-sec-hd">📚 콜렉션</div><div class="sv-sec-bd"><div class="sv-coll-row">${colH}</div></div></div>
+      <div class="sv-sec"><div class="sv-sec-hd">젬 보유량</div><div class="sv-sec-bd">${gemH}</div></div>
+      <div class="sv-sec"><div class="sv-sec-hd">콜렉션</div><div class="sv-sec-bd"><div class="sv-coll-row">${colH}</div></div></div>
     </div>
     <div>
-      <div class="sv-sec"><div class="sv-sec-hd">💍 장신구 (${accs.length}개)</div><div class="sv-sec-bd" style="max-height:260px;overflow-y:auto">${accH}</div></div>
-      <div class="sv-sec"><div class="sv-sec-hd">🌙 펜던트 (${pends.length}개)</div><div class="sv-sec-bd" style="max-height:220px;overflow-y:auto">${pendH}</div></div>
+      <div class="sv-sec"><div class="sv-sec-hd">장신구 (${accs.length}개)</div><div class="sv-sec-bd" style="max-height:260px;overflow-y:auto">${accH}</div></div>
+      <div class="sv-sec"><div class="sv-sec-hd">펜던트 (${pends.length}개)</div><div class="sv-sec-bd" style="max-height:220px;overflow-y:auto">${pendH}</div></div>
     </div>
   </div>`;
 }
@@ -3217,8 +3427,8 @@ async function afterSimComplete(results){
       _guildResult={statWithBuff,statNoBuff,settingsJson};
     }catch(e){console.warn('settingsJson 빌드 오류:',e);}
     const user=(typeof getUser==='function')?getUser():null;
-    if(!user){lbl.innerHTML='<span style="color:var(--dimmer)">길드 전송은 로그인 후 이용 가능해요.</span>';btn.disabled=true;btn.textContent='📤 이번 주 셋팅 전송';wrap.style.display='flex';return;}
-    lbl.innerHTML='<span style="color:var(--dim)">길드 연동 확인 중...</span>';btn.disabled=true;btn.textContent='📤 이번 주 셋팅 전송';wrap.style.display='flex';
+    if(!user){lbl.innerHTML='<span style="color:var(--dimmer)">길드 전송은 로그인 후 이용 가능해요.</span>';btn.disabled=true;btn.textContent='이번 주 셋팅 전송';wrap.style.display='flex';return;}
+    lbl.innerHTML='<span style="color:var(--dim)">길드 연동 확인 중...</span>';btn.disabled=true;btn.textContent='이번 주 셋팅 전송';wrap.style.display='flex';
     const members=await supabase('GET','guild_members',null,`?user_id=eq.${user.id}&status=eq.approved&select=guild_id,nickname,guilds(id,name)&limit=1`);
     if(!members||!members.length){lbl.innerHTML='<span style="color:var(--dimmer)">연동된 길드가 없어요.</span>';return;}
     const member=members[0];
@@ -3231,11 +3441,11 @@ async function afterSimComplete(results){
     const gname=member.guilds?.name||'길드';
     if(exist&&exist.length){
       const t=new Date(exist[0].submitted_at).toLocaleString('ko-KR',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'});
-      lbl.innerHTML=`<span style="color:var(--green)">✅ ${gname} — 전송 완료 (${t})</span>`;
-      btn.textContent='🔄 다시 전송';
+      lbl.innerHTML=`<span style="color:var(--green)">${gname} — 전송 완료 (${t})</span>`;
+      btn.textContent='다시 전송';
     }else{
       lbl.innerHTML=`<span style="color:var(--dim)">${gname} · ${season.season_label}</span>`;
-      btn.textContent='📤 이번 주 셋팅 전송';
+      btn.textContent='이번 주 셋팅 전송';
     }
     btn.disabled=false;
   }catch(e){
@@ -3259,16 +3469,27 @@ async function sendToGuild(){
     }
     const t=new Date().toLocaleString('ko-KR',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'});
     const gname=member.guilds?.name||'길드';
-    document.getElementById('guild-send-label').innerHTML=`<span style="color:var(--green)">✅ ${gname} — 전송 완료 (${t})</span>`;
-    btn.textContent='🔄 다시 전송';btn.disabled=false;
+    document.getElementById('guild-send-label').innerHTML=`<span style="color:var(--green)">${gname} — 전송 완료 (${t})</span>`;
+    btn.textContent='다시 전송';btn.disabled=false;
     let el=document.getElementById('_guild-toast');
     if(!el){el=document.createElement('div');el.id='_guild-toast';el.style.cssText='position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--gold);color:#0a0c18;padding:10px 24px;border-radius:8px;font-weight:800;font-size:14px;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap';document.body.appendChild(el);}
-    el.textContent='길드에 이번 주 셋팅을 전송했어요! 🎉';el.style.opacity='1';
+    el.textContent='길드에 이번 주 셋팅을 전송했어요! ';el.style.opacity='1';
     setTimeout(()=>el.style.opacity='0',2800);
-  }catch(e){alert('전송 오류: '+(e.message||'다시 시도해주세요.'));btn.disabled=false;btn.textContent='📤 이번 주 셋팅 전송';}
+  }catch(e){alert('전송 오류: '+(e.message||'다시 시도해주세요.'));btn.disabled=false;btn.textContent='이번 주 셋팅 전송';}
 }
 
 </script>
 <script src="./spec_sync.js"></script>
+</main>
+</div>
+</div>
+<script src="./ui.js"></script>
+<script>
+UI.shell({page:'noob',title:'길드전 (뉴비)',sub:'비벨 최적화 · 3vs3',foot:'<div style="font-size:11.5px;color:var(--text4)">Made by 리레프</div>',tasks:{
+  on:'spec', items:[['spec','내 스펙'],['dragon','내 용 정보'],['sim','3vs3 세팅']],
+  go:function(k){ if(typeof switchTab==='function') switchTab(k); }
+}});
+if(typeof switchTab==='function') switchTab('spec');
+</script>
 </body>
 </html>
