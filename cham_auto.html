@@ -1422,9 +1422,9 @@ function toggleCard(uid,ev){
 }
 function spEdit(ti,i,fn){
   const en=S.teams[ti][i];fn(en);
-  // 편집 중 카드는 해당 카드만 다시 그려서 스크롤·포커스 유지
-  const el=document.querySelector(`.dr-card[data-uid="${en.uid}"]`);
-  if(el){OPEN_CARD.add(en.uid);el.outerHTML=drCardHtml(ti,i);}
+  const bd=document.querySelector('.dr-sheet-bd');const y=bd?bd.scrollTop:0;
+  renderDragonTeams();
+  const bd2=document.querySelector('.dr-sheet-bd');if(bd2)bd2.scrollTop=y;
   refreshTeamCounts();save();
 }
 function spStat(ti,i,k,x){spEdit(ti,i,en=>{const o=en.sp[k];o.stat=o.stat===x?'':x;if(o.type!=='%'&&o.type!=='+')o.type=SP_DEF_TYPE(k);});}
@@ -1466,6 +1466,12 @@ let EDIT_UID=null;  // 편집 중인 드래곤
 function setDAttr(a){D_ATTR=(D_ATTR===a)?'':a;renderDragonTeams();}
 function openEdit(uid){EDIT_UID=(EDIT_UID===uid)?null:uid;renderDragonTeams();}
 function closeEdit(){EDIT_UID=null;renderDragonTeams();}
+// 편집 칸은 PC 표 안 / 모바일 시트 안 — 한 번에 한 곳에만 그립니다.
+// 두 곳에 동시에 그리면 검색창 id 가 겹쳐서, 모바일에서 드롭다운이
+// 숨겨진 PC 표 쪽에 열리고 드래곤을 고를 수 없었습니다.
+const _drMQ=window.matchMedia('(max-width:760px)');
+const DR_MOBILE=()=>_drMQ.matches;
+if(_drMQ.addEventListener)_drMQ.addEventListener('change',()=>{if(EDIT_UID)renderDragonTeams();});
 
 // 드래곤 한 마리의 표시용 정보
 function drInfo(ti,i){
@@ -1588,7 +1594,7 @@ function renderDragonTeams(){
           </td>
           <td class="c-caret">${open?'▴':'▾'}</td>
         </tr>`;
-        if(open)rows+=`<tr class="dr-editrow"><td class="c-bar" style="background:${EL_DOT[attr]}"></td><td colspan="5">${drEditHtml(ti,i)}</td></tr>`;
+        if(open&&!DR_MOBILE())rows+=`<tr class="dr-editrow"><td class="c-bar" style="background:${EL_DOT[attr]}"></td><td colspan="5">${drEditHtml(ti,i)}</td></tr>`;
       });
     });
     const hint=list.length?'':`<div class="dr-hint">${esc(L.empty_team)}</div>`;
@@ -1622,7 +1628,7 @@ function renderDragonTeams(){
 
   // 모바일 편집 시트
   let sheet='';
-  if(EDIT_UID){
+  if(EDIT_UID&&DR_MOBILE()){
     const i=list.findIndex(en=>en.uid===EDIT_UID);
     if(i>=0){
       const f=drInfo(ti,i);
