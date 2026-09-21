@@ -910,6 +910,10 @@ const dexData=[
 {n:"오파님",e:"바람",t:"체공",t_kr:"체공",aw:0,ad:1,tr:1,lv:1,tg:"6.28",cd:"Yes",id:710,desc:""},
 {n:"크로마 오파님",e:"바람",t:"체공",t_kr:"체공",aw:0,ad:1,tr:1,lv:1,tg:"6.28",cd:"Yes",id:711,desc:""},
 {n:"카스티그",e:"황혼",t:"공격",t_kr:"공격",aw:0,ad:1,tr:1,lv:1,tg:"6.5",cd:"Yes",id:712,desc:""},
+{n:"넵튠",e:"물",t:"방어",t_kr:"방어",aw:0,ad:1,tr:1,lv:1,tg:"NI",cd:"Yes",id:713,desc:""},
+{n:"아우로스",e:"바람",t:"중립",t_kr:"중립",aw:0,ad:0,tr:0,lv:0,tg:"NI",cd:"C-S",id:714,desc:""},
+{n:"노아",e:"물",t:"중립",t_kr:"중립",aw:0,ad:0,tr:0,lv:0,tg:"NI",cd:"C-S",id:715,desc:""},
+{n:"고귀한 페트로아",e:"불",t:"중립",t_kr:"중립",aw:0,ad:0,tr:0,lv:0,tg:"NI",cd:"No",id:716,desc:""},
 ];
 
 const dexElemIcons={
@@ -1080,9 +1084,10 @@ function gradeSetOf(d){
   return (typeof dexGradeStatMap !== "undefined" ? dexGradeStatMap[d.id] : null) || null;
 }
 
+function firstGrade(d){const g=gradeSetOf(d);return (g&&GRADES.find(x=>g[x]))||"C";}
 function gradeRowHtml(d, idx){
   if(!gradeSetOf(d)) return "";
-  const cur = gradeState[idx] || "C";
+  const cur = gradeState[idx] || firstGrade(d);
   return `<div class="grade-row" id="grade-${idx}">` + GRADES.map(g =>
     `<button class="grade-btn${g===cur?" active":""}" data-grade="${g}" onclick="selectGrade(${idx},'${g}')">${g}</button>`
   ).join("") + `</div>`;
@@ -1304,7 +1309,7 @@ function toggleStat(idx){
 function renderStat(d, idx, si){
   const tbody = document.getElementById("stbody-" + idx);
   const gset = gradeSetOf(d);
-  const ss = gset ? (gset[gradeState[idx] || "C"] || null)
+  const ss = gset ? (gset[gradeState[idx] || firstGrade(d)] || null)
                   : ((typeof dexStatMap !== "undefined" ? dexStatMap[d.id] : null) || null);
   tbody.innerHTML = [
     {label:"체력",   key:"hp"},
