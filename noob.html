@@ -111,7 +111,7 @@ select:disabled,input:disabled{opacity:.3;cursor:not-allowed}
 .btn-sim{width:100%;padding:14px;background:var(--gold);border:none;border-radius:8px;color:#12151c;font-family:'Nanum Gothic',sans-serif;font-size:16px;font-weight:800;cursor:pointer;margin:12px 0;letter-spacing:-.5px;transition:opacity .15s,transform .1s}
 .btn-sim:hover{opacity:.92}.btn-sim:active{transform:scale(.99)}.btn-sim:disabled{opacity:.5;cursor:not-allowed}
 .res-wrap{overflow-x:auto}
-table.rtbl{width:100%;border-collapse:collapse;min-width:880px}
+table.rtbl{width:100%;border-collapse:collapse;min-width:840px}
 .rtbl th{background:var(--sf2);padding:9px 11px;text-align:left;font-size:11px;color:var(--dim);border-bottom:1px solid var(--bd);white-space:nowrap}
 .rtbl td{padding:10px 11px;border-bottom:1px solid var(--bd);font-size:13px;vertical-align:middle}
 .rtbl tr:last-child td{border-bottom:none}
@@ -396,13 +396,16 @@ input[type=number]{appearance:textfield;-moz-appearance:textfield}
 .u-setpane .sec-hd{padding:0 0 10px;border-bottom:1px solid var(--bd);margin-bottom:12px}
 .u-setpane .sec-bd{padding:0}
 .u-setpane .sim-cfg{display:flex;flex-direction:column;gap:16px}
-/* 좁은 설정 패널: 버프·디버프는 가로로 나란히, 그 안은 한 줄씩 (2×2로 두면 글자가 잘립니다) */
-.u-setpane .buff-setting-grid{grid-template-columns:1fr 1fr;gap:10px}
-.u-setpane .buff-setting-body{grid-template-columns:1fr}
-.u-setpane .buff-setting-cell{min-height:0;padding:9px 10px;border-right:0}
-.u-setpane .buff-setting-cell:last-child{border-bottom:0}
-.u-setpane .buff-setting-cell select{max-width:none}
-.u-setpane .buff-attr-icon{width:34px;height:34px}
+/* 설정 패널: 버프 한 줄, 그 아래 디버프 한 줄 — 속성 아이콘 · 속성 · 타입 · 스탯 · 스탯 */
+.u-setpane .buff-setting-grid{grid-template-columns:1fr;gap:10px}
+.u-setpane .buff-setting-title{padding:7px 10px;text-align:left;font-size:12.5px}
+.u-setpane .buff-setting-body{display:grid;grid-template-columns:26px repeat(4,minmax(0,1fr));gap:5px;align-items:center;padding:9px}
+.u-setpane .buff-setting-cell{display:contents}
+.u-setpane .buff-setting-lbl{display:none}
+.u-setpane .buff-attr-icon{grid-column:1;grid-row:1;width:26px;height:26px;object-fit:contain}
+.u-setpane .buff-setting-cell select{width:100%;max-width:none;min-width:0;padding:7px 15px 7px 4px;font-size:12.5px;text-align:center;text-align-last:center;-webkit-appearance:none;appearance:none;background:var(--sf2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5'%3E%3Cpath d='M1 1l3 3 3-3' fill='none' stroke='%238a93a6' stroke-width='1.3'/%3E%3C/svg%3E") no-repeat right 5px center}
+/* 기본 셀렉트 화살표는 패딩과 별개로 20px 가량을 먹어 '어둠'·'ATK' 가 잘렸습니다 — 8px 짜리로 교체 */
+@media(max-width:760px){.u-setpane .buff-setting-cell select{font-size:16px;padding:9px 15px 9px 4px}}
 /* 아직 돌리지 않았을 때 오른쪽이 비어 보이지 않게 */
 .u-main #res-sec-empty{padding:80px 20px;text-align:center;font-size:13.5px;color:var(--text4);line-height:1.9}
 /* 결과 표 '용' 칸 — 정령 네 옵션을 줄글로 이으면 좁은 칸에서 서로 뭉칩니다.
@@ -424,6 +427,10 @@ input[type=number]{appearance:textfield;-moz-appearance:textfield}
 .u-setpane .btn-sim{width:100%;margin:0}
 .u-main .ti,.u-main .ti-sim,.u-main .ti-dragon{max-width:none;margin:0;padding:0}
 .u-main #res-sec{margin-top:0}
+
+/* TAR — 비벨 칸 아래 한 줄 */
+.tar-v{font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:600;color:var(--gold);opacity:.85;margin-top:2px;white-space:nowrap}
+.mob-bv .tar-v{display:inline;margin:0;font-size:10px}
 </style>
 </head>
 <body class="u">
@@ -2105,6 +2112,11 @@ function gOpenEdit(cat,ci){
   renderDragonInfo();
 }
 function gCloseEdit(){G_EDIT=null;renderDragonInfo();}
+// 편집 칸은 PC 표 안 / 모바일 시트 안 — 한 번에 한 곳에만 그립니다.
+// 두 곳에 동시에 그리면 이름 검색 드롭다운 id 가 겹쳐 모바일에서 고를 수 없습니다.
+const _gMQ=window.matchMedia('(max-width:760px)');
+const G_MOBILE=()=>_gMQ.matches;
+if(_gMQ.addEventListener)_gMQ.addEventListener('change',()=>{if(G_EDIT)renderDragonInfo();});
 // 정령 옵션 요약 칩
 function gSpChips(card){
   const M={hp:'체',atk:'공',def:'방'};
@@ -2172,7 +2184,7 @@ function renderDragonInfo(){
           </td>
           <td class="c-caret">${open?'▴':'▾'}</td>
         </tr>`;
-        if(open)rows+=`<tr class="dr-editrow"><td class="c-bar" style="background:${EL_DOT[cat]}"></td><td colspan="5">${gCardHtml(cat,ci)}</td></tr>`;
+        if(open&&!G_MOBILE())rows+=`<tr class="dr-editrow"><td class="c-bar" style="background:${EL_DOT[cat]}"></td><td colspan="5">${gCardHtml(cat,ci)}</td></tr>`;
       });
     });
   }
@@ -2206,7 +2218,7 @@ function renderDragonInfo(){
 
   // 모바일 편집 시트
   let sheet='';
-  if(G_EDIT){
+  if(G_EDIT&&G_MOBILE()){
     const {cat,ci}=G_EDIT;
     const card=(S.dragonCards[cat]||[])[ci];
     if(card){
@@ -2355,6 +2367,7 @@ function applyDragonSpiritPreset(cat,idx,presetId){
 function onDragonBonus(cat,idx,val){
   normalizeDragonCards();
   S.dragonCards[cat][idx].bonus=val;
+  renderDragonInfo();
   qSave();
 }
 
@@ -3218,14 +3231,14 @@ function renderResDeck(results,excludedCount){
         / <span style="color:var(--atc)">${r.fA.toLocaleString('ko-KR')}</span>${r._calc?.debufA?`<small style="color:#f87171"> (-${r._calc.debufA.toLocaleString('ko-KR')})</small>`:''}
         / <span style="color:var(--dfc)">${r.fD.toLocaleString('ko-KR')}</span>${r._calc?.debufD?`<small style="color:#f87171"> (-${r._calc.debufD.toLocaleString('ko-KR')})</small>`:''}
       </td>
-      <td class="td-pc bv-cell">${(r.bv/1e6).toFixed(1)}</td>
+      <td class="td-pc bv-cell">${(r.bv/1e6).toFixed(1)}${(()=>{if(typeof fmtTar!=='function')return '';const t=fmtTar(r.bv,r.dragon.dtype,r.buff);return t?`<div class="tar-v" title="${tarLabel(r.buff)} 버프 기준 만점 대비">TAR ${t}</div>`:'';})()}</td>
       <td class="td-mob" colspan="9">
         <div class="mob-row1">
           <span class="mob-rank">${rank}</span>
           <img src="${attrImg}" style="width:20px;height:20px;object-fit:contain">
           <span class="mob-dname">${escHtml(r.dragon.name)}${r.dragon.growth==='진각'?' <span style="font-size:9px;color:#a78bfa;font-weight:700">진각</span>':''}</span>
           <span class="dtype-b" style="color:${dc};border-color:${dc};font-size:11px">${r.dragon.dtype}</span>
-          <span class="mob-bv">${(r.bv/1e6).toFixed(1)}</span>
+          <span class="mob-bv">${(r.bv/1e6).toFixed(1)}${(()=>{if(typeof fmtTar!=='function')return '';const t=fmtTar(r.bv,r.dragon.dtype,r.buff);return t?`<small class="tar-v"> TAR ${t}</small>`:'';})()}</span>
         </div>
         ${_l1?`<div class="mob-spirit">${_l1}</div>`:''}
         ${_l2?`<div class="mob-spirit">${_l2}</div>`:''}
@@ -3334,7 +3347,9 @@ function fmtGem(alloc){
   const parts=[];
   for(const s of SKEYS){
     const lvs=bySt[s].sort((a,b)=>b-a);
-    if(lvs.length)parts.push(`<span class="gem-tag" style="color:${cols[s]}">${SK[s]}${lvs.length}(${lvs.map(l=>GEM_NAME[l]||l).join(',')})</span>`);
+    if(lvs.length)parts.push(`<span class="gem-tag" style="color:${cols[s]}">${SK[s]}${lvs.length}(${(()=>{const o=[];lvs.map(l=>GEM_NAME[l]||l).forEach(v=>{
+         const t=o[o.length-1]; if(t&&t.v===v)t.n++; else o.push({v,n:1});});
+         return o.map(x=>x.n>1?x.v+'×'+x.n:x.v).join(',');})()})</span>`);
   }
   return parts.length?parts.join(''):'<span style="color:var(--dimmer)">없음</span>';
 }
@@ -3515,6 +3530,7 @@ async function sendToGuild(){
 </main>
 </div>
 </div>
+<script src="./tar-db.js"></script>
 <script src="./ui.js"></script>
 <script>
 UI.shell({page:'noob',title:'길드전 (뉴비)',sub:'비벨 최적화 · 3vs3',foot:'<div style="font-size:11.5px;color:var(--text4)">Made by 리레프</div>',tasks:{
