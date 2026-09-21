@@ -111,13 +111,13 @@ select:disabled,input:disabled{opacity:.3;cursor:not-allowed}
 .btn-sim{width:100%;padding:14px;background:var(--gold);border:none;border-radius:8px;color:#12151c;font-family:'Nanum Gothic',sans-serif;font-size:16px;font-weight:800;cursor:pointer;margin:12px 0;letter-spacing:-.5px;transition:opacity .15s,transform .1s}
 .btn-sim:hover{opacity:.92}.btn-sim:active{transform:scale(.99)}.btn-sim:disabled{opacity:.5;cursor:not-allowed}
 .res-wrap{overflow-x:auto}
-table.rtbl{width:100%;border-collapse:collapse;min-width:640px}
+table.rtbl{width:100%;border-collapse:collapse;min-width:880px}
 .rtbl th{background:var(--sf2);padding:9px 11px;text-align:left;font-size:11px;color:var(--dim);border-bottom:1px solid var(--bd);white-space:nowrap}
 .rtbl td{padding:10px 11px;border-bottom:1px solid var(--bd);font-size:13px;vertical-align:middle}
 .rtbl tr:last-child td{border-bottom:none}
 .rtbl tbody tr:hover td{background:rgba(255,255,255,.015)}
 .td-pc{display:table-cell}.td-mob{display:none}
-.acc-name-short{display:none}.pend-name-short{display:none}
+.acc-name-short{display:none}.pend-name-full{display:none}.pend-name-short{display:inline}
 @media(max-width:600px){
   .dragon-spirit-grid{grid-template-columns:1fr!important}
   .dragon-opt-card{grid-template-columns:20px 1fr 1fr 40px!important;gap:4px!important;padding:5px 8px!important}
@@ -295,6 +295,7 @@ input[type=number]{appearance:textfield;-moz-appearance:textfield}
 .dr-tbl tr:last-child td{border-bottom:0}
 .dr-tbl .c-bar{width:5px;padding:0}
 .dr-tbl .grp-row td{padding:0;border-bottom:1px solid var(--bd)}
+.dr-tbl .grp-row:first-child .grp-bar{border-top:0}
 .grp-bar{display:flex;align-items:center;gap:9px;padding:8px 12px;background:var(--sf2);border-top:1px solid var(--bd)}
 .grp-bar .bar{width:3px;height:17px;border-radius:2px;flex-shrink:0}
 .grp-bar img{width:20px;height:20px;object-fit:contain;flex-shrink:0;max-width:none}
@@ -334,12 +335,7 @@ input[type=number]{appearance:textfield;-moz-appearance:textfield}
 .sp-chip.none{border:1px dashed var(--border3);color:var(--text4)}
 .sp-chip.bn{border:1px solid currentColor;background:none}
 
-.dr-addbar{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:12px;border-top:1px solid var(--bd)}
-.dr-addbar .t{font-size:12px;color:var(--dim);margin-right:2px}
-.dr-addchip{display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border:1px dashed var(--border3);
-  border-radius:99px;background:transparent;color:var(--text2);font-family:inherit;font-size:12.5px;cursor:pointer}
-.dr-addchip:hover{border-style:solid;border-color:var(--gold);color:var(--gold)}
-.dr-addchip img{width:16px;height:16px;object-fit:contain;max-width:none}
+.dr-hint{padding:13px 14px;color:var(--text4);font-size:12.5px;border-bottom:1px solid var(--bd)}
 
 .dr-mo{display:none}
 .mo-grp{display:flex;align-items:center;gap:8px;padding:8px 11px;margin:12px 0 7px;border-radius:8px;background:var(--sf2)}
@@ -400,9 +396,30 @@ input[type=number]{appearance:textfield;-moz-appearance:textfield}
 .u-setpane .sec-hd{padding:0 0 10px;border-bottom:1px solid var(--bd);margin-bottom:12px}
 .u-setpane .sec-bd{padding:0}
 .u-setpane .sim-cfg{display:flex;flex-direction:column;gap:16px}
-/* 좁은 설정 패널에서는 버프·디버프를 위아래로 (가로로 두면 글자가 잘립니다) */
-.u-setpane .buff-setting-grid{grid-template-columns:1fr}
+/* 좁은 설정 패널: 버프·디버프는 가로로 나란히, 그 안은 한 줄씩 (2×2로 두면 글자가 잘립니다) */
+.u-setpane .buff-setting-grid{grid-template-columns:1fr 1fr;gap:10px}
+.u-setpane .buff-setting-body{grid-template-columns:1fr}
+.u-setpane .buff-setting-cell{min-height:0;padding:9px 10px;border-right:0}
+.u-setpane .buff-setting-cell:last-child{border-bottom:0}
 .u-setpane .buff-setting-cell select{max-width:none}
+.u-setpane .buff-attr-icon{width:34px;height:34px}
+/* 아직 돌리지 않았을 때 오른쪽이 비어 보이지 않게 */
+.u-main #res-sec-empty{padding:80px 20px;text-align:center;font-size:13.5px;color:var(--text4);line-height:1.9}
+/* 결과 표 '용' 칸 — 정령 네 옵션을 줄글로 이으면 좁은 칸에서 서로 뭉칩니다.
+   2×2 칩으로 세워 칸이 제 폭을 주장하게 하고, 색으로 체/공/방을 구분합니다. */
+.rtbl .sp-chips{display:grid;grid-template-columns:repeat(2,auto);justify-content:start;gap:3px;margin-top:5px}
+.rtbl .sp-chip{display:inline-block;padding:2px 5px;border-radius:4px;font-size:10.5px;font-weight:600;line-height:1.35;white-space:nowrap;text-align:center}
+.rtbl .sp-chip b{font-weight:700}
+.rtbl .sp-hp{background:rgba(251,191,36,.13);color:var(--hpc)}
+.rtbl .sp-atk{background:rgba(248,113,113,.13);color:var(--atc)}
+.rtbl .sp-def{background:rgba(96,165,250,.13);color:var(--dfc)}
+.rtbl .sp-bonus{grid-column:1/-1;background:rgba(224,177,91,.12);color:var(--gold)}
+.rtbl .sp-none{font-size:10.5px;color:var(--dimmer);margin-top:5px}
+.rtbl .dname{font-weight:800;white-space:nowrap}
+/* 칸마다 최소 폭을 못 박아 둡니다 — 표가 좁아져도 이 아래로는 안 줄어듭니다 */
+.rtbl th:nth-child(2),.rtbl td.td-pc:nth-child(2){min-width:106px}
+.rtbl th:nth-child(6),.rtbl td.td-pc:nth-child(6){min-width:94px}
+.rk1{color:var(--gold)}.rk2{color:#c3c9d6}.rk3{color:#c08552}
 .u-setpane .radio-opts label{display:flex;align-items:flex-start;gap:7px;word-break:keep-all}
 .u-setpane .btn-sim{width:100%;margin:0}
 .u-main .ti,.u-main .ti-sim,.u-main .ti-dragon{max-width:none;margin:0;padding:0}
@@ -486,7 +503,8 @@ input[type=number]{appearance:textfield;-moz-appearance:textfield}
 
 <!-- ■ 시뮬레이터 탭 -->
 <div id="tab-sim" class="tc"><div class="ti ti-sim">
-<div class="sec" id="res-sec" style="display:none">
+<div id="res-sec-empty">왼쪽에서 설정을 마치고 [시뮬레이션 실행]을 눌러주세요.</div>
+  <div class="sec" id="res-sec" style="display:none">
   <div class="sec-hd">시뮬레이션 결과 — 최강 3마리</div>
   <div class="res-wrap"><div id="res-body-avg"></div></div>
   <div id="guild-send-wrap" style="display:none;padding:12px 16px;border-top:1px solid var(--bd);align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
@@ -2105,7 +2123,7 @@ function renderDragonInfo(){
   if(!host)return;
 
   const total=DRAGON_CATS.reduce((n,c)=>n+(S.dragonCards[c]||[]).length,0);
-  const shown=G_ATTR?[G_ATTR]:DRAGON_CATS.filter(c=>(S.dragonCards[c]||[]).length);
+  const shown=G_ATTR?[G_ATTR]:DRAGON_CATS.slice();
 
   const rail=`<div class="dr-rail">
     <div class="dr-rail-t">속성</div>
@@ -2124,16 +2142,14 @@ function renderDragonInfo(){
       <img src="${elIcon(cat)}" onerror="this.style.visibility='hidden'" alt="">
       <span class="nm">${cat}</span><span class="cnt">${n}마리</span>
       <span class="acts">
-        <button class="btn-red" onclick="event.stopPropagation();clearDragonCat('${cat}',event)">일괄 삭제</button>
+        ${n?`<button class="btn-red" onclick="event.stopPropagation();clearDragonCat('${cat}',event)">일괄 삭제</button>`:''}
         <button class="btn-white" onclick="event.stopPropagation();addDragonCard('${cat}',event)">＋ 추가</button>
       </span>
     </div>`;
 
   // PC 표
   let rows='';
-  if(!total){
-    rows='';
-  }else{
+  {
     shown.forEach(cat=>{
       const cards=S.dragonCards[cat]||[];
       rows+=`<tr class="grp-row"><td colspan="6">${grpBar(cat,cards.length)}</td></tr>`;
@@ -2160,22 +2176,12 @@ function renderDragonInfo(){
       });
     });
   }
-  // 전체 보기에서도 아직 안 쓴 속성에 바로 추가할 수 있게
-  const restAdd=(()=>{
-    const rest=DRAGON_CATS.filter(c=>!shown.includes(c));
-    if(!rest.length)return '';
-    return `<div class="dr-addbar"><span class="t">다른 속성에 추가</span>
-      ${rest.map(c=>`<button type="button" class="dr-addchip" onclick="addDragonCard('${c}',event)">
-        <img src="${elIcon(c)}" onerror="this.style.visibility='hidden'" alt="">${c}</button>`).join('')}</div>`;
-  })();
-  const table=(total?`<table class="dr-tbl"><tbody>${rows}</tbody></table>`
-                   :`<div class="dr-empty">등록된 용이 없어요. 아래에서 속성을 골라 추가해주세요.</div>`)+restAdd;
+  const hint=total?'':'<div class="dr-hint">아직 등록한 용이 없어요. 속성 줄의 ＋ 추가를 눌러 등록해주세요.</div>';
+  const table=hint+`<table class="dr-tbl"><tbody>${rows}</tbody></table>`;
 
   // 모바일 목록
   let mo='';
-  if(!total){
-    mo=`<div class="dr-empty">등록된 용이 없어요. 아래에서 속성을 골라 추가해주세요.</div>`;
-  }else{
+  {
     shown.forEach(cat=>{
       const cards=S.dragonCards[cat]||[];
       mo+=`<div class="mo-grp"><span class="bar" style="background:${EL_DOT[cat]}"></span>
@@ -2195,7 +2201,8 @@ function renderDragonInfo(){
       }).join('')+'</div>';
     });
   }
-  mo+=restAdd;
+
+  mo=hint+mo;
 
   // 모바일 편집 시트
   let sheet='';
@@ -2647,23 +2654,20 @@ function mergeOptionGroups(groups,limit){
 }
 
 /*
- * 최종스탯 계산 공식 (게임 수식 그대로 INT = Math.floor):
+ * 최종스탯 계산 공식 (게임 수식 그대로 INT = 버림):
  *   A = base + gem + potion
  *   B = INT(A * (1 + acc% + enc%))
- *   C = INT(B * (1 + spirit%))
+ *   C = INT(B * (1 + spirit%) + spiritPlus * (1 + spirit%))   ← 본체와 정령 고정값을 합쳐 한 번만 버림
  *   D = INT(C * (1 + pendant%))
- *   E = INT(INT(spiritPlus * (1 + spirit%)) * (1 + pendant%))
- *   F = INT(spiritBonus * (1 + pendant%))
  *   buf = INT(bufLevel * base * 0.20)
- *   finalStat = D + E + F + collection + buf
+ *   finalStat = D + spiritBonus + collection + buf            ← 부가옵은 펜던트를 곱하지 않습니다
  */
+const INT=x=>Math.floor(x+1e-9);
 function calcStat(B,G,P,AP,SP,PP,SL,SB,C,BU){
-  const a=Math.floor((B+G+P)*(1+AP));
-  const b=Math.floor(a*(1+SP));
-  const c=Math.floor(b*(1+PP));
-  const d=Math.floor(Math.floor(SL*(1+SP))*(1+PP));
-  const e=Math.floor(SB*(1+PP));
-  return c+d+e+C+BU;
+  const a=INT((B+G+P)*(1+AP));
+  const b=INT(a*(1+SP)+SL*(1+SP));
+  const c=INT(b*(1+PP));
+  return c+SB+C+BU;
 }
 
 // 정령 상태를 스탯별 + / % / 부가옵 기여로 변환
@@ -2709,6 +2713,7 @@ function switchResTab(t){
 }
 
 function runSim(){
+  {const _e=document.getElementById('res-sec-empty');if(_e)_e.style.display='none';}
   const encMode=document.querySelector('input[name="enc-mode"]:checked')?.value||'fixed';
   const ownedAcc=S.accCards
     .map((c,i)=>({...ACC_DB.find(a=>a.n===c.name),_accId:i,_enc:encMode==='infinite'?'none':c.enchant}))
@@ -3093,7 +3098,7 @@ function fmtAccEnc(enc){
 function renderResTop(top10){
   const el=document.getElementById('res-body-top');
   if(!top10.length){el.innerHTML='<div style="padding:30px;text-align:center;color:var(--dim)">결과 없음</div>';return;}
-  const medals=['','',''];
+  const medals=['<span class="rank-n rk1">1</span>','<span class="rank-n rk2">2</span>','<span class="rank-n rk3">3</span>'];
   let html=`<table class="rtbl"><thead><tr>
     <th>순위</th><th>타입</th><th>장신구 / 인챈트</th>
     <th>젬 배분</th><th>펜던트</th><th>버프</th><th>체 / 공 / 방</th><th>비밸</th>
@@ -3151,7 +3156,7 @@ function renderResDeck(results,excludedCount){
     <th>순위</th><th>용</th><th>속성 / 타입</th><th>장신구 / 인챈트</th>
     <th>젬 배분</th><th>펜던트</th><th>버프</th><th>체 / 공 / 방</th><th>비밸</th>
   </tr></thead><tbody>`;
-  const medals=['','',''];
+  const medals=['<span class="rank-n rk1">1</span>','<span class="rank-n rk2">2</span>','<span class="rank-n rk3">3</span>'];
   results.forEach((r,i)=>{
     const dc=DCOLORS[r.dragon.dtype];
     const rank=i<3?medals[i]:`<span class="rank-n">${i+1}</span>`;
@@ -3166,7 +3171,14 @@ function renderResDeck(results,excludedCount){
     const _l2p=[_fO(2),_fO(3)].filter(Boolean);
     if(r.dragon.bonus)_l2p.push(`<span style="color:var(--gold)">${_BL[r.dragon.bonus]}</span>`);
     const _l2=_l2p.join(' / ');
-    const spiritLines=(_l1?`<div style="font-size:11px;color:var(--dim)">${_l1}</div>`:'')+(_l2?`<div style="font-size:11px;color:var(--dim)">${_l2}</div>`:'');
+    const _SKS={hp:'체',atk:'공',def:'방'};
+    const _BLS={hp:'체+40',atk:'공+10',def:'방+10'};
+    const _fC=(idx)=>{const o=_opts[idx]||{};if(!o.stat||!o.type)return null;
+      const v=o.type==='+'?`+${SP_PLUS[o.stat][idx+1]}`:`+${(SP_PCT[idx+1]*100).toFixed(0)}%`;
+      return `<span class="sp-chip sp-${o.stat}">${_SKS[o.stat]}<b>${v}</b></span>`;};
+    const _cps=[_fC(0),_fC(1),_fC(2),_fC(3)].filter(Boolean);
+    if(r.dragon.bonus)_cps.push(`<span class="sp-chip sp-bonus">${_BLS[r.dragon.bonus]}</span>`);
+    const spiritLines=_cps.length?`<div class="sp-chips">${_cps.join('')}</div>`:'<div class="sp-none">정령 없음</div>';
     const accImg=(()=>{const a=ACC_DB.find(x=>x.n===r.accN);return a&&a.img?`<img src="${a.img}" style="width:30px;height:30px;object-fit:contain;border-radius:4px">`:'';})();
     const pendMob=(()=>{
       if(!r.pend)return'<span style="color:var(--dimmer);font-size:11px">펜던트 없음</span>';
@@ -3289,7 +3301,7 @@ function renderAvgDetail(r){
       <table class="rtbl" style="min-width:0"><thead><tr>
         <th>순위</th><th>장신구 / 인챈트</th><th>젬 배분</th><th>펜던트</th><th>체 / 공 / 방</th><th>비밸</th>
       </tr></thead><tbody>`;
-    const medals=['','',''];
+    const medals=['<span class="rank-n rk1">1</span>','<span class="rank-n rk2">2</span>','<span class="rank-n rk3">3</span>'];
     buf.top5.forEach((item,j)=>{
       const rank=j<3?medals[j]:`<span class="rank-n">${j+1}</span>`;
       const a=ACC_DB.find(x=>x.n===item.accN);
@@ -3334,11 +3346,11 @@ function fmtPend(p){
   const opts=p.options.slice(0,mo).filter(o=>o&&o.stat).map(o=>{
     const col=o.stat==='hp'?'#fbbf24':o.stat==='atk'?'#f87171':'#60a5fa';
     return`<span style="color:${col}">${SK[o.stat]}</span><span style="color:var(--text)">${o.val||0}%</span>`;
-  }).join('<span style="color:var(--dim)">/</span>');
-  const img=IMG_PEND[p.type]?`<img src="${IMG_PEND[p.type]}" style="width:36px;height:36px;object-fit:contain;border-radius:4px">`:'';
+  }).join('<span style="color:var(--dim)"> / </span>');
+  const img=IMG_PEND[p.type]?`<img src="${IMG_PEND[p.type]}" style="width:28px;height:28px;object-fit:contain;border-radius:4px">`:'';
   const shortTypeMap={'달':'달펜','태양':'태양펜','별':'별펜'};
   const shortType=shortTypeMap[p.type]||p.type;
-  return`<div style="display:flex;align-items:center;gap:8px">${img}<div style="color:var(--text)"><span class="pend-name-full">${p.type}의 펜던트</span><span class="pend-name-short">${shortType}</span><br><small>(${opts})</small></div></div>`;
+  return`<div style="display:flex;align-items:center;gap:8px">${img}<div style="color:var(--text)"><span class="pend-name-full">${p.type}의 펜던트</span><span class="pend-name-short">${shortType}</span><br><small style="font-size:10.5px">(${opts})</small></div></div>`;
 }
 
 // ================================================================

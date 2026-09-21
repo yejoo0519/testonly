@@ -94,14 +94,14 @@ select:disabled,input:disabled{opacity:.3;cursor:not-allowed}
 .btn-sim{width:100%;padding:14px;background:var(--gold);border:none;border-radius:8px;color:#12151c;font-family:'Nanum Gothic',sans-serif;font-size:16px;font-weight:800;cursor:pointer;margin:12px 0;letter-spacing:-.5px;transition:opacity .15s,transform .1s}
 .btn-sim:hover{opacity:.92}.btn-sim:active{transform:scale(.99)}.btn-sim:disabled{opacity:.5;cursor:not-allowed}
 .res-wrap{overflow-x:auto}
-table.rtbl{width:100%;border-collapse:collapse;min-width:640px}
+table.rtbl{width:100%;border-collapse:collapse;min-width:880px}
 .rtbl th{background:var(--sf2);padding:9px 11px;text-align:left;font-size:11px;color:var(--dim);border-bottom:1px solid var(--bd);white-space:nowrap}
 .rtbl td{padding:10px 11px;border-bottom:1px solid var(--bd);font-size:13px;vertical-align:middle}
 .rtbl tr:last-child td{border-bottom:none}
 .rtbl tbody tr:hover td{background:rgba(255,255,255,.015)}
 .td-pc{display:table-cell}.td-mob{display:none}
 .mob-only{display:none}
-.acc-name-short{display:none}.pend-name-short{display:none}
+.acc-name-short{display:none}.pend-name-full{display:none}.pend-name-short{display:inline}
 @media(max-width:600px){
   .res-wrap{overflow-x:hidden}
   table.rtbl{display:block;width:100%!important;min-width:0!important;box-sizing:border-box}
@@ -193,9 +193,30 @@ input[type=number]{-moz-appearance:textfield}
 .u-setpane .sec-hd{padding:0 0 10px;border-bottom:1px solid var(--bd);margin-bottom:12px}
 .u-setpane .sec-bd{padding:0}
 .u-setpane .sim-cfg{display:flex;flex-direction:column;gap:16px}
-/* 좁은 설정 패널에서는 버프·디버프를 위아래로 (가로로 두면 글자가 잘립니다) */
-.u-setpane .buff-setting-grid{grid-template-columns:1fr}
+/* 좁은 설정 패널: 버프·디버프는 가로로 나란히, 그 안은 한 줄씩 (2×2로 두면 글자가 잘립니다) */
+.u-setpane .buff-setting-grid{grid-template-columns:1fr 1fr;gap:10px}
+.u-setpane .buff-setting-body{grid-template-columns:1fr}
+.u-setpane .buff-setting-cell{min-height:0;padding:9px 10px;border-right:0}
+.u-setpane .buff-setting-cell:last-child{border-bottom:0}
 .u-setpane .buff-setting-cell select{max-width:none}
+.u-setpane .buff-attr-icon{width:34px;height:34px}
+/* 아직 돌리지 않았을 때 오른쪽이 비어 보이지 않게 */
+.u-main #res-sec-empty{padding:80px 20px;text-align:center;font-size:13.5px;color:var(--text4);line-height:1.9}
+/* 결과 표 '용' 칸 — 정령 네 옵션을 줄글로 이으면 좁은 칸에서 서로 뭉칩니다.
+   2×2 칩으로 세워 칸이 제 폭을 주장하게 하고, 색으로 체/공/방을 구분합니다. */
+.rtbl .sp-chips{display:grid;grid-template-columns:repeat(2,auto);justify-content:start;gap:3px;margin-top:5px}
+.rtbl .sp-chip{display:inline-block;padding:2px 5px;border-radius:4px;font-size:10.5px;font-weight:600;line-height:1.35;white-space:nowrap;text-align:center}
+.rtbl .sp-chip b{font-weight:700}
+.rtbl .sp-hp{background:rgba(251,191,36,.13);color:var(--hpc)}
+.rtbl .sp-atk{background:rgba(248,113,113,.13);color:var(--atc)}
+.rtbl .sp-def{background:rgba(96,165,250,.13);color:var(--dfc)}
+.rtbl .sp-bonus{grid-column:1/-1;background:rgba(224,177,91,.12);color:var(--gold)}
+.rtbl .sp-none{font-size:10.5px;color:var(--dimmer);margin-top:5px}
+.rtbl .dname{font-weight:800;white-space:nowrap}
+/* 칸마다 최소 폭을 못 박아 둡니다 — 표가 좁아져도 이 아래로는 안 줄어듭니다 */
+.rtbl th:nth-child(2),.rtbl td.td-pc:nth-child(2){min-width:106px}
+.rtbl th:nth-child(6),.rtbl td.td-pc:nth-child(6){min-width:94px}
+.rk1{color:var(--gold)}.rk2{color:#c3c9d6}.rk3{color:#c08552}
 .u-setpane .radio-opts label{display:flex;align-items:flex-start;gap:7px;word-break:keep-all}
 .u-setpane .btn-sim{width:100%;margin:0}
 .u-main .ti,.u-main .ti-sim,.u-main .ti-dragon{max-width:none;margin:0;padding:0}
@@ -261,7 +282,8 @@ input[type=number]{-moz-appearance:textfield}
 
 <!-- ■ 시뮬레이터 탭 -->
 <div id="tab-sim" class="tc"><div class="ti ti-sim">
-<div class="sec" id="res-sec" style="display:none">
+<div id="res-sec-empty">왼쪽에서 설정을 마치고 [시뮬레이션 실행]을 눌러주세요.</div>
+  <div class="sec" id="res-sec" style="display:none">
   <div class="sec-hd">시뮬레이션 결과 — TOP 10</div>
   <div style="display:flex;border-bottom:1px solid var(--bd)">
     <button class="res-tab-btn" id="res-tab-btn-avg" onclick="switchResTab('avg')">최종 점수</button>
@@ -1204,23 +1226,20 @@ function genAllocs(pool,slots){
 }
 
 /*
- * 최종스탯 계산 공식 (게임 수식 그대로 INT = Math.floor):
+ * 최종스탯 계산 공식 (게임 수식 그대로 INT = 버림):
  *   A = base + gem + potion
  *   B = INT(A * (1 + acc% + enc%))
- *   C = INT(B * (1 + spirit%))
+ *   C = INT(B * (1 + spirit%) + spiritPlus * (1 + spirit%))   ← 본체와 정령 고정값을 합쳐 한 번만 버림
  *   D = INT(C * (1 + pendant%))
- *   E = INT(INT(spiritPlus * (1 + spirit%)) * (1 + pendant%))
- *   F = INT(spiritBonus * (1 + pendant%))
  *   buf = INT(bufLevel * base * 0.20)
- *   finalStat = D + E + F + collection + buf
+ *   finalStat = D + spiritBonus + collection + buf            ← 부가옵은 펜던트를 곱하지 않습니다
  */
+const INT=x=>Math.floor(x+1e-9);
 function calcStat(B,G,P,AP,SP,PP,SL,SB,C,BU){
-  const a=Math.floor((B+G+P)*(1+AP));
-  const b=Math.floor(a*(1+SP));
-  const c=Math.floor(b*(1+PP));
-  const d=Math.floor(Math.floor(SL*(1+SP))*(1+PP));
-  const e=Math.floor(SB*(1+PP));
-  return c+d+e+C+BU;
+  const a=INT((B+G+P)*(1+AP));
+  const b=INT(a*(1+SP)+SL*(1+SP));
+  const c=INT(b*(1+PP));
+  return c+SB+C+BU;
 }
 
 // 정령 상태를 스탯별 + / % / 부가옵 기여로 변환
@@ -1264,6 +1283,7 @@ function switchResTab(t){
 }
 
 function runSim(){
+  {const _e=document.getElementById('res-sec-empty');if(_e)_e.style.display='none';}
   const encMode=document.querySelector('input[name="enc-mode"]:checked')?.value||'fixed';
   const accSeen=new Set();
   const ownedAcc=S.accCards
@@ -1505,7 +1525,7 @@ function fmtPendMob(pend){
 function renderResTop(top10){
   const el=document.getElementById('res-body-top');
   if(!top10.length){el.innerHTML='<div style="padding:30px;text-align:center;color:var(--dim)">결과 없음</div>';return;}
-  const medals=['','',''];
+  const medals=['<span class="rank-n rk1">1</span>','<span class="rank-n rk2">2</span>','<span class="rank-n rk3">3</span>'];
   // 모바일용 카드
   let mobHtml='<div class="mob-only">';
   // PC용 테이블
@@ -1605,7 +1625,7 @@ function toggleAvgDetail(i){
 }
 
 function renderAvgDetail(r){
-  const medals=['','',''];
+  const medals=['<span class="rank-n rk1">1</span>','<span class="rank-n rk2">2</span>','<span class="rank-n rk3">3</span>'];
   let mobHtml='<div class="mob-only" style="padding:10px 0;background:var(--sf2)">';
   let pcHtml='<div class="pc-only" style="padding:10px 16px;background:var(--sf2)">';
   r.bufResults.forEach(buf=>{
@@ -1664,11 +1684,11 @@ function fmtPend(p){
   const opts=p.options.slice(0,mo).filter(o=>o&&o.stat).map(o=>{
     const col=o.stat==='hp'?'#fbbf24':o.stat==='atk'?'#f87171':'#60a5fa';
     return`<span style="color:${col}">${SK[o.stat]}</span><span style="color:var(--text)">${o.val||0}%</span>`;
-  }).join('<span style="color:var(--dim)">/</span>');
-  const img=IMG_PEND[p.type]?`<img src="${IMG_PEND[p.type]}" style="width:36px;height:36px;object-fit:contain;border-radius:4px">`:'';
+  }).join('<span style="color:var(--dim)"> / </span>');
+  const img=IMG_PEND[p.type]?`<img src="${IMG_PEND[p.type]}" style="width:28px;height:28px;object-fit:contain;border-radius:4px">`:'';
   const shortTypeMap={'달':'달펜','태양':'태양펜','별':'별펜'};
   const shortType=shortTypeMap[p.type]||p.type;
-  return`<div style="display:flex;align-items:center;gap:8px">${img}<div style="color:var(--text)"><span class="pend-name-full">${p.type}의 펜던트</span><span class="pend-name-short">${shortType}</span><br><small>(${opts})</small></div></div>`;
+  return`<div style="display:flex;align-items:center;gap:8px">${img}<div style="color:var(--text)"><span class="pend-name-full">${p.type}의 펜던트</span><span class="pend-name-short">${shortType}</span><br><small style="font-size:10.5px">(${opts})</small></div></div>`;
 }
 
 // ================================================================

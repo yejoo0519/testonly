@@ -96,6 +96,19 @@ input[type=number]{width:100%}
 .u-setpane .set-blk>.sec:last-child{margin-bottom:0}
 .u-setpane .btn-run,.u-setpane .btn{width:100%}
 .u-setpane .row3{max-width:none}
+/* 수동 계산기: 공통 설정을 본문 위에 가로로 */
+.m-top{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap;padding:14px 16px;margin-bottom:14px;
+  border:1px solid var(--bd);border-radius:10px;background:var(--sf)}
+.m-top .sec{background:none;border:0;border-radius:0;margin:0;overflow:visible;flex-grow:1;min-width:0}
+.m-top .sec-hd{padding:0 0 9px;border-bottom:1px solid var(--bd);margin-bottom:11px}
+.m-top .sec-bd{padding:0}
+.m-top .row3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;max-width:640px}
+.m-top>.btn{flex-shrink:0;padding:9px 16px}
+@media(max-width:760px){
+  .m-top{flex-direction:column;align-items:stretch;gap:12px}
+  .m-top .row3{grid-template-columns:1fr;max-width:none}
+  .m-top>.btn{width:100%}
+}
 .u-main #result:empty::after,.u-main #spx-result:empty::after{
   content:attr(data-empty);display:block;padding:70px 20px;text-align:center;
   font-size:13.5px;color:var(--text4);line-height:1.9}
@@ -109,8 +122,9 @@ input[type=number]{width:100%}
 </head>
 <body class="u">
 <div class="u-app">
-<div class="u-content">
-<aside class="u-setpane" id="setpane">
+<main class="u-main wide" id="mainpane">
+<div class="pane-top"><span class="save-msg" id="save-msg"></span></div>
+<div class="m-top">
 <div class="sec">
     <div class="sec-hd"><span id="t-common"></span><button class="btn-red" onclick="resetAll()" id="t-reset"></button></div>
     <div class="sec-bd">
@@ -118,10 +132,8 @@ input[type=number]{width:100%}
       <div class="row3" style="max-width:560px" id="buff-row"></div>
     </div>
   </div>
-  <button class="btn" style="margin-top:4px" onclick="sendToAuto()" id="t-send-auto"></button>
-</aside>
-<main class="u-main" id="mainpane">
-<div class="pane-top"><span class="save-msg" id="save-msg"></span></div>
+  <button class="btn" onclick="sendToAuto()" id="t-send-auto"></button>
+</div>
 
   <div class="team-tabs" id="team-tabs"></div>
   <div class="cards" id="cards"></div>
@@ -131,7 +143,6 @@ input[type=number]{width:100%}
     <div class="sec-bd sum-scroll"><table class="sum-table" id="sum-table"></table></div>
   </div>
 </main>
-</div>
 
 <script>
 'use strict';

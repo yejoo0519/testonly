@@ -180,6 +180,31 @@
         d.body.classList.add('has-taskbar');
       }
 
+      /* ── 설정 패널 접기 버튼 ── */
+      var setp = app.querySelector('.u-setpane');
+      if (setp) {
+        setp.style.position = setp.style.position || '';
+        var tg = el('button', 'u-panetog');
+        tg.type = 'button';
+        tg.title = EN ? 'Hide settings' : '설정 접기';
+        tg.setAttribute('aria-label', tg.title);
+        tg.onclick = function () { UI.pane(0); };
+        tg.innerHTML = '<svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" ' +
+          'stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3 4 8l5 5M14 3 9 8l5 5"/></svg>';
+        setp.insertBefore(tg, setp.firstChild);
+        var rail = el('div', 'u-paneopen');
+        var ob = el('button', '');
+        ob.type = 'button';
+        ob.title = EN ? 'Show settings' : '설정 펼치기';
+        ob.setAttribute('aria-label', ob.title);
+        ob.onclick = function () { UI.pane(1); };
+        ob.innerHTML = '<svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" ' +
+          'stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3l5 5-5 5M2 3l5 5-5 5"/></svg>';
+        rail.appendChild(ob);
+        setp.parentNode.insertBefore(rail, setp);
+        try { if (localStorage.getItem('u-pane') === 'off') d.body.classList.add('pane-off'); } catch (e) {}
+      }
+
       /* ── 모바일 하단 탭바 ── */
       if (opt.tabbar !== false) {
         var bar = el('nav', 'u-tabbar');
@@ -197,6 +222,14 @@
         d.body.appendChild(bar);
         d.body.classList.add('has-tabbar');
       }
+    },
+
+    /* 설정 패널 접기 — UI.pane(0) 접기, UI.pane(1) 펼치기, UI.pane() 토글 */
+    pane: function (on) {
+      var off = (on == null) ? !d.body.classList.contains('pane-off') : !on;
+      d.body.classList.toggle('pane-off', off);
+      try { localStorage.setItem('u-pane', off ? 'off' : 'on'); } catch (e) {}
+      w.dispatchEvent(new Event('resize'));
     },
 
     /* 계산기 작업 탭 전환 — UI.task('sim') */

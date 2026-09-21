@@ -155,6 +155,19 @@ body.u.has-taskbar .u-setpane{top:var(--u-tabh);max-height:calc(100vh - var(--u-
 .u-content{flex-grow:1;min-width:0;display:flex}
 .u-setpane{width:var(--u-panel);flex-shrink:0;padding:28px 26px;border-right:1px solid var(--bd);
   align-self:flex-start;position:sticky;top:0;max-height:100vh;overflow-y:auto}
+/* 설정 패널 접기 — 결과를 넓게 보고 싶을 때 */
+.u-panetog{position:absolute;top:12px;right:10px;width:26px;height:26px;padding:0;
+  display:flex;align-items:center;justify-content:center;border:1px solid var(--bd);
+  border-radius:7px;background:var(--sf2);color:var(--dim);cursor:pointer;line-height:1;z-index:2}
+.u-panetog:hover{border-color:var(--gold);color:var(--text)}
+.u-paneopen{display:none;position:sticky;top:0;align-self:flex-start;flex-shrink:0;
+  width:38px;padding:14px 0;border-right:1px solid var(--bd);background:var(--sf)}
+.u-paneopen button{width:26px;height:26px;margin:0 auto;padding:0;display:flex;align-items:center;
+  justify-content:center;border:1px solid var(--bd);border-radius:7px;background:var(--sf2);
+  color:var(--dim);cursor:pointer}
+.u-paneopen button:hover{border-color:var(--gold);color:var(--text)}
+body.u.pane-off .u-setpane{display:none}
+body.u.pane-off .u-paneopen{display:block}
 .u-main{flex-grow:1;min-width:0;padding:26px 30px 60px}
 .u-main.wide{padding:26px 34px 60px}
 
@@ -312,6 +325,8 @@ a.u-card:hover,.u-card.click:hover{border-color:var(--gold);background:var(--acc
 }
 @media (max-width:980px){
   .u-content{flex-direction:column}
+  .u-panetog,.u-paneopen{display:none !important}
+  body.u.pane-off .u-setpane{display:block}
   .u-setpane{width:auto;align-self:stretch;position:static;max-height:none;border-right:0;
     border-bottom:1px solid var(--bd);padding:20px 22px}
 }

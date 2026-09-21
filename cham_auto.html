@@ -264,6 +264,7 @@ input[type=number]{width:100%}
 .dr-tbl tr:last-child td{border-bottom:0}
 .dr-tbl .c-bar{width:5px;padding:0}
 .dr-tbl .grp-row td{padding:0;border-bottom:1px solid var(--bd)}
+.dr-tbl .grp-row:first-child .grp-bar{border-top:0}
 .grp-bar{display:flex;align-items:center;gap:9px;padding:8px 12px;background:var(--sf2);border-top:1px solid var(--bd)}
 .grp-bar .bar{width:3px;height:17px;border-radius:2px;flex-shrink:0}
 .grp-bar img{width:20px;height:20px;object-fit:contain;flex-shrink:0;max-width:none}
@@ -300,12 +301,7 @@ input[type=number]{width:100%}
 .sp-chip.none{border:1px dashed var(--border3);color:var(--text4)}
 .sp-chip.bn{border:1px solid currentColor;background:none}
 
-.dr-addbar{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:12px;border-top:1px solid var(--bd)}
-.dr-addbar .t{font-size:12px;color:var(--dim);margin-right:2px}
-.dr-addchip{display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border:1px dashed var(--border3);
-  border-radius:99px;background:transparent;color:var(--text2);font-family:inherit;font-size:12.5px;cursor:pointer}
-.dr-addchip:hover{border-style:solid;border-color:var(--gold);color:var(--gold)}
-.dr-addchip img{width:16px;height:16px;object-fit:contain;max-width:none}
+.dr-hint{padding:13px 14px;color:var(--text4);font-size:12.5px;border-bottom:1px solid var(--bd)}
 
 /* 모바일 목록 + 편집 시트 */
 .dr-mo{display:none}
@@ -361,6 +357,19 @@ input[type=number]{width:100%}
 .u-setpane .set-blk>.sec:last-child{margin-bottom:0}
 .u-setpane .btn-run,.u-setpane .btn{width:100%}
 .u-setpane .row3{max-width:none}
+/* 수동 계산기: 공통 설정을 본문 위에 가로로 */
+.m-top{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap;padding:14px 16px;margin-bottom:14px;
+  border:1px solid var(--bd);border-radius:10px;background:var(--sf)}
+.m-top .sec{background:none;border:0;border-radius:0;margin:0;overflow:visible;flex-grow:1;min-width:0}
+.m-top .sec-hd{padding:0 0 9px;border-bottom:1px solid var(--bd);margin-bottom:11px}
+.m-top .sec-bd{padding:0}
+.m-top .row3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;max-width:640px}
+.m-top>.btn{flex-shrink:0;padding:9px 16px}
+@media(max-width:760px){
+  .m-top{flex-direction:column;align-items:stretch;gap:12px}
+  .m-top .row3{grid-template-columns:1fr;max-width:none}
+  .m-top>.btn{width:100%}
+}
 .u-main #result:empty::after,.u-main #spx-result:empty::after{
   content:attr(data-empty);display:block;padding:70px 20px;text-align:center;
   font-size:13.5px;color:var(--text4);line-height:1.9}
@@ -1534,7 +1543,7 @@ function renderDragonTeams(){
   const byAttr={};
   ATTRS.forEach(a=>byAttr[a]=[]);
   list.forEach((en,i)=>{if(byAttr[en.attr])byAttr[en.attr].push(i);});
-  const shown=D_ATTR?[D_ATTR]:ATTRS.filter(a=>byAttr[a].length);
+  const shown=D_ATTR?[D_ATTR]:ATTRS.slice();
 
   // 왼쪽 레일
   const rail=`<div class="dr-rail">
@@ -1550,9 +1559,7 @@ function renderDragonTeams(){
 
   // 오른쪽: 속성 그룹 표 (PC)
   let body='';
-  if(!list.length){
-    body=`<div class="dr-empty">${L.empty_team}</div>`;
-  }else{
+  {
     let rows='';
     shown.forEach(attr=>{
       const idxs=byAttr[attr];
@@ -1584,20 +1591,13 @@ function renderDragonTeams(){
         if(open)rows+=`<tr class="dr-editrow"><td class="c-bar" style="background:${EL_DOT[attr]}"></td><td colspan="5">${drEditHtml(ti,i)}</td></tr>`;
       });
     });
-    body=`<table class="dr-tbl"><tbody>${rows}</tbody></table>`;
+    const hint=list.length?'':`<div class="dr-hint">${esc(L.empty_team)}</div>`;
+    body=hint+`<table class="dr-tbl"><tbody>${rows}</tbody></table>`;
   }
-  // 전체 보기에서도 아직 안 쓴 속성에 바로 등록할 수 있게
-  const rest=ATTRS.filter(a=>!shown.includes(a));
-  const restAdd=rest.length?`<div class="dr-addbar"><span class="t">다른 속성에 추가</span>
-    ${rest.map(a=>`<button type="button" class="dr-addchip" onclick="addEntry(${ti},'${a}')">
-      <img src="${esc(elIcon(a))}" onerror="this.style.visibility='hidden'" alt="">${esc(attrLbl(a))}</button>`).join('')}</div>`:'';
-  body+=restAdd;
 
   // 모바일 목록
   let mo='';
-  if(!list.length){
-    mo=`<div class="dr-empty">${L.empty_team}</div>`;
-  }else{
+  {
     shown.forEach(attr=>{
       const idxs=byAttr[attr];
       const ok=idxs.filter(i=>valid.has('e'+ti+'-'+i)).length;
@@ -1617,7 +1617,8 @@ function renderDragonTeams(){
       }).join('')+`</div>`;
     });
   }
-  mo+=restAdd;
+
+  if(!list.length)mo=`<div class="dr-hint">${esc(L.empty_team)}</div>`+mo;
 
   // 모바일 편집 시트
   let sheet='';
