@@ -38,8 +38,8 @@
     ] },
     { g: T.g_calc, items: [
       ['calculator',  EN ? 'Spirit sim'   : '정령 시뮬레이터', 'calculator.html'],
-      ['pvp',         EN ? 'Guild war'    : '길드전 (오리지널)', 'pvp.html'],
-      ['noob',        EN ? 'Guild (new)'  : '길드전 (뉴비)',   'noob.html'],
+      ['pvp',         EN ? 'Guild war'    : '길드전', 'pvp.html'],
+      ...(EN ? [['noob','Guild (new)','noob.html']] : []),
       ['cham_manual', EN ? 'Champ manual' : '챔대 수동',      'cham_manual.html'],
       ['cham_auto',   EN ? 'Champ auto'   : '챔대 자동',      'cham_auto.html']
     ] },
@@ -50,6 +50,7 @@
     ] },
     { g: T.g_etc, items: [
       ['my',           EN ? 'My spec'  : '내 스펙 관리', 'my.html'],
+      ...(!EN ? [['guild-home','길드','guild-home.html']] : []),
       ['guild',        EN ? 'Guilds'   : '길드 홍보',   'guild.html'],
       ['aura-preview', EN ? 'Auras'    : '오라 미리보기', 'aura-preview.html'],
       ['patchnote',    EN ? 'Patch'    : '패치 노트',   'patchnote.html']

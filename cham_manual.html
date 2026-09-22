@@ -2,11 +2,24 @@
 <html lang="ko" data-theme="dark">
 <head>
 <meta charset="UTF-8">
+<script src="./dragons.js"></script>
+<script src="./cham-rules.js"></script>
+<script src="./dragon-views.js"></script>
+<script>
+if (!globalThis.DV1_DRAGON_VIEWS) {
+  document.addEventListener('DOMContentLoaded', function () {
+    var warning = document.createElement('div');
+    warning.setAttribute('role', 'alert');
+    warning.style.cssText = 'position:fixed;inset:0;z-index:2147483647;background:#171b25;color:#fff;padding:48px;font:18px/1.8 sans-serif';
+    warning.textContent = '드래곤 데이터를 불러오지 못해 페이지를 시작하지 않았습니다. 새로고침하거나 사이트 관리자에게 문의해 주세요.';
+    document.body.appendChild(warning);
+  });
+}
+</script>
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>챔피언대전 수동 계산기</title>
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
-<script src="./dragon-data.js"></script>
-<script src="./cham-data.js"></script>
 <link id="theme-css" rel="stylesheet" href="./theme-dark.css">
 <link rel="stylesheet" href="./ui.css">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -146,6 +159,8 @@ input[type=number]{width:100%}
 
 <script>
 'use strict';
+if (!globalThis.DV1_DRAGON_VIEWS) throw new Error("드래곤 데이터 로드 실패: 초기화 중단");
+
 const L={lang:'ko',
  saved:'저장됨',data_missing_t:'데이터 파일을 불러오지 못했어요',data_missing_d:'계산기에 필요한 cham-data.js 파일이 없어요. 사이트 루트에 이 파일이 있는지 확인해주세요.',send_auto:'자동 계산기로 보내기',send_none:'입력된 드래곤이 없어요.',send_confirm:n=>'입력한 드래곤 '+n+'마리를 자동 계산기의 [내 드래곤]에 추가할까요?',send_dup:'추가할 새 드래곤이 없어요. (이미 등록돼 있어요)',send_fail:'저장 실패: ',send_done:n=>n+'마리를 추가했어요. 자동 계산기로 이동할까요?',common:'공통 설정',reset:'전체 초기화',buff:'속성 버프 (해당 속성 드래곤에 적용) · 컬렉션은 풀컬(240/60/60) 고정',summary:'전체 결과',
  none:'없음',pick_attr:'속성 선택',pick_dragon:'드래곤 선택',pick_type:'타입 선택',no_dragon:'드래곤 미선택',search_ph:'드래곤 이름 검색',type_fixed:'드래곤에 따라 자동 설정',no_result:'검색 결과 없음',
@@ -526,6 +541,8 @@ document.addEventListener('DOMContentLoaded',()=>{
 });
 </script>
 <script>
+if (!globalThis.DV1_DRAGON_VIEWS) throw new Error("드래곤 데이터 로드 실패: 초기화 중단");
+
 (function(){
   var link=document.getElementById('theme-css');
   if(!link)return;
@@ -542,6 +559,8 @@ document.addEventListener('DOMContentLoaded',()=>{
 </script>
 </div>
 <script src="./ui.js"></script>
-<script>UI.shell({page:'cham_manual',title:'챔피언대전',sub:'수동 계산기'});</script>
+<script>
+if (!globalThis.DV1_DRAGON_VIEWS) throw new Error("드래곤 데이터 로드 실패: 초기화 중단");
+UI.shell({page:'cham_manual',title:'챔피언대전',sub:'수동 계산기'});</script>
 </body>
 </html>

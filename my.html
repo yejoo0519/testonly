@@ -2,6 +2,21 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+<script src="./dragons.js"></script>
+<script src="./cham-rules.js"></script>
+<script src="./dragon-views.js"></script>
+<script>
+if (!globalThis.DV1_DRAGON_VIEWS) {
+  document.addEventListener('DOMContentLoaded', function () {
+    var warning = document.createElement('div');
+    warning.setAttribute('role', 'alert');
+    warning.style.cssText = 'position:fixed;inset:0;z-index:2147483647;background:#171b25;color:#fff;padding:48px;font:18px/1.8 sans-serif';
+    warning.textContent = '드래곤 데이터를 불러오지 못해 페이지를 시작하지 않았습니다. 새로고침하거나 사이트 관리자에게 문의해 주세요.';
+    document.body.appendChild(warning);
+  });
+}
+</script>
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>내 스펙 - 종합 정보사이트</title>
 <link id="theme-css" rel="stylesheet" href="./theme-dark.css">
@@ -144,7 +159,7 @@ button{white-space:nowrap}
   .calc-shortcut .calc-card-title{font-size:11.5px;line-height:1.3;letter-spacing:-.02em}
 }
 </style>
-</head>
+<style>.quick-acc-panel{padding:12px;border-bottom:1px solid var(--bd)}.quick-acc-panel summary{cursor:pointer;font-weight:700}.quick-acc-panel p,.quick-acc-panel small,#quick-acc-status{font-size:11px;color:var(--dim)}.quick-acc-controls{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.quick-acc-controls label{font-size:11px;display:flex;gap:5px;align-items:center}.quick-acc-controls select{padding:6px}.quick-acc-controls input{min-width:0;width:100%;padding:8px}#quick-acc-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;max-height:320px;overflow:auto}.quick-acc-item{display:flex;align-items:center;text-align:left;gap:6px;padding:8px;background:var(--sf2);color:var(--text);border:1px solid var(--bd);border-radius:7px;font:inherit;font-size:11px;cursor:pointer;min-height:58px;word-break:keep-all}.quick-acc-item:active{border-color:var(--gold)}.quick-acc-item img{width:30px;height:30px;object-fit:contain}.quick-acc-item small{display:block;margin-top:4px}.pend-preset-row{flex-wrap:wrap}</style><style>#quick-pend-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;max-height:320px;overflow:auto}#quick-pend-status{font-size:11px;color:var(--dim);margin-top:6px}</style><link rel="stylesheet" href="./my-layout.css"></head>
 <body class="u">
 <div class="u-app">
 <main class="u-wrap">
@@ -184,30 +199,13 @@ button{white-space:nowrap}
  <a href="./pvp.html?from=spec" class="calc-card">
  <div class="calc-badge badge-orange">오리지널 버전</div>
  <div class="calc-card-title">길드전 자동 계산기</div>
- <div class="calc-card-desc">9.0 고정 · 너프 제외 결과 출력</div>
+ <div class="calc-card-desc">오리지널 모드</div>
  </a>
  <a href="./noob.html?from=spec" class="calc-card">
  <div class="calc-badge badge-green">뉴비 버전</div>
  <div class="calc-card-title">길드전 자동 계산기</div>
- <div class="calc-card-desc">7.0~9.0 선택가능 · 너프 적용 출력 가능</div>
+ <div class="calc-card-desc">뉴비 모드</div>
  </a>
- </div>
-
- <!-- 길드 바로가기 -->
- <div style="margin-bottom:20px">
- <div style="font-size:12.5px;font-weight:600;color:var(--dim);margin-bottom:10px">길드</div>
- <div class="calc-grid" style="grid-template-columns:repeat(2,1fr)">
- <a href="./gd.html" class="calc-card">
- <div class="calc-badge badge-guild">길드원</div>
- <div class="calc-card-title">길드 연동</div>
- <div class="calc-card-desc">코드 입력 · 가입 요청 · 이번 주 셋팅 확인</div>
- </a>
- <a href="./gdgm.html" class="calc-card">
- <div class="calc-badge badge-purple">관리진</div>
- <div class="calc-card-title">길드 관리</div>
- <div class="calc-card-desc">가입 수락 · 순위 확인 · 길드전 기록</div>
- </a>
- </div>
  </div>
 
  <!-- 내보내기 / 불러오기 -->
@@ -311,13 +309,8 @@ button{white-space:nowrap}
  <button class="btn-white" onclick="addAcc()">+ 추가</button>
  </div>
  </div>
- <div class="acc-preset-row">
- <button class="btn-white" onclick="addAccBulk(16)">16</button>
- <button class="btn-white" onclick="addAccBulk(17)">17</button>
- <button class="btn-white" onclick="addAccBulk(18)">18</button>
- <button class="btn-white" onclick="addAccBulk(19)">19</button>
- <button class="btn-white" onclick="addAccBulk(20)">20</button>
- </div>
+ <details class="quick-acc-panel" open><summary>장신구 빠른 추가</summary><p>장신구를 누를 때마다 선택한 인챈트로 1개씩 추가됩니다.</p><div class="quick-acc-controls"><label>레벨<select id="quick-acc-level"><option>20</option><option>19</option><option>18</option><option>17</option><option>16</option></select></label><label>인챈트<select id="quick-acc-enc"><option value="none">없음</option><option value="hp">체력</option><option value="atk">공격</option><option value="def">방어</option></select></label><input id="quick-acc-search" placeholder="장신구 검색" aria-label="빠른 추가 장신구 검색"></div><div id="quick-acc-list"></div><div id="quick-acc-status" role="status" aria-live="polite"></div></details>
+
  <div class="sec-bd"><div id="acc-list"><div style="color:var(--dimmer);font-size:13px">보유 장신구 없음</div></div></div>
  </div>
  </div>
@@ -333,8 +326,10 @@ button{white-space:nowrap}
  <button class="btn-white" onclick="addPendant()">+ 추가</button>
  </div>
  </div>
+ <details class="quick-acc-panel" open><summary>펜던트 빠른 추가</summary><p>종류와 각 옵션의 수치를 고른 뒤 조합을 누르면 1개씩 추가됩니다. 추가 후 각 옵션을 따로 수정할 수 있습니다.</p><div class="quick-acc-controls"><label>종류<select id="quick-pend-type"><option value="태양">태양</option><option value="달">달</option><option value="별">별</option></select></label><label>각 옵션<select id="quick-pend-value"><option value="6">6%</option><option value="5">5%</option><option value="4">4%</option><option value="3">3%</option><option value="2">2%</option><option value="1">1%</option></select></label></div><div id="quick-pend-list"></div><div id="quick-pend-status" role="status" aria-live="polite"></div></details>
  <div class="pend-preset-row">
  <button class="btn-white" onclick="addMoonPendantSet()">달펜 세트</button>
+<button class="btn-white" onclick="addSunPendantSet()">태펜 세트</button><span id="pend-add-status" role="status" style="font-size:11px;color:var(--dim)"></span>
  </div>
  <div class="sec-bd"><div id="pend-list"><div style="color:var(--dimmer);font-size:13px">보유 펜던트 없음</div></div></div>
  </div>
@@ -346,7 +341,9 @@ button{white-space:nowrap}
 <div class="toast" id="toast"></div>
 
 <script src="./sb_config.js"></script>
-<script>// ================================================================
+<script>
+if (!globalThis.DV1_DRAGON_VIEWS) throw new Error("드래곤 데이터 로드 실패: 초기화 중단");
+// ================================================================
 // 이미지 / 장신구 DB
 // ================================================================
 const TEM_BASE='https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/tem';
@@ -707,7 +704,7 @@ function renderAll(){
 // ================================================================
 // 드래곤 이미지
 // ================================================================
-const DRAGON_IMG_NUM={"패트":25,"타이거":50,"램곤":103,"헝그리":131,"머드":140,"오렌지리프":164,"지진":322,"포이즌리버":337,"포폰":349,"애플칙":415,"알데바란":519,"에그마용":593,"파워":14,"데빌곤":97,"베가본드":159,"레오벡터":483,"바스카":696,"바위":15,"지하땅굴":16,"에그":19,"리프":28,"스마트":32,"타투":62,"팀버":108,"플라워":113,"파키":559,"히드라곤":13,"콜로서스":196,"레이어스":246,"리베티":393,"케찰코아틀":568,"골든혼":57,"머스타드해머":73,"칸타카":400,"아스타테":426,"헤임달":659,"논":667,"파이썬":92,"헤라클레스":105,"스파인":63,"스콜피온":76,"다로스":268,"즈믄":392,"아카이아":672,"크로마 아카이아":673,"네시":10,"스왐프":24,"툰드라":123,"유르카":615,"알레샤":648,"크로마 알레샤":649,"볼바":660,"빙하고룡":9,"페어리":17,"샤크곤":58,"메갈로돈":124,"블리자드":367,"베른하르트":502,"루드라":579,"피싱테일":691,"루미네스":134,"프로그":29,"현무":67,"루피아":110,"스터드":112,"위드미":218,"폴투누스":529,"스카트":647,"로키":655,"블루라이트닝":89,"바이올렛":98,"해마곤":114,"베놈":248,"브리트라":394,"프로즌":453,"루살카":600,"테일":11,"수룡":12,"슬라임":42,"퍼플립스":91,"마리노":138,"나트론":345,"레굴루스":517,"크로마 레굴루스":518,"미니":23,"아쿠아":132,"아이스 드레이크":198,"세크레타":230,"트로페우스":416,"마소티스":496,"옥타":620,"크로마 옥타":621,"붐버":141,"포포모":274,"염화룡":527,"파이거":651,"크로마 파이거":652,"파이어":5,"피닉스":8,"레드와이번":74,"말소자":107,"수라":429,"엔투라스":438,"라센티":555,"배틀":96,"번네스":135,"데모니오":169,"스파이크":26,"너티빌런":145,"와일드":244,"루가르":250,"토트":544,"스카투스":653,"크로마 스카투스":654,"아이언":93,"번개고룡":6,"라바":7,"본헤드":71,"플레임":100,"레드불":122,"므네이아":147,"블레이즈":629,"적마룡":689,"자룡":95,"금오":51,"푸투룸":231,"이그나":366,"화귀":489,"타나토스":535,"헬":20,"인섹트":27,"샌드":31,"볼케이노":88,"이그니스":127,"가루다":225,"마룡":305,"불나래":613,"크로마 불나래":614,"윈드":2,"식스 레그 혼":3,"뮤직":33,"가디언":59,"토템":106,"클라우드":115,"핑크벨":165,"엠파이어":319,"혼":344,"청룡":4,"페이퍼":156,"스트라이커":224,"아스티":255,"아라카":290,"거스트":370,"블루썬더":594,"크로마 블루썬더":595,"프로스티":65,"해태":75,"스틸윙":260,"키갈":397,"리티오":644,"크로마 리티오":645,"제트":137,"스왈로우":151,"카오스":186,"제피로스":350,"보레아스":486,"레이디":18,"타이푼":111,"태엽":160,"센투라":387,"티르":508,"루루":694,"크로마 루루":695,"에일리언":22,"윙스":30,"메탈 마그넷":52,"i곤":152,"피스":154,"그레이탄":266,"레인보우배트곤":289,"에트왈":389,"피타야":563,"토르":661,"오로":94,"카멜레용":37,"레인보우":61,"샴":70,"삐에로":81,"시타엘":192,"엔젤주니어":432,"큐피트":40,"모리카":158,"오르도":229,"솔라":348,"카루라":373,"아톤":408,"스워드":458,"바르그":531,"야즈니르":665,"아르고":104,"나이트":77,"순둥곤":84,"사나래":142,"로루스":209,"헤이즈":219,"개틀링곤":501,"솔루카니스":597,"프로텍트":633,"크로마 프로텍트":634,"크리마용":68,"라이곤":36,"캥거레빗":39,"네온":99,"슈팅스타":129,"깨비곤":136,"미나스":378,"알투스":606,"메라크":686,"스파이시":78,"고대신룡":1,"엔젤":21,"에메랄드":35,"치킨헤드":38,"골드":41,"백룡":54,"오로라":125,"아실리":206,"스타에이스":271,"테디":275,"베르나":342,"라파엘":79,"고대 주니어":64,"파라오곤":82,"바르라아":202,"아르테미스":309,"화이트썬더":372,"탈릿사":409,"아만타":509,"샤흐":513,"프랑켄":85,"블랙티어":162,"원더":197,"블랙찡또":207,"문라이트":213,"말로단":272,"마그나스":573,"카스룩스":604,"블레이드":43,"서펀트":48,"G네":49,"유니":56,"다크프로스티":66,"쉐도우":83,"닌자":86,"블랙퀸":101,"스플렌더":161,"타임머신":191,"아자크":452,"베타라":601,"크로마 베타라":602,"오벡스":676,"베네지":72,"투탕카":139,"블랙아머":163,"쿠로이":166,"카르나":303,"쿠베라":380,"포르타":575,"흑룡":34,"메탈":44,"미이라곤":45,"스켈레곤":47,"다크닉스":53,"히에나곤":55,"크레센트":60,"윗치":90,"캣츠곤":126,"타르타로스":128,"다크폴":130,"피데스":611,"요르문간드":662,"티아매트":674,"바알":80,"시그마":102,"드라고노이드":87,"유니버스":252,"베히모스":259,"다크나이트":368,"고트":557,"뱃도치":46,"코브라곤":109,"마르바스":241,"스케어":281,"드래곤 슬레이어":351,"마카라":467,"리치몬드":497,"크로마 리치몬드":498,"하트샤":681,"데몽과가고일":69,"베리스":463,"아말테아":566,"야누스":650,"합라":287,"셀마사":296,"울르":623,"엘리고스":473,"라스":540,"조화룡":569,"할리벨":232,"타아비레":233,"보상이용":334,"루크바트":603,"프레이야":698,"미미르":476,"네비아":484,"아프로디테":625,"킨더":358,"암두시아스":481,"코르투스":587,"이클립스":469,"템피오스":635,"흐레스벨그":677,"카라선":298,"렉스톤":301,"틸키":365,"하리카":411,"데스락":447,"세에레":530,"차차웅":583,"렉몰 리버스":385,"네뷸라":516,"인베르소":641,"레긴레이프":687,"크로마 레긴레이프":688,"발라크":234,"에피트":590,"마누스":663,"베팔":235,"포메쿨":302,"프라이드":538,"단탈리온":236,"네무스":547,"블라드":697,"디멘션":355,"쉴로시":617,"잠식된 요르문간드":664,"레무레스":671,"벨레드":470,"미스핏":526,"크로마 벨레드":574,"움브라":347,"루드오어":457,"크레바스":554,"발레포르":684,"크로마 발레포르":685,"애니마라":448,"롱기누스":523,"마스테마":532,"자간":237,"커스리퍼":622,"진":637,"크툴루":703,"크로마 크툴루":704,};
+const DRAGON_IMG_NUM=DV1_DRAGON_VIEWS.imageNumbers();
 const DRAGON_IMG_BASE="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main";
 function getDragonImgUrl(name){
  let n=DRAGON_IMG_NUM[name];
@@ -1124,7 +1121,9 @@ function init(){
 }
 document.addEventListener('DOMContentLoaded',init);
 </script>
-<script>/* ── data-theme 동기화 ── */
+<script>
+if (!globalThis.DV1_DRAGON_VIEWS) throw new Error("드래곤 데이터 로드 실패: 초기화 중단");
+/* ── data-theme 동기화 ── */
 (function(){
  var link=document.getElementById('theme-css');
  if(!link)return;
@@ -1142,6 +1141,9 @@ document.addEventListener('DOMContentLoaded',init);
 </main>
 </div>
 <script src="./ui.js"></script>
-<script>UI.shell({page:'my',title:'내 스펙 관리',sub:'장신구 · 젬 · 펜던트 · 컬렉션'});</script>
-</body>
+<script>
+if (!globalThis.DV1_DRAGON_VIEWS) throw new Error("드래곤 데이터 로드 실패: 초기화 중단");
+UI.shell({page:'my',title:'내 스펙 관리',sub:'장신구 · 젬 · 펜던트 · 컬렉션'});</script>
+<script src="./my-quick-add.js"></script>
+<script src="./my-layout.js"></script></body>
 </html>

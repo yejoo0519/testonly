@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>[TEST] 종합 정보사이트 · 테스트 서버</title>
+<title>[TEST] 종합 정보사이트</title>
 <meta property="og:title" content="종합 정보사이트 made by 닉스">
 <meta property="og:description" content="드래곤빌리지 종합 정보사이트 - 초월 등급표, 도감, 레이드, 공략, 길드">
 <meta property="og:image" content="https://raw.githubusercontent.com/yejoo0519/dogam/refs/heads/main/icon/main.jpg">
-<meta property="og:url" content="https://yejoo0519.github.io/dogam">
+<meta property="og:url" content="https://yejoo0519.github.io/testonly">
 <meta property="og:type" content="website">
 
 <!-- 원본 테마 시스템 (그대로 사용) -->
@@ -120,14 +120,6 @@
   .main-column { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 22px; }
   .category { display: none; flex-direction: column; gap: 22px; }
   .category.active { display: flex; }
-  .test-badge { display:inline-block; margin-left:10px; padding:2px 9px; border-radius:5px;
-    background:#f87171; color:#fff; font-size:12px; font-weight:800; vertical-align:middle; letter-spacing:.5px; }
-  .test-note { display:flex; gap:11px; align-items:flex-start; margin:0 0 18px;
-    padding:13px 16px; border:1px solid #f87171; border-radius:11px; background:rgba(248,113,113,.08); }
-  .test-note b { color:#f87171; font-size:13px; }
-  .test-note p { font-size:12.5px; color:var(--text2); line-height:1.75; margin-top:4px; }
-  .test-note a { color:#f87171; font-weight:700; }
-  .live-btn { background:rgba(248,113,113,.10) !important; border-color:#f87171 !important; color:#f87171 !important; }
   .cat-head { display: flex; align-items: center; gap: 10px; white-space: nowrap; }
   .cat-head-inner { display: flex; align-items: baseline; gap: 10px; }
   .cat-head-row { display: flex; align-items: center; justify-content: space-between; width: 100%; }
@@ -315,6 +307,7 @@
   /* pill-btn 로그인 상태 */
   .pill-btn.auth-user{color:var(--accent);background:var(--accent-bg);border-color:var(--accent-border);cursor:default}
 </style>
+<link rel="stylesheet" href="./ui.css">
 </head>
 
 <body>
@@ -336,7 +329,6 @@
       <span class="mobile-logo-text">종합 정보사이트</span>
     </div>
     <div class="mobile-actions">
-      <a href="https://yejoo0519.github.io/dogam/index.html" class="icon-btn live-btn" title="실서버로 이동">↗</a>
       <a href="./en/index.html" class="icon-btn">🌐</a>
       <button class="icon-btn" onclick="openThemeModal()">🎨</button>
       <button class="icon-btn" id="mob-auth-icon" onclick="handleMobAuth()">👤</button>
@@ -345,7 +337,6 @@
 
   <!-- PC 헤더 액션 -->
   <div class="header-actions pc-only">
-    <a href="https://yejoo0519.github.io/dogam/index.html" class="pill-btn live-btn">↗ 실서버</a>
     <a href="./en/index.html" class="pill-btn">🌐 EN</a>
     <button class="pill-btn" onclick="openThemeModal()">🎨 테마</button>
     <div id="pc-auth" style="display:flex;gap:6px;align-items:center;margin-left:4px"></div>
@@ -357,7 +348,7 @@
       <span class="line"></span>
       <span class="h-section">made by 닉스</span>
     </div>
-    <h1 class="h-display">종합 정보사이트<span class="test-badge">TEST</span></h1>
+    <h1 class="h-display">종합 정보사이트</h1>
     <p class="hero-desc">드래곤빌리지 초월 등급표, 도감, 레이드, 공략, 길드, 자동 계산기까지 — 한 페이지에서.</p>
     <div class="stats-strip" id="stats-strip">
       <span>오늘 <strong id="s-today">-</strong></span>
@@ -365,15 +356,6 @@
       <span>회원 <strong id="s-members">-</strong></span>
     </div>
   </header>
-
-  <div class="test-note">
-    <span style="font-size:18px;line-height:1.2">⚠</span>
-    <div>
-      <b>여기는 테스트 서버예요</b>
-      <p>실서버에 올리기 전에 먼저 확인하는 곳이라 기능이 중간에 바뀌거나 깨져 있을 수 있어요.
-         실제 셋팅은 <a href="https://yejoo0519.github.io/dogam/index.html">실서버</a>에서 관리해주세요.</p>
-    </div>
-  </div>
 
   <!-- 탭 바 -->
   <nav class="tab-bar" data-scroll-x>
@@ -389,7 +371,7 @@
     <main class="main-column">
 
       <section class="category active" id="cat-info">
-        <div class="cat-head"><h3>정보</h3><span class="meta">· 4개 메뉴</span></div>
+        <div class="cat-head"><h3>정보</h3><span class="meta">· 5개 메뉴</span></div>
         <div class="cards">
           <a href="./tier.html" class="card">
             <span class="icon-tile sky">초등</span>
@@ -460,31 +442,13 @@
 
       <section class="category" id="cat-calculator">
         <div class="cat-head cat-head-row">
-          <div class="cat-head-inner"><h3>계산기</h3><span class="meta">· 5개 메뉴</span></div>
+          <div class="cat-head-inner"><h3>계산기</h3><span class="meta">· 4개 메뉴</span></div>
           <a href="./my.html" class="my-spec-btn">👤 내 스펙 →</a>
         </div>
         <div class="cards tri">
-          <a href="./calculator.html?from=calculator" class="card">
-            <span class="icon-tile sky">정령</span>
-            <div class="card-body">
-              <div class="card-title">자동 계산기</div>
-              <div class="card-desc">본인 셋팅 저장 · 정령 자동 비밸셋팅</div>
-            </div>
-          </a>
-          <a href="./pvp.html?from=calculator" class="card">
-            <span class="icon-tile amber">일반</span>
-            <div class="card-body">
-              <div class="card-title">길드전 계산기<br>(오리지널)</div>
-              <div class="card-desc">9.0 고정 · 너프 제외 · 매주 최적셋팅</div>
-            </div>
-          </a>
-          <a href="./noob.html?from=calculator" class="card">
-            <span class="icon-tile emerald">뉴비</span>
-            <div class="card-body">
-              <div class="card-title">길드전 계산기<br>(뉴비)</div>
-              <div class="card-desc">7.0~9.0 선택 · 너프 적용 출력</div>
-            </div>
-          </a>
+          <a href="./calculator.html?from=calculator" class="card"><span class="icon-tile amber">정령</span><div class="card-body"><div class="card-title">정령 시뮬레이터</div><div class="card-desc">비밸·TAR 비교 · 버프 최적화 및 직접 지정</div></div></a>
+          <a href="./pvp.html?from=calculator" class="card"><span class="icon-tile amber">길드</span><div class="card-body"><div class="card-title">길드전 계산기</div><div class="card-desc">오리지널·뉴비 모드 전환 · 비밸·TAR 추천</div></div></a>
+          <a href="./cham_auto.html?from=calculator" class="card"><span class="icon-tile amber">챔대</span><div class="card-body"><div class="card-title">챔피언대전 계산기 (자동)</div><div class="card-desc">보유 드래곤과 장비로 세팅 계산</div></div></a>
           <a href="./cham_manual.html?from=calculator" class="card">
             <span class="icon-tile violet">챔대</span>
             <div class="card-body">
@@ -492,19 +456,12 @@
               <div class="card-desc">3팀 × 3마리 · 최종 스탯 · EVAL · 비벨</div>
             </div>
           </a>
-          <a href="./cham_auto.html?from=calculator" class="card">
-            <span class="icon-tile rose">챔대</span>
-            <div class="card-body">
-              <div class="card-title">챔피언대전 계산기<br>(자동)</div>
-              <div class="card-desc">장신구·젬·펜던트·정령 자동 배분 · 9마리 최적셋팅</div>
-            </div>
-          </a>
         </div>
       </section>
 
       <section class="category" id="cat-convenience">
-        <div class="cat-head"><h3>편의성</h3><span class="meta">· 1개 메뉴</span></div>
-        <div class="cards">
+        <div class="cat-head"><h3>편의성</h3><span class="meta">· 3개 메뉴</span></div>
+        <div class="cards"><a href="./my.html" class="card"><span class="icon-tile amber">스펙</span><div class="card-body"><div class="card-title">내 스펙 관리</div><div class="card-desc">장신구 · 펜던트 · 젬 · 컬렉션 · 드래곤</div></div></a><a href="./guild-home.html" class="card"><span class="icon-tile amber">길드</span><div class="card-body"><div class="card-title">길드</div><div class="card-desc">길드 연동 · 가입 요청 · 길드 관리</div></div></a>
           <a href="./aura-preview.html" class="card">
             <span class="icon-tile sky">오라</span>
             <div class="card-body">
@@ -556,25 +513,8 @@
           <span class="h-section">패치노트</span>
           <span class="patch-aside-more">전체 →</span>
         </div>
-        <div class="patch-item">
-          <div class="patch-item-head">
-            <span class="patch-ver">v0.0.10</span>
-            <span class="patch-date">2026-05-29</span>
-            <span class="patch-badge badge-new">NEW</span>
-          </div>
-          <ul><li>크툴루, 크크툴 두마리의 이미지가 업데이트</li></li></ul>
-          <ul><li>뉴비버전 계산기 너프 스텟 반영되게 수정</li></li></ul>
-        </div>
-        <div class="patch-item">
-          <div class="patch-item-head">
-            <span class="patch-ver">v0.0.8</span>
-            <span class="patch-date">2026-05-26</span>
-            <span class="patch-badge badge-new">NEW</span>
-          </div>
-          <ul><li>계산기와 연동되는 길드 편의성 기능 추가</li></li></ul>
-          <ul><li>아이디, 비밀번호 찾기 / 비밀번호 변경 기능 추가</li></li></ul>
-          <ul><li>계산기 스펙 수정 내 스펙 탭으로 전체 통합</li></li></ul>
-        </div>
+<div class="patch-item"><div class="patch-item-head"><span class="patch-ver">v0.1.7</span><span class="patch-date">2026-09-21</span></div><ul class=""><li>신규 드래곤 추가: 넵튠, 아우로스, 노아</li><li>도감 설명·티어표 반영</li></ul></div>
+<div class="patch-item"><div class="patch-item-head"><span class="patch-ver">v0.1.6</span><span class="patch-date">2026-09-17</span></div><ul class=""><li>챔피언대전 수동 계산기 추가 (KR/EN)</li><li>내 스펙 프리셋 기능 추가 (최대 10개)</li><li>계산기 드래곤 자동저장 / 스펙 새로고침 / 기기 간 셋팅 충돌 시 선택 기능</li><li>복구 코드로 아이디·비밀번호 찾기 추가 (기존 친구코드 방식도 유지)</li></ul></div>
       </div>
     </aside>
   </div>
@@ -608,7 +548,7 @@
     <button onclick="openPatchModal()">
       <span class="glyph">📋</span><span>패치노트</span>
     </button>
-    <button onclick="location.href='./guild.html?from=index'">
+    <button onclick="location.href='./guild-home.html'">
       <span class="glyph">🛡️</span><span>길드</span>
     </button>
     <button onclick="location.href='./my.html'">
@@ -624,6 +564,15 @@
     <button class="patch-modal-close" onclick="closePatchModal()">✕</button>
     <div class="patch-modal-title">📋 패치노트</div>
     <div id="patch-modal-body">
+<div class="patch-item-modal"><div class="patch-item-head"><span class="patch-ver">v0.1.7</span><span class="patch-date">2026-09-21</span></div><ul class="patch-item-content"><li>신규 드래곤 추가: 넵튠, 아우로스, 노아</li><li>도감 설명·티어표 반영</li></ul></div>
+<div class="patch-item-modal"><div class="patch-item-head"><span class="patch-ver">v0.1.6</span><span class="patch-date">2026-09-17</span></div><ul class="patch-item-content"><li>챔피언대전 수동 계산기 추가 (KR/EN)</li><li>내 스펙 프리셋 기능 추가 (최대 10개)</li><li>계산기 드래곤 자동저장 / 스펙 새로고침 / 기기 간 셋팅 충돌 시 선택 기능</li><li>복구 코드로 아이디·비밀번호 찾기 추가 (기존 친구코드 방식도 유지)</li></ul></div>
+<div class="patch-item-modal"><div class="patch-item-head"><span class="patch-ver">v0.1.5</span><span class="patch-date">2026-09-09</span></div><ul class="patch-item-content"><li>챔대 / 루키 랭킹 페이지 추가 (KR/EN)</li><li>등급용(SSS) 순위 갱신</li></ul></div>
+<div class="patch-item-modal"><div class="patch-item-head"><span class="patch-ver">v0.1.4</span><span class="patch-date">2026-08-21</span></div><ul class="patch-item-content"><li>신규 드래곤 추가: 오파님, 크로마 오파님, 카스티그</li><li>도감·티어표·계산기·오라 미리보기에 신규 드래곤 반영 (KR/EN)</li></ul></div>
+<div class="patch-item-modal"><div class="patch-item-head"><span class="patch-ver">v0.1.3</span><span class="patch-date">2026-07-19</span></div><ul class="patch-item-content"><li>계산기 젬 데이터 업데이트 (KR/EN)</li><li>오라 미리보기 추가 (Spine 기반 강림 애니메이션 + 동굴 스킨 배경)</li><li>영어 버전 오라 미리보기 추가</li></ul></div>
+<div class="patch-item-modal"><div class="patch-item-head"><span class="patch-ver">v0.1.2</span><span class="patch-date">2026-07-08</span></div><ul class="patch-item-content"><li>도감 스탯 필터 추가 (체력/공격/방어·성장폭 이상/이하/정확값)</li><li>레이드 정보에 크툴루 보스 추가 (패턴·파훼법·추천 조합)</li><li>관리자 메뉴 추가 (길드·계정·회원 관리)</li><li>계산기 버그 수정: 드래곤 셋팅이 날아가던 문제, 저장 데이터 복구·백업 처리</li></ul></div>
+<div class="patch-item-modal"><div class="patch-item-head"><span class="patch-ver">v0.1.1</span><span class="patch-date">2026-06-30</span></div><ul class="patch-item-content"><li>🌐 영어 버전 오픈: 도감, 티어표, 등급용 순위, 레이드, 계산기(자동/비밸/PvP), 내 스펙, 로그인·회원가입</li><li>드래곤 기본 스탯 데이터 추가 (stat.js)</li><li>도감 개선: 드래곤별 스탯 표시</li><li>계산기 기본 스탯 오류 수정</li></ul></div>
+<div class="patch-item-modal"><div class="patch-item-head"><span class="patch-ver">v0.1.0</span><span class="patch-date">2026-06-18</span></div><ul class="patch-item-content"><li>패키지 복각 주기 페이지 추가</li><li>드래곤 도감에 드래곤 설명(세계관 텍스트) 추가</li><li>도감 드래곤 프로필 이미지 전체 추가 (6/9~6/28)</li><li>티어표 / 등급용 순위 / 레이드 / 주간 버프 데이터 갱신</li></ul></div>
+
       <div class="patch-item-modal">
         <div class="patch-item-head">
           <span class="patch-ver">v0.0.9</span>
