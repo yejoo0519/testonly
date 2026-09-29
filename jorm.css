@@ -14,3 +14,9 @@
 .jorm #spirits{max-width:740px}.jorm #spPresets{margin-bottom:12px}.jorm .champ-sp-row button{padding:8px}.jorm .champ-sp-row{min-height:48px}
 .jorm .runbar{padding:14px;background:var(--bg2);border:1px solid var(--border);border-radius:9px}
 @media(max-width:760px){.jorm [data-input-panel=basic]>.fields{grid-template-columns:repeat(2,minmax(0,1fr))}.jorm .j-choice-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.j-input-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}.j-input-tabs button{padding:10px 5px}.jorm .champ-sp-row{gap:4px}.jorm .champ-value{font-size:11px}}
+
+.j-type-tabs{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;margin:20px 0}.j-type-tabs button{text-align:left;min-width:0}.j-type-tabs strong,.j-type-tabs small{display:block;margin-top:6px}.j-type-tabs button[aria-pressed=true]{border-color:var(--accent);background:var(--accent-bg)}
+.jorm .j-result{border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:14px;background:var(--bg)}.j-result h3{margin:4px 0}.j-metrics>div:not(.primary) strong{font-size:17px;color:var(--text2)}
+.j-final-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;background:var(--bg2);border-radius:8px;padding:14px;margin-top:16px}.j-final-stats small{display:block;font-size:11px}.j-final-stats b{font-size:21px}
+.j-stat-chip{display:inline-block;margin:3px 5px 3px 0;padding:4px 8px;background:var(--bg2);border-radius:5px}.j-spirit-result{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}.j-gear>div{padding:10px;border:1px solid var(--border);border-radius:8px}
+@media(max-width:760px){.j-type-tabs{grid-template-columns:repeat(3,minmax(0,1fr))}.j-type-tabs button:first-child{grid-column:1/-1}.jorm .j-result{padding:12px}.j-metrics{gap:12px}.j-final-stats b{font-size:18px}}

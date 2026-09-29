@@ -39,7 +39,7 @@
  $('selectVisible').onclick=()=>{visible().forEach(({i})=>chosen.add(i));syncAcc();changed()};$('clearAcc').onclick=()=>{chosen.clear();syncAcc();changed()};
  function roleChanged(){
   const tank=v('role')==='tank';$('element').replaceChildren(new Option(tank?'빛':'어둠',tank?'light':'dark'),new Option(tank?'비빛':'비어둠','other'));
-  $('roleNote').textContent=tank?'탱킹 비밸(체력×방어)이 높은 세팅을 비교합니다. 속성에 관계없이 체력과 방어력으로 순위를 비교합니다.':'일반 명중 피해가 높은 세팅을 비교합니다. 동일 피해일 때 탱킹 비밸이 높은 순으로 표시합니다.';changed();
+  $('roleNote').textContent=tank?'빛 속성 보정을 반영한 생존 점수로 비교합니다. 표시 스탯과 탱킹 비밸에는 속성 보정을 더하지 않습니다.':'일반 명중 피해가 높은 세팅을 비교합니다. 동일 피해일 때 탱킹 비밸이 높은 순으로 표시합니다.';changed();
  }
  $('role').onchange=roleChanged;
  function pendOptions(type,val){const slots=type==='태양'?3:type==='달'?2:1,choices=[];function build(opts,start){if(opts.length===slots){choices.push({name:type,options:opts});return}for(let i=start;i<3;i++)build([...opts,{stat:['hp','atk','def'][i],val}],i)}build([],0);return choices;}
@@ -58,6 +58,22 @@
  $('pendants').onchange=e=>{const el=e.target;if(el.dataset.pi===undefined)return;pendants[Number(el.dataset.pi)].options[Number(el.dataset.oi)][el.dataset.field]=el.dataset.field==='val'?Number(el.value):el.value;changed()};
  renderChoices();
  function config(){return {role:v('role'),type:v('type'),grade:v('grade'),light:v('element')==='light',dark:v('element')==='dark',gem:v('gem'),enchant:v('enchant'),potion:$('potion').checked,collection:Object.fromEntries(['hp','atk','def'].map(k=>[k,n('col-'+k)])),spirit:spirit.opts.map(o=>({stat:v('spiritMode')==='auto'?'auto':(o.stat&&o.type?o.stat:'none'),type:v('spiritMode')==='auto'?'auto':(o.type||'%')})),bonus:v('spiritMode')==='auto'?'auto':(spirit.bonus||'none'),accessoryMode:v('accessoryMode'),pendantMode:v('pendantMode'),accessories:v('accessoryMode')==='auto'?D.accessories.map((_,i)=>i):[...chosen],pendants:pendants.map(p=>{const result={name:p.name,hp:0,atk:0,def:0};p.options.forEach(o=>result[o.stat]+=o.val);return result})};}
+ let lastResult=null,resultType='all';
+ function renderResults(){
+  if(!lastResult)return;const {result,config:c}=lastResult;
+  $('scoreHelp').hidden=c.role!=='tank';
+  const entries=[['all','전체',result.rows],...Object.entries(result.byType).map(([t,rows])=>[t,t,rows])];
+  $('resultTypes').innerHTML=entries.map(([id,label,rows])=>`<button type="button" data-result-type="${esc(id)}" aria-pressed="${resultType===id}"><span>${esc(label)}</span><strong>${rows.length?fmt(c.role==='tank'?rows[0].score:rows[0].dealt):'—'}</strong><small>${c.role==='tank'?'생존 점수':'일반 명중 피해'}</small></button>`).join('');
+  const rows=resultType==='all'?result.rows:result.byType[resultType]||[];
+  $('resultTitle').textContent=(resultType==='all'?'전체 타입':resultType)+' · TOP '+rows.length;
+  $('resultList').innerHTML=rows.map((r,i)=>`<article class="j-result"><header><div><small>추천 ${i+1}</small><h3>${esc(r.type)}</h3></div><div class="j-metrics"><div class="primary"><small>${c.role==='tank'?'생존 점수':'일반 명중 피해'}</small><strong>${fmt(c.role==='tank'?r.score:r.dealt)}</strong></div><div><small>탱킹 비밸</small><strong>${fmt(r.tankBV)}</strong></div></div></header>
+  <div class="j-final-stats">${['hp','atk','def'].map(k=>`<div class="${k}"><small>${names[k]}</small><b>${fmt(r.stats[k])}</b></div>`).join('')}</div>
+  <div class="j-gear"><div><small>장신구</small><b>${esc(D.accessories[r.acc].n)}</b><div>인챈트 · ${names[r.enchant]}${r.enchant==='none'?'':' +21%'}</div></div>
+  <div><small>젬 배분</small>${['hp','atk','def'].map(k=>`<span class="j-stat-chip ${k}">${names[k]} ${r.gems[k]}개</span>`).join('')}</div>
+  <div><small>펜던트 · ${esc(r.pend.name)}</small>${['hp','atk','def'].filter(k=>r.pend[k]).map(k=>`<span class="j-stat-chip ${k}">${names[k]} ${r.pend[k]}%</span>`).join('')||'미착용'}</div>
+  <div><small>정령</small><div class="j-spirit-result">${r.spirit.opts.map((o,j)=>`<span class="${o.stat}"><small>${j+1}옵</small>${names[o.stat]} ${o.stat==='none'?'':o.type==='%'?Math.round(D.pct[j+1]*100)+'%':'+'+D.plus[o.stat][j+1]}</span>`).join('')}</div><div class="${r.spirit.bonus}">부가옵 · ${names[r.spirit.bonus]}</div></div></div></article>`).join('')||'선택한 조건을 만족하는 조합이 없습니다.';
+ }
+ $('resultTypes').onclick=e=>{const button=e.target.closest('[data-result-type]');if(!button)return;resultType=button.dataset.resultType;renderResults()};
  function finish(){worker?.terminate();worker=null;$('run').disabled=false;$('cancel').hidden=true;}
  $('cancel').onclick=()=>{finish();$('status').textContent='계산을 중단했습니다. 기존 결과는 유지됩니다.';};
  $('config').addEventListener('input',changed);$('config').addEventListener('change',changed);
@@ -70,9 +86,9 @@
    if(data.progress){$('status').textContent=`계산 중 ${Math.floor(data.progress.tested/data.progress.total*100)}%`;return}
    finish();if(data.error){$('status').textContent=data.error;return}
    const result=data.result;$('results').hidden=false;
-   $('resultConditions').textContent=`${c.role==='tank'?'탱커 · 탱킹 비밸':'딜러 · 일반 명중 피해'} 우선 / ${c.grade} / 장신구 ${c.accessoryMode==='auto'?'최적화':'직접 입력'} · 펜던트 ${c.pendantMode==='auto'?'최적화':'직접 입력'} · 정령 ${c.spirit[0].type==='auto'?'최적화':'직접 입력'} / ${c.role==='tank'?(c.light?'빛':'비빛'):(c.dark?'어둠':'비어둠')}`;
+   $('resultConditions').textContent=`${c.role==='tank'?'탱커 · 생존 점수':'딜러 · 일반 명중 피해'} 우선 / ${c.grade} / 장신구 ${c.accessoryMode==='auto'?'최적화':'직접 입력'} · 펜던트 ${c.pendantMode==='auto'?'최적화':'직접 입력'} · 정령 ${c.spirit[0].type==='auto'?'최적화':'직접 입력'} / ${c.role==='tank'?(c.light?'빛':'비빛'):(c.dark?'어둠':'비어둠')}`;
 
-   $('resultList').innerHTML=result.rows.length?result.rows.map((r,i)=>`<article class="j-result"><header><h3>${i+1}. ${esc(r.type)}</h3><div class="j-metrics"><div><small>탱킹 비밸 · 체력×방어</small><strong>${fmt(r.tankBV)}</strong></div>${c.role==='dealer'?`<div><small>일반 명중 피해</small><strong>${fmt(r.dealt)}</strong></div>`:''}</div></header><div class="j-gear"><div><small>장신구 · 인챈트</small>${esc(D.accessories[r.acc].n)} · ${names[r.enchant]}${r.enchant==='none'?'':' +21%'}</div><div><small>젬 5칸 배분</small>${['hp','atk','def'].map(k=>`${names[k]} ${r.gems[k]}개`).join(' / ')}</div><div><small>펜던트</small>${esc(r.pend.name)} · 체 ${r.pend.hp}% / 공 ${r.pend.atk}% / 방 ${r.pend.def}%</div><div><small>정령</small>${r.spirit.opts.map((o,j)=>`${j+1}옵 ${names[o.stat]} ${o.stat==='none'?'':o.type==='%'?Math.round(D.pct[j+1]*100)+'%':'+'+D.plus[o.stat][j+1]}`).join(' · ')} / 부가 ${names[r.spirit.bonus]}</div><div><small>최종 스탯</small>${['hp','atk','def'].map(k=>`<span class="${k}">${names[k]} ${fmt(r.stats[k])}</span>`).join(' / ')}</div></div></article>`).join(''):'선택한 조건을 만족하는 조합이 없습니다. 장비 후보를 확인해 주세요.';
+   lastResult={result,config:c};resultType='all';renderResults();
    $('status').textContent=`전체 ${fmt(result.totalCandidates)}개 조합 최적화 완료.`+(dirty?' 계산 중 설정이 변경되어 결과는 실행 당시 조건입니다.':'');
   };
   worker.postMessage(c);
