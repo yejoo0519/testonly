@@ -309,7 +309,7 @@ button{white-space:nowrap}
  <button class="btn-white" onclick="addAcc()">+ 추가</button>
  </div>
  </div>
- <details class="quick-acc-panel" open><summary>장신구 빠른 추가</summary><p>장신구를 누를 때마다 선택한 인챈트로 1개씩 추가됩니다.</p><div class="quick-acc-controls"><label>레벨<select id="quick-acc-level"><option>20</option><option>19</option><option>18</option><option>17</option><option>16</option></select></label><label>인챈트<select id="quick-acc-enc"><option value="none">없음</option><option value="hp">체력</option><option value="atk">공격</option><option value="def">방어</option></select></label><input id="quick-acc-search" placeholder="장신구 검색" aria-label="빠른 추가 장신구 검색"></div><div id="quick-acc-list"></div><div id="quick-acc-status" role="status" aria-live="polite"></div></details>
+ <details class="quick-acc-panel" open><summary>장신구 빠른 추가</summary><p>장신구를 누를 때마다 선택한 인챈트로 1개씩 추가됩니다.</p><div class="quick-acc-controls"><label>레벨<select id="quick-acc-level"><option>20</option><option>19</option><option>18</option><option>17</option><option>16</option></select></label><label>인챈트<select id="quick-acc-enc"><option value="none">없음</option><option value="hp">체력</option><option value="atk">공격</option><option value="def">방어</option></select></label><input id="quick-acc-search" placeholder="장신구 검색" aria-label="빠른 추가 장신구 검색"></div><button type="button" class="btn-white" id="acc-bulk-add" onclick="addAccBulk(Number(document.getElementById('quick-acc-level').value))">선택한 레벨 전체 추가</button><p>검색어와 관계없이 선택한 레벨 전체를 추가합니다. 스탯만 필터와 선택한 인챈트가 적용됩니다.</p><div id="quick-acc-list"></div><div id="quick-acc-status" role="status" aria-live="polite"></div></details>
 
  <div class="sec-bd"><div id="acc-list"><div style="color:var(--dimmer);font-size:13px">보유 장신구 없음</div></div></div>
  </div>
@@ -1012,11 +1012,14 @@ function sortAccCards(){
 function addAccBulk(lv){
  const statOnly=document.getElementById('chk-stat-only')?.checked;
  const targets=ACC_DB.filter(a=>getAccNum(a.n)===lv&&(!statOnly||!a.n.startsWith('빛뿔')));
- if(!targets.length){alert(`${lv} 장신구를 찾을 수 없습니다.`);return;}
- targets.forEach(a=>S.accCards.unshift({name:a.n,enchant:'none'}));
+ const status=document.getElementById('quick-acc-status');
+ if(!targets.length){status.textContent='해당 레벨의 장신구가 없습니다.';return;}
+ const enchant=document.getElementById('quick-acc-enc')?.value||'none';
+ S.accCards.unshift(...targets.map(a=>({name:a.n,enchant})));
  sortAccCards();renderAcc();qSave();
- alert(`${lv} 장신구 1세트가 추가되었습니다.`);
+ status.textContent=`${lv}레벨 장신구 ${targets.length}개를 추가했습니다.`;
 }
+
 function delAcc(ci){S.accCards.splice(ci,1);renderAcc();qSave();}
 function resetAcc(){if(!confirm('장신구를 전부 초기화합니다.'))return;S.accCards=[];renderAcc();qSave();}
 function onAccEnc(ci,enc){S.accCards[ci].enchant=enc;qSave();}

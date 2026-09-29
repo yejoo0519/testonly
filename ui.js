@@ -38,6 +38,7 @@
     ] },
     { g: T.g_calc, items: [
       ['calculator',  EN ? 'Spirit sim'   : '정령 시뮬레이터', 'calculator.html'],
+      ...(!EN ? [['jorm','요르문간드','jorm.html']] : []),
       ['pvp',         EN ? 'Guild war'    : '길드전', 'pvp.html'],
       ...(EN ? [['noob','Guild (new)','noob.html']] : []),
       ['cham_manual', EN ? 'Champ manual' : '챔대 수동',      'cham_manual.html'],
